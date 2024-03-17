@@ -1,0 +1,721 @@
+<!-- <div class='table-responsive'>
+    <button mat-raised-button (click)="tables.push(tables.length)">Add table</button>
+    <button mat-raised-button (click)="tables.pop()">Remove table</button>
+  </div> -->
+
+  <div style="display: none">
+    Sticky Headers:
+    <mat-button-toggle-group multiple [value]="['header-1']"
+                             #stickyHeaders="matButtonToggleGroup"
+                             class="example-sticky-toggle-group">
+      <mat-button-toggle value="header-1"> Row 1 </mat-button-toggle>
+      <mat-button-toggle value="header-2"> Row 2 </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div style="display: none">
+    Sticky Footers:
+    <mat-button-toggle-group multiple [value]="['footer-1']"
+                             #stickyFooters="matButtonToggleGroup"
+                             class="example-sticky-toggle-group">
+      <mat-button-toggle value="footer-1"> Row 1 </mat-button-toggle>
+      <mat-button-toggle value="footer-2"> Row 2 </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div style="display: none">
+    <mat-button-toggle-group multiple [value]="['totalLeft', 'totalRemLeft', 'totalRight', 'totalRemRight']"
+                             #stickyColumns="matButtonToggleGroup"
+                             class="example-sticky-toggle-group">
+      <!-- <mat-button-toggle value="total"> Total </mat-button-toggle>
+      <mat-button-toggle value="totalRem"> Total Rem </mat-button-toggle>
+      <mat-button-toggle value="april"> April </mat-button-toggle>
+      <mat-button-toggle value="may"> May </mat-button-toggle>
+      <mat-button-toggle value="june"> June </mat-button-toggle>
+      <mat-button-toggle value="july"> July </mat-button-toggle>
+      <mat-button-toggle value="august"> August </mat-button-toggle>
+      <mat-button-toggle value="september"> September </mat-button-toggle>
+      <mat-button-toggle value="octomber"> Octomber </mat-button-toggle>
+      <mat-button-toggle value="november"> November </mat-button-toggle>
+      <mat-button-toggle value="december"> December </mat-button-toggle>
+      <mat-button-toggle value="january"> January </mat-button-toggle>
+      <mat-button-toggle value="february"> February </mat-button-toggle>
+      <mat-button-toggle value="march"> March </mat-button-toggle> -->
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="example-container">
+
+    <mat-form-field appearance="standard" *ngIf="showSimpleSearch === 'true'">
+      <mat-label>Filter</mat-label>
+      <input matInput [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+
+
+    <table mat-table [dataSource]="dataSourceMT" *ngFor="let table of tables" matSort class="table custom-table">
+
+      <ng-container matColumnDef="totalLeft" [sticky]="isSticky(stickyColumns, 'total')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Total import<br>(freeze) </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.total | number : '1.2-2'}}
+        </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.total | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="importValueOrder" [sticky]="isSticky(stickyColumns, 'totalRem')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actuale import<br>(freeze) </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.importValueOrder | number : '1.2-2'}}
+        </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.importValueOrder | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalRemLeft" [sticky]="isSticky(stickyColumns, 'totalRem')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Valoare ramasa<br>(Tot. imp. - Act. imp. - Act (YTD + YTG) - PO) </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.totalRem | number : '1.2-2'}}
+        </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.totalRem | number : '1.2-2'}} </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+
+          <mat-checkbox *ngIf="!isAllChecked()" (change)="updateCheckState(true)"
+            [checked]="isAllChecked()"
+            [indeterminate]="!isAllChecked()"
+            [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+
+        <mat-checkbox *ngIf="isAllChecked()" (change)="updateCheckState(false)"
+        [checked]="isAllChecked()"
+        [indeterminate]="!isAllChecked()"
+        [aria-label]="checkboxLabel()">
+    </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox *ngIf="element.selected" (click)="$event.stopPropagation()"
+            (change)="element.selected ? unselectItem(element.item) : selectItem(element.item)"
+            [checked]="element.selected"
+            [aria-label]="checkboxLabel(element.item)">
+          </mat-checkbox>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseProcentage">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Procent ramas </th>
+        <td mat-cell *matCellDef="let element">
+
+          <div class="progress progress-xs">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{'width': ((element.item.totalRem/element.item.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+              <strong>{{(element.item.totalRem/element.item.total) * 100.0 | number: '1.2-2'}}</strong></div>
+          </div>
+
+        </td>
+        <td mat-footer-cell *matFooterCellDef>   <div class="progress progress-xs">
+          <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': ((totals?.totalRem/totals?.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+            <strong>{{(totals?.totalRem/totals?.total) * 100.0 | number: '1.2-2'}}</strong></div>
+        </div> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseValueOrder">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actuale PO </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.valueOrder | number : '1.2-2'}}
+        </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.valueOrder | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseActuals">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actuale (dupa import)<br>(YTD + YTG) </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.valueAsset | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.valueAsset | number : '1.2-2'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseActualsYTD">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actuale YTD<br>(dupa import) </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.valueAssetYTD | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef>{{totals?.valueAssetYTD | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseActualsYTG">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actuale YTG<br>(dupa import) </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.valueAssetYTG | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.valueAssetYTG | number : '1.2-2'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseOwner">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Owner </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.employee?.email}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseCode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Referinta BGT </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.budgetBase?.code}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseProjectCode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> WBS </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.project?.code}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseAdmCenterName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> PC </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.admCenter?.name}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseInfo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Info </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.budgetBase?.info}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseDivision">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Departament </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.division?.name}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetBaseAssetType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CostType </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.assetType?.name}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="version">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Versiune </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.budgetType?.code}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="budgetManager">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> An fiscal </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.budgetManager?.code}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="accMonth">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  Luna fiscala </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.accMonth?.month}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="appState">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  ACQ type </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.appState?.name}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="startMonth">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Implementation Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.startMonth?.month}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="depPeriod">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  Dep per BGT </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.depPeriod}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="depPeriodRem">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  Dep per ACT </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.depPeriodRem}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="april" [sticky]="isSticky(stickyColumns, 'april')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> April </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeApril === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeApril === true ? 'red' : 'black'"> {{element.item?.april | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.april | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="may" [sticky]="isSticky(stickyColumns, 'may')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> May </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeMay === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeMay === true ? 'red' : 'black'"> {{element.item?.may | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.may | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="june" [sticky]="isSticky(stickyColumns, 'june')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> June </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeJune === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeJune === true ? 'red' : 'black'"> {{element.item?.june | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.june | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="july" [sticky]="isSticky(stickyColumns, 'july')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> July </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeJuly === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeJuly === true ? 'red' : 'black'"> {{element.item?.july | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.july | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="august" [sticky]="isSticky(stickyColumns, 'august')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> August </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeAugust === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeAugust === true ? 'red' : 'black'"> {{element.item?.august | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.august | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="september" [sticky]="isSticky(stickyColumns, 'september')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> September </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeSeptember === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeSeptember === true ? 'red' : 'black'"> {{element.item?.september | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.september | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="octomber" [sticky]="isSticky(stickyColumns, 'octomber')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Octomber </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeOctomber === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeOctomber === true ? 'red' : 'black'"> {{element.item?.octomber | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.octomber | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="november" [sticky]="isSticky(stickyColumns, 'november')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> November </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeNovember === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeNovember === true ? 'red' : 'black'"> {{element.item?.november | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.november | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="december" [sticky]="isSticky(stickyColumns, 'december')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> December </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeDecember === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeDecember === true ? 'red' : 'black'"> {{element.item?.december | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.december | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="january" [sticky]="isSticky(stickyColumns, 'january')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> January </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeJanuary === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeJanuary === true ? 'red' : 'black'"> {{element.item?.january | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.january | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="february" [sticky]="isSticky(stickyColumns, 'february')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> February </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeFebruary === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeFebruary === true ? 'red' : 'black'"> {{element.item?.february | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.february | number : '1.2-2'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="march" [sticky]="isSticky(stickyColumns, 'march')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> March </th>
+        <td mat-cell *matCellDef="let element" [style.backgroundColor] = "element.item.hasChangeMarch === true ? 'yellow' : 'white'" [style.color] = "element.item.hasChangeMarch === true ? 'red' : 'black'"> {{element.item?.march | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.march | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalRight" [sticky]="isSticky(stickyColumns, 'total')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.total | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.total | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalRemRight" [sticky]="isSticky(stickyColumns, 'totalRem')">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Rem </th>
+        <td mat-cell *matCellDef="let element"> {{element.item?.totalRem | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totals?.totalRem | number : '1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="filler">
+        <th mat-header-cell *matHeaderCellDef> Filler header cell </th>
+        <td mat-cell *matCellDef="let element"> Filler data cell </td>
+        <td mat-footer-cell *matFooterCellDef> Filler footer cell </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let row">
+          <div class="row-icons">
+            <div class="badge-position d-flex">
+              <div class="row-single-icon" *ngIf="showRowAddItemAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemView.emit(row.item)">
+                <svg version="1.1" width="14" height="14" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+                <g><g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)"><path d="M1321.9,3420.7L100,2198.8L1314.6,989.1C1983.1,323,2539-223,2548.8-227.9c9.8-2.5,176.3,154.3,372.2,350.2l355.1,355.1l-599.9,600l-600,600h3031.6h3029.1v514.2v514.2H5112.6c-1662.7,0-3024.2,7.3-3024.2,17.1c0,12.2,264.5,284,587.7,607.3l587.7,587.7l-362.4,362.4l-360,360L1321.9,3420.7z"/><path d="M7083.9,97.8l-355.1-355.1l600-600l599.9-600H4897.2H1868v-514.2v-514.2h3024.2c1662.7,0,3024.2-7.3,3024.2-19.6c0-9.8-264.5-281.6-587.7-604.8l-587.7-587.7l360-360l362.4-362.4l1217,1217.1L9900-1983.7l-1217.1,1217C8012-95.7,7458.6,452.8,7451.2,452.8S7279.8,293.7,7083.9,97.8z"/></g></g>
+              </svg>
+              </div>
+
+              <div class="row-single-icon" *ngIf="showPrintAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemView.emit(row.item)">
+                <svg version="1.1" width="17" height="18" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 114.13" style="enable-background:new 0 0 122.88 114.13" xml:space="preserve"><g><path d="M23.2,29.44V3.35V0.53C23.2,0.24,23.44,0,23.73,0h2.82h54.99c0.09,0,0.17,0.02,0.24,0.06l1.93,0.8l-0.2,0.49l0.2-0.49 c0.08,0.03,0.14,0.08,0.2,0.14l12.93,12.76l0.84,0.83l-0.37,0.38l0.37-0.38c0.1,0.1,0.16,0.24,0.16,0.38v1.18v13.31 c0,0.29-0.24,0.53-0.53,0.53h-5.61c-0.29,0-0.53-0.24-0.53-0.53v-6.88H79.12H76.3c-0.29,0-0.53-0.24-0.53-0.53 c0-0.02,0-0.03,0-0.05v-2.77h0V6.69H29.89v22.75c0,0.29-0.24,0.53-0.53,0.53h-5.64C23.44,29.97,23.2,29.73,23.2,29.44L23.2,29.44z M30.96,67.85h60.97h0c0.04,0,0.08,0,0.12,0.01c0.83,0.02,1.63,0.19,2.36,0.49c0.79,0.33,1.51,0.81,2.11,1.41 c0.59,0.59,1.07,1.31,1.4,2.1c0.3,0.73,0.47,1.52,0.49,2.35c0.01,0.04,0.01,0.08,0.01,0.12v0v9.24h13.16h0c0.04,0,0.07,0,0.11,0.01 c0.57-0.01,1.13-0.14,1.64-0.35c0.57-0.24,1.08-0.59,1.51-1.02c0.43-0.43,0.78-0.94,1.02-1.51c0.21-0.51,0.34-1.07,0.35-1.65 c-0.01-0.03-0.01-0.07-0.01-0.1v0V43.55v0c0-0.04,0-0.07,0.01-0.11c-0.01-0.57-0.14-1.13-0.35-1.64c-0.24-0.56-0.59-1.08-1.02-1.51 c-0.43-0.43-0.94-0.78-1.51-1.02c-0.51-0.22-1.07-0.34-1.65-0.35c-0.03,0.01-0.07,0.01-0.1,0.01h0H11.31h0 c-0.04,0-0.08,0-0.11-0.01c-0.57,0.01-1.13,0.14-1.64,0.35C9,39.51,8.48,39.86,8.05,40.29c-0.43,0.43-0.78,0.94-1.02,1.51 c-0.21,0.51-0.34,1.07-0.35,1.65c0.01,0.03,0.01,0.07,0.01,0.1v0v35.41v0c0,0.04,0,0.08-0.01,0.11c0.01,0.57,0.14,1.13,0.35,1.64 c0.24,0.57,0.59,1.08,1.02,1.51C8.48,82.65,9,83,9.56,83.24c0.51,0.22,1.07,0.34,1.65,0.35c0.03-0.01,0.07-0.01,0.1-0.01h0h13.16 v-9.24v0c0-0.04,0-0.08,0.01-0.12c0.02-0.83,0.19-1.63,0.49-2.35c0.31-0.76,0.77-1.45,1.33-2.03c0.02-0.03,0.04-0.06,0.07-0.08 c0.59-0.59,1.31-1.07,2.1-1.4c0.73-0.3,1.52-0.47,2.36-0.49C30.87,67.85,30.91,67.85,30.96,67.85L30.96,67.85L30.96,67.85z M98.41,90.27v17.37v0c0,0.04,0,0.08-0.01,0.12c-0.02,0.83-0.19,1.63-0.49,2.36c-0.33,0.79-0.81,1.51-1.41,2.11 c-0.59,0.59-1.31,1.07-2.1,1.4c-0.73,0.3-1.52,0.47-2.35,0.49c-0.04,0.01-0.08,0.01-0.12,0.01h0H30.96h0 c-0.04,0-0.08-0.01-0.12-0.01c-0.83-0.02-1.62-0.19-2.35-0.49c-0.79-0.33-1.5-0.81-2.1-1.4c-0.6-0.6-1.08-1.31-1.41-2.11 c-0.3-0.73-0.47-1.52-0.49-2.35c-0.01-0.04-0.01-0.08-0.01-0.12v0V90.27H11.31h0c-0.04,0-0.08,0-0.12-0.01 c-1.49-0.02-2.91-0.32-4.2-0.85c-1.39-0.57-2.63-1.41-3.67-2.45c-1.04-1.04-1.88-2.28-2.45-3.67c-0.54-1.3-0.84-2.71-0.85-4.2 C0,79.04,0,79,0,78.96v0V43.55v0c0-0.04,0-0.08,0.01-0.12c0.02-1.49,0.32-2.9,0.85-4.2c0.57-1.39,1.41-2.63,2.45-3.67 c1.04-1.04,2.28-1.88,3.67-2.45c1.3-0.54,2.71-0.84,4.2-0.85c0.04-0.01,0.08-0.01,0.12-0.01h0h100.25h0c0.04,0,0.08,0,0.12,0.01 c1.49,0.02,2.91,0.32,4.2,0.85c1.39,0.57,2.63,1.41,3.67,2.45c1.04,1.04,1.88,2.28,2.45,3.67c0.54,1.3,0.84,2.71,0.85,4.2 c0.01,0.04,0.01,0.08,0.01,0.12v0v35.41v0c0,0.04,0,0.08-0.01,0.12c-0.02,1.49-0.32,2.9-0.85,4.2c-0.57,1.39-1.41,2.63-2.45,3.67 c-1.04,1.04-2.28,1.88-3.67,2.45c-1.3,0.54-2.71,0.84-4.2,0.85c-0.04,0.01-0.08,0.01-0.12,0.01h0H98.41L98.41,90.27z M89.47,15.86 l-7-6.91v6.91H89.47L89.47,15.86z M91.72,74.54H31.16v32.89h60.56V74.54L91.72,74.54z"/></g></svg>
+              </div>
+
+              <div class="row-single-icon row-single-icon-success" *ngIf="showViewAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemView.emit(row.item)">
+                <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.59375 3.59375C6.98958 3.19792 7.45833 3 8 3C8.54167 3 9.01042 3.19792 9.40625 3.59375C9.80208 3.98958 10 4.45833 10 5C10 5.54167 9.80208 6.01042 9.40625 6.40625C9.01042 6.80208 8.54167 7 8 7C7.45833 7 6.98958 6.80208 6.59375 6.40625C6.19792 6.01042 6 5.54167 6 5C6 4.45833 6.19792 3.98958 6.59375 3.59375ZM5.625 7.375C6.29167 8.02083 7.08333 8.34375 8 8.34375C8.91667 8.34375 9.69792 8.02083 10.3438 7.375C11.0104 6.70833 11.3438 5.91667 11.3438 5C11.3438 4.08333 11.0104 3.30208 10.3438 2.65625C9.69792 1.98958 8.91667 1.65625 8 1.65625C7.08333 1.65625 6.29167 1.98958 5.625 2.65625C4.97917 3.30208 4.65625 4.08333 4.65625 5C4.65625 5.91667 4.97917 6.70833 5.625 7.375ZM3.53125 1.375C4.86458 0.458333 6.35417 0 8 0C9.64583 0 11.1354 0.458333 12.4688 1.375C13.8021 2.29167 14.7604 3.5 15.3438 5C14.7604 6.5 13.8021 7.70833 12.4688 8.625C11.1354 9.54167 9.64583 10 8 10C6.35417 10 4.86458 9.54167 3.53125 8.625C2.19792 7.70833 1.23958 6.5 0.65625 5C1.23958 3.5 2.19792 2.29167 3.53125 1.375Z"/>
+                </svg>
+              </div>
+
+              <div class="row-single-icon" *ngIf="showEditAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemEdit.emit(row.item)">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.8125 2.6875L10.5938 3.90625L8.09375 1.40625L9.3125 0.1875C9.4375 0.0625 9.59375 0 9.78125 0C9.96875 0 10.125 0.0625 10.25 0.1875L11.8125 1.75C11.9375 1.875 12 2.03125 12 2.21875C12 2.40625 11.9375 2.5625 11.8125 2.6875ZM0 9.5L7.375 2.125L9.875 4.625L2.5 12H0V9.5Z"/>
+                </svg>
+              </div>
+              <div class="row-single-icon row-single-icon-danger" *ngIf="showCancelAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemEdit.emit(row.item)">
+                <svg fill="#000000" width="12" height="12" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                     viewBox="0 0 460.775 460.775" xml:space="preserve">
+              <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55
+                c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55
+                c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505
+                c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55
+                l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719
+                c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"/>
+              </svg>
+              </div>
+              <div class="row-single-icon row-single-icon-danger" *ngIf="showDeleteAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemDelete.emit(row.item)">
+                <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.65625 0.65625V2H0.34375V0.65625H2.65625L3.34375 0H6.65625L7.34375 0.65625H9.65625ZM1 10.6562V2.65625H9V10.6562C9 11.0104 8.86458 11.3229 8.59375 11.5938C8.32292 11.8646 8.01042 12 7.65625 12H2.34375C1.98958 12 1.67708 11.8646 1.40625 11.5938C1.13542 11.3229 1 11.0104 1 10.6562Z"/>
+                </svg>
+              </div>
+              <div class="row-single-icon" *ngIf="showMediaPreviewAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemMediaPreview.emit(row.item)">
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="16" height="12" viewBox="0 0 122.88 91.27"><defs><style>.cls-1{fill-rule:evenodd;}</style></defs><title>picture</title><path class="cls-1" d="M87.29,16.88A11.35,11.35,0,1,1,75.94,28.23,11.35,11.35,0,0,1,87.29,16.88Zm27.33,74.39H8.26a8.27,8.27,0,0,1-5.83-2.44h0A8.24,8.24,0,0,1,0,83V8.26A8.26,8.26,0,0,1,2.42,2.42h0A8.26,8.26,0,0,1,8.26,0H114.62a8.26,8.26,0,0,1,5.83,2.43h0a8.26,8.26,0,0,1,2.42,5.84V83a8.24,8.24,0,0,1-2.42,5.83h0a8.27,8.27,0,0,1-5.83,2.44Zm-7.35-9.43L87.6,50.46a4.52,4.52,0,0,0-7.65,0L70.66,65.39,80.77,81.84H76.62l-27.57-44c-2.54-3.39-6.61-3.13-8.88,0l-27,44H9.42V9.42h104V81.84Z"/></svg>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr *matNoDataRow>
+        <td class="" colspan="12" style="text-align: left;padding:.5rem .5rem !important;">
+          <div class="table-no_results">No results found!</div>
+        </td>
+      </tr>
+
+       <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+            <div class="example-element-detail"
+                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="example-element-diagram">
+                <div class="example-element-position"> {{element.position}} </div>
+                <div class="example-element-symbol"> {{element.symbol}} </div>
+                <div class="example-element-name"> {{element.name}} </div>
+                <div class="example-element-weight"> {{element.weight}} </div>
+              </div>
+              <div class="example-element-description">
+                {{element.description}}
+                <span class="example-element-description-attribution"> -- Wikipedia </span>
+              </div>
+            </div>
+          </td>
+        </ng-container> -->
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: isSticky(stickyHeaders, 'header-1')"></tr>
+      <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: isSticky(stickyHeaders, 'header-2')"></tr> -->
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="row.selected ? unselectItem(row.item) : selectItem(row.item)" [style.backgroundColor]="row.item.inTransfer ? 'rgb(240, 128, 128)' : 'white'"></tr>
+
+      <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: isSticky(stickyFooters, 'footer-1')"></tr>
+      <!-- <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: isSticky(stickyFooters, 'footer-2')"></tr> -->
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 500, 1000]"
+                [length]="totalItems"
+                (page)="changePage($event)"
+                [pageSize]="pageSize"
+                 showFirstLastButtons>
+  </mat-paginator>
+  <!-- <mat-paginator showFirstLastButtons="true" [length]="totalItems"
+  [pageSize]="10"
+  [pageSizeOptions]="[ 10, 15, 20, 25, 50, 100 ]" (page)="changePage($event)">
+</mat-paginator> -->
+  </div>
+
+
+
+<!-- <table mat-table [dataSource]="dataSourceMT" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.item.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.item.code}} </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+   -->
+
+
+<!-- <div class="animated fadeIn">
+    <div class="card" *ngIf="showSimpleSearch === 'true'">
+            <div class="card-header">
+                <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2" [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)">
+            </div>
+    </div>
+    <div class="card-body table-responsive table w-auto small">
+        <table class="table table-bordered table-striped" style="white-space: nowrap; font-weight: 500;" [style.font-size.px]="12">
+            <thead class="thead" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'burlywood'">
+            <tr>
+                <th>
+                    [%]
+                </th>
+                <th>
+                        <button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-default btn-sm" type="button"><i class="fa fa-check"></i></button>
+                        <button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+                </th>
+                <th *ngFor="let column of columns" class="align-left">
+                    <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+                        <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                        <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                        <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                        {{ column.headerCode }}
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+                <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': ((tableItem.item.valueFin/tableItem.item.valueIni) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        <strong>{{(tableItem.item.valueFin/tableItem.item.valueIni) * 100.0 | number: '1.2-2'}}</strong></div>
+                    </div>
+                  </td>
+
+                <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+                <td *ngFor="let column of columns" [style.text-align]="column.textAlign" >{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <nav>
+        <div class="row">
+            <div class="col-xs-12 col-12 col-md-6">
+                <pagination
+                [totalItems]="totalItems"
+                [(ngModel)]="currentPage"
+                [maxSize]="maxSize"
+                class="pagination-sm"
+                [itemsPerPage]="pageSize"
+                previousText="&lsaquo;"
+                nextText="&rsaquo;"
+                firstText="&laquo;"
+                lastText="&raquo;"
+                (pageChanged)="pageChanged($event)"
+                [boundaryLinks]="true"
+                [rotate]="false"
+                (numPages)="numPages = $event">
+            </pagination>
+          </div>
+        <div class="col-xs-12 col-12 col-md-6">
+            <h6 style="text-align: right;">Total: {{ totalItems }}</h6>
+          </div>
+        </div>
+      </nav>
+</div>
+</div> -->
+
+<!-- <div>
+    <div class="row" *ngIf="showSimpleSearch === 'true'">
+        <div class="form-group">
+            <label class="col-sm-1 control-label">Cauta</label>
+            <div class="col-sm-4"><input type="text" pInputText [(ngModel)]="filter" (change)="applySimpleSearchFilter(filter)" /></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <p-table [value]="tableItems" [responsive]="false" scrollable="true" scrollWidth="100%" scrollHeight="800px"
+            [paginator]="usePaging === 'true' ? true : false" [rows]="20" [rowsPerPageOptions]="[20, 50,100]"
+            [lazy]="usePaging === 'true' ? true : false" (onLazyLoad)="loadData($event)" [totalRecords]="totalItems"
+            [selectionMode]="rowSelection"
+            (onRowSelect)="$event.data.selected ? unselectItem($event.data.item) : selectItem($event.data.item)" resizableColumns="true">
+
+            <p-column styleClass="col-button" [style]="{'width':'5%'}">
+                <ng-template let-tableItem="rowData" pTemplate="body">
+                    <i *ngIf="tableItem.selected" class="fa fa-check"></i>
+                </ng-template>
+            </p-column>
+            <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header" [style]="{'width':column.width, 'text-align': column.textAlign}" sortable="usePaging === 'true' ? 'custom' : 'true'"></p-column>
+        </p-table>
+    </div>
+</div> -->
+
+<!--(onRowSelect)="$event.data.selected ? unselectItem($event.data.item) : selectItem($event.data.item)" resizableColumns="true" columnResizeMode="expand">-->
+
+
+<!-- <p-table [resizableColumns]="true" #dt1 [autoLayout]="true" [value]="tableItems"  [rows]="10" [resizableColumns]="true"
+	[rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+    [lazy]="true"
+    (onLazyLoad)="loadData($event)"  [totalRecords]="totalItems" styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines"
+	[paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+	<ng-template pTemplate="header">
+		<tr>
+			<th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+				<button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-check"></i></button>
+				<button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-check"></i></button>
+		</th>
+            <th *ngFor="let column of columns" [pSortableColumn]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+
+				<div class="p-d-flex p-jc-between p-ai-center">
+                        {{column.headerCode}}
+                    <p-sortIcon [field]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy"></p-sortIcon>
+				</div>
+			</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-tableItem let-expanded="expanded">
+        <tr (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+			<td>
+				<button *ngIf="!tableItem.selected" class="btn btn-light btn-sm" type="button"><i class="pi pi-times"></i></button>
+				<button *ngIf="tableItem.selected"  class="btn btn-success btn-sm" type="button"><i class="pi pi-check"></i></button>
+			</td>
+            <td *ngFor="let column of columns"  style="width: max-content; font-size: 12px;white-space: nowrap" selectionMode="multiple">{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+        </tr>
+	</ng-template>
+</p-table> -->
+
+
+<!-- <p-table dataKey="item.id" [resizableColumns]="true" #dt1 [autoLayout]="true" [value]="tableItems"  [rows]="10"
+[rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+[lazy]="true"
+(onLazyLoad)="loadData($event)"  [totalRecords]="totalItems" styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines"
+[paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="header">
+		<tr>
+			<th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+				<button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-check"></i></button>
+				<button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-check"></i></button>
+		</th>
+        <th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+            <button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-chevron-right"></i></button>
+            <button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-chevron-right"></i></button>
+    </th>
+            <th *ngFor="let column of columns" [pSortableColumn]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+
+				<div class="p-d-flex p-jc-between p-ai-center">
+                        {{column.headerCode}}
+                    <p-sortIcon [field]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy"></p-sortIcon>
+				</div>
+			</th>
+		</tr>
+	</ng-template>
+    <ng-template pTemplate="body" let-tableItem let-expanded="expanded">
+        <tr (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [ngClass]="{'bad': tableItem.item.appStateId === 18 || tableItem.item.appStateId === 21, 'good': tableItem.item.appStateId === 19, 'bgt': tableItem.item.appStateId === 20}">
+            <td>
+				<button *ngIf="!tableItem.selected" class="btn btn-light btn-sm" type="button"><i class="pi pi-times"></i></button>
+				<button *ngIf="tableItem.selected"  class="btn btn-success btn-sm" type="button"><i class="pi pi-check"></i></button>
+			</td>
+            <td>
+                <button type="button" pButton pRipple [pRowToggler]="tableItem" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+            </td>
+            <td *ngFor="let column of columns"  style="width: max-content; font-size: 12px;white-space: nowrap" selectionMode="multiple">{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-tableItem>
+        <tr>
+            <td colspan="6">
+                <div class="p-p-3">
+                    <p-table expandableRows="true" rowExpandMode="single" [autoLayout]="true" [responsive]="true" scrollWidth="100%" scrollHeight="800px" [value]="tableItem.item.budgetMonths" dataKey="item.id" styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines">
+                        <ng-template pTemplate="header">
+                            <span>Buget valoare</span>
+                            <tr>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">4/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">5/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">6/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">7/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">8/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">9/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">10/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">11/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">12/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">1/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">2/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">3/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">TOTAL</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-buget let-i="rowIndex">
+                            <tr *ngIf="i === 0">
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[0].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[1].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[2].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[3].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[4].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[5].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[6].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[7].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[8].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[9].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[10].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[11].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[0].value +
+                                                                                                                           tableItem.item.budgetMonths[1].value +
+                                                                                                                           tableItem.item.budgetMonths[2].value +
+                                                                                                                           tableItem.item.budgetMonths[3].value +
+                                                                                                                           tableItem.item.budgetMonths[4].value +
+                                                                                                                           tableItem.item.budgetMonths[5].value +
+                                                                                                                           tableItem.item.budgetMonths[6].value +
+                                                                                                                           tableItem.item.budgetMonths[7].value +
+                                                                                                                           tableItem.item.budgetMonths[8].value +
+                                                                                                                           tableItem.item.budgetMonths[9].value +
+                                                                                                                           tableItem.item.budgetMonths[10].value +
+                                                                                                                           tableItem.item.budgetMonths[11].value | number : '1.2-2'}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="6">There are no budget yet.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td colspan="6">
+                <div class="p-p-3">
+                    <p-table expandableRows="true" rowExpandMode="single" [autoLayout]="true" [responsive]="true" scrollWidth="100%" scrollHeight="800px" [value]="tableItem.item.budgetMonths" dataKey="item.id" styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines">
+                        <ng-template pTemplate="header">
+                            <span>Buget depreciere</span>
+                            <tr>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">4/1/2021 </th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">5/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">6/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">7/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">8/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">9/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">10/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">11/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">12/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">1/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">2/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">3/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">TOTAL</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-buget let-i="rowIndex">
+                            <tr *ngIf="i === 0">
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[0].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[1].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[2].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[3].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[4].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[5].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[6].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[7].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[8].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[9].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[10].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[11].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[0].valueDep +
+                                                                                                                           tableItem.item.budgetMonths[1].valueDep +
+                                                                                                                           tableItem.item.budgetMonths[2].valueDep +
+                                                                                                                           tableItem.item.budgetMonths[3].valueDep +
+                                                                                                                           tableItem.item.budgetMonths[4].valueDep +
+                                                                                                                           tableItem.item.budgetMonths[5].valueDep +
+                                                                                                                           tableItem.item.budgetMonths[6].valueDep +
+                                                                                                                           tableItem.item.budgetMonths[7].valueDep +
+                                                                                                                           tableItem.item.budgetMonths[8].valueDep +
+                                                                                                                           tableItem.item.budgetMonths[9].valueDep +
+                                                                                                                           tableItem.item.budgetMonths[10].valueDep +
+                                                                                                                           tableItem.item.budgetMonths[11].valueDep | number : '1.2-2'}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="6">There are no order for this product yet.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table> -->

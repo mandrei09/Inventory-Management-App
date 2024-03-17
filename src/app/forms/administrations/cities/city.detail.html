@@ -1,0 +1,106 @@
+<div class="container">
+  <div class="row">
+    <form role="form"  #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+      <div class="row mx-auto">
+        <div class="col-10 mx-auto">
+
+          <div class="row">
+            <div class="col-12 col-md-4">
+              <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                <label>
+                  Cod:
+                  <span class="required-label-symbol">*</span>
+                </label>
+                <input matInput class="form-control" placeholder="cod" required maxlength="20" [(ngModel)]="item.code" name="code" #code="ngModel">
+                <small [hidden]="code.valid || code.pristine" class="mat-text-warn">Codul este obligatoriu!</small>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                <label>
+                  Descriere:
+                  <span class="required-label-symbol">*</span>
+                </label>
+                <input matInput class="form-control" placeholder="descriere" required maxlength="100" [(ngModel)]="item.name" name="name" #name="ngModel">
+                <small [hidden]="name.valid || name.pristine" class="mat-text-warn">Denumirea este obligatorie!</small>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="input-group">
+                      <span class="input-group-prepend">
+                        <button type="button" class="btn btn-secondary" (click)="askForCounty()"><i class="fa fa-search"></i> Judet</button>
+                      </span>
+                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="Judet..." [value]="selectedCounty != null ? selectedCounty.name : ''" disabled>
+                <span class="input-group-append">
+                          <button type="button" class="btn btn-secondary"  (click)="setCounty(null)">Anuleaza</button>
+                      </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<!--<div class="widgets">-->
+<!--  <div class="row">-->
+<!--    <div class="col-md-12">-->
+<!--        <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">-->
+<!--            <div class="form-group">-->
+<!--                <label for="code">Cod</label>-->
+<!--                <input type="text" class="form-control" placeholder="cod" required maxlength="20"-->
+<!--                    [(ngModel)]="item.code" name="code" #code="ngModel">-->
+<!--                <div [hidden]="code.valid || code.pristine" class="alert alert-danger">-->
+<!--                    Codul este obligatoriu!-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="name">Descriere</label>-->
+<!--                <input type="text" class="form-control" placeholder="descriere" required maxlength="100"-->
+<!--                    [(ngModel)]="item.name" name="name" #name="ngModel">-->
+<!--                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">-->
+<!--                    Denumirea este obligatorie!-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="input-group">-->
+<!--                <span class="input-group-prepend">-->
+<!--                  <button type="button" class="btn btn-secondary" (click)="askForCounty()"><i class="fa fa-search"></i> Judet</button>-->
+<!--                </span>-->
+<!--                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="Judet..." [value]="selectedCounty != null ? selectedCounty.name : ''" disabled>-->
+<!--                <span class="input-group-append">-->
+<!--                    <button type="button" class="btn btn-secondary"  (click)="setCounty(null)">Anuleaza</button>-->
+<!--                </span>-->
+<!--              </div>-->
+<!--            <br>-->
+
+<!--            <div class="row">-->
+<!--                <div class="col-sm-6">-->
+<!--                    <div class="ui-toolbar-group-left">-->
+<!--                        <div *ngIf="!deleteConfirmationMode">-->
+<!--                            <button hideIfUnauthorized="DELETE|CITIES" type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0">Sterge</button>-->
+<!--                        </div>-->
+<!--                        <div *ngIf="deleteConfirmationMode">-->
+<!--                            <button type="button" class="btn btn-success" (click)="deleteItem()">Da</button>-->
+<!--                            <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=false">Nu</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-sm-6">-->
+<!--                    <div class="ui-toolbar-group-right">-->
+<!--                        <div class="text-right">-->
+<!--                            <div *ngIf="!deleteConfirmationMode">-->
+<!--                                <button type="button" class="btn btn-info" (click)="saveItem()" [disabled]="!detailForm.form.valid">Salveaza</button>-->
+<!--                                <button type="button" class="btn btn-secondary" (click)="cancelChanges()">Inchide</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

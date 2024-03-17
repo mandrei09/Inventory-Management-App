@@ -1,0 +1,100 @@
+<!--<div class="card-body table-responsive table w-auto small border-0">-->
+<!--  <table class="table custom-table table-bordered border-0" style="white-space: nowrap; text-decoration: none !important; font-weight: 500;">-->
+<!--    <thead [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'white'">-->
+<!--    <tr class="black-muted-bg">-->
+
+<!--        <th>#</th>-->
+<!--        <th class="align-left">Tip fisier</th>-->
+<!--        <th class="align-left">FIsier incarcat</th>-->
+<!--        <th class="align-left">Dimensiune</th>-->
+<!--        <th class="align-left">P.R.</th>-->
+<!--        <th class="align-left">P.R. detalii</th>-->
+<!--        <th class="align-left">WBS</th>-->
+<!--        <th class="align-left">WBS detalii</th>-->
+<!--        <th class="align-left">Cantitate</th>-->
+<!--        <th class="align-left">Furnizor</th>-->
+<!--        <th class="align-left">Observatii fisier</th>-->
+<!--        &lt;!&ndash; <th class="align-left">Include in email</th> &ndash;&gt;-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+
+<!--        <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">-->
+<!--            <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>-->
+<!--            <td>{{ tableItem.item.entityType?.name }}</td>-->
+<!--            <td>{{ tableItem.item.name }}</td>-->
+<!--            <td>{{ tableItem.item.size }}</td>-->
+<!--            <td>{{ tableItem.item.request != null ? tableItem.item.request.code : '' }}</td>-->
+<!--            <td>{{ tableItem.item.request != null ? tableItem.item.request.info : '' }}</td>-->
+<!--            <td>{{ tableItem.item.requestBudgetForecast != null && tableItem.item.requestBudgetForecast.project != null ? tableItem.item.requestBudgetForecast.project.code : '' }}</td>-->
+<!--            <td>{{ tableItem.item.requestBudgetForecast != null ? tableItem.item.requestBudgetForecast.info : '' }}</td>-->
+<!--            <td>{{ tableItem.item.quantity }}</td>-->
+<!--            <td>{{ tableItem.item.partner != null ? tableItem.item.partner.name : '' }}</td>-->
+<!--            <td>{{ tableItem.item.info }}</td>-->
+<!--            &lt;!&ndash; <td>{{ tableItem.item.skipEmail | boolPipeInventory: 'DA|NU' }}</td> &ndash;&gt;-->
+<!--        </tr>-->
+
+<!--        <tr *ngIf="tableItems.length === 0" role="row" class="mat-mdc-no-data-row">-->
+<!--          <td colspan="12" style="text-align: left; padding: .5rem .5rem !important;">-->
+<!--            <div class="table-no_results">No results found!</div>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--</div>-->
+
+<div *transloco="let t; read: 'page_entity_files_list'" style="height: 100%;">
+  <div class="table-responsive">
+    <table class="table custom-table mat-elevation-z0 custom-html-table" style="background: #FFF;">
+      <thead>
+        <tr>
+          <th class="align-left">#</th>
+          <th class="align-left">{{ t('file_type_label')}}</th>
+          <th class="align-left">{{ t('file_header_label')}}</th>
+          <th class="align-left">{{ t('size_header_label')}}</th>
+          <th class="align-left">{{ t('upload_date_label')}}</th>
+          <th *ngIf="!inInvetoryReport" class="align-left">P.R.</th>
+          <th *ngIf="!inInvetoryReport" class="align-left">{{ t('request_details_label')}}</th>
+          <th *ngIf="!inInvetoryReport" class="align-left">WBS</th>
+          <th *ngIf="!inInvetoryReport" class="align-left">{{ t('wbs_details_label')}}</th>
+          <th *ngIf="!inInvetoryReport" class="align-left">{{ t('quantity_label')}}</th>
+          <th *ngIf="!inInvetoryReport" class="align-left">{{ t('vendor_label')}}</th>
+          <th class="align-left">{{ t('file_observations_label')}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tableItem of tableItems ; let i = index" (click)="onRowSelect(tableItem)" [style.backgroundColor] = "tableItem.selected === true ? 'rgb(159, 208, 245)' : 'rgb(255, 255, 255)'">
+          <td>{{ (i+1) + '.' }}</td>
+          <td>{{ tableItem.item.entityType?.name }}</td>
+          <td>{{ tableItem.item.name }}</td>
+          <td>{{ showSize(tableItem.item.size) }}</td>
+          <td>{{ tableItem.item.ModifiedAt |  date: 'dd/MM/yyyy'}}</td>
+          <td *ngIf="!inInvetoryReport">{{ tableItem.item.request != null ? tableItem.item.request.code : '' }}</td>
+          <td *ngIf="!inInvetoryReport">{{ tableItem.item.request != null ? tableItem.item.request.info : '' }}</td>
+          <td *ngIf="!inInvetoryReport">{{ tableItem.item.requestBudgetForecast != null && tableItem.item.requestBudgetForecast.project != null ? tableItem.item.requestBudgetForecast.project.code : '' }}</td>
+          <td *ngIf="!inInvetoryReport">{{ tableItem.item.requestBudgetForecast != null ? tableItem.item.requestBudgetForecast.info : '' }}</td>
+          <td *ngIf="!inInvetoryReport">{{ tableItem.item.quantity }}</td>
+          <td *ngIf="!inInvetoryReport">{{ tableItem.item.partner != null ? tableItem.item.partner.name : '' }}</td>
+          <td>{{ tableItem.item.info }}</td>
+        </tr>
+      <tr *ngIf="inInvetoryReport && !selectedCostCenterID && inInvetoryReport">
+        <td class="" colspan="12" style="text-align: left;padding:.5rem .5rem !important;">
+          <div class="table-no_results">{{ t('select_cost_center_warning')}}</div>
+        </td>
+      </tr>
+      <tr *ngIf="tableItems.length === 0 && selectedCostCenterID && inInvetoryReport" >
+        <td class="" colspan="12" style="text-align: left;padding:.5rem .5rem !important;">
+          <div class="table-no_results">{{ t('no_files_found_warning')}}</div>
+        </td>
+      </tr>
+      <tr *ngIf="tableItems.length === 0 && !inInvetoryReport" >
+        <td class="" colspan="12" style="text-align: left;padding:.5rem .5rem !important;">
+          <div class="table-no_results">{{ t('no_files_found_warning')}}</div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

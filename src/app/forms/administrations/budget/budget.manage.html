@@ -1,0 +1,673 @@
+<!-- 
+        <div class="card">
+            <h5>Subheader Grouping</h5>
+            <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th>Company</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+                    <tr *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex">
+                        <td colspan="5">
+                            <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{customer.name}}
+                        </td>
+                        <td>
+                            <span class="image-text">{{customer.country.name}}</span>
+                        </td>
+                        <td>
+                            {{customer.company}}
+                        </td>
+                        <td>
+                            <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                        </td>
+                        <td>
+                            {{customer.date}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        
+        <div class="card">
+            <h5>Expandable Row Groups</h5>
+            <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()" dataKey="representative.name">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th>Company</th>                    
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex" let-expanded="expanded">
+                    <tr *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex">
+                        <td colspan="5">
+                            <button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                            <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="rowexpansion" let-customer>
+                    <tr>
+                        <td>
+                            {{customer.name}}
+                        </td>
+                        <td>
+                            <span class="image-text">{{customer.country.name}}</span>
+                        </td>
+                        <td>
+                            {{customer.company}}
+                        </td>
+                        <td>
+                            <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                        </td>
+                        <td>
+                            {{customer.date}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        
+        <div class="card">
+            <h5>Rowspan</h5>
+            <p-table [value]="customers" sortField="representative.name" sortMode="single" (onSort)="onSort()">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:3rem">#</th>
+                        <th>Representative</th>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th>Company</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+                    <tr>
+                        <td>{{rowIndex}}</td>
+                        <td *ngIf="rowGroupMetadata[customer.representative.name].index === rowIndex" [attr.rowspan]="rowGroupMetadata[customer.representative.name].size">
+                            <span class="p-text-bold p-ml-2">{{customer.representative.name}}</span>
+                        </td>
+                        <td>
+                            {{customer.name}}
+                        </td>
+                        <td>
+                            <span class="image-text">{{customer.country.name}}</span>
+                        </td>
+                        <td>
+                            {{customer.company}}
+                        </td>
+                        <td>
+                            <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                        </td>
+                        <td>
+                            {{customer.date}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div> -->
+
+        <!-- <p-table [value]="products" dataKey="name">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem"></th>
+                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th>Code</th>
+                    <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                    <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                    <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
+                    <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-expanded="expanded">
+                <tr>
+                    <td>
+                        <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    </td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.code}}</td>
+                    <td>{{product.price | currency:'USD'}}</td>
+                    <td>{{product.category}}</td>
+                    <td><p-rating [ngModel]="product.rating" readonly="true" cancel="false"></p-rating></td>
+                    <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-product>
+                <tr>
+                    <td colspan="7">
+                        <div class="p-p-3">
+                            <p-table [value]="product.orders" dataKey="id">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
+                                        <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
+                                        <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+                                        <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
+                                        <th pSortableColumn="stats">Status <p-sortIcon field="status"></p-sortIcon></th>
+                                        <th style="width: 4rem"></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-order>
+                                    <tr>
+                                        <td>{{order.id}}</td>
+                                        <td>{{order.customer}}</td>
+                                        <td>{{order.id}}</td>
+                                        <td>{{order.amount | currency:'USD'}}</td>
+                                        <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
+                                        <td><p-button type="button" icon="pi pi-search"></p-button></td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="6">There are no order for this product yet.</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table> -->
+
+<div class="animated fadeIn">
+    <br>
+    <div class="card">
+      <div class="card-header" style="background-color: #fff;">
+            <!-- <button type="button" class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed">Filtre </button> -->
+
+            <div hideIfUnauthorized="PARTNER_FILTER|BUDGET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-dark btn-sm" (click)="selectPartners()" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">Suppliers</button>
+                <button type="button" dropdownToggle class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedPartners.length > 0 ? selectedPartners.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearPartnerSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let partner of selectedPartners"><a class="dropdown-item" (click)="removeFromPartnerSelection(partner)"><i class="fa fa-times"></i> &nbsp;{{ partner.name }}</a>
+                    </li>
+                  </ul>
+              </div>
+              &nbsp;
+
+              <div hideIfUnauthorized="COSTCENTER_FILTER|BUDGET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-dark btn-sm" (click)="selectCostCenters()" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">Centre de cost</button>
+                <button type="button" dropdownToggle class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedCostCenters.length > 0 ? selectedCostCenters.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearCostCenterSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let costCenter of selectedCostCenters"><a class="dropdown-item" (click)="removeFromCostCenterSelection(costCenter)"><i class="fa fa-times"></i> &nbsp;{{ costCenter.code }}</a>
+                    </li>
+                  </ul>
+              </div>
+              &nbsp;
+              <div hideIfUnauthorized="COMPANY_FILTER|BUDGET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-dark btn-sm" (click)="selectCompanies()" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">Companii</button>
+                <button type="button" dropdownToggle class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedCompanies.length > 0 ? selectedCompanies.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearCostCenterSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let company of selectedCompanies"><a class="dropdown-item" (click)="removeFromCompanySelection(company)"><i class="fa fa-times"></i> &nbsp;{{ company.name }}</a>
+                    </li>
+                  </ul>
+              </div>
+              <!-- &nbsp;
+              <div hideIfUnauthorized="COMPANY_FILTER|BUDGET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-dark btn-sm" (click)="selectDepartments()" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">Companii</button>
+                <button type="button" dropdownToggle class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedCompanies.length > 0 ? selectedDs.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearDepartmentSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let company of selectedCompanies"><a class="dropdown-item" (click)="removeFromDepartmentSelection(company)"><i class="fa fa-times"></i> &nbsp;{{ company.name }}</a>
+                    </li>
+                  </ul>
+              </div> -->
+              &nbsp;
+
+              <div hideIfUnauthorized="EMPLOYEE_FILTER|BUDGET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-dark btn-sm" (click)="selectEmployees()" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">Angajati</button>
+                <button type="button" dropdownToggle class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedEmployees.length > 0 ? selectedEmployees.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearCostCenterSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let employee of selectedEmployees"><a class="dropdown-item" (click)="removeFromEmployeeSelection(employee)"><i class="fa fa-times"></i> &nbsp;{{ employee.internalCode }}</a>
+                    </li>
+                  </ul>
+              </div>
+              &nbsp;
+
+              <div hideIfUnauthorized="ACCMONTH_FILTER|BUDGET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-dark btn-sm" (click)="selectAccMonths()" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">Luni contabile</button>
+                <button type="button" dropdownToggle class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedAccMonths.length > 0 ? selectedAccMonths.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearCostCenterSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let accMonth of selectedAccMonths"><a class="dropdown-item" (click)="removeFromAccMonthSelection(accMonth)"><i class="fa fa-times"></i> &nbsp;{{ accMonth.year }}</a>
+                    </li>
+                  </ul>
+              </div>
+              &nbsp;
+
+              <button hideIfUnauthorized="ROW_SELECTION|BUDGET" type="button" class="btn btn-warning btn-sm" (click)="changeRowSelection()">
+                <i class="fa fa-list" *ngIf="budgetRowSelection === 'multiple'"></i>
+                <i class="fa fa-check-square" *ngIf="budgetRowSelection === 'single'"></i>
+            </button>
+            &nbsp;
+            <button hideIfUnauthorized="CLEAR_SELECTION|BUDGET" type="button" class="btn btn-danger btn-sm" (click)="clearSelection()" [style.backgroundColor] = "'rgb(168, 16, 0)'"><i class="fa fa-check"></i></button>
+            &nbsp;
+            <button hideIfUnauthorized="CLEAR_FILTER|BUDGET" type="button" class="btn btn-danger btn-sm" (click)="clearFilters()" [style.backgroundColor] = "'rgb(168, 16, 0)'" ><i class="fa fa-close"></i></button>
+            &nbsp;
+            <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadBudgetFile()" style="background-color: rgb(0, 130, 19);color: white;" ><i class="fa fa-upload"></i> Import</button>
+            &nbsp;
+            <button type="button" class="btn btn-success btn-sm" (click)="exportSocgen()" style="background-color: rgb(0, 130, 19);color: white;" [disabled]="!showExportBtn" ><i class="fa fa-download"></i> &nbsp; Export </button>
+            &nbsp;
+        <div class="card-header-actions">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Cauta..." aria-label="Cauta..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="checkForRefresh()">
+                <div class="input-group-append">
+                    <!-- <button type="button" class="btn btn-dark" (click)="isCollapsed = !isCollapsed">Action</button> -->
+                    <button type="button" class="btn btn-ghost-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">
+                      <!-- <span class="sr-only">Toggle Dropdown</span> -->
+                      ...
+                    </button>
+                  <div class="dropdown-menu" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">
+                    <a hideIfUnauthorized="ADD|BUDGET" class="dropdown-item" (click)="addNewBudget()"><i class="fa fa-plus" style="color: green;"></i>&nbsp;Adauga</a>
+                    <a hideIfUnauthorized="EDIT|BUDGET" *ngIf="selectedBudgets.length === 1" class="dropdown-item" (click)="editBudget()"><i class="fa fa-edit" style="color: darkorange;"></i> &nbsp;Detalii</a>
+                    <a hideIfUnauthorized="DELETE|BUDGET" *ngIf="selectedBudgets.length === 1" class="dropdown-item" (click)="deleteBudget()"><i class="fa fa-trash-o" style="color: red;"></i> &nbsp;Sterge</a>
+                    <!-- <a hideIfUnauthorized="EXPORT|BUDGET" class="dropdown-item" (click)="exportSocgen()"><i class="fa fa-file-excel-o" style="color: green;"></i>&nbsp;Export</a> -->
+                    
+                    <!-- <div role="separator" class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated item</a> -->
+
+                    <!-- <a class="btn" *ngIf="selectedBudgets.length === 1" (click)="editBudget()" ><i class="fa fa-edit"></i>&nbsp;Detalii</a>
+                    <a class="btn" [routerLink]="['/budget/newbudget']" (click)="addNewBudget()"><i class="fa fa-plus"></i> &nbsp;New</a>
+                    <a class="btn" *ngIf="selectedBudgets.length === 1" (click)="deleteBudget()"><i class="fa fa-trash-o"></i> &nbsp;Delete</a>
+                    <a class="btn" (click)="exportSocgen()"><i class="fa fa-file-excel-o"></i> &nbsp;Export</a> -->
+                     <!-- <input hideIfUnauthorized="IMPORT|BUDGET" #fileInput  id="file-input" name="file-input" type="file" (change)="loadFile($event)" placeholder="Select..."/>
+                    <button hideIfUnauthorized="IMPORT|BUDGET" type="button" class="btn btn-outline-success btn-sm" (click)="importData()" [disabled]="((fileEvent === null) || (fileEvent === undefined))"><i class="fa fa-file-excel-o"></i> Import</button> -->
+                    <!-- <button type="button" class="btn btn-outline-danger btn-sm" (click)="addNewOperation()" [disabled]="selectedBudgets.length === 0" ><i class="fa fa-list-alt"></i> <span style="font-family: 'Roboto'">Operations</span></button> -->
+        <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="editBudget()"  [disabled]="selectedBudgets.length !== 1" ><i class="fa fa-edit"></i> <span style="font-family: 'Roboto'">Details</span></button> -->
+        <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="addNewBudget()" ><i class="fa fa-plus"></i> <span style="font-family: 'Roboto'">New Budget</span></button> -->
+        <!-- <button type="button" class="btn btn-outline-danger btn-sm"  (click)="deleteBudget()" ><i class="fa fa-trash-o"></i>&nbsp; <span style="font-family: 'Roboto'">Delete Budget</span></button>
+        <button hideIfUnauthorized="ASSET_EXPORT" type="button" class="btn btn-outline-success btn-sm" (click)="exportSocgen()" ><i class="fa fa-file-excel-o"></i> &nbsp; <span style="font-family: 'Roboto'">Export</span> </button>     -->
+                  </div>
+                </div>
+                <div hideIfUnauthorized="PAGE_SIZE|BUDGET" class="btn-group" dropdown>
+                    <button dropdownToggle type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle">
+                        Size {{ pageSize }}<span class="caret"></span>
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu">
+                      <li role="menuitem" (click)="onPageUpdate(5)"><a class="dropdown-item">5</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(10)"><a class="dropdown-item">10</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(15)"><a class="dropdown-item">15</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(20)"><a class="dropdown-item">20</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(30)"><a class="dropdown-item">30</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(50)"><a class="dropdown-item">50</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(70)"><a class="dropdown-item">70</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(100)"><a class="dropdown-item">100</a></li>
+                    </ul>
+                  </div>
+              </div>
+        </div>
+      </div>
+      <!-- <div class="card-body"
+           (collapsed)="collapsed($event)"
+           (expanded)="expanded($event)"
+           [collapse]="isCollapsed">
+           <div class="card-body-actions">
+            <div class="row">
+                
+            </div>
+        </div>
+      </div> -->
+
+      <div class="card"  style="white-space: nowrap; font-weight: 500;">
+
+<!-- 
+        <budget-list #budgetList id="budgetList"
+        [dataSource]="budgetHttpService"
+        listTemplate="BUDGETS"
+        sortColumn="budget.id"
+        sortDirection="asc"
+        dynamicQuery="true"
+        usePaging="true"
+        [pageSize]= 10
+        showSimpleSearch="false"
+        [rowSelection]="budgetRowSelection"
+        (selectionChanged)="onBudgetSelectionChanged($event)"
+        notifyOnChange="true">
+    </budget-list> -->
+        
+        <!-- <h5>Tooltips</h5>
+        <p-tabView (onChange)="handleChange($event)">
+            <p-tabPanel header="Header I" leftIcon="pi pi-calendar" tooltip="1972">
+                <ng-template pTemplate="content">
+                    <div hideIfUnauthorized="VIEW|BUDGET" class="card-footer" style="background-color: #fff;">
+                        <div class="col-sm-12">
+                            <budget-list #budgetList id="budgetList"
+                            [dataSource]="budgetHttpService"
+                            listTemplate="BUDGETS"
+                            sortColumn="budget.id"
+                            sortDirection="asc"
+                            dynamicQuery="true"
+                            usePaging="true"
+                            [pageSize]= 10
+                            showSimpleSearch="false"
+                            [rowSelection]="budgetRowSelection"
+                            (selectionChanged)="onBudgetSelectionChanged($event)"
+                            notifyOnChange="true">
+                        </budget-list>
+                          </div>
+                      </div>
+                </ng-template>
+                
+            </p-tabPanel>
+            <p-tabPanel header="Header II" rightIcon="pi pi-inbox" tooltip="1974">
+                <ng-template pTemplate="content">
+                    Complex Content to Lazy Load
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel header="Header III" leftIcon="pi pi-user" rightIcon="pi pi-star" tooltip="1990">
+                <ng-template pTemplate="content">
+                    Complex Content to Lazy Load
+                </ng-template>
+            </p-tabPanel>
+        </p-tabView> -->
+        <!-- <button (click)="collapseAll()">Collapse All</button><button (click)="expandAll()">Expand All</button>
+        <p></p> -->
+
+        <p-overlayPanel #op [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'0ms'" [dismissable]="true" [showCloseIcon]="true" [style]="{width: '450px'}">
+            <ng-template pTemplate>
+                <div class="card">
+                    <p-table [value]="dataCompanyValues" styleClass="p-datatable-sm" responsiveLayout="scroll">
+                        <ng-template pTemplate="caption">
+                            Buget / Luna / {{ filterName }} 
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Luna</th>
+                                <th>B. Valoare</th>
+                                <th>B. Depreciere</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-company>
+                            <tr>
+                                <td>{{company.month}}</td>
+                                <td>{{company.value | number : '1.2-2'}}</td>
+                                <td>{{company.valueDep | number : '1.2-2'}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </ng-template>
+        </p-overlayPanel>
+
+        <div class="card-body table-responsive table w-auto small">
+        <db-angular-tree-grid 
+            #angularGrid
+            (expand)="onExpand($event)"
+            [data]="data" 
+            (rowselect)="onRowSelect($event);op.toggle($event)" 
+            (rowdelete)="onRowDelete($event)" 
+            (rowsave)="onRowSave($event)" 
+            (rowadd)="onRowAdd($event)"
+            [configs]="configs">
+            </db-angular-tree-grid>
+            </div>
+            <!-- <p-toast></p-toast> -->
+
+            <!-- <p-button [label]="'Select a Product'" icon="pi pi-search" (click)="op.toggle($event)"></p-button> -->
+
+
+        
+        </div>
+        <br>
+
+        
+      <!-- <div class="card"  style="white-space: nowrap; font-weight: 500;"> -->
+    
+<!-- 
+        <budget-list #budgetList id="budgetList"
+        [dataSource]="budgetHttpService"
+        listTemplate="BUDGETS"
+        sortColumn="budget.id"
+        sortDirection="asc"
+        dynamicQuery="true"
+        usePaging="true"
+        [pageSize]= 5
+        showSimpleSearch="false"
+        [rowSelection]="budgetRowSelection"
+        (selectionChanged)="onBudgetSelectionChanged($event)"
+        notifyOnChange="true">
+    </budget-list> -->
+    </div>
+    </div>   
+<!-- </div> -->
+
+
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Employees</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployees()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #accMonthListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Luna contabila</h4>
+            </div>
+            <div class="modal-body">
+                <app-acc-month-list #accMonthList id="accMonthList"
+                    [dataSource]="accMonthHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-acc-month-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAccMonths()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="accMonthListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">CostCenters</h4>
+            </div>
+            <div class="modal-body">
+                <app-administration-list #administrationList id="administrationList"
+                    [dataSource]="administrationDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-administration-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministrations()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="administrationListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #partnerListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Partners</h4>
+            </div>
+            <div class="modal-body">
+                <app-partner-list #partnerList id="partnerList"
+                    [dataSource]="partnerHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-partner-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedPartners()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="partnerListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">CostCenters</h4>
+            </div>
+            <div class="modal-body">
+                <app-cost-center-list #costCenterList id="costCenterList"
+                    [dataSource]="costCenterHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenters()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="costCenterListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #companyListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h3 class="modal-title pull-left">Companies</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" (click)="companyListModal.hide()">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <app-company-list #companyList id="companyList"
+              [dataSource]="companyHttpService"
+              rowSelection="multiple"
+              notifyOnChange="false"
+              usePaging="true">
+          </app-company-list>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompanies()">Selecteaza</button>
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="companyListModal.hide()">Inchide</button>
+      </div>
+  </div>
+</div>
+</div>
+
+
+<div class="modal fade" bsModal #uploadModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Incarca fisier</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Import active</h3>
+                          <input #fileInputBudget type="file" (change)="loadFileBudget($event)" data-toggle="tooltip" placeholder="Incarca..."/>
+                          <div class="row">
+                              <br>
+                          </div>
+                          
+                          <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadBudget()" [disabled]="((fileEventBudget === null) || (fileEventBudget === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
+                          &nbsp;
+                          <button type="button" class="btn btn-success btn-sm" (click)="exportTemplate()" [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'" [disabled]="!exportCompleted" ><i class="fa fa-download"></i> &nbsp; Model import </button>
+                      </div>
+                  </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #importDataBudgetModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Import bugete...</h4>
+      </div>
+      <div class="modal-body">
+          <progressbar [max]="noOfItems" [value]="importIndex" type="success"
+          ><b>{{ importIndex }} / {{ noOfItems }}</b></progressbar
+        >
+      </div>
+    </div>
+  </div>
+</div>
+

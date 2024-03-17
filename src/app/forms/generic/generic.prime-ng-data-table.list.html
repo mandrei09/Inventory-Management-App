@@ -1,0 +1,262 @@
+<!-- <div>
+    <div class="row" *ngIf="showSimpleSearch === 'true'">
+        <div class="form-group">
+            <label class="col-sm-1 control-label">Cauta</label>
+            <div class="col-sm-4"><input type="text" pInputText [(ngModel)]="filter" (change)="applySimpleSearchFilter(filter)" /></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <p-table [value]="tableItems" [responsive]="false" scrollable="true" scrollWidth="100%" scrollHeight="800px"
+            [paginator]="usePaging === 'true' ? true : false" [rows]="20" [rowsPerPageOptions]="[20, 50,100]"
+            [lazy]="usePaging === 'true' ? true : false" (onLazyLoad)="loadData($event)" [totalRecords]="totalItems"
+            [selectionMode]="rowSelection"
+            (onRowSelect)="$event.data.selected ? unselectItem($event.data.item) : selectItem($event.data.item)" resizableColumns="true">
+
+            <p-column styleClass="col-button" [style]="{'width':'5%'}">
+                <ng-template let-tableItem="rowData" pTemplate="body">
+                    <i *ngIf="tableItem.selected" class="fa fa-check"></i>
+                </ng-template>
+            </p-column>
+            <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header" [style]="{'width':column.width, 'text-align': column.textAlign}" sortable="usePaging === 'true' ? 'custom' : 'true'"></p-column>
+        </p-table>
+    </div>
+</div> -->
+
+<!--(onRowSelect)="$event.data.selected ? unselectItem($event.data.item) : selectItem($event.data.item)" resizableColumns="true" columnResizeMode="expand">-->
+<p-table
+  #dt1
+  [autoLayout]="true"
+  [value]="tableItems"
+  [rows]="5"
+  [rowHover]="true"
+  [resizableColumns]="true"
+	[loading]="loading"
+  [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[5,10,25,50]"
+  [lazy]="true"
+  (onLazyLoad)="loadData($event)"
+  [totalRecords]="totalItems"
+  styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines p-datatable-sm"
+	[paginator]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords}">
+	<!-- <ng-template pTemplate="caption">
+		<div class="p-d-flex">
+			<span class="p-input-icon-left p-ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt1.filterGlobal(getValue($event), 'contains');" placeholder="Search keyword" />
+            </span>
+		</div>
+	</ng-template> -->
+	<ng-template pTemplate="header">
+		<tr>
+			 <!-- <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th> -->
+			<th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+				<button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-check"></i></button>
+				<button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-check"></i></button>
+		</th>
+            <th *ngFor="let column of columns" [pSortableColumn]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+
+				<div class="p-d-flex p-jc-between p-ai-center">
+                        {{column.headerCode}}
+                    <p-sortIcon [field]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy"></p-sortIcon>
+					<!-- <p-columnFilter
+					[showMatchModes]="false"
+					[showOperator]="false"
+					[showAddButton]="false"
+					[type]="((column.pipe && (column.pipe.length > 0)) ? column.pipe : 'text')"
+					[field]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy"
+					display="menu"
+					sortable="usePaging === 'true' ? 'custom' : 'true'"> -->
+<!--
+					<ng-template pTemplate="header">
+						<div class="p-px-3 p-pt-3 p-pb-0">
+							<span class="p-text-bold">Stare</span>
+						</div>
+					</ng-template>
+					<ng-template pTemplate="filter" let-value let-filter="filterCallback">
+						<p-multiSelect [ngModel]="value" [options]="invStates" placeholder="Any"
+							(onChange)="filter($event.value)" optionLabel="name">
+							<ng-template let-option pTemplate="item">
+								<div class="p-multiselect-representative-option">
+									<span class="p-ml-1">{{option.name}}</span>
+								</div>
+							</ng-template>
+						</p-multiSelect>
+					</ng-template> -->
+
+				<!-- </p-columnFilter> -->
+				</div>
+			</th>
+
+			<!-- <th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Stare
+					<p-columnFilter type="text" field="stare" display="menu"></p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Name
+					<p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Country
+					<p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Agent
+					<p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false"
+						[showOperator]="false" [showAddButton]="false">
+						<ng-template pTemplate="header">
+							<div class="p-px-3 p-pt-3 p-pb-0">
+								<span class="p-text-bold">Agent Picker</span>
+							</div>
+						</ng-template>
+						<ng-template pTemplate="filter" let-value let-filter="filterCallback">
+							<p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any"
+								(onChange)="filter($event.value)" optionLabel="name">
+								<ng-template let-option pTemplate="item">
+									<div class="p-multiselect-representative-option">
+										<span class="p-ml-1">{{option.name}}</span>
+									</div>
+								</ng-template>
+							</p-multiSelect>
+						</ng-template>
+					</p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Date
+					<p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Balance
+					<p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Status
+					<p-columnFilter field="status" matchMode="equals" display="menu">
+						<ng-template pTemplate="filter" let-value let-filter="filterCallback">
+							<p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
+								placeholder="Any">
+								<ng-template let-option pTemplate="item">
+									<span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+								</ng-template>
+							</p-dropdown>
+						</ng-template>
+					</p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Activity
+					<p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false"
+						[showOperator]="false" [showAddButton]="false">
+						<ng-template pTemplate="filter" let-filter="filterCallback">
+							<p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)"
+								styleClass="p-m-3"></p-slider>
+							<div class="p-d-flex p-ai-center p-jc-between p-px-2">
+								<span>{{activityValues[0]}}</span>
+								<span>{{activityValues[1]}}</span>
+							</div>
+						</ng-template>
+					</p-columnFilter>
+				</div>
+			</th>
+			<th style="width: 8rem">
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Verified
+					<p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
+				</div>
+			</th> -->
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-tableItem>
+        <tr (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+			<!-- <td>
+				<p-tableCheckbox [value]="tableItem.selected"></p-tableCheckbox>
+			</td> -->
+			<td>
+				<button *ngIf="!tableItem.selected" class="btn btn-light btn-sm" type="button"><i class="pi pi-times"></i></button>
+				<button *ngIf="tableItem.selected"  class="btn btn-success btn-sm" type="button"><i class="pi pi-check"></i></button>
+				<!-- <button *ngIf="!tableItem.selected" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-sm"></button> -->
+				<!-- <button *ngIf="tableItem.selected"  class="rounded-button ui-button-outlined" type="button"><i class="pi pi-check"></i></button> -->
+				<!-- <button *ngIf="tableItem.selected"  pButton type="button" class="p-button-rounded p-button-success p-button-sm" icon="pi pi-check"></button> -->
+
+				<!-- <button *ngIf="tableItem.selected" pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-success p-button-sm"></button> -->
+			</td>
+			<!-- <td><i *ngIf="tableItem.selected" class="pi pi-check"></i></td> -->
+            <td *ngFor="let column of columns"  style="width: max-content; font-size: 12px;white-space: nowrap" selectionMode="multiple" [ngClass]="{'notconfirmed': tableItem.item.isConfirmed === false, 'confirmed': tableItem.item.isConfirmed === true}" ><span [style.color] = "tableItem.item.assetCount === 0 ? 'black' : 'black'">{{ tableItem.item | fieldByColumnDefinition: column }}</span></td>
+            <!-- <td *ngFor="let column of columns"  style="width: max-content; font-size: 12px;white-space: nowrap">{{ tableItem.item }}</td> -->
+        </tr>
+		<!-- <tr>
+			<td>
+				{{customer.name}}
+			</td>
+			<td>
+				<span class="image-text">{{customer.country.name}}</span>
+			</td>
+			<td>
+				<span class="image-text">{{customer.representative.name}}</span>
+			</td>
+			<td>
+				{{customer.date | date: 'MM/dd/yyyy'}}
+			</td>
+			<td>
+				{{customer.balance | currency:'USD':'symbol'}}
+			</td>
+			<td>
+				<span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+			</td>
+			<td>
+				<p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
+			</td>
+			<td class="p-text-center">
+				<i class="pi" [ngClass]="{'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified}"></i>
+			</td>
+		</tr> -->
+	</ng-template>
+	<ng-template pTemplate="footer">
+        <tr *ngIf="showValues">
+			<td style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+				<button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-check"></i></button>
+				<button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-check"></i></button>
+		</td>
+            <td *ngFor="let col of columns" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+                {{
+                    col.headerCode === 'APC FY start' ? (totals?.apcfyStart | number : '1.2-2') :
+                    col.headerCode === 'Dep. FY start' ? (totals?.depFYStart | number : '1.2-2') :
+                    col.headerCode === 'Bk.val.FY strt' ? (totals?.bkValFYStart | number : '1.2-2') :
+                    col.headerCode === 'Acquisition' ? (totals?.acquisition | number : '1.2-2') :
+                    col.headerCode === 'Dep. for year' ? (totals?.depForYear | number : '1.2-2') :
+                    col.headerCode === 'Retirement' ? (totals?.retirement | number : '1.2-2') :
+                    col.headerCode === 'Dep.retir.' ? (totals?.depRetirement | number : '1.2-2') :
+                    col.headerCode === 'Curr.bk.val.' ? (totals?.currBkValue | number : '1.2-2') :
+                    col.headerCode === 'Current APC' ? (totals?.currentAPC | number : '1.2-2') :
+                    col.headerCode === 'Accumul. dep.' ? (totals?.accumulDep | number : '1.2-2') :
+                     ''}}
+            </td>
+        </tr>
+    </ng-template>
+	<!-- <ng-template pTemplate="summary">
+        Total {{totalItems}}
+    </ng-template> -->
+	<!-- <ng-template pTemplate="emptymessage">
+		<tr>
+			<td colspan="7">No customers found.</td>
+		</tr>
+	</ng-template> -->
+  <!-- <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner> -->
+</p-table>

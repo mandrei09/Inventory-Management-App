@@ -1,0 +1,69 @@
+<div class="animated fadeIn">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <button type="button" class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed">Filtre </button>
+      <div class="card-header-actions">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">
+          <div class="input-group-append">
+            &nbsp;
+            <button hideIfUnauthorized="ADD|ASSETTYPES" type="button" class="btn btn-outline-info btn-sm" (click)="addNewItem()"><i class="fa fa-plus"></i>&nbsp;Adauga</button>
+            &nbsp;
+            <button hideIfUnauthorized="EDIT|ASSETTYPES" type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i>&nbsp;Modifica</button>
+            &nbsp;
+            <button hideIfUnauthorized="EXPORT|ASSETTYPES"type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i>&nbsp;Export</button>
+          </div>
+        </div>
+    </div>
+</div>
+    <div class="card-body"
+         (collapsed)="collapsed($event)"
+         (expanded)="expanded($event)"
+         [collapse]="isCollapsed">
+         <div class="card-body-actions">
+
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="col-sm-12">
+        <app-plant-list id="plantList"
+                  [dataSource]="plantHttpService"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  [pageSize]="10"
+                  notifyOnChange="true">
+              </app-plant-list>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #itemDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dark">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Detalii Plant</h4>
+      </div>
+      <div class="modal-body">
+        <app-plant-detail id="plantDetail"
+            [dataSource]="plantHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (changesCanceled)="itemDetailModal.hide()">
+        </app-plant-detail>
+      </div>
+    </div>
+  </div>
+</div>

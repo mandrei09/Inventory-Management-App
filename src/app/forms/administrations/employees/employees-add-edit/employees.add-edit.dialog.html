@@ -1,0 +1,125 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_employee_add_edit'">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">{{ t((item === null || item.id! < 1) ? 'title_add' : 'title_edit') }}</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container">
+
+        <div class="row">
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="row mx-auto">
+              <div class="col-10 mx-auto">
+
+                <div class="row">
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Marca:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="internalCode" [placeholder]="t('personel_number_placeholder')">
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Nume:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="firstName" [placeholder]="t('first_name_placeholder')">
+                      <small *ngIf="form.controls['firstName'].hasError('required') && form.controls['firstName'].touched" class="mat-text-warn">{{ t('first_name_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Prenume:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="lastName" [placeholder]="t('last_name_placeholder')">
+                      <small *ngIf="form.controls['firstName'].hasError('required') && form.controls['firstName'].touched" class="mat-text-warn">{{ t('last_name_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('email_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="email" [placeholder]="t('email_placeholder')">
+                      <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="mat-text-warn">{{ t('email_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        MAC imprimanta:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="erpCode">
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature form-group-select_wrapper d-flex" style="display:grid !important;">
+                      <label>
+                        Status:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <mat-form-field appearance="fill">
+                        <mat-label *ngIf="item.isConfirmed">ACTIV</mat-label>
+                        <mat-label *ngIf="!item.isConfirmed">INACTIV</mat-label>
+                        <mat-select formControlName="state">
+                          <mat-option [value]="null">
+                            -
+                          </mat-option>
+                          <mat-option [value]="'ACTIV'">
+                            ACTIV
+                          </mat-option>
+                          <mat-option [value]="'INACTIV'">
+                            INACTIV
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Manager:
+                      </label>
+                      <departments-item-select class="form-group-select_wrapper" formControlName="department" >
+                      </departments-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Centre de cost inventar:
+                      </label>
+                      <cost-centers-item-select class="form-group-select_wrapper" formControlName="costCenter" >
+                      </cost-centers-item-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">Cancel</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            [disabled]="!form.valid"
+            (click)="save()"
+    >{{ t('action_save') }}</button>
+  </mat-dialog-actions>
+
+</div>

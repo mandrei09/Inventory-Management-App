@@ -1,0 +1,152 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_table_add_edit'">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">{{ t((item === null || item.id! > 1) ? 'title_add' : 'title_edit') }}</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container">
+
+        <div class="row">
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="row mx-auto">
+              <div class="col-10 mx-auto">
+                <div class="row">
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('header_code_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="headerCode" [placeholder]="t('header_code_placeholder')">
+                      <small *ngIf="form.controls['headerCode'].hasError('required') && form.controls['headerCode'].touched" class="mat-text-warn">{{ t('header_code_required') }}</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('property_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="property" [placeholder]="t('property_placeholder')">
+                      <small *ngIf="form.controls['property'].hasError('required') && form.controls['property'].touched" class="mat-text-warn">{{ t('property_required') }}</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('include_label') }}:
+                      </label>
+                      <input matInput class="form-control" formControlName="include" [placeholder]="t('include_placeholder')">
+                      <small *ngIf="form.controls['include'].hasError('required') && form.controls['include'].touched" class="mat-text-warn">{{ t('include_required') }}</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('sort_by_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="sortBy" [placeholder]="t('sort_by_placeholder')">
+                      <small *ngIf="form.controls['sortBy'].hasError('required') && form.controls['sortBy'].touched" class="mat-text-warn">{{ t('sort_by_required') }}</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('pipe_label') }}:
+                      </label>
+                      <input matInput class="form-control" formControlName="pipe" [placeholder]="t('pipe_placeholder')">
+                      <small *ngIf="form.controls['pipe'].hasError('required') && form.controls['pipe'].touched" class="mat-text-warn">{{ t('pipe_required') }}</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('position_label') }}:
+                      </label>
+                      <input matInput type="number" class="form-control" formControlName="position" [placeholder]="t('position_placeholder')">
+                      <small *ngIf="form.controls['position'].hasError('required') && form.controls['position'].touched" class="mat-text-warn">{{ t('position_required') }}</small>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group inputs-modal-nomenclature form-group-select_wrapper mt-3 mb-3 d-flex" style="display:grid !important;">
+                      <label>
+                        {{ t('active_label') }}:
+                      </label>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Active:</mat-label>
+                        <mat-select formControlName="active">
+                          <mat-option [value]="null">
+                            -
+                          </mat-option>
+                          <mat-option [value]="true">
+                            Yes
+                          </mat-option>
+                          <mat-option [value]="false">
+                            No
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('table_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <table-definitions-item-select class="form-group-select_wrapper" selectionType="single" formControlName="tableDefinition" placeholder="{{ t('table_placeholder') }}">
+                      </table-definitions-item-select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('role_label') }}:
+                      </label>
+                      <roles-item-select class="form-group-select_wrapper" selectionType="single" formControlName="role" displayValue="name" placeholder="{{ t('role_placeholder') }}">
+                      </roles-item-select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Column filter:
+                      </label>
+                      <column-filter-item-select class="form-group-select_wrapper" selectionType="single" formControlName="columnFilter" displayValue="property" placeholder="{{ t('role_placeholder') }}">
+                      </column-filter-item-select>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">Cancel</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            [disabled]="!form.valid"
+            (click)="save()"
+    >{{ t('action_save') }}</button>
+  </mat-dialog-actions>
+
+</div>

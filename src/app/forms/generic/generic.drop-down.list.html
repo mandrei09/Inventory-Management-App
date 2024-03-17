@@ -1,0 +1,28 @@
+<!--  <div class="btn-group" dropdown>-->
+<!--    <button dropdownToggle type="button" class="btn btn-dark btn-sm dropdown-toggle" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">-->
+<!--      {{ selectedItems.length > 0 ? selectedItems[0].name : '-' }}<span class="caret"></span>-->
+<!--    </button>-->
+<!--    <ul *dropdownMenu class="dropdown-menu" role="menu" role="menu" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">-->
+<!--      <li role="menuitem"><a class="dropdown-item" (click)="clearSelectedItem()"></a></li>-->
+<!--      <li role="menuitem" *ngFor="let item of items"><a class="dropdown-item" (click)="setSelectedItem(item)">{{ item.name }}</a></li>-->
+<!--    </ul>-->
+<!--  </div>-->
+
+
+<div class="form-group inputs-modal-nomenclature form-group-select_wrapper mb-4 d-flex" style="display:grid !important;">
+  <label>
+    Tip:
+    <span class="required-label-symbol">*</span>
+  </label>
+  <mat-form-field appearance="fill">
+    <mat-label>Tip:</mat-label>
+    <mat-select (selectionChange)="setSelectedItem($event.value)" [ngModelOptions]="{standalone: true}">
+      <mat-option [value]="null" (click)="clearSelectedItem()">
+        -
+      </mat-option>
+      <mat-option *ngFor="let item of items" [value]="item">
+        {{ item.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

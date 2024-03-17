@@ -1,0 +1,49 @@
+<!--<app-header *ngIf="userName != ''"-->
+<!--  style="background-color: #341E16;color: #fff;border: #341E16;"-->
+<!--  [navbarBrandRouterLink]="['/login']"-->
+<!--  [fixed]="true"-->
+<!--  [navbarBrandFull]="{src: 'assets/img/logo.png', width: 215, height: 65,  alt: ''}"-->
+<!--  [navbarBrandMinimized]="{src: 'assets/img/logo.png', width: 215, height: 65, alt: ''}"-->
+<!--  [sidebarToggler]="'lg'"-->
+<!--  [asideMenuToggler]="'lg'">-->
+<!--  <ul class="nav navbar-nav ml-auto" *ngIf="userName != ''">-->
+<!--    <li class="nav-item dropdown" dropdown placement="bottom right">-->
+<!--      <div class="circle">-->
+<!--        <span class="initials" style="font-size: 14px;">{{ tokenExpired != '' ? tokenExpired : '' }} |  {{userName}}</span>-->
+<!--        &nbsp;-->
+<!--        &lt;!&ndash; <span> <strong>CURS BNR {{currencyBNR?.code}}&nbsp;/</strong>&nbsp;{{ currencyBNR?.value  | currency: currencyBNR?.uom?.code : true:'1.2-4' }}</span> &ndash;&gt;-->
+<!--        <button matTooltip="logout" type="button" class="btn btn-success btn-sm" (click)="signout()"><i class="fa fa-lock"></i> Logout</button>-->
+<!--        &nbsp;-->
+<!--        <button type="button" class="btn btn-info btn-sm" (click)="refresh()"><i class="fa fa-refresh"></i></button>-->
+<!--        &nbsp;-->
+<!--        <button type="button" class="btn btn-info btn-sm" (click)="getBook()"><i class="fa fa-file-pdf-o"></i> &nbsp;Manual</button>-->
+<!--        &nbsp;-->
+<!--        <button type="button" class="btn btn-warning btn-sm" [routerLink]="['/wfh/status']"><i class="fa fa-barcode"></i> WFH</button>-->
+<!--        &nbsp;-->
+<!--         <button type="button" class="btn btn-warning btn-sm" [routerLink]="['/wfh/teamstatus']"><i class="fa fa-barcode"></i> WFH echipa</button>-->
+<!--        &nbsp;-->
+<!--        <button type="button" class="btn btn-warning btn-sm" (click)="getWFHBook()"><i class="fa fa-file-pdf-o"></i> WFH Manual</button>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">-->
+<!--        <div class="divider"></div>-->
+<!--        <a class="dropdown-item" (click)="refresh()"><i class="fa fa-refresh"></i> Refresh</a>-->
+<!--        <a class="dropdown-item" (click)="signout()"><i class="fa fa-lock"></i> Logout</a>-->
+
+<!--      </div> &ndash;&gt;-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</app-header>-->
+<!--<div class="app-body">-->
+<!--  <app-sidebar *ngIf="userName != ''" style="background-color: #341E16;color: #fff;" #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized" (minimizedChange)="toggleMinimize($event)">-->
+<!--    <app-sidebar-nav [navItems]="customNavItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>-->
+<!--    <app-sidebar-minimizer></app-sidebar-minimizer>-->
+<!--  </app-sidebar>-->
+<!--  <main class="main">-->
+<!--    <div class="container-fluid">-->
+<!--      <router-outlet></router-outlet>-->
+<!--    </div>-->
+<!--  </main>-->
+<!--</div>-->
+
+<router-outlet></router-outlet>

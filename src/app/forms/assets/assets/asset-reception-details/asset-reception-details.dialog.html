@@ -1,0 +1,179 @@
+<div class="full-width-add-edit-dialog" >
+  <div class="modal-dialog-header">
+    <div class="d-flex">
+      <h2 class="modal-title mb-0">
+        Reception
+      </h2>
+    </div>
+    <div class="d-flex">
+      <button
+        (click)="onAssetFileUpload()"
+        class="small-blue-btn mb-0 ml-10"
+      >
+        <mat-icon>drive_folder_upload</mat-icon>
+        <span>
+          Upload
+        </span>
+      </button>
+      <div class="vertical-divider"></div>
+      <button type="button" class="btn-close" mat-dialog-close style="margin-left: 10px;margin-top: auto;margin-bottom: auto;"></button>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container">
+
+        <div class="row">
+          <div class="row mx-auto">
+            <div class="col-10 mx-auto">
+
+              <div class="row">
+                <div class="col-12 col-md-4">
+                  <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                    <label class="d-flex align-items-center">
+                      <mat-icon class="mr-10" [ngClass]="{'danger-color-icon': !checkUniqueDoc, 'success-color-icon' : checkUniqueDoc }" (click)="checkUniqueDocument($event)">check_circle_outline</mat-icon> Factura:
+                    </label>
+                    <input matInput class="form-control" [(ngModel)]="asset.docNo1" maxlength="50" name="docNo1" #docNo1="ngModel" (paste)="checkUniqueDocument($event)" (keydown)="checkUniqueDocument($event)">
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                  <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                    <label class="d-flex align-items-center">
+                      <mat-icon class="mr-10" [ngClass]="{'danger-color-icon': !checkUniqueSN, 'success-color-icon' : checkUniqueSN }" (click)="checkUniqueSerialNumber($event)">check_circle_outline</mat-icon> Serial number / IMEI:
+                    </label>
+                    <input matInput class="form-control" [(ngModel)]="asset.serialNumber" name="serialNumber" (paste)="checkUniqueSerialNumber($event)" (keydown)="checkUniqueSerialNumber($event)">
+                  </div>
+                </div>
+
+
+
+<!--                <div class="col-md-3">-->
+<!--                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">-->
+<!--                    <button *ngIf="!checkUniqueDoc" type="button" class="btn btn-danger btn-sm" (click)="checkUniqueDocument($event)">-->
+<!--                      <i class="fa fa-ban"></i> Factura</button>-->
+<!--                    <button *ngIf="checkUniqueDoc" type="button" class="btn btn-success btn-sm" (click)="checkUniqueDocument($event)">-->
+<!--                      <i  class="fa fa-check-circle-o"></i> Factura</button>-->
+<!--                  </div>-->
+<!--                  <div class="input-group">-->
+<!--                    <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"  type="text" class="form-control" placeholder="" maxlength="50"-->
+<!--                           [(ngModel)]="asset.docNo1" name="docNo1" #docNo1="ngModel" (paste)="checkUniqueDocument($event)" (keydown)="checkUniqueDocument($event)">-->
+<!--                  </div>-->
+<!--                </div>-->
+
+<!--                <div class="col-md-3">-->
+<!--                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">-->
+<!--                    <button *ngIf="!checkUniqueSN" type="button" class="btn btn-danger btn-sm" (click)="checkUniqueSerialNumber($event)" [disabled]="assetId > 0">-->
+<!--                      <i class="fa fa-ban"></i>  Serial number / IMEI</button>-->
+<!--                    <button *ngIf="checkUniqueSN" type="button" class="btn btn-success btn-sm" (click)="checkUniqueSerialNumber($event)" [disabled]="assetId > 0">-->
+<!--                      <i  class="fa fa-check-circle-o"></i> Serial number / IMEI</button>-->
+<!--                  </div>-->
+<!--                  <div class="input-group">-->
+<!--                    <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"  type="text" class="form-control" placeholder=""-->
+<!--                           [(ngModel)]="asset.serialNumber" name="serialNumber" (paste)="checkUniqueSerialNumber($event)" (keydown)="checkUniqueSerialNumber($event)">-->
+<!--                  </div>-->
+<!--                </div>-->
+              </div>
+
+              <div *ngIf="assetId > 0" class="mt-5 mb-5">
+                <mat-tab-group mat-stretch-tabs="false" color="transparent">
+                  <mat-tab label="Istoric operatii">
+                    <div class="row">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Operatii ({{ assetOpDetailList?.totalItems }})</span>
+                          <div class="d-flex">
+<!--                            <button class="medium-blue-btn mb-0 ml-15" (click)="onShopMapping()">-->
+<!--                              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>-->
+<!--                              </svg>-->
+<!--                              Adauga mapare-->
+<!--                            </button>-->
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-asset-op-detail-list #assetOpDetailList id="assetOpDetailList"
+                                                      [dataSource]="assetOpHttpService"
+                                                      showSimpleSearch="false"
+                                                      listTemplate="ASSET_OPERATIONS"
+                                                      detailType="details"
+                                                      sortColumn="modifiedAt"
+                                                      sortDirection="asc"
+                                                      dynamicQuery="true"
+                                                      rowSelection="single"
+                                                      notifyOnChange="true"
+                                                      (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                                      usePaging="true">
+                            </app-asset-op-detail-list>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Fisiere">
+                    <div class="row">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Fisiere ({{ entityFileList?.totalItems }})</span>
+                          <div class="d-flex">
+                            <button class="medium-blue-btn mb-0 ml-15" >
+                              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                              </svg>
+                              Adauga mapare
+                            </button>
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-entity-file-list #entityFileList id="entityFileList"
+                                                  [dataSource]="entityFileHttpService"
+                                                  showSimpleSearch="false"
+                                                  rowSelection="single"
+                                                  notifyOnChange="true"
+                                                  (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                                  usePaging="false"
+                                                  [inInvetoryReport] = "false">
+                            </app-entity-file-list>
+                            <br>
+                            <!-- <app-entity-file-upload *ngIf="asset.id > 0"
+                                [entityId]="asset.id"
+                                [entityTypeCode]="entityTypeCode"
+                                (uploadFinished)="refreshEntityFiles()">
+                            </app-entity-file-upload> -->
+                            <app-entity-file-download *ngIf="assetId > 0"
+                                                      [entityFile]="entityFile">
+                            </app-entity-file-download>
+                            <app-entity-file-request-delete *ngIf="entityFile != null"
+                                   (deleteFinished)="refreshEntityFiles()"
+                                  [entityFile]="entityFile">
+                              </app-entity-file-request-delete>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">Cancel</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            (click)="saveAsset()"
+    >Actualizeaza</button>
+  </mat-dialog-actions>
+
+</div>

@@ -1,0 +1,86 @@
+<div class="widgets">
+    <div class="row">
+      <div class="col-md-12">
+          <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="description">Descriere</label>
+                        <input type="text" class="form-control" placeholder="Descriere" required maxlength="100"
+                            [(ngModel)]="item.description" name="description" #description="ngModel">
+                        <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
+                            <!-- {{'VALIDATE_MESSAGE_DESCRIPTION'  |translate}} -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="start">Start</label>
+                        <!-- <input type="date" class="form-control" placeholder="Start..." required maxlength="100"
+                            [(ngModel)]="item.start" name="start" #start="ngModel"> -->
+                        <input type="date" class="form-control" placeholder="Start..." required maxlength="100" #start [value]="item.start | date:'yyyy-MM-dd'" (input)="item.start=parseDate($event.target)" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="end">End</label>
+                        <!-- <input type="date" class="form-control" placeholder="End..." required maxlength="100"
+                            [(ngModel)]="item.end" name="end" #end="ngModel"> -->
+                        <input type="date" class="form-control" placeholder="End..." required maxlength="100" #end [value]="item.end | date:'yyyy-MM-dd'" (input)="item.end=parseDate($event.target)" />
+                    </div>
+                </div>
+
+                <div class="col-md-3" style="margin-top: 35px;">
+                    <div class="btn-group" dropdown>
+                        <button dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle">
+                           State {{ inventoryActiveState }}<span class="caret"></span>
+                        </button>
+                        <ul *dropdownMenu class="dropdown-menu" role="menu" role="menu" style="background-color: #212529;color: ghostwhite;">
+                            <li role="menuitem" (click)="updateActive(true)">
+                                <a class="dropdown-item"> YES </a>
+                            </li>
+                            <li role="menuitem" (click)="updateActive(false)">
+                                <a class="dropdown-item"> NO </a>
+                            </li>
+                        </ul>
+                      </div>
+                  </div>     
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-prepend">
+                  <button type="button" class="btn btn-secondary" (click)="askForAccMonth()"><i class="fa fa-search"></i> Luna contabila</button>
+                </span>
+                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="Luna contabila..." [value]="selectedAccMonth != null ? selectedAccMonth.year + ' | ' + selectedAccMonth.month: ''" disabled>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary"  (click)="setAccMonth(null)">X</button>
+                </span>
+              </div>
+              <br>
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="ui-toolbar-group-left">
+                          <div *ngIf="!deleteConfirmationMode">
+                              <button hideIfUnauthorized="DELETE|INVENTORIES" type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=true" *ngIf="item != null && item.id > 0"><i class="fa fa-trash"></i> Delete</button>
+                          </div>
+                          <div *ngIf="deleteConfirmationMode">
+                              <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteItem()"><i class="fa fa-check"></i> Da</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> No</button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="ui-toolbar-group-right">
+                          <div class="text-right">
+                              <div *ngIf="!deleteConfirmationMode">
+                                  <button type="button" class="btn btn-outline-success btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Save</button>
+                                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>

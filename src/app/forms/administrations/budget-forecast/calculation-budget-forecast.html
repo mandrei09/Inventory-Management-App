@@ -1,0 +1,23 @@
+<div formArrayName="purchases" *ngIf="s.get('purchases').length > 0" class="left-padded">
+    <div *ngFor="let p of s.get('purchases').controls; let j=index" [formGroupName]="j">
+        <span>Purchase # {{j + 1}}</span> &nbsp; &nbsp;
+        <button mat-raised type="button" color="primary" (click)="formObj.removePurchase(s.get('purchases'), j)">
+            <mat-icon>delete</mat-icon>
+        </button>&nbsp; &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label>Item</mat-label>
+            <input matInput type="text" placeholder="item" formControlName="item">
+        </mat-form-field>&nbsp; &nbsp;
+
+        <mat-form-field appearance="outline">
+            <mat-label>Price</mat-label>
+            <input matInput type="text" placeholder="price" formControlName="price">
+        </mat-form-field>&nbsp; &nbsp;
+    </div>
+</div>
+
+<button mat-raised-button color="accent" type="button" (click)="onSubmit()" [disabled]="!formObj.formIsValid()">Submit</button>
+
+</form><br>
+
+<div>Maximim purchase allowed: <span class="emphasis">$100</span>.Total purchase: <span [class]="formObj.overBudget() ? 'warn' : 'emphasis'">{{formObj.sumUpPurchases() | currency: 'USD' : 'symbol' : '1.0-1'}}</span></div>

@@ -1,0 +1,155 @@
+
+
+
+<div class="animated fadeIn">
+<div class="row">
+     <div class="col-md-12">
+    <div class="card border-0">
+        <div class="card-header border-0" *ngIf="showSimpleSearch === 'true'">
+            <!--<label class="col-sm-1 control-label">Cauta</label>-->
+            <!-- <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)" /> -->
+            <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2" [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)">
+        </div>
+        <div class="card-body table-responsive table w-auto small border-0">
+            <table class="table table-bordered table-striped" style="white-space: nowrap; font-weight: 500" [style.font-size.px]="10">
+                <thead class="thead" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'burlywood'">
+                    <tr>
+                       
+                        <th>
+                                <button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-success btn-sm" type="button" style="background-color: black"><i class="fa fa-check"></i></button>
+                                <button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-default btn-sm" type="button" style="background-color: aliceblue"><i class="fa fa-check"></i></button>
+                        </th>
+                        <th>
+                            Printat
+                        </th>
+                        <th>
+                            Scanat
+                        </th>
+                        <th *ngFor="let column of columns" class="align-left">
+                            <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+                                <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                                <!-- {{ column.headerCode | translate }} -->
+                                {{ column.headerCode }}
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+                        <!-- <td>
+                            <div class="progress progress-xs">
+                              <div  role="progressbar" style="width: 100%;" 
+                              [ngClass]="{
+                                  'progress-bar bg-danger':  tableItem.item.invState != null && tableItem.item.invState.id === 16, 
+                                  'progress-bar bg-success' : tableItem.item.invState != null && tableItem.item.invState.id === 1,
+                                  'progress-bar bg-info' : tableItem.item.invState != null && tableItem.item.invState.id === 20,
+                                  'progress-bar bg-warning' : tableItem.item.invState != null && tableItem.item.invState.id === 15,
+                                  'progress-bar bg-secondary' : tableItem.item.invState != null && tableItem.item.invState.id === 22,
+                                  'progress-bar bg-dark' : tableItem.item.invState != null && tableItem.item.invState.id === 19,
+                                  'progress-bar bg-primary' : tableItem.item.invState != null && tableItem.item.invState.id === 23
+                              }" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                            </div>
+                          </td> -->
+                         
+                        <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+                        <td>
+                            <div class="progress progress-xs">
+                              <div  role="progressbar" style="width: 100%;" 
+                              [ngClass]="{
+                                  'progress-bar bg-danger':  !tableItem.item.isPrinted, 
+                                  'progress-bar bg-success' : tableItem.item.isPrinted
+                              }" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                              
+                            </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="progress progress-xs">
+                              <div  role="progressbar" style="width: 100%;" 
+                              [ngClass]="{
+                                  'progress-bar bg-danger':  !tableItem.item.isDuplicate, 
+                                  'progress-bar bg-success' : tableItem.item.isDuplicate
+                              }" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                              
+                            </div>
+                            </div>
+                          </td>
+                        <td *ngFor="let column of columns" [style.text-align]="column.textAlign" >{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <nav> 
+                <div class="row">
+                    <div class="col-xs-12 col-12 col-md-6">
+                        <pagination   
+                        [totalItems]="totalItems"
+                        [(ngModel)]="currentPage" 
+                        [maxSize]="maxSize" 
+                        class="pagination-sm" 
+                        [itemsPerPage]="pageSize"
+                        previousText="&lsaquo;" 
+                        nextText="&rsaquo;" 
+                        firstText="&laquo;" 
+                        lastText="&raquo;" 
+                        (pageChanged)="pageChanged($event)"
+                        [boundaryLinks]="true" 
+                        [rotate]="false" 
+                        (numPages)="numPages = $event">
+                    </pagination>
+                </div>
+                <!-- <pre class="card card-body card-header">Page: {{currentPage}} / {{numPages}}</pre> -->
+                <div class="col-xs-12 col-12 col-md-6">
+                    <h6 style="text-align: right;">Total: {{ totalItems }}</h6>
+                </div>
+                </div>
+            </nav>
+        </div>
+        <!-- <div class="card-footer">
+                <div class="col-sm-2">
+                    <h5 class="panel-subtitle">Total: {{ totals?.count }}</h5>
+                </div>
+        </div> -->
+    </div>
+ </div>
+</div>
+</div>
+
+<!-- <div id="myGrid" style="height: 150px; width: 600px" class="ag-theme-alpine"></div> -->
+<!-- <div class="row">
+<div class="col-sm-12">
+    <div class="ui-toolbar-group-left">
+        <div class="text-left">
+            <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                        [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+        </div>
+    </div>
+</div>
+</div> -->
+
+<!-- <div class="row" *ngIf="totals != null"> -->
+<!-- <div class="col-sm-3">
+    <h5 class="panel-subtitle">Valoare intrare: {{ totals.valueDepPU | number : '1.2-2' }}</h5>
+</div>
+<div class="col-sm-3">
+    <h5 class="panel-subtitle">Valoare inventar: {{ totals.valueInv | number : '1.2-2' }}</h5>
+</div> -->
+<!-- <div class="col-sm-2">
+    <h5 class="panel-subtitle">{{'ASSET_VALUE_REMAINING' | translate}}: {{ totals.valueRem | number : '1.2-2' }}</h5>
+</div> -->
+<!-- <div class="col-sm-3">
+    <h5 class="panel-subtitle">{{'ASSET_ACCUMULATED_DEPRECATION' | translate}}: {{ (totals.valueDepYTD) | number : '1.2-2' }}</h5>
+</div>
+<div class="col-sm-3">
+    <h5 class="panel-subtitle">{{'ASSET_DEPRECATION_MONTH' | translate}}: {{ totals.valueDep | number : '1.2-2' }}</h5>
+</div> -->
+<!-- <div class="col-sm-2">
+    <h5 class="panel-subtitle">{{'ASSET_DEPRECATION_YEAR' | translate}}: {{ totals.valueDepYTD | number : '1.2-2' }}</h5>
+</div> -->
+<!-- <div class="col-sm-2">
+    <h5 class="panel-subtitle">Total: {{ totals.count }}</h5>
+</div>
+</div> -->

@@ -1,0 +1,125 @@
+<div class="animated fadeIn">
+    <div class="card" *ngIf="showSimpleSearch === 'true'">
+            <div class="card-header">
+                <!--<label class="col-sm-1 control-label">Cauta</label>-->
+                <!-- <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)" /> -->
+                <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2" [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)">
+            </div>
+    </div>
+<div class="card-body table-responsive table w-auto small">
+    <table class="table table-bordered table-striped table-sm" style="white-space: nowrap" [style.font-size.px]="12">
+        <thead class="thead" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'white'">
+    <tr>
+        <th>
+            <button *ngIf="!isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(true)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+            <button *ngIf="isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-minus"></i></button>
+        </th>
+        <th>
+            <a (click)="applySort('code')">
+                <i *ngIf="sortColumn !== 'code'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'code') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'code') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Code
+            </a>
+        </th>
+        <th>
+            <a (click)="applySort('description')">
+                <i *ngIf="sortColumn !== 'description'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'description') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'description') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Description
+            </a>
+        </th>
+        <th>
+            <a (click)="applySort('valueType')">
+                <i *ngIf="sortColumn !== 'valueType'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'valueType') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'valueType') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Value Type
+            </a>
+        </th>
+        <th>
+            <a (click)="applySort('numericValue')">
+                <i *ngIf="sortColumn !== 'numericValue'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'numericValue') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'numericValue') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Numeric Value
+            </a>
+        </th>
+        <th>
+            <a (click)="applySort('textValue')">
+                <i *ngIf="sortColumn !== 'textValue'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'textValue') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'textValue') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Text Value
+            </a>
+        </th>
+        <th>
+            <a (click)="applySort('dateValue')">
+                <i *ngIf="sortColumn !== 'dateValue'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'dateValue') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'dateValue') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Data Value
+            </a>
+        </th>
+        <th>
+            <a (click)="applySort('boolValue')">
+                <i *ngIf="sortColumn !== 'boolValue'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'boolValue') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'boolValue') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Bool Value
+            </a>
+        </th>
+        <th>
+            <a (click)="applySort('aspnetrole.name')">
+                <i *ngIf="sortColumn !== 'aspnetrole.name'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'aspnetrole.name') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'aspnetrole.name') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Role
+            </a>
+        </th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+            <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+            <td>{{ tableItem.item.code }}</td>
+            <td>{{ tableItem.item.description }}</td>
+            <td>{{ tableItem.item.valueType }}</td>
+            <td>{{ tableItem.item.numericValue }}</td>
+            <td>{{ tableItem.item.textValue }}</td>
+            <td>{{ tableItem.item.dateValue | date: 'dd-MM-yyyy' }}</td>
+            <td>{{ tableItem.item.boolValue }}</td>
+            <td>{{ tableItem.item.role != null ? tableItem.item.role.name : '' }}</td>
+        </tr>
+
+    </tbody>
+  </table>
+
+  <nav> 
+    <!-- <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+      <li class="page-item active">
+        <a class="page-link" href="#">1</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">4</a></li>
+      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul> -->
+    <div class="row">
+        <div class="col-xs-12 col-12 col-md-6">
+        <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-sm"
+                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"
+                    [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
+      </div>
+    <!-- <pre class="card card-body card-header">Page: {{currentPage}} / {{numPages}}</pre> -->
+    <div class="col-xs-12 col-12 col-md-6">
+        <h6 style="text-align: right;">Total: {{ totalItems }}</h6>
+      </div>
+    </div>
+  </nav>
+</div>
+  

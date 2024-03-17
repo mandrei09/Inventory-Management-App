@@ -1,0 +1,140 @@
+<div class="animated fadeIn">
+    <br>
+    <div class="card" style="background-color: white;">
+      <div class="card-header">
+            <button type="button" class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed">Filtre </button>
+        <div class="card-header-actions">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">
+            <!-- <div class="input-group-append">
+              &nbsp;
+              <button hideIfUnauthorized="ADD|EMPLOYEECOSTCENTERS" type="button" class="btn btn-outline-info btn-sm" (click)="addNewItem()"><i class="fa fa-plus"></i>&nbsp;Adauga</button>
+              &nbsp;
+              <button hideIfUnauthorized="EDIT|EMPLOYEECOSTCENTERS" type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i>&nbsp;Modifica</button>
+              &nbsp;
+              <button hideIfUnauthorized="EXPORT|EMPLOYEECOSTCENTERS"type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i>&nbsp;Export</button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="card-body"
+           (collapsed)="collapsed($event)"
+           (expanded)="expanded($event)"
+           [collapse]="isCollapsed">
+           <div class="card-body-actions">
+            <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color:#341E16">Order</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px;">{{ selectedOrder != null ?  selectedOrder.code + ' ' + selectedOrder.name : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" (click)="selectOrder()" [ngClass]="{'btn-icon button': selectedOrder == null, 'btn-icon': selectedOrder != null}"><i class="fa fa-search"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm" (click)="unselectOrder()" [ngClass]="{'btn-icon button': selectedOrder == null, 'btn-icon': selectedOrder != null}"><i class="fa fa-close"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color:#341E16">Material</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px;">{{ selectedMaterial != null ?  selectedMaterial.code + ' ' + selectedMaterial.name : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" (click)="selectMaterial()" [ngClass]="{'btn-icon button': selectedMaterial == null, 'btn-icon': selectedMaterial != null}"><i class="fa fa-search"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm" (click)="unselectMaterial()" [ngClass]="{'btn-icon button': selectedMaterial == null, 'btn-icon': selectedMaterial != null}"><i class="fa fa-close"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="col-sm-12">
+            <app-order-material-list #orderMaterialList id="orderMaterialList"
+                  [dataSource]="orderMaterialHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </app-order-material-list>
+          </div>
+      </div>
+    </div>   
+  </div>
+
+<div class="modal fade" bsModal #orderListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Comenzi</h4>
+            </div>
+            <div class="modal-body">
+                <order-list #orderList id="orderList"
+                    [dataSource]="orderHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </order-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedOrder()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onOrderListCancel()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #materialListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Material</h4>
+            </div>
+            <div class="modal-body">
+                <material-list #materialList id="materialList"
+                    [dataSource]="materialHttpService"
+                    dynamicQuery="true"
+                    detailType="getall"
+                    sortColumn="username"
+                    sortDirection="asc"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    showSimpleSearch="true"
+                    usePaging="true">
+                </material-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedMaterial()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onMaterialListCancel()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>

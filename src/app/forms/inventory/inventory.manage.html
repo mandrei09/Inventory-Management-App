@@ -1,0 +1,254 @@
+<div *transloco="let t; read: 'page_nom_inventory_component'" style="height: 100%;">
+  <div class="content-page-header">
+    <app-common-header
+      [pageCode]="pageCode"
+      [itemList]="inventoryList"
+      (filterChanged)="doSimpleSearch($event)"
+      (addNew)="addNewItem()">
+    </app-common-header>
+
+<!--    <div class="modal-filters mt-15">-->
+<!--      <div class="filter-content-item child-w-200">-->
+<!--        &lt;!&ndash;        <regional-manager-item-select [(ngModel)]="divisions" selectionType="multiple" [params]="divisionParams" placeholder="Manager regional" displayValue="email" showMinimizedPlaceHolder="true">&ndash;&gt;-->
+<!--        &lt;!&ndash;        </regional-manager-item-select>&ndash;&gt;-->
+<!--      </div>-->
+
+<!--      <button class="selected-filter-remove mr-15">-->
+<!--        <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--          <path d="M8 3.34375H9V6.15625L11.3438 7.5625L10.8438 8.375L8 6.65625V3.34375ZM4.40625 1.75C5.59375 0.583333 7.01042 0 8.65625 0C10.3021 0 11.7083 0.583333 12.875 1.75C14.0625 2.91667 14.6562 4.33333 14.6562 6C14.6562 7.66667 14.0625 9.08333 12.875 10.25C11.7083 11.4167 10.3021 12 8.65625 12C7.96875 12 7.20833 11.8333 6.375 11.5C5.5625 11.1458 4.91667 10.7292 4.4375 10.25L5.375 9.28125C6.29167 10.1979 7.38542 10.6562 8.65625 10.6562C9.94792 10.6562 11.0521 10.2083 11.9688 9.3125C12.8854 8.39583 13.3438 7.29167 13.3438 6C13.3438 4.70833 12.8854 3.61458 11.9688 2.71875C11.0521 1.80208 9.94792 1.34375 8.65625 1.34375C7.36458 1.34375 6.26042 1.80208 5.34375 2.71875C4.44792 3.61458 4 4.70833 4 6H6L3.3125 8.6875L3.25 8.59375L0.65625 6H2.65625C2.65625 4.33333 3.23958 2.91667 4.40625 1.75Z" fill="#CC1010"/>-->
+<!--        </svg>-->
+<!--        Resetare filtre-->
+<!--      </button>-->
+<!--    </div>-->
+  </div>
+
+  <div class="content-page-header-two d-flex">
+    <div class="left-actions d-flex">
+      <div class="refresh subheader-actions-wrapper">
+        <a>
+          <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="refresh subheader-actions-wrapper subheader-action-text_inline" style="min-width: auto;">
+        <a (click)="export()" class="d-flex" style="color: inherit;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/> </g> </svg>
+          Export
+        </a>
+      </div>
+
+    </div>
+    <div class="results">
+      <span>{{inventoryList.totalItems}} {{ t('table_results_text') }}</span>
+    </div>
+  </div>
+
+  <inventory-list #inventoryList id="inventoryList"
+                  [dataSource]="inventoryDetailHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  showEditAction="true"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true"
+                  (itemEdit)="onItemEdit($event)"
+  >
+  </inventory-list>
+</div>
+
+
+<!--<div class="animated fadeIn">-->
+<!--  <br>-->
+<!--  <div class="card">-->
+<!--    <div class="card-header">-->
+<!--          <button type="button" class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed">Filters </button>-->
+<!--      <div class="card-header-actions">-->
+<!--          &lt;!&ndash; <div class="input-group">-->
+<!--              <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">-->
+<!--              <div class="input-group-append">-->
+<!--                  &nbsp;-->
+<!--                  <button type="button" class="btn btn-primary btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i> Adauga</button>-->
+<!--                  &nbsp;-->
+<!--                  <button type="button" class="btn btn-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Modifica</button>-->
+<!--                  &nbsp;-->
+<!--                  <button type="button" class="btn btn-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>-->
+<!--              </div>-->
+<!--            </div> &ndash;&gt;-->
+
+<!--            <div class="input-group">-->
+<!--              <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">-->
+<!--              <div class="input-group-append">-->
+<!--                &nbsp;-->
+<!--                <button hideIfUnauthorized="ADD|INVENTORIES" type="button" class="btn btn-outline-info btn-sm" (click)="addNewItem()"><i class="fa fa-plus"></i>&nbsp;Adauga</button>-->
+<!--                &nbsp;-->
+<!--                <button hideIfUnauthorized="EDIT|INVENTORIES" type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i>&nbsp;Modifica</button>-->
+<!--                &nbsp;-->
+<!--                <button hideIfUnauthorized="EXPORT|INVENTORIES"type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i>&nbsp;Export</button>-->
+<!--                &lt;!&ndash; <button type="button" class="btn btn-outline-secondary">Action</button>-->
+<!--                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                  <span class="sr-only">Toggle Dropdown</span>-->
+<!--                </button> &ndash;&gt;-->
+<!--                &lt;!&ndash; <div class="dropdown-menu">-->
+<!--                  <a hideIfUnauthorized="ADD|ACCMONTHS" class="dropdown-item" (click)="addNewItem()"><i class="fa fa-plus" style="color: blue;"></i>&nbsp;Adauga</a>-->
+<!--                  <a hideIfUnauthorized="EDIT|ACCMONTHS" *ngIf="selectedItem" class="dropdown-item" (click)="editItem()"><i class="fa fa-edit" style="color: red;"></i> &nbsp;Modifica</a>-->
+<!--                  <a hideIfUnauthorized="EXPORT|ACCMONTHS" class="dropdown-item" (click)="export()"><i class="fa fa-file-excel-o" style="color: green;"></i>&nbsp;Export</a>-->
+<!--                </div> &ndash;&gt;-->
+<!--              </div>-->
+<!--            </div>-->
+
+
+<!--            &lt;!&ndash; <div class="input-group">-->
+<!--              <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">-->
+<!--              <div class="input-group-append">-->
+<!--                <button type="button" class="btn btn-outline-secondary">Action</button>-->
+<!--                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                  <span class="sr-only">Toggle Dropdown</span>-->
+<!--                </button>-->
+<!--                <div class="dropdown-menu">-->
+<!--                  <a hideIfUnauthorized="ADD|INVENTORIES" class="dropdown-item" (click)="addNewItem()"><i class="fa fa-plus" style="color: blue;"></i>&nbsp;Adauga</a>-->
+<!--                  <a hideIfUnauthorized="EDIT|INVENTORIES" *ngIf="selectedItem" class="dropdown-item" (click)="editItem()"><i class="fa fa-edit" style="color: red;"></i> &nbsp;Modifica</a>-->
+<!--                  <a hideIfUnauthorized="EXPORT|INVENTORIES" class="dropdown-item" (click)="exportToExcel()"><i class="fa fa-file-excel-o" style="color: green;"></i>&nbsp;Export</a>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div> &ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="card-body"-->
+<!--         (collapsed)="collapsed($event)"-->
+<!--         (expanded)="expanded($event)"-->
+<!--         [collapse]="isCollapsed">-->
+<!--         <div class="card-body-actions">-->
+<!--         -->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="card-footer">-->
+<!--      <div class="col-sm-12">-->
+<!--            <inventory-list #inventoryList id="inventoryList"-->
+<!--            [dataSource]="inventoryDetailHttpService"-->
+<!--            dynamicQuery="true"-->
+<!--            usePaging="true"-->
+<!--            showSimpleSearch="false"-->
+<!--            [itemAddedEvent]="itemAddedEvent"-->
+<!--            [itemUpdatedEvent]="itemUpdatedEvent"-->
+<!--            [itemDeletedEvent]="itemDeletedEvent"-->
+<!--            [requestSelectionEvent]="requestSelectionEvent"-->
+<!--            [requestRefreshEvent]="requestRefreshEvent"-->
+<!--            (selectionChanged)="setSelectedItem($event)"-->
+<!--            rowSelection="single"-->
+<!--            notifyOnChange="true">-->
+<!--        </inventory-list>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--  </div>   -->
+<!--</div>-->
+
+
+<!--<div class="widgets" [collapse]="!roomDetailViewMode">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="Detalii camera" baCardClass="with-scroll table-panel">
+        <room-detail id="roomDetail"
+            [dataSource]="roomHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            [locationSelectedEvent]="locationSelectedEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (changesCanceled)="roomDetailChangesCanceled()"
+            (locationNeeded)="locationNeeded()">
+        </room-detail>
+      </ba-card>
+    </div>
+  </div>
+</div>-->
+
+<!--<div class="widgets" [collapse]="!locationListViewMode">
+      <ba-card title="Selectie cladire" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <location-list id="locationList"
+                  [dataSource]="locationHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="single"
+                  notifyOnChange="true"
+                  loadOnInit="true"
+                  (selectionChanged)="setSelectedLocation($event)">
+              </location-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="locationSelected()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="locationSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>-->
+
+<div class="modal fade" bsModal #inventoryDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dark modal-lg" role="document">
+<div class="modal-content">
+ <div class="modal-header">
+          <h4 class="modal-title pull-left">Inventory detail</h4>
+        <button type="button" class="close" (click)="inventoryDetailModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <inventory-detail #inventoryDetail id="inventoryDetail"
+          [dataSource]="inventoryHttpService"
+          [addNewItemEvent]="addNewItemEvent"
+          [editItemEvent]="editItemEvent"
+          (itemAdded)="itemAdded($event)"
+          (itemUpdated)="itemUpdated($event)"
+          (itemDeleted)="itemDeleted($event)"
+          (accMonthNeeded)="onInventoryDetailAccMonthNeeded()"
+          (changesCanceled)="detailTerminate()">
+      </inventory-detail>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="countyDetailModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="setSelectedCountry()">Selecteaza</button>
+      </div> -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div bsModal #accMonthListModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">Luna contabila</h4>
+        <button type="button" class="close" (click)="accMonthListModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-acc-month-list #accMonthList id="accMonthList"
+        [dataSource]="accMonthHttpService"
+        rowSelection="single"
+        notifyOnChange="false"
+        usePaging="true">
+    </app-acc-month-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="onAccMonthListCancel()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="setSelectedAccMonth()">Selecteaza</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

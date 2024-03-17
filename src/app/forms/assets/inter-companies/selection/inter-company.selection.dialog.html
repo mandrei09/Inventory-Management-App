@@ -1,0 +1,33 @@
+<div class="supplies-modal modal-with-subheader asset-seleciton-dialog selection-dialog">
+  <div class="modal-dialog-header">
+    <div class="filter-title">
+      <h3 class="modal-title mb-0">Selecteaza</h3>
+      <div class="d-flex">
+        <div class="vertical-divider"></div>
+        <button type="button" class="btn-close my-auto ml-15" mat-dialog-close></button>
+      </div>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-dialog-content">
+    <div class="modal-dialog-body">
+      <div class="table-responsive">
+        <app-inter-company-list #itemList id="itemList"
+                                [dataSource]="dataSource"
+                                dynamicQuery="true"
+                                showSimpleSearch="true"
+                                rowSelection="single"
+                                notifyOnChange="true"
+                                (selectionChanged)="onSelectionChanged($event)"
+                                [pageSize]="10"
+                                usePaging="true">
+        </app-inter-company-list>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="onCancel()">Inapoi</button>
+    <button mat-button class="btn blue-btn" [mat-dialog-close]="items">Selecteaza</button>
+  </mat-dialog-actions>
+</div>

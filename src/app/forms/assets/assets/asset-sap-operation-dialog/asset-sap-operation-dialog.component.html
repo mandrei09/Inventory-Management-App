@@ -1,0 +1,532 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_asset_new_transfer'">
+  <div class="modal-dialog-header">
+    <div class="d-flex">
+      <h2 class="modal-title mb-0">
+        Operations details
+      </h2>
+    </div>
+    <div class="d-flex">
+<!--      <button (click)="onImportItems($event)" class="small-blue-btn mb-0 ml-30 b-radius-20">-->
+<!--        <mat-icon role="img">upload_file</mat-icon>-->
+<!--        <span>-->
+<!--          Incarca fisier-->
+<!--        </span>-->
+<!--      </button>-->
+      <div class="vertical-divider"></div>
+      <button type="button" class="btn-close" mat-dialog-close style="margin-left: 10px;margin-top: auto;margin-bottom: auto;"></button>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container-fluid">
+        <div class="d-flex align-items-start">
+          <div class="tab-content" style="width: 90%;margin-left: 90px;">
+            <div class="col-md-12">
+              <div class="row">
+
+                <div class="col-md-9" style="padding-right: 35px;">
+                  <div class="mb-3" #operation>
+                    <mat-tab-group mat-stretch-tabs="false" color="transparent">
+                      <mat-tab label="General">
+                        <div class="mt-3 row">
+                          <div *ngIf="fromAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Asset:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="fromAsset.invNo" name="invNo" #invNo="ngModel">
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                SubNumber:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="fromAsset.subNo" name="subNo" #subNo="ngModel">
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Cantitate:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="fromAsset.quantity" name="quantity">
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Clasa:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <exp-accounts-item-select class="form-group-select_wrapper" displayValue="name" [(ngModel)]="expAccount" placeholder="Selecteaza clasa" >
+                              </exp-accounts-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Companie:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <company-item-select class="form-group-select_wrapper" displayValue="code" [(ngModel)]="company" placeholder="Selecteaza compania" >
+                              </company-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Tax:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <tax-item-select class="form-group-select_wrapper" displayValue="name" [(ngModel)]="tax" placeholder="Selecteaza tax" >
+                              </tax-item-select>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Seria:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="fromAsset.serialNumber" name="serialNumber">
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Eticheta:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="fromAsset.sapCode" name="sapCode">
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Header text:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="fromAsset.headerText" name="headerText" #headerText="ngModel">
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-md-12">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Descriere:
+                              </label>
+                              <textarea [(ngModel)]="fromAsset.name" name="name" #name="ngModel" class="form-control" rows="3"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Time-dependent">
+                        <div class="mt-3 row">
+                          <div *ngIf="fromAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Centru de cost:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <cost-centers-item-select class="form-group-select_wrapper" [(ngModel)]="costCenter" placeholder="Selecteaza centru de cost" >
+                              </cost-centers-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Plant:
+                              </label>
+                              <input matInput type="text" class="form-control" [value]="plant != null ? plant.code : 'RO02'" name="plant">
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Person:
+                              </label>
+                              <input matInput type="text" class="form-control" [value]="employee != null ? employee.internalCode + '-' + employee.firstName + ' ' +  employee.lastName: ''" name="employee">
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Location:
+                              </label>
+                              <input matInput type="text" class="form-control" [value]="location != null ? location.code + '-' + location.name : ''" name="location">
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Room:
+                              </label>
+                              <input matInput type="text" class="form-control" [value]="room != null ? room.code + '-' + room.name : ''" name="room">
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Allocations">
+                        <div class="mt-3 row">
+                          <div *ngIf="fromAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Asset category:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <asset-categories-item-select class="form-group-select_wrapper" [(ngModel)]="assetCategory" placeholder="Selecteaza categorie asset" >
+                              </asset-categories-item-select>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Origin">
+                        <div class="mt-3 row">
+                          <div *ngIf="fromAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Vendor:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <partners-item-select class="form-group-select_wrapper" [(ngModel)]="partner" placeholder="Selecteaza vendor" >
+                              </partners-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Factura:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="fromAsset.docNo1" name="docNo1" (keydown)="checkUniqueDocument($event)">
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Net Worth Tax"></mat-tab>
+                      <mat-tab label="Insurance"></mat-tab>
+                      <mat-tab label="Leasing"></mat-tab>
+                      <mat-tab label="Deprec. area"></mat-tab>
+                    </mat-tab-group>
+                  </div>
+
+                  <hr class="mb-4">
+
+                  <div class="mb-5" #operation>
+                    <mat-tab-group mat-stretch-tabs="false" color="transparent">
+                      <mat-tab label="General">
+                        <div class="mt-3 row">
+                          <div *ngIf="toAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Asset:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="toAsset.invNo" name="invNo" #invNo="ngModel">
+                            </div>
+                          </div>
+                          <div *ngIf="toAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                SubNumber:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="toAsset.subNo" name="subNo" #subNo="ngModel">
+                            </div>
+                          </div>
+                          <div *ngIf="toAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Cantitate:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="toAsset.quantity" name="quantity">
+                            </div>
+                          </div>
+                          <div *ngIf="toAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Clasa:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <exp-accounts-item-select class="form-group-select_wrapper" [(ngModel)]="toExpAccount" placeholder="Selecteaza clasa" >
+                              </exp-accounts-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="toAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Companie:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <company-item-select class="form-group-select_wrapper" [(ngModel)]="toCompany" placeholder="Selecteaza compania">
+                              </company-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="fromAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Tax:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <tax-item-select class="form-group-select_wrapper" displayValue="name" [(ngModel)]="toTax" placeholder="Selecteaza tax" >
+                              </tax-item-select>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Seria:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="toAsset.serialNumber" name="serialNumber">
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Eticheta:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="toAsset.sapCode" name="sapCode">
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Header text:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="toAsset.headerText" name="headerText" #headerText="ngModel">
+                            </div>
+                          </div>
+                          <div *ngIf="toAsset != null" class="col-md-12">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Descriere:
+                              </label>
+                              <textarea [(ngModel)]="toAsset.name" name="toName" #toName="ngModel" class="form-control" rows="3"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Time-dependent">
+                        <div class="mt-3 row">
+                          <div *ngIf="toAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Centru de cost:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <cost-centers-item-select class="form-group-select_wrapper" [(ngModel)]="toCostCenter" placeholder="Selecteaza centru de cost" >
+                              </cost-centers-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="toAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Person:
+                              </label>
+                              <employee-item-select class="form-group-select_wrapper" [(ngModel)]="toEmployee" placeholder="Selecteaza person" >
+                              </employee-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="toAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Plant:
+                              </label>
+                              <input matInput type="text" class="form-control" [value]="toPlant != null ? toPlant.code : 'RO02'" name="toPlant">
+                            </div>
+                          </div>
+                          <div *ngIf="toAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Location:
+                              </label>
+                              <input matInput type="text" class="form-control" [value]="toLocation != null ? toLocation.code + '-' + toLocation.name : ''" name="toLocation">
+                            </div>
+                          </div>
+                          <div *ngIf="toAsset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Room:
+                              </label>
+                              <input matInput type="text" class="form-control" [value]="toRoom != null ? toRoom.code + '-' + toRoom.name : ''" name="toRoom">
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Allocations">
+                        <div class="mt-3 row">
+                          <div *ngIf="toAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Asset category:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <asset-categories-item-select class="form-group-select_wrapper" [(ngModel)]="toAssetCategory" placeholder="Selecteaza categorie asset" >
+                              </asset-categories-item-select>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Origin">
+                        <div class="mt-3 row">
+                          <div *ngIf="toAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Vendor:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <partners-item-select class="form-group-select_wrapper" [(ngModel)]="toPartner" placeholder="Selecteaza vendor" >
+                              </partners-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="toAsset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Factura:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="toAsset.docNo1" name="toDocNo1" (keydown)="checkUniqueDocument($event)">
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Net Worth Tax"></mat-tab>
+                      <mat-tab label="Insurance"></mat-tab>
+                      <mat-tab label="Leasing"></mat-tab>
+                      <mat-tab label="Deprec. area"></mat-tab>
+                    </mat-tab-group>
+                  </div>
+                </div>
+
+                <div *ngIf="fromAsset != null && toAsset != null" class="col-md-3" style="border-left: 1px solid #D9D9DF !important;padding-left: 35px;">
+                  <div class="row">
+                    <div *ngIf="fromAsset != null" class="col-md-6">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          From Asset:
+                        </label>
+                        <input matInput type="text" class="form-control" [(ngModel)]="fromAsset.invNo" name="invNo" #invNo="ngModel">
+                      </div>
+                    </div>
+                    <div *ngIf="toAsset != null" class="col-md-6">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          To Asset:
+                        </label>
+                        <input matInput type="text" class="form-control" [(ngModel)]="toAsset.invNo" name="toInvNo">
+                      </div>
+                    </div>
+
+                    <div *ngIf="toAsset != null" class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          Item text:
+                        </label>
+                        <input matInput type="text" class="form-control" [(ngModel)]="itemText" name="itemText">
+                      </div>
+                    </div>
+                    <div *ngIf="toAsset != null" class="col-12 col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                        <label>
+                          Clasa:
+                        </label>
+                        <uom-item-select class="form-group-select_wrapper" [(ngModel)]="uom" displayValue="name" placeholder="Selecteaza uom">
+                        </uom-item-select>
+                      </div>
+                    </div>
+                    <div *ngIf="toAsset != null" class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          Document no.:
+                        </label>
+                        <input matInput type="text" class="form-control" [(ngModel)]="refDocNo" name="refDocNo">
+                      </div>
+                    </div>
+                    <div *ngIf="toAsset != null" class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          Suma:
+                        </label>
+                        <input matInput type="number" class="form-control" [(ngModel)]="amount" name="amount">
+                      </div>
+                    </div>
+                    <div *ngIf="toAsset != null" class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          Procent:
+                        </label>
+                        <input matInput type="number" class="form-control" [(ngModel)]="percent" name="percent">
+                      </div>
+                    </div>
+                    <div *ngIf="toAsset != null" class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          Cantitate:
+                        </label>
+                        <input matInput type="number" class="form-control" [(ngModel)]="quantity" name="quantity">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-1 d-flex" style="display:grid !important;">
+                        <mat-checkbox (change)="fullTransfer($event)" [ngModel]="completeTransfer" name="completeTransfer" >COMPL_TRANSFER</mat-checkbox>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-1 d-flex" style="display:grid !important;">
+                        <mat-checkbox (change)="priorYearAcq($event)" [ngModel]="priorYearAcquisitions" name="completeTransfer" >PRIOR_YEAR_ACQUISITIONS</mat-checkbox>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-1 d-flex" style="display:grid !important;">
+                        <mat-checkbox (change)="currentYearAcq($event)" [ngModel]="currentYearAcquisitions" name="completeTransfer" >CURRENT_YEAR_ACQUISITIONS</mat-checkbox>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+<!--            <div class="col-md-12 mt-5 mb-5" #operation>-->
+<!--              <div id="documentsSection1" class="row">-->
+<!--                <div class="col-12 attributes">-->
+<!--                  <div class="files-header mb-2">-->
+<!--                    <div class="d-flex">-->
+
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <hr class="mb-3">-->
+<!--                  <div>-->
+<!--                    <app-asset-list #assetList id="assetList"-->
+<!--                                    [dataSource]="assetMemoryService"-->
+<!--                                    listTemplate="ASSETS"-->
+<!--                                    detailType="inuse"-->
+<!--                                    sortColumn="asset.invNo"-->
+<!--                                    sortDirection="asc"-->
+<!--                                    dynamicQuery="true"-->
+<!--                                    usePaging="true"-->
+<!--                                    [pageSize]="10"-->
+<!--                                    showSimpleSearch="false"-->
+<!--                                    rowSelection="single"-->
+<!--                                    notifyOnChange="true"-->
+<!--                                    usePaging="false">-->
+<!--                    </app-asset-list>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">Inapoi</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+    >Transfer</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            [disabled]="!isSaved || !allowSaving"
+    >Salveaza</button>
+  </mat-dialog-actions>
+</div>

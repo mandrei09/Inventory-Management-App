@@ -1,0 +1,153 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+        <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+            <div class="form-group">
+                <label for="code">Cod</label>
+                <input type="text" class="form-control" placeholder="cod" required maxlength="30" 
+                    [(ngModel)]="item.code" name="code" #code="ngModel">
+                <div [hidden]="code.valid || code.pristine" class="alert alert-danger">
+                    Codul este obligatoriu!
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label for="name">Denumire</label>
+                <input type="text" class="form-control" placeholder="denumire" required maxlength="100"
+                    [(ngModel)]="item.name" name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    Denumirea este obligatorie!
+                </div>
+            </div>
+
+
+            <div class="form-group">
+              <label for="name">EAN</label>
+              <input type="text" class="form-control" placeholder="EAN" required maxlength="100"
+                  [(ngModel)]="item.ean" name="ean" #ean="ngModel">
+              <div [hidden]="ean.valid || ean.pristine" class="alert alert-danger">
+                  EAN este obligatoriu!
+              </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="name">PartNumber</label>
+            <input type="text" class="form-control" placeholder="denumire" required maxlength="100"
+                [(ngModel)]="item.partNumber" name="partNumber" #partNumber="ngModel">
+            <div [hidden]="partNumber.valid || partNumber.pristine" class="alert alert-danger">
+                PN este obligatoriu!
+            </div>
+        </div>
+
+            <div class="form-group">
+              <label for="name">Pret</label>
+              <input type="number" class="form-control" placeholder="pret" required maxlength="100"
+                  [(ngModel)]="item.price" name="price" #price="ngModel">
+              <div [hidden]="price.valid || price.pristine" class="alert alert-danger">
+                  Pretul este obligatoriu!
+              </div>
+          </div>
+
+          <!-- <div class="form-group">
+            <label for="name">Cantitate</label>
+            <input type="text" class="form-control" placeholder="cantitate" required maxlength="100"
+                [(ngModel)]="item.quantity" name="quantity" #quantity="ngModel">
+            <div [hidden]="quantity.valid || quantity.pristine" class="alert alert-danger">
+              Cantitatea este obligatorie!
+            </div>
+        </div> -->
+<!-- 
+            <div class="input-group">
+                <span class="input-group-prepend">
+                  <button type="button" class="btn btn-secondary" (click)="askForAccount()"><i class="fa fa-search"></i> Account</button>
+                </span>
+                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="account..." [value]="selectedAccount != null ? selectedAccount.name : ''" disabled>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary"  (click)="setAccount(null)">Anuleaza</button>
+                </span>
+              </div>
+            <br>
+
+            <div class="input-group">
+                <span class="input-group-prepend">
+                  <button type="button" class="btn btn-secondary" (click)="askForExpAccount()"><i class="fa fa-search"></i> ExpAccount</button>
+                </span>
+                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="expaccount..." [value]="selectedExpAccount != null ? selectedExpAccount.name : ''" disabled>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary"  (click)="setExpAccount(null)">Anuleaza</button>
+                </span>
+              </div>
+            <br>
+
+            <div class="input-group">
+                <span class="input-group-prepend">
+                  <button type="button" class="btn btn-secondary" (click)="askForAssetCategory()"><i class="fa fa-search"></i> Supracategorie</button>
+                </span>
+                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="assetCategory..." [value]="selectedAssetCategory != null ? selectedAssetCategory.name : ''" disabled>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary"  (click)="setAssetCategory(null)">Anuleaza</button>
+                </span>
+              </div>
+            <br> -->
+
+            <div class="input-group">
+                <span class="input-group-prepend">
+                  <button type="button" class="btn btn-secondary" (click)="askForSubCategory()"><i class="fa fa-search"></i> SubCategorie</button>
+                </span>
+                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="SubCategory..." [value]="selectedSubCategory != null ? selectedSubCategory.name : ''" disabled>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary"  (click)="setSubCategory(null)">Anuleaza</button>
+                </span>
+              </div>
+            <br>
+
+            <!-- <div class="input-group">
+                <span class="input-group-prepend">
+                  <button type="button" class="btn btn-secondary" (click)="askForSubCategoryEN()"><i class="fa fa-search"></i> Supracategorie EN</button>
+                </span>
+                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="subCategoryEN..." [value]="selectedSubCategoryEN != null ? selectedSubCategoryEN.name : ''" disabled>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary"  (click)="setSubCategoryEN(null)">Anuleaza</button>
+                </span>
+              </div>
+            <br>
+
+            <div class="input-group">
+                <span class="input-group-prepend">
+                  <button type="button" class="btn btn-secondary" (click)="askForSubType()"><i class="fa fa-search"></i> Sub Type</button>
+                </span>
+                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="SubType..." [value]="selectedSubType != null ? selectedSubType.name : ''" disabled>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary"  (click)="setSubType(null)">Anuleaza</button>
+                </span>
+              </div>
+            <br> -->
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-left">
+                        <div *ngIf="!deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Sterge</button>
+                        </div>
+                        <div *ngIf="deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-check"></i> Da</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> Nu</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-right">
+                        <div class="text-right">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Salveaza</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Inchide</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

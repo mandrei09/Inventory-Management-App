@@ -1,0 +1,148 @@
+<div class="animated fadeIn">
+    <br>
+    <div class="card">
+      <div class="card-header" style="background-color: white;">
+        <button type="button" class="btn btn-success btn-sm" (click)="onOrderContractUpdate()" [disabled]="!allowSaving || !isSaved"><i class="fa fa-save"></i> Salveaza</button>
+        &nbsp;
+        <button type="button" class="btn btn-dark btn-sm" (click)="cancelChanges()"><i class="fa fa-step-backward"></i> Inapoi</button>
+
+    </div>
+</div>
+
+       <div class="row">
+            <div class="col-md-12">
+                <form role="form" #detailForm="ngForm" novalidate>
+                    <div class="row">
+                <div class="col-md-2">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        <button  type="button" class="btn btn-outline-dark btn-sm"><i class="fa fa-search"></i>&nbsp;Tip comanda</button>
+                      </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                            [value]="orderType != null ? orderType.code + '-' + orderType.name : ''" name="orderType" readonly>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        <button  [disabled]="orderType == null" type="button" class="btn btn-outline-dark btn-sm"><i class="fa fa-search"></i>&nbsp;Oferta</button>
+                      </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                            [value]="offer != null && offer.partner != null ? offer.code + '-' + offer.partner.name : ''" name="offer" readonly>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        <button  [disabled]="orderType == null || offer == null" type="button" class="btn btn-outline-dark btn-sm" (click)="selectContract()" ><i class="fa fa-search"></i>&nbsp;Contract</button>
+                      </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                            [value]="contract != null ? contract.contractID + '-' + contract.title : ''" name="contract" readonly>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        <button  type="button" class="btn btn-outline-dark btn-sm"><i class="fa fa-search"></i>&nbsp;Buget</button>
+                      </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                            [value]="budgetBase != null ? budgetBase.code : ''" name="budgetBase" readonly>
+                    </div>
+                </div>
+</div>
+                  <div class="card-footer">
+                    <div class="col-sm-12">
+                          <app-offer-material-order-validate-list #offerMaterialList id="offerMaterialList"
+                          [dataSource]="offerMaterialHttpService"
+                          showSimpleSearch="false"
+                          listTemplate="OFFERMATERIALS"
+                          detailType=""
+                          sortColumn="material.id"
+                          sortDirection="desc"
+                          dynamicQuery="true"
+                          rowSelection="single"
+                          notifyOnChange="true"
+                          (selectionChanged)="onAssetInvFullDetailSelectionChanged($event)"
+                          usePaging="true">
+                          </app-offer-material-order-validate-list>
+                      </div>
+                  </div>
+                    <!-- <div class="row" *ngIf="order != null && order.id > 0">
+                        <div class="col-sm-12">
+                            <tabset #staticTabs>
+                                <tab heading="Operations">
+                                    <order-op-detail-list #orderOpDetailList id="orderOpDetailList"
+                                        [dataSource]="orderOpHttpService"
+                                        showSimpleSearch="false"
+                                        listTemplate="ORDER_OPERATIONS"
+                                        detailType="details"
+                                        sortColumn="modifiedAt"
+                                        sortDirection="asc"
+                                        dynamicQuery="true"
+                                        rowSelection="single"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                        usePaging="true">
+                                    </order-op-detail-list>
+                                </tab>
+                            </tabset>
+                        </div>
+                    </div> -->
+                </form>
+            </div>
+      </div>
+    </div>
+
+    <div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+        tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h6 class="modal-title">Confirmare</h6>
+          </div>
+          <div class="modal-body">
+            {{ confirmationMessage }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<div class="modal fade" bsModal #contractListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Contracte</h3>
+       </div>
+       <div class="modal-body">
+           <app-contract-list #contractList id="contractList"
+               [dataSource]="contractHttpService"
+               rowSelection="single"
+               detailType="detailui"
+               sortColumn="contract.id"
+               sortDirection="asc"
+               dynamicQuery="true"
+               showSimpleSearch="true"
+               notifyOnChange="false"
+               listTemplate="CONTRACTUI"
+               [pageSize]="5"
+               usePaging="true">
+           </app-contract-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedContract()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="contractListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>

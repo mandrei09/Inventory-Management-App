@@ -1,0 +1,219 @@
+<div class="modalfilters-page-header" *ngIf="showSimpleSearch === 'true'">
+  <div class="full-search-form">
+    <input type="text" placeholder="Search.." [(ngModel)]="simpleFilter" (change)="applySimpleSearchFilter(simpleFilter)">
+    <button type="submit">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.32812 9.70312C4.20312 10.5781 5.26562 11.0156 6.51562 11.0156C7.76562 11.0156 8.82812 10.5781 9.70312 9.70312C10.5781 8.82812 11.0156 7.76562 11.0156 6.51562C11.0156 5.26562 10.5781 4.20313 9.70312 3.32812C8.82812 2.45312 7.76562 2.01562 6.51562 2.01562C5.26562 2.01562 4.20312 2.45312 3.32812 3.32812C2.45312 4.20313 2.01562 5.26562 2.01562 6.51562C2.01562 7.76562 2.45312 8.82812 3.32812 9.70312ZM12.5156 11.0156L17.4844 15.9844L15.9844 17.4844L11.0156 12.5156V11.7188L10.7344 11.4375C9.54688 12.4688 8.14062 12.9844 6.51562 12.9844C4.70312 12.9844 3.15625 12.3594 1.875 11.1094C0.625 9.85938 0 8.32812 0 6.51562C0 4.70312 0.625 3.17188 1.875 1.92188C3.15625 0.640625 4.70312 0 6.51562 0C8.32812 0 9.85938 0.640625 11.1094 1.92188C12.3594 3.17188 12.9844 4.70312 12.9844 6.51562C12.9844 7.17188 12.8281 7.92188 12.5156 8.76562C12.2031 9.57812 11.8438 10.2344 11.4375 10.7344L11.7188 11.0156H12.5156Z" fill="#0B4FFF"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div class="content-page-header-two d-flex" *ngIf="showHeader === 'true'">
+  <div class="left-actions d-flex">
+    <div class="refresh">
+      <a [routerLink]="" (click)="refreshItems()">
+        <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="results d-flex">
+    <span>Total: {{ totalItems }}</span>
+  </div>
+</div>
+
+<div class="content-page-table table table-responsive" style="position: relative;" *transloco="let t; read: listId">
+  <table
+    mat-table
+    [dataSource]="matDataSource"
+    matSort
+    (matSortChange)="sortData($event)"
+    #itemList
+    class="table custom-table mat-elevation-z0"
+    [class.padding-compact]="this.compact == true"
+    [class.height-500]="this.loading"
+  >
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select" *ngIf="showSelectionCheckBox === 'true'">
+      <th mat-header-cell *matHeaderCellDef class="width-50 text-center">
+        <mat-checkbox (change)="$event ? updateAllSelection($event.checked) : null"
+                      [checked]="isAllSelected()"
+                      [indeterminate]="(this._selectedItems.length > 0) && !isAllSelected()"
+                      *ngIf="rowSelection === 'multiple'">
+        </mat-checkbox>
+      </th>
+      <td mat-cell class="text-center" *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? updateItemSelection(row) : null"
+                      [checked]="row.selected"
+                      [indeterminate]="row.disabled"
+                      [disabled]="row.disabled">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container *ngFor="let columnDef of tableItems" [matColumnDef]="columnDef.headerCode">
+      <th mat-header-cell *matHeaderCellDef [style.width]="columnDef.size">
+        <div class="table-column-filter d-grid">
+          <div mat-sort-header class="table-column_header">{{ t(columnDef.headerCode) }}</div>
+          <div *ngIf="columnDef.columnFilter" class="table-column-filter_item">
+            <div *ngIf="columnDef.columnFilter?.type === 'text'" class='filter_item_search'>
+              <input matInput type="text" placeholder="{{ columnDef.columnFilter?.placeholder }}">
+              <button>
+                <svg width='16' height='14' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M3.32812 9.70312C4.20312 10.5781 5.26562 11.0156 6.51562 11.0156C7.76562 11.0156 8.82812 10.5781 9.70312 9.70312C10.5781 8.82812 11.0156 7.76562 11.0156 6.51562C11.0156 5.26562 10.5781 4.20313 9.70312 3.32812C8.82812 2.45312 7.76562 2.01562 6.51562 2.01562C5.26562 2.01562 4.20312 2.45312 3.32812 3.32812C2.45312 4.20313 2.01562 5.26562 2.01562 6.51562C2.01562 7.76562 2.45312 8.82812 3.32812 9.70312ZM12.5156 11.0156L17.4844 15.9844L15.9844 17.4844L11.0156 12.5156V11.7188L10.7344 11.4375C9.54688 12.4688 8.14062 12.9844 6.51562 12.9844C4.70312 12.9844 3.15625 12.3594 1.875 11.1094C0.625 9.85938 0 8.32812 0 6.51562C0 4.70312 0.625 3.17188 1.875 1.92188C3.15625 0.640625 4.70312 0 6.51562 0C8.32812 0 9.85938 0.640625 11.1094 1.92188C12.3594 3.17188 12.9844 4.70312 12.9844 6.51562C12.9844 7.17188 12.8281 7.92188 12.5156 8.76562C12.2031 9.57812 11.8438 10.2344 11.4375 10.7344L11.7188 11.0156H12.5156Z'/></svg>
+              </button>
+            </div>
+
+            <div *ngIf="columnDef.columnFilter?.type === 'datepicker'" class="column-filter_datepicker">
+              <div class="datepicker d-flex">
+                <input matInput [matDatepicker]="warrantyEndDate" [placeholder]="columnDef.columnFilter?.placeholder!">
+                <mat-datepicker-toggle matSuffix [for]="warrantyEndDate"></mat-datepicker-toggle>
+                <mat-datepicker #warrantyEndDate></mat-datepicker>
+              </div>
+            </div>
+
+            <div *ngIf="columnDef.columnFilter?.type === 'select'" class="column-filter_select">
+              <mat-form-field appearance="fill">
+                <mat-label>{{ columnDef.columnFilter?.placeholder! }}:</mat-label>
+                <mat-select>
+                  <mat-option [value]="'true'">
+                    Da
+                  </mat-option>
+                  <mat-option [value]="'false'">
+                    Nu
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div *ngIf="columnDef.columnFilter?.type === 'item-select'" class="column-filter_item_select">
+              <div *ngIf="columnDef.columnFilter?.name === 'companies-item-select'" class="filter-content-item">
+                <companies-item-select [(ngModel)]="companies" [params]="companyParams" selectionType="multiple" placeholder="{{ columnDef.columnFilter?.placeholder }}" showMinimizedPlaceHolder="false">
+                </companies-item-select>
+              </div>
+              <div *ngIf="columnDef.columnFilter?.name === 'brands-item-select'" class="filter-content-item">
+                <brands-item-select [(ngModel)]="brands" [params]="brandParams" selectionType="multiple" placeholder="{{ columnDef.columnFilter?.placeholder }}" showMinimizedPlaceHolder="false">
+                </brands-item-select>
+              </div>
+              <div *ngIf="columnDef.columnFilter?.name === 'object-types-item-select'" class="filter-content-item">
+                <dimensions-item-select selectionType="multiple" placeholder="{{ columnDef.columnFilter?.placeholder }}" showMinimizedPlaceHolder="false">
+                </dimensions-item-select>
+              </div>
+              <div *ngIf="columnDef.columnFilter?.name === 'models-item-select'" class="filter-content-item">
+                <models-item-select [(ngModel)]="models" [params]="modelParams" selectionType="multiple" placeholder="{{ columnDef.columnFilter?.placeholder }}" showMinimizedPlaceHolder="false">
+                </models-item-select>
+              </div>
+              <div *ngIf="columnDef.columnFilter?.name === 'inv-states-item-select'" class="filter-content-item">
+                <inv-states-item-select [(ngModel)]="invStates" [params]="invStateParams" selectionType="multiple" placeholder="{{ columnDef.columnFilter?.placeholder }}" showMinimizedPlaceHolder="false">
+                </inv-states-item-select>
+              </div>
+              <div *ngIf="columnDef.columnFilter?.name === 'locations-item-select'" class="filter-content-item">
+                <locations-item-select selectionType="multiple" placeholder="{{ columnDef.columnFilter?.placeholder }}" showMinimizedPlaceHolder="false">
+                </locations-item-select>
+              </div>
+              <div *ngIf="columnDef.columnFilter?.name === 'shops-item-select'" class="filter-content-item">
+                <shops-item-select selectionType="multiple" placeholder="{{ columnDef.columnFilter?.placeholder }}" showMinimizedPlaceHolder="false">
+                </shops-item-select>
+              </div>
+              <div *ngIf="columnDef.columnFilter?.name === 'assetStates-item-select'" class="filter-content-item">
+                <states-item-select selectionType="multiple" placeholder="{{ columnDef.columnFilter?.placeholder }}" showMinimizedPlaceHolder="false">
+                </states-item-select>
+              </div>
+              <div *ngIf="columnDef.columnFilter?.name === 'asset-properties-item-select'" class="filter-content-item">
+                <asset-properties-item-select selectionType="multiple" placeholder="{{ columnDef.columnFilter?.placeholder }}" showMinimizedPlaceHolder="false">
+                </asset-properties-item-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element" [style.width]="columnDef.size">
+        <ng-container *ngIf="!columnDef.isState">
+          {{ element.item | fieldByColumnDefinition: columnDef }}
+        </ng-container>
+
+        <ng-container *ngIf="columnDef.isState">
+          <div [innerHTML]="element.item | fieldByColumnDefinition: columnDef">
+          </div>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let row">
+        <div class="row-icons">
+          <div class="badge-position d-flex">
+            <div class="row-single-icon" *ngIf="showRowAddItemAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemView.emit(row.item)">
+              <svg version="1.1" width="14" height="14" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+                <g><g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)"><path d="M1321.9,3420.7L100,2198.8L1314.6,989.1C1983.1,323,2539-223,2548.8-227.9c9.8-2.5,176.3,154.3,372.2,350.2l355.1,355.1l-599.9,600l-600,600h3031.6h3029.1v514.2v514.2H5112.6c-1662.7,0-3024.2,7.3-3024.2,17.1c0,12.2,264.5,284,587.7,607.3l587.7,587.7l-362.4,362.4l-360,360L1321.9,3420.7z"/><path d="M7083.9,97.8l-355.1-355.1l600-600l599.9-600H4897.2H1868v-514.2v-514.2h3024.2c1662.7,0,3024.2-7.3,3024.2-19.6c0-9.8-264.5-281.6-587.7-604.8l-587.7-587.7l360-360l362.4-362.4l1217,1217.1L9900-1983.7l-1217.1,1217C8012-95.7,7458.6,452.8,7451.2,452.8S7279.8,293.7,7083.9,97.8z"/></g></g>
+              </svg>
+            </div>
+
+            <div class="row-single-icon" *ngIf="showPrintAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemView.emit(row.item)">
+              <svg version="1.1" width="17" height="18" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 114.13" style="enable-background:new 0 0 122.88 114.13" xml:space="preserve"><g><path d="M23.2,29.44V3.35V0.53C23.2,0.24,23.44,0,23.73,0h2.82h54.99c0.09,0,0.17,0.02,0.24,0.06l1.93,0.8l-0.2,0.49l0.2-0.49 c0.08,0.03,0.14,0.08,0.2,0.14l12.93,12.76l0.84,0.83l-0.37,0.38l0.37-0.38c0.1,0.1,0.16,0.24,0.16,0.38v1.18v13.31 c0,0.29-0.24,0.53-0.53,0.53h-5.61c-0.29,0-0.53-0.24-0.53-0.53v-6.88H79.12H76.3c-0.29,0-0.53-0.24-0.53-0.53 c0-0.02,0-0.03,0-0.05v-2.77h0V6.69H29.89v22.75c0,0.29-0.24,0.53-0.53,0.53h-5.64C23.44,29.97,23.2,29.73,23.2,29.44L23.2,29.44z M30.96,67.85h60.97h0c0.04,0,0.08,0,0.12,0.01c0.83,0.02,1.63,0.19,2.36,0.49c0.79,0.33,1.51,0.81,2.11,1.41 c0.59,0.59,1.07,1.31,1.4,2.1c0.3,0.73,0.47,1.52,0.49,2.35c0.01,0.04,0.01,0.08,0.01,0.12v0v9.24h13.16h0c0.04,0,0.07,0,0.11,0.01 c0.57-0.01,1.13-0.14,1.64-0.35c0.57-0.24,1.08-0.59,1.51-1.02c0.43-0.43,0.78-0.94,1.02-1.51c0.21-0.51,0.34-1.07,0.35-1.65 c-0.01-0.03-0.01-0.07-0.01-0.1v0V43.55v0c0-0.04,0-0.07,0.01-0.11c-0.01-0.57-0.14-1.13-0.35-1.64c-0.24-0.56-0.59-1.08-1.02-1.51 c-0.43-0.43-0.94-0.78-1.51-1.02c-0.51-0.22-1.07-0.34-1.65-0.35c-0.03,0.01-0.07,0.01-0.1,0.01h0H11.31h0 c-0.04,0-0.08,0-0.11-0.01c-0.57,0.01-1.13,0.14-1.64,0.35C9,39.51,8.48,39.86,8.05,40.29c-0.43,0.43-0.78,0.94-1.02,1.51 c-0.21,0.51-0.34,1.07-0.35,1.65c0.01,0.03,0.01,0.07,0.01,0.1v0v35.41v0c0,0.04,0,0.08-0.01,0.11c0.01,0.57,0.14,1.13,0.35,1.64 c0.24,0.57,0.59,1.08,1.02,1.51C8.48,82.65,9,83,9.56,83.24c0.51,0.22,1.07,0.34,1.65,0.35c0.03-0.01,0.07-0.01,0.1-0.01h0h13.16 v-9.24v0c0-0.04,0-0.08,0.01-0.12c0.02-0.83,0.19-1.63,0.49-2.35c0.31-0.76,0.77-1.45,1.33-2.03c0.02-0.03,0.04-0.06,0.07-0.08 c0.59-0.59,1.31-1.07,2.1-1.4c0.73-0.3,1.52-0.47,2.36-0.49C30.87,67.85,30.91,67.85,30.96,67.85L30.96,67.85L30.96,67.85z M98.41,90.27v17.37v0c0,0.04,0,0.08-0.01,0.12c-0.02,0.83-0.19,1.63-0.49,2.36c-0.33,0.79-0.81,1.51-1.41,2.11 c-0.59,0.59-1.31,1.07-2.1,1.4c-0.73,0.3-1.52,0.47-2.35,0.49c-0.04,0.01-0.08,0.01-0.12,0.01h0H30.96h0 c-0.04,0-0.08-0.01-0.12-0.01c-0.83-0.02-1.62-0.19-2.35-0.49c-0.79-0.33-1.5-0.81-2.1-1.4c-0.6-0.6-1.08-1.31-1.41-2.11 c-0.3-0.73-0.47-1.52-0.49-2.35c-0.01-0.04-0.01-0.08-0.01-0.12v0V90.27H11.31h0c-0.04,0-0.08,0-0.12-0.01 c-1.49-0.02-2.91-0.32-4.2-0.85c-1.39-0.57-2.63-1.41-3.67-2.45c-1.04-1.04-1.88-2.28-2.45-3.67c-0.54-1.3-0.84-2.71-0.85-4.2 C0,79.04,0,79,0,78.96v0V43.55v0c0-0.04,0-0.08,0.01-0.12c0.02-1.49,0.32-2.9,0.85-4.2c0.57-1.39,1.41-2.63,2.45-3.67 c1.04-1.04,2.28-1.88,3.67-2.45c1.3-0.54,2.71-0.84,4.2-0.85c0.04-0.01,0.08-0.01,0.12-0.01h0h100.25h0c0.04,0,0.08,0,0.12,0.01 c1.49,0.02,2.91,0.32,4.2,0.85c1.39,0.57,2.63,1.41,3.67,2.45c1.04,1.04,1.88,2.28,2.45,3.67c0.54,1.3,0.84,2.71,0.85,4.2 c0.01,0.04,0.01,0.08,0.01,0.12v0v35.41v0c0,0.04,0,0.08-0.01,0.12c-0.02,1.49-0.32,2.9-0.85,4.2c-0.57,1.39-1.41,2.63-2.45,3.67 c-1.04,1.04-2.28,1.88-3.67,2.45c-1.3,0.54-2.71,0.84-4.2,0.85c-0.04,0.01-0.08,0.01-0.12,0.01h0H98.41L98.41,90.27z M89.47,15.86 l-7-6.91v6.91H89.47L89.47,15.86z M91.72,74.54H31.16v32.89h60.56V74.54L91.72,74.54z"/></g></svg>
+            </div>
+
+            <div class="row-single-icon row-single-icon-success" *ngIf="showViewAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemView.emit(row.item)">
+              <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.59375 3.59375C6.98958 3.19792 7.45833 3 8 3C8.54167 3 9.01042 3.19792 9.40625 3.59375C9.80208 3.98958 10 4.45833 10 5C10 5.54167 9.80208 6.01042 9.40625 6.40625C9.01042 6.80208 8.54167 7 8 7C7.45833 7 6.98958 6.80208 6.59375 6.40625C6.19792 6.01042 6 5.54167 6 5C6 4.45833 6.19792 3.98958 6.59375 3.59375ZM5.625 7.375C6.29167 8.02083 7.08333 8.34375 8 8.34375C8.91667 8.34375 9.69792 8.02083 10.3438 7.375C11.0104 6.70833 11.3438 5.91667 11.3438 5C11.3438 4.08333 11.0104 3.30208 10.3438 2.65625C9.69792 1.98958 8.91667 1.65625 8 1.65625C7.08333 1.65625 6.29167 1.98958 5.625 2.65625C4.97917 3.30208 4.65625 4.08333 4.65625 5C4.65625 5.91667 4.97917 6.70833 5.625 7.375ZM3.53125 1.375C4.86458 0.458333 6.35417 0 8 0C9.64583 0 11.1354 0.458333 12.4688 1.375C13.8021 2.29167 14.7604 3.5 15.3438 5C14.7604 6.5 13.8021 7.70833 12.4688 8.625C11.1354 9.54167 9.64583 10 8 10C6.35417 10 4.86458 9.54167 3.53125 8.625C2.19792 7.70833 1.23958 6.5 0.65625 5C1.23958 3.5 2.19792 2.29167 3.53125 1.375Z"/>
+              </svg>
+            </div>
+
+            <div class="row-single-icon" *ngIf="showEditAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemEdit.emit(row.item)">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.8125 2.6875L10.5938 3.90625L8.09375 1.40625L9.3125 0.1875C9.4375 0.0625 9.59375 0 9.78125 0C9.96875 0 10.125 0.0625 10.25 0.1875L11.8125 1.75C11.9375 1.875 12 2.03125 12 2.21875C12 2.40625 11.9375 2.5625 11.8125 2.6875ZM0 9.5L7.375 2.125L9.875 4.625L2.5 12H0V9.5Z"/>
+              </svg>
+            </div>
+            <div class="row-single-icon row-single-icon-danger" *ngIf="showCancelAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemEdit.emit(row.item)">
+              <svg fill="#000000" width="12" height="12" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                   viewBox="0 0 460.775 460.775" xml:space="preserve">
+              <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55
+                c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55
+                c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505
+                c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55
+                l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719
+                c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"/>
+              </svg>
+            </div>
+            <div class="row-single-icon row-single-icon-danger" *ngIf="showDeleteAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemDelete.emit(row.item)">
+              <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.65625 0.65625V2H0.34375V0.65625H2.65625L3.34375 0H6.65625L7.34375 0.65625H9.65625ZM1 10.6562V2.65625H9V10.6562C9 11.0104 8.86458 11.3229 8.59375 11.5938C8.32292 11.8646 8.01042 12 7.65625 12H2.34375C1.98958 12 1.67708 11.8646 1.40625 11.5938C1.13542 11.3229 1 11.0104 1 10.6562Z"/>
+              </svg>
+            </div>
+            <div class="row-single-icon" *ngIf="showMediaPreviewAction === 'true'" (click)="$event.stopPropagation();selectItem(row.item);itemMediaPreview.emit(row.item)">
+              <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="16" height="12" viewBox="0 0 122.88 91.27"><defs><style>.cls-1{fill-rule:evenodd;}</style></defs><title>picture</title><path class="cls-1" d="M87.29,16.88A11.35,11.35,0,1,1,75.94,28.23,11.35,11.35,0,0,1,87.29,16.88Zm27.33,74.39H8.26a8.27,8.27,0,0,1-5.83-2.44h0A8.24,8.24,0,0,1,0,83V8.26A8.26,8.26,0,0,1,2.42,2.42h0A8.26,8.26,0,0,1,8.26,0H114.62a8.26,8.26,0,0,1,5.83,2.43h0a8.26,8.26,0,0,1,2.42,5.84V83a8.24,8.24,0,0,1-2.42,5.83h0a8.27,8.27,0,0,1-5.83,2.44Zm-7.35-9.43L87.6,50.46a4.52,4.52,0,0,0-7.65,0L70.66,65.39,80.77,81.84H76.62l-27.57-44c-2.54-3.39-6.61-3.13-8.88,0l-27,44H9.42V9.42h104V81.84Z"/></svg>
+            </div>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr *matNoDataRow>
+      <td class="" colspan="12" style="text-align: left;padding:.5rem .5rem !important;">
+        <div class="table-no_results">No results found!</div>
+      </td>
+    </tr>
+
+    <!-- Header & Footer -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.blue-table-row]="row.item?.invState?.name === 'Functional'" (click)="updateItemSelection(row)" (mouseover)="this.itemMouseOver.next(row.item)" (mouseleave) = "this.itemMouseLeave.next(row.item)"></tr>
+  </table>
+
+  <div *ngIf="loading" class="table-loading-spinner">
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+      style="margin: 0 10px"
+      [diameter]="80">
+    </mat-progress-spinner>
+  </div>
+</div>
+
+<mat-paginator showFirstLastButtons="true" [length]="totalItems" *ngIf="paging && showPaginator"
+               [pageSize]="10"
+               [pageSizeOptions]="[ 10, 15, 20, 25, 50, 100 ]" (page)="changePage($event)">
+</mat-paginator>

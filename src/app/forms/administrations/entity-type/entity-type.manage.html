@@ -1,0 +1,87 @@
+<div class="animated fadeIn">
+  <br>
+  <div class="card">
+    <div class="card-header">
+          <!-- <button type="button" class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed">Filtre </button> -->
+      <div class="card-header-actions">
+          <!-- <div class="input-group">
+              <input type="text" class="form-control" placeholder="Cauta..." aria-label="Cauta..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">
+              <div class="input-group-append">
+                  &nbsp;
+                  <button type="button" class="btn btn-primary btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i> Adauga</button>
+                  &nbsp;
+                  <button type="button" class="btn btn-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Modifica</button>
+                  &nbsp;
+                  <button type="button" class="btn btn-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>
+              </div>
+            </div> -->
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Cauta..." aria-label="Cauta..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">
+              <div class="input-group-append">
+                <button type="button" class="btn btn-outline-secondary">Action</button>
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                  <a hideIfUnauthorized="ADD|EMAIL_SETTING" class="dropdown-item" (click)="addNewItem()"><i class="fa fa-plus" style="color: blue;"></i>&nbsp;Adauga</a>
+                  <a hideIfUnauthorized="EDIT|EMAIL_SETTING" *ngIf="selectedItem" class="dropdown-item" (click)="editItem()"><i class="fa fa-edit" style="color: red;"></i> &nbsp;Modifica</a>
+                  <a hideIfUnauthorized="EXPORT|EMAIL_SETTING"  class="dropdown-item" (click)="exportToExcel()"><i class="fa fa-file-excel-o" style="color: green;"></i>&nbsp;Export</a>
+                  <!-- <div role="separator" class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated item</a> -->
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+    <!-- <div class="card-body"
+         (collapsed)="collapsed($event)"
+         (expanded)="expanded($event)"
+         [collapse]="isCollapsed">
+         <div class="card-body-actions">
+          <div class="row">
+                
+          </div>
+      </div>
+    </div> -->
+    <div class="card-footer">
+      <div class="col-sm-12">
+            <app-entity-type-list #entityTypeList id="entityTypeList"
+            [dataSource]="entityTypeHttpService"
+            dynamicQuery="true"
+            usePaging="true"
+            showSimpleSearch="false"
+            [itemAddedEvent]="itemAddedEvent"
+            [itemUpdatedEvent]="itemUpdatedEvent"
+            [itemDeletedEvent]="itemDeletedEvent"
+            [requestSelectionEvent]="requestSelectionEvent"
+            [requestRefreshEvent]="requestRefreshEvent"
+            (selectionChanged)="setSelectedItem($event)"
+            rowSelection="single"
+            notifyOnChange="true">
+        </app-entity-type-list>
+        </div>
+    </div>
+  </div>   
+</div>
+
+<div class="modal fade" bsModal #entityTypeDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Entity Detail</h4>
+      </div>
+      <div class="modal-body">
+        <app-entity-type-detail #entityTypeDetail id="entityTypeDetail"
+            [dataSource]="entityTypeHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (changesCanceled)="detailTerminate()">
+        </app-entity-type-detail>
+      </div>
+    </div>
+  </div>
+</div>

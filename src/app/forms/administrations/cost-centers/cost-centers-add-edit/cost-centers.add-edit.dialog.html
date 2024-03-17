@@ -1,0 +1,146 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_cost_center_add_edit'">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">{{ t((item === null || item.id! < 1) ? 'title_add' : 'title_edit') }}</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container">
+
+        <div class="row">
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="row mx-auto">
+              <div class="col-10 mx-auto">
+
+                <div class="row">
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('code_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="code" [placeholder]="t('code_placeholder')">
+                      <small *ngIf="form.controls['code'].hasError('required') && form.controls['code'].touched" class="mat-text-warn">{{ t('code_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('name_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="name" [placeholder]="t('name_placeholder')">
+                      <small *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="mat-text-warn">{{ t('name_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('profit_ctr_label') }}
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <adm-centers-item-select class="form-group-select_wrapper" formControlName="admCenter" placeholder="{{ t('profit_ctr_placeholder') }}">
+                      </adm-centers-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('pc_detail_label') }}
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <regions-item-select class="form-group-select_wrapper" formControlName="region" placeholder="{{ t('pc_detail_placeholder') }}">
+                      </regions-item-select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('department_label') }}
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <divisions-item-select class="form-group-select_wrapper" formControlName="division" placeholder="{{ t('department_placeholder') }}">
+                      </divisions-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('location_label') }}
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <administrations-item-select class="form-group-select_wrapper" formControlName="administration" placeholder="{{ t('location_placeholder') }}">
+                      </administrations-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('address_label') }}
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <rooms-item-select class="form-group-select_wrapper" formControlName="room" placeholder="{{ t('address_placeholder') }}">
+                      </rooms-item-select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('storage_label') }}
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <storage-item-select class="form-group-select_wrapper" formControlName="storage" placeholder="{{ t('storage_placeholder') }}">
+                      </storage-item-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="files-header mt-15 mb-15">
+                <span class="mr-15 my-auto">{{ t('cost_center_employee_label') }}</span>
+                <button type="button" class="medium-blue-btn mb-0" (click)="onCommitteeEmployeeAdd()">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                  </svg>
+                  {{ t('cost_center_employee_add') }}
+                </button>
+              </div>
+              <hr>
+              <div>
+                <app-cost-center-committee-member-list #itemList id="itemList"
+                  [dataSource]="committeeMemberHttpService"
+                  usePaging="true"
+                  showHeader="false"
+                  showSimpleSearch="false"
+                  showEditAction="true"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  (itemEdit)="onEmployeeItemEdit($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+                </app-cost-center-committee-member-list>  
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">{{ t('action_cancel') }}</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            [disabled]="!form.valid"
+            (click)="save()"
+    >{{ t('action_save') }}</button>
+  </mat-dialog-actions>
+
+</div>

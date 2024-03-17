@@ -1,0 +1,173 @@
+<div class="animated fadeIn">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <button type="button" class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed">Filtre </button>
+      <div class="card-header-actions">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">
+          <div class="input-group-append">
+            &nbsp;
+            <button hideIfUnauthorized="ADD|MATRIXLEVELS" type="button" class="btn btn-outline-info btn-sm" (click)="addNewItem()"><i class="fa fa-plus"></i>&nbsp;Adauga</button>
+            &nbsp;
+            <button hideIfUnauthorized="EDIT|MATRIXLEVELS" type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i>&nbsp;Modifica</button>
+            &nbsp;
+            <button hideIfUnauthorized="EXPORT|MATRIXLEVELS"type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i>&nbsp;Export</button>
+          </div>
+        </div>
+    </div>
+</div>
+    <div class="card-body"
+         (collapsed)="collapsed($event)"
+         (expanded)="expanded($event)"
+         [collapse]="isCollapsed">
+         <div class="card-body-actions">
+         
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="col-sm-12">
+        <app-matrix-level-list #matrixLevelList id="matrixLevelList"
+                  [dataSource]="matrixLevelHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </app-matrix-level-list>
+        </div>
+    </div>
+  </div>   
+</div>
+
+
+<div class="modal fade" bsModal #matrixLevelDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dark">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Detalii matrice nivel</h4>
+      </div>
+      <div class="modal-body">
+        <app-matrix-level-detail #matrixLevelDetail id="matrixLevelDetail"
+            [dataSource]="matrixLevelHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (changesCanceled)="detailTerminate()"
+            (levelNeeded)="onMatrixLevelDetailLevelNeeded()"
+            (matrixNeeded)="onMatrixLevelDetailMatrixNeeded()"
+            (uomNeeded)="onMatrixLevelDetailUomNeeded()"
+            (employeeNeeded)="onMatrixLevelDetailEmployeeNeeded()">
+        </app-matrix-level-detail>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #levelListModal="bs-modal" 
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-info" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Nivel</h4>
+                <button type="button" class="close" (click)="levelListModal.hide()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-level-list #levelList id="levelList"
+                    [dataSource]="levelHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-level-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="setSelectedLevel()">Selecteaza</button>
+                <button type="button" class="btn btn-info" (click)="onLevelListCancel()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #matrixListModal="bs-modal" 
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-info" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Matrice</h4>
+                <button type="button" class="close" (click)="matrixListModal.hide()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-matrix-list #matrixList id="matrixList"
+                    [dataSource]="matrixHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-matrix-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="setSelectedMatrix()">Selecteaza</button>
+                <button type="button" class="btn btn-info" (click)="onMatrixListCancel()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #uomListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dark">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Moneda</h4>
+            </div>
+            <div class="modal-body">
+                <app-uom-list #uomList id="uomList"
+                    [dataSource]="uomHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-uom-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUom()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onUomListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dark">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Employee</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployee()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onEmployeeListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

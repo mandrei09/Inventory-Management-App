@@ -1,0 +1,70 @@
+.filter-select-wrapper {
+  mat-form-field {
+    font-size: inherit;
+    font-weight: 400;
+    line-height: 1.125;
+    font-family: Roboto,Helvetica Neue,sans-serif;
+    letter-spacing: normal;
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    padding-bottom: 0!important;
+    position: relative;
+    background: transparent;
+    max-height: 48px;
+    height: 40px;
+    width: 200px;
+    padding: 4px 12px;
+    border: 1px solid #D9D9DF;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    align-items: center;
+    display: grid;
+    position: relative;
+
+    .mat-mdc-form-field-flex {
+      //background: transparent;
+      //max-height: 48px;
+      //height: 40px;
+      //width: 200px;
+      //padding: 4px 12px;
+      //border-radius: 8px;
+      //font-weight: 500;
+      //font-size: 14px;
+      //line-height: 18px;
+      //align-items: center;
+      //display: grid;
+      //position: relative;
+      //border: 1px solid #C6C6D5;
+      //border-radius: 8px !important;
+    }
+  }
+}
+
+.inputs-modal-nomenclature {
+  label {
+    color: #35354a;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+    border: 1px solid #C6C6D5;
+    box-sizing: border-box;
+    border-radius: 8px;
+    color: #8b8b9d;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 11px 16px;
+  }
+
+  mat-datepicker-toggle.mat-datepicker-toggle {
+    max-height: 42px !important;
+  }
+}
+

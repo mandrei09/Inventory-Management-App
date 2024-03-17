@@ -1,0 +1,42 @@
+.modalfilters-page-header {
+  //padding: 16px 16px 8px 16px;
+
+  .nomenclatures-list-title {
+    h5 {
+      color: #000;
+      font-size: 14px;
+    }
+  }
+}
+
+.full-search-form {
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px;
+  border: 1px solid #D9D9DF;
+  padding: 7px 8px;
+  height: 48px;
+  justify-content: space-between;
+  width: auto;
+  align-items: center;
+  cursor: pointer;
+  margin: 16px 16px 8px 16px;
+
+  input {
+    border: none;
+    outline: none;
+    color: #8B8B9D;
+    font-size: 14px;
+    line-height: 18px;
+    height: 38px;
+    width: 100%;
+    background: transparent !important;
+    cursor: pointer;
+  }
+
+  button {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+  }
+}

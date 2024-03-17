@@ -1,0 +1,209 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_asset_new_transfer'">
+  <div class="modal-dialog-header">
+    <div class="d-flex">
+      <h2 class="modal-title mb-0">
+        Operations details
+      </h2>
+    </div>
+    <div class="d-flex">
+<!--      <button (click)="onImportItems($event)" class="small-blue-btn mb-0 ml-30 b-radius-20">-->
+<!--        <mat-icon role="img">upload_file</mat-icon>-->
+<!--        <span>-->
+<!--          Incarca fisier-->
+<!--        </span>-->
+<!--      </button>-->
+      <div class="vertical-divider"></div>
+      <button type="button" class="btn-close" mat-dialog-close style="margin-left: 10px;margin-top: auto;margin-bottom: auto;"></button>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container-fluid">
+        <div class="d-flex align-items-start">
+          <div class="tab-content">
+            <div class="col-md-12">
+              <div class="row">
+                <form>
+                  <div class="">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <app-document-type-drop-down-list #documentTypeDropDownList
+                                                          [dataSource]="documentTypeHttpService"
+                                                          selectionRequired="false"
+                                                          notifyOnChange="true"
+                                                          (selectionChanged)="setSelectedDocumentType($event)">
+                        </app-document-type-drop-down-list>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4">
+                          <label>
+                            {{ t('department_label')}}:
+                          </label>
+                          <divisions-item-select [(ngModel)]="division" [params]="divisionParams" class="form-group-select_wrapper" displayValue="name" placeholder="{{ t('department_placeholder')}}:" name="division">
+                          </divisions-item-select>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4">
+                          <label>
+                            {{ t('cost_center_label')}}:
+                          </label>
+                          <cost-centers-item-select [(ngModel)]="costCenter" [params]="costCenterParams" class="form-group-select_wrapper" displayValue="name" placeholder="{{ t('cost_center_placeholder')}}:" [disabled]="division === null" name="costCenter">
+                          </cost-centers-item-select>
+                        </div>
+                      </div>
+
+                      <div *ngIf="enableEmployee" class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4">
+                          <label>
+                            {{ t('employee_label')}}:
+                          </label>
+                          <employee-item-select [(ngModel)]="employee" [params]="employeeParams" class="form-group-select_wrapper" displayValue="full-name" placeholder="{{ t('employee_placeholder')}}:" [disabled]="costCenter === null"  name="employee">
+                          </employee-item-select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="enableInvState" class="row">
+                      <div class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4">
+                          <label>
+                            {{ t('state_label')}}:
+                          </label>
+                          <inv-states-item-select [(ngModel)]="invState" class="form-group-select_wrapper" displayValue="name" placeholder="{{ t('state_placeholder')}}:" name="invState">
+                          </inv-states-item-select>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4">
+                          <label>
+                            {{ t('document_number_label')}}:
+                          </label>
+                          <input matInput type="text" [(ngModel)]="documentInfo" class="form-control" placeholder="" maxlength="200" name="documentInfo">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                          <label>
+                            {{ t('document_date_label')}}:
+                            <span class="required-label-symbol">*</span>
+                          </label>
+                          <div class="document-info__datepicker d-flex">
+                            <input matInput [matDatepicker]="documentDateInp" required [value]="documentDateInp | date: 'yyyy-MM-dd'" name="documentDate">
+                            <mat-datepicker-toggle matSuffix [for]="documentDateInp"></mat-datepicker-toggle>
+                            <mat-datepicker #documentDateInp></mat-datepicker>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="selectedRoom !== null || selectedEmployee !== null" class="row">
+                      <div class="col-md-4">
+                        <div class="form-group inputs-modal-nomenclature form-group-select_wrapper mb-4 d-flex" style="display:grid !important;">
+                          <label>
+                            {{ t('transport_details_label')}}:
+                            <span class="required-label-symbol">*</span>
+                          </label>
+                          <mat-form-field appearance="fill">
+                            <mat-label>{{ transportType }}:</mat-label>
+                            <mat-select (selectionChange)="onTransportTypeUpdate($event.value)">
+                              <mat-option [value]="null">
+                                -
+                              </mat-option>
+                              <mat-option [value]="'CURIER'">
+                                CURIER
+                              </mat-option>
+                              <mat-option [value]="'LOGISTICA'">
+                                LOGISTICA
+                              </mat-option>
+                              <mat-option [value]="'SBMT'">
+                                SBMT
+                              </mat-option>
+                              <mat-option [value]="'TEHNICIAN IT'">
+                                TEHNICIAN IT
+                              </mat-option>
+                              <mat-option [value]="'ELFUN'">
+                                ELFUN
+                              </mat-option>
+                              <mat-option [value]="'FRACTAL'">
+                                FRACTAL
+                              </mat-option>
+                              <mat-option [value]="'CINEMAGRAPH MARK SRL'">
+                                CINEMAGRAPH MARK SRL
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4">
+                          <label>
+                            {{ t('document_number_label')}}:
+                          </label>
+                          <input matInput type="text" [(ngModel)]="transportDoc" name="transportDoc" class="form-control" placeholder="">
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4">
+                          <label>
+                            {{ t('employee_label')}}:
+                          </label>
+                          <input matInput type="text" [(ngModel)]="transportPerson" name="transportPerson" class="form-control" placeholder="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-md-12 mt-5 mb-5" #operation>
+              <div id="documentsSection1" class="row">
+                <div class="col-12 attributes">
+                  <div class="files-header mb-2">
+                    <div class="d-flex">
+
+                    </div>
+                  </div>
+                  <hr class="mb-3">
+                  <div>
+                    <app-asset-list #assetList id="assetList"
+                                    [dataSource]="assetMemoryService"
+                                    listTemplate="ASSETS"
+                                    detailType="inuse"
+                                    sortColumn="asset.invNo"
+                                    sortDirection="asc"
+                                    dynamicQuery="true"
+                                    usePaging="true"
+                                    [pageSize]="10"
+                                    showSimpleSearch="false"
+                                    rowSelection="single"
+                                    notifyOnChange="true"
+                                    usePaging="false">
+                    </app-asset-list>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">{{ t('action_cancel')}}</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            (click)="saveDocument()"
+            [disabled]="isDisabled()"
+    >{{t('action_save')}}</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,68 @@
+.reportType{
+  background-color: #0B4FFF;
+  border-radius: 8px;
+  display: inline-block;
+  height: auto;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 5px 10px;
+
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #0725C5;
+  }
+
+  button {
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+
+    svg {
+      width: 16px;
+      margin-right: 8px;
+      fill: #fff;
+    }
+  }
+}
+
+.report-export-btn {
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+}
+  
+input::file-selector-button{
+  
+  background-color: #0B4FFF;
+  border-radius: 8px;
+  display: inline-block;
+  height: auto;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 6px 12px;
+  align-items: center;
+  justify-content: center;
+
+  color: #FFFFFF;
+  font-size: 14px;
+  line-height: 18px;
+  border: none;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #0725C5;
+  }
+}
+
+#entityFilesButtons th{
+  text-align: center;
+  border: none;
+}

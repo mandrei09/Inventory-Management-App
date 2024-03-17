@@ -1,0 +1,326 @@
+<div class="add-assets-modal">
+  <div class="modal-dialog-header">
+    <div class="d-flex">
+      <h2 class="modal-title mb-0">
+        Detalii angajat #{{ employeeUI.internalCode }}
+      </h2>
+      <div class="d-flex">
+        <button
+          (click)="sendBookEmail()"
+          class="small-green-btn mb-0 ml-30 b-radius-20"
+          #tooltip="matTooltip"
+          matTooltip="Trimite pe email fisa de lichidare"
+          matTooltipHideDelay="200"
+        >
+          <mat-icon>email</mat-icon>
+          <span>
+            Fisa lichidare
+          </span>
+        </button>
+        <button
+          (click)="sendITBookEmail()"
+          class="small-green-btn mb-0 ml-30 b-radius-20 ml-10"
+        >
+          <mat-icon>email</mat-icon>
+          <span>
+            Validare IT
+          </span>
+        </button>
+      </div>
+    </div>
+    <div class="d-flex">
+      <button
+        (click)="onCostCenterMap()"
+        class="small-turquoise-btn mb-0 ml-10"
+      >
+        <mat-icon>fiber_smart_record</mat-icon>
+        <span>
+          Mapare CC
+        </span>
+      </button>
+      <button
+      (click)="onCompanyMap()"
+      class="small-turquoise-btn mb-0 ml-10"
+    >
+      <mat-icon>fiber_smart_record</mat-icon>
+      <span>
+        Mapare Companie
+      </span>
+    </button>
+      <button
+        (click)="onDepartmentMap()"
+        class="small-turquoise-btn mb-0 ml-10"
+      >
+        <mat-icon>fiber_smart_record</mat-icon>
+        <span>
+          Mapare B.U.
+        </span>
+      </button>
+      <button
+        (click)="onStorageMap()"
+        class="small-turquoise-btn mb-0 ml-10"
+      >
+        <mat-icon>fiber_smart_record</mat-icon>
+        <span>
+          Mapare storage
+        </span>
+      </button>
+      <div class="vertical-divider"></div>
+      <button type="button" class="btn-close" mat-dialog-close style="margin-left: 10px;margin-top: auto;margin-bottom: auto;"></button>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container-fluid">
+        <div class="d-flex align-items-start">
+          <div class="tab-content">
+            <div class="col-12 attributes">
+              <span>Detalii:</span>
+              <hr>
+            </div>
+            <div #details id="detailsSection" class="row">
+              <div class="col-12 col-md-4">
+                <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                  <label>
+                    Marca:
+                    <span class="required-label-symbol">*</span>
+                  </label>
+                  <input matInput class="form-control" [(ngModel)]="employeeUI.internalCode">
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                  <label>
+                    Nume:
+                    <span class="required-label-symbol">*</span>
+                  </label>
+                  <input matInput class="form-control" [(ngModel)]="employeeUI.firstName">
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                  <label>
+                    Prenume:
+                    <span class="required-label-symbol">*</span>
+                  </label>
+                  <input matInput class="form-control" [(ngModel)]="employeeUI.lastName">
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 mb-5" #operation>
+              <mat-tab-group mat-stretch-tabs="false" color="transparent" (selectedTabChange)="changeTab($event)">
+<!--                <mat-tab label="Operatii">-->
+<!--                  <div class="row">-->
+<!--                    <div class="col-12 attributes">-->
+<!--                      <div class="files-header mb-2">-->
+<!--                        <span class="mr-15 my-auto">Lista operatii ({{ assetComponentOpDetailList?.totalItems }})</span>-->
+<!--                      </div>-->
+<!--                      <hr class="mb-3">-->
+<!--                      <div>-->
+<!--                        <div class="table-responsive border-1-gray">-->
+<!--                          <asset-component-op-detail-list #assetComponentOpDetailList id="assetComponentOpDetailList"-->
+<!--                                                          [dataSource]="assetComponentOpHttpService"-->
+<!--                                                          showSimpleSearch="false"-->
+<!--                                                          listTemplate="ASSETCOMPONENTOPERATIONS"-->
+<!--                                                          detailType="details"-->
+<!--                                                          sortColumn="id"-->
+<!--                                                          sortDirection="asc"-->
+<!--                                                          dynamicQuery="true"-->
+<!--                                                          rowSelection="single"-->
+<!--                                                          notifyOnChange="true"-->
+<!--                                                          (selectionChanged)="onAssetComponentOpDetailListSelectionChanged($event)"-->
+<!--                                                          usePaging="true">-->
+<!--                          </asset-component-op-detail-list>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </mat-tab>-->
+                <mat-tab label="Active">
+                  <div class="row">
+                    <div class="col-12 attributes">
+                      <div class="files-header mb-2">
+                        <span class="mr-15 my-auto">Lista active ({{ assetList?.totalItems }})</span>
+                        <div class="d-flex">
+                        </div>
+                      </div>
+                      <hr class="mb-3">
+                      <div>
+                        <div class="table-responsive border-1-gray">
+                          <app-asset-list #assetList id="assetList"
+                                          [dataSource]="assetHttpService"
+                                          showSimpleSearch="false"
+                                          listTemplate="ASSETLISTUI"
+                                          detailType="detailUI"
+                                          sortColumn="invNo"
+                                          sortDirection="asc"
+                                          dynamicQuery="true"
+                                          rowSelection="single"
+                                          notifyOnChange="true"
+                                          (selectionChanged)="onAssetListSelectionChanged($event)"
+                                          usePaging="true">
+                          </app-asset-list>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Mapare Companie">
+                  <div class="row">
+                    <div class="col-12 attributes">
+                      <div class="files-header mb-2">
+                        <span class="mr-15 my-auto">Lista mapari companii ({{ employeeCompanyList?.totalItems }})</span>
+                        <div class="d-flex">
+                          <button class="medium-blue-btn mb-0 ml-15" (click)="onCompanyMap()">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                            </svg>
+                            Adauga mapare
+                          </button>
+                        </div>
+                      </div>
+                      <hr class="mb-3">
+                      <div>
+                        <div class="table-responsive border-1-gray">
+                          <employee-company-list #employeeCompanyList id="employeeCompanyList"
+                                                     [dataSource]="employeeCompanyHttpService"
+                                                     showSimpleSearch="false"
+                                                     listTemplate="EMPLOYEECOMPANIES"
+                                                     detailType=""
+                                                     sortColumn="company.code"
+                                                     sortDirection="asc"
+                                                     dynamicQuery="true"
+                                                     rowSelection="single"
+                                                     notifyOnChange="true"
+                                                     showDeleteAction="true"
+                                                     (selectionChanged)="onEmployeeCompanyListSelectionChanged($event)"
+                                                     (itemDelete)="onItemCompanyDelete($event)"
+                                                     usePaging="true">
+                          </employee-company-list>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Mapare CC">
+                  <div class="row">
+                    <div class="col-12 attributes">
+                      <div class="files-header mb-2">
+                        <span class="mr-15 my-auto">Lista mapari cc ({{ employeeCostCenterList?.totalItems }})</span>
+                        <div class="d-flex">
+                          <button class="medium-blue-btn mb-0 ml-15" (click)="onCostCenterMap()">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                            </svg>
+                            Adauga mapare
+                          </button>
+                        </div>
+                      </div>
+                      <hr class="mb-3">
+                      <div>
+                        <div class="table-responsive border-1-gray">
+                          <employee-cost-center-list #employeeCostCenterList id="employeeCostCenterList"
+                                                     [dataSource]="employeeCostCenterHttpService"
+                                                     showSimpleSearch="false"
+                                                     listTemplate="EMPLOYEECOSTCENTERS"
+                                                     detailType=""
+                                                     sortColumn="costCenter.code"
+                                                     sortDirection="asc"
+                                                     dynamicQuery="true"
+                                                     rowSelection="multiple"
+                                                     notifyOnChange="true"
+                                                     showDeleteAction="true"
+                                                     (selectionChanged)="onEmployeeCostCenterListSelectionChanged($event)"
+                                                     (itemDelete)="onItemCostCenterDelete($event)"
+                                                     usePaging="true">
+                          </employee-cost-center-list>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Mapare BU">
+                  <div class="row">
+                    <div class="col-12 attributes">
+                      <div class="files-header mb-2">
+                        <span class="mr-15 my-auto">Lista mapari departamente ({{ employeeDivisionList?.totalItems }})</span>
+                        <div class="d-flex">
+                          <button class="medium-blue-btn mb-0 ml-15" (click)="onDepartmentMap()">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                            </svg>
+                            Adauga mapare
+                          </button>
+                        </div>
+                      </div>
+                      <hr class="mb-3">
+                      <div>
+                        <div class="table-responsive border-1-gray">
+                          <employee-division-list #employeeDivisionList id="employeeDivisionList"
+                                                  [dataSource]="employeeDivisionHttpService"
+                                                  showSimpleSearch="false"
+                                                  listTemplate="EMPLOYEEDIVISIONS"
+                                                  detailType=""
+                                                  sortColumn="division.code"
+                                                  sortDirection="asc"
+                                                  dynamicQuery="true"
+                                                  rowSelection="multiple"
+                                                  showDeleteAction="true"
+                                                  notifyOnChange="true"
+                                                  (selectionChanged)="onEmployeeDivisionListSelectionChanged($event)"
+                                                  (itemDelete)="onItemDivisionDelete($event)"
+                                                  usePaging="true">
+                          </employee-division-list>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Mapare Storage">
+                  <div class="row">
+                    <div class="col-12 attributes">
+                      <div class="files-header mb-2">
+                        <span class="mr-15 my-auto">Lista mapari storage ({{ employeeStorageList?.totalItems }})</span>
+                        <div class="d-flex">
+                          <button class="medium-blue-btn mb-0 ml-15" (click)="onStorageMap()">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                            </svg>
+                            Adauga mapare
+                          </button>
+                        </div>
+                      </div>
+                      <hr class="mb-3">
+                      <div>
+                        <div class="table-responsive border-1-gray">
+                          <employee-storage-list #employeeStorageList id="employeeStorageList"
+                                                 [dataSource]="employeeStorageHttpService"
+                                                 showSimpleSearch="false"
+                                                 listTemplate="EMPLOYEESTORAGES"
+                                                 detailType=""
+                                                 sortColumn="storage.code"
+                                                 sortDirection="asc"
+                                                 dynamicQuery="true"
+                                                 rowSelection="single"
+                                                 notifyOnChange="true"
+                                                 showDeleteAction="true"
+                                                 (selectionChanged)="onEmployeeStorageListSelectionChanged($event)"
+                                                 (itemDelete)="onItemStorageDelete($event)"
+                                                 usePaging="true">
+                          </employee-storage-list>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

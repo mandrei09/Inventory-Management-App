@@ -1,0 +1,4796 @@
+{
+  "page_acc_classes_component": {
+    "title": "Grupe de clasificare",
+    "action_add": "Adaugă grupă nouă",
+    "search_placeholder": "Caută ..."
+  },
+  "page_inventory_plan_other_info": {
+    "action_save": "Salvează",
+    "action_cancel": "Înapoi"
+  },
+  "page_acc_class_add_edit": {
+    "title_add": "Grupă nouă de clasificare",
+    "title_edit": "Modificare grupă de clasificare",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să contină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 10 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_dictionary_item_add_edit": {
+    "title_add": "Adaugă",
+    "title_edit": "Modifică",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să contină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 10 caractere!",
+    "description_label": "Denumire",
+    "description_placeholder": "Denumire",
+    "description_required": "Denumirea este obligatorie!",
+    "description_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "description_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_brand_add_edit": {
+    "title_add": "Adaugă",
+    "title_edit": "Modifică",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să contină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 10 caractere!",
+    "description_label": "Denumire",
+    "description_placeholder": "Denumire",
+    "description_required": "Denumirea este obligatorie!",
+    "description_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "description_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_model_add_edit": {
+    "title_add": "Adaugă",
+    "title_edit": "Modifică",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să contină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 10 caractere!",
+    "description_label": "Denumire",
+    "description_placeholder": "Denumire",
+    "description_required": "Denumirea este obligatorie!",
+    "description_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "description_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează",
+    "sNLength_label": "Lungime serie",
+    "sNLength_placeholder": "Lungime serie",
+    "sNLength_required": "Lungimea este obligatorie!",
+    "iMEILength_label": "IMEI serie",
+    "iMEILength_placeholder": "IMEI serie",
+    "iMEILength_required": "IMEI este obligatorie!"
+  },
+  "page_inv_committee_member_add_edit": {
+    "title_edit": "Editeaza Membru",
+    "title_add": "Membru nou",
+    "action_save": "Salveaza",
+    "action_cancel": "Inapoi",
+    "inv_committee_position_label": "Rol",
+    "employee_label": "Membru",
+    "employee_placeholder": "Membru"
+  },
+  "page_inventory_plan_detail": {
+    "title_edit": "Detalii",
+    "title_add": "Planificare noua",
+    "committee_employee_label": "Membri comisie",
+    "committee_employee_add": "Adauga membru",
+    "action_save": "Salveaza",
+    "action_cancel": "Inapoi",
+    "date_started_label": "Data incepere inventar:",
+    "date_finished_label": "Data finalizare inventar:"
+
+  },
+  "page_acc_class_selection": {
+    "title": "Grupe de clasificare",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_administrations_component": {
+    "title": "Gestiuni",
+    "action_add": "Adaugă gestiune",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie",
+    "company_placeholder": "Companie",
+    "cost_center_placeholder": "Centru de cost"
+  },
+  "page_administration_selection": {
+    "title": "Gestiuni",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_building_types_component": {
+    "title": "Structuri",
+    "action_add": "Adaugă structura",
+    "search_placeholder": "Caută ...",
+    "building_main_type_placeholder": "Structura"
+  },
+  "page_building_type_add_edit": {
+    "title_add": "Structuri nouă",
+    "title_edit": "Modificare structuri",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 15 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "building_main_type_label": "Tip cladire",
+    "building_main_type_placeholder": "Tip Cladire",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_building_type_selection": {
+    "title": "Structuri",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_materials_component": {
+    "title": "Materiale",
+    "action_add": "Adaugă material",
+    "search_placeholder": "Caută ..."
+  },
+  "page_material_selection": {
+    "title": "Materiale",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_adm_assets_component": {
+    "title": "Asset-uri",
+    "action_add": "Adaugă asset",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie"
+  },
+  "page_adm_ufiuwis_component": {
+    "title": "Ufi / Uwi",
+    "action_add": "Adaugă ufi/uwi",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Ufi / Uwi"
+  },
+  "page_adm_asset_add_edit": {
+    "title_add": "Asset nou",
+    "title_edit": "Modificare asset",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "division_label": "Divizie",
+    "division_placeholder": "Divizie",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_adm_asset_selection": {
+    "title": "Asset-uri",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_committee_selection": {
+    "title": "Comisii",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_adm_sectors_component": {
+    "title": "Sectoare",
+    "action_add": "Adaugă sector",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie",
+    "adm_asset_placeholder": "Asset"
+  },
+  "page_adm_sector_add_edit": {
+    "title_add": "Sector nou",
+    "title_edit": "Modificare sector",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "division_label": "Divizie",
+    "division_placeholder": "Divizie",
+    "adm_asset_label": "Asset",
+    "adm_asset_placeholder": "Asset",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_adm_sector_selection": {
+    "title": "Sectoare",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_adm_zones_component": {
+    "title": "Zone",
+    "action_add": "Adaugă zona",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie",
+    "adm_asset_placeholder": "Asset",
+    "adm_sector_placeholder": "Sector"
+  },
+  "page_adm_zone_add_edit": {
+    "title_add": "Zona nouă",
+    "title_edit": "Modificare zona",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "adm_sector_required": "Sectorul este obligatoriu!",
+    "adm_sector_label": "Sector",
+    "adm_sector_placeholder": "Sector",
+    "adm_asset_label": "Asset",
+    "adm_asset_placeholder": "Asset",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_adm_zone_selection": {
+    "title": "Zone",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_adm_ufis_component": {
+    "title": "UFI",
+    "action_add": "Adaugă UFI",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie"
+  },
+  "page_adm_ufi_add_edit": {
+    "title_add": "UFI nou",
+    "title_edit": "Modificare UFI",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_adm_ufi_selection": {
+    "title": "UFI",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_adm_uwis_component": {
+    "title": "UWI",
+    "action_add": "Adaugă UWI",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie"
+  },
+  "page_adm_uwi_add_edit": {
+    "title_add": "UWI nou",
+    "title_edit": "Modificare UWI",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_adm_uwi_selection": {
+    "title": "UWI",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_assets_component": {
+    "title": "Mijloace fixe",
+    "action_add": "Adaugă mijloc fix",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie",
+    "company_placeholder": "Companie",
+    "cost_center_placeholder": "Centru de cost",
+    "administration_placeholder": "Gestiune",
+    "adm_asset_placeholder": "Asset",
+    "adm_sector_placeholder": "Sector",
+    "asset_category_placeholder": "Categorie",
+    "committee_type_placeholder": "Tip comisie",
+    "acc_class_placeholder": "Cod clasificare",
+    "asset_class_placeholder": "Clasificare",
+    "idle_group_placeholder": "Idle Group",
+    "adm_ufi_placeholder": "UFI",
+    "adm_uwi_placeholder": "UWI",
+    "use_category_placeholder": "Use category",
+    "build_zone_placeholder": "Build zone",
+    "tax_relevant_placeholder": "Tax relevant"
+  },
+  "page_reports_component": {
+    "title": "Rapoarte",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie",
+    "company_placeholder": "Companie",
+    "cost_center_placeholder": "Centru de cost",
+    "adm_asset_placeholder": "Asset",
+    "adm_sector_placeholder": "Sector",
+    "asset_category_placeholder": "Categorie",
+    "acc_class_placeholder": "Cod clasificare",
+    "asset_class_placeholder": "Clasificare",
+    "idle_group_placeholder": "Idle Group",
+    "administration_placeholder": "Gestiuni",
+    "adm_ufi_placeholder": "UFI",
+    "adm_uwi_placeholder": "UWI",
+    "inventory_plan_placeholder": "Planificări",
+    "inventory_list": "Anexa A - Lista inventar",
+    "inventory_list_emp": "Anexa B - Declarație gestionar",
+    "inventory_list_result": "Anexa C -Proces Verbal de inventariere",
+    "inventory_list_diff": "Anexa D - Diferențe inventar",
+    "inventory_list_final": "Anexa E - Modificări informații mijloace fixe",
+    "inventory_list_mt": "Anexa F - Memoriu diferențe de inventariere",
+    "inventory_list_re": "Anexa H - Raport de evaluare plusuri de inventar",
+    "inventory_list_cass": "Situație propuneri casari",
+    "inventory_list_calculate1": "Anexa G - Fisa calcul 1",
+    "inventory_list_calculate2": "Anexa G - Fisa calcul 2",
+    "inventory_list_calculate3": "Anexa G - Fisa calcul 3"
+  },
+  "list_inventory_reco": {
+    "reco_company": "Companie",
+    "reco_pif": "PIF",
+    "reco_name_minus": "Nume minus",
+    "reco_minus": "Minus",
+    "reco_plus": "Plus",
+    "reco_plus_name": "Nume plus",
+    "reco_initial_agency_code": "Cod agenție inițial",
+    "reco_initial_initial_city": "Oraș inițial",
+    "reco_initial_initial_county": "Județ inițial",
+    "reco_initial_agency_code_final": "Cod agenție plus",
+    "reco_initial_city_plus": "Oraș Plus",
+    "reco_initial_county_plus": "Județ Plus",
+    "reco_initial_transfer_state": "Status transfer",
+    "reco_initial_date": "dată",
+    "reco_type": "Tip",
+    "reco_validation_date": "Dată validare transfer"
+  },
+  "page_asset_categories_component": {
+    "title": "Categorii mijloace fixe",
+    "action_add": "Adaugă categorie nouă",
+    "search_placeholder": "Caută ..."
+  },
+  "page_asset_category_selection": {
+    "title": "Categorii mijloace fixe",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_asset_classes_component": {
+    "title": "Clasificări mijloace fixe",
+    "action_add": "Adaugă clasificare nouă",
+    "search_placeholder": "Caută ..."
+  },
+  "page_asset_class_selection": {
+    "title": "Clasificări mijloace fixe",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_asset_selection": {
+    "title": "Mijloace fixe",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_companies_component": {
+    "title": "Companii",
+    "action_add": "Adaugă companie",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie"
+  },
+  "page_company_selection": {
+    "title": "Companii",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_committee_component": {
+    "title": "Comisii",
+    "action_add": "Adaugă comisie",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie",
+    "company_placeholder": "Companie",
+    "committee_type_placeholder": "Tip comisie"
+  },
+  "page_divisions_component": {
+    "title": "Divizii",
+    "action_add": "Adaugă divizie",
+    "search_placeholder": "Caută ..."
+  },
+  "page_building_main_types_component": {
+    "title": "Tip clădiri",
+    "action_add": "Adaugă tip cladire",
+    "search_placeholder": "Caută ..."
+  },
+  "page_building_main_type_add_edit": {
+    "title_add": "Tip cladire nouă",
+    "title_edit": "Modificare tip clădire",
+    "action_add": "Adaugă tip clădire",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!"
+  },
+  "page_inventories_component": {
+    "title": "Inventare",
+    "action_add": "Adaugă inventar",
+    "search_placeholder": "Caută ..."
+  },
+  "page_idle_groups_component": {
+    "title": "Idle Group",
+    "action_add": "Adaugă Idle Group",
+    "search_placeholder": "Caută ..."
+  },
+  "page_inv_decision_participant_add_edit": {
+    "title_add": "Participant nou",
+    "title_edit": "Modificare participant",
+    "action_add": "Adaugă participant",
+    "action_save": "Salvează",
+    "action_cancel": "Înapoi",
+    "employee_label": "Angajat",
+    "employee_placeholder": "Angajat",
+    "emp_position_label": "Rol",
+    "emp_position_placeholder": "Rol",
+    "committee_position_label": "Rol",
+    "committee_position_placeholder": "Rol",
+    "signingFlowIndex_label": "Index in fluxul de semnare",
+    "signingFlowIndex_placeholder": "Index in fluxul de semnare",
+    "signingFlowIndex_required": "Index in fluxul de semnare obligatoriu",
+    "flowSigned_label": "Flow signed",
+    "flowSigned_placeholder": "Flow signed",
+    "flowSigned_required": "Signed flow is required",
+    "signatureRequired_label": "Semnătură obligatorie",
+    "signatureRequired_placeholder": "Semnătură obligatorie",
+    "signatureRequired_required": "SignatureRequired is required"
+  },
+  "page_idle_group_add_edit": {
+    "title_add": "Idle Group nou",
+    "title_edit": "Modificare Idle Group",
+    "action_add": "Adaugă Idle Group",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!"
+  },
+  "page_emp_position_selection": {
+    "title": "Emp Position",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_idle_group_selection": {
+    "title": "Idle Group",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_regional_manager_add_edit": {
+    "title_add": "Adaugă manager regional",
+    "title_edit": "Editează manager regional",
+    "action_add": "Adaugă manager regional",
+    "action_save": "Salvează",
+    "code_label": "Număr personal",
+    "name_label": "Descriere",
+    "code_placeholder": "Număr personal",
+    "first_name_label": "Nume",
+    "first_name_placeholder": "Nume",
+    "last_name_label": "Prenume",
+    "last_name_placeholder": "Prenume",
+    "email_label": "Email",
+    "email_placeholder": "Email",
+    "manager_label": "Manager",
+    "manager_placeholder": "Manager"
+  },
+  "page_inv_decisions_component": {
+    "title": "Decizii",
+    "action_add": "Decizie nouă",
+    "action_complete": "Finalizare planificare",
+    "action_download": "Descarca document",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie",
+    "inventory_placeholder": "Inventar",
+    "company_placeholder": "Companie",
+    "adm_asset_placeholder": "Asset"
+  },
+  "page_location_type_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "name_label": "Nume",
+    "name_placeholder": "Nume",
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează"
+  },
+  "page_asset_types_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "description_label": "Descriere",
+    "description_placeholder": "Descriere",
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează"
+  },
+  "page_manager_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "firstName_label": "Nume",
+    "firstName_placeholder": "Nume",
+    "title_add": "Adaugv senior manager",
+    "title_edit": "Editează senior manager",
+    "action_add": "Adaugă senior manager",
+    "action_save": "Salvează",
+    "lastName_label": "Prenume",
+    "lastName_placeholder": "Prenume",
+    "email_label": "Email",
+    "email_placeholder": "Email"
+  },
+  "page_inv_decision_add_edit": {
+    "title_add": "Decizie nouă",
+    "title_edit": "Detalii decizie",
+    "action_add": "Decizie nouă",
+    "description_label": "Descriere",
+    "description_placeholder": "Descriere",
+    "description_required": "Acest camp este obligatoriu",
+    "docNo_label": "Doc No.",
+    "docNo_placeholder": "Numar document",
+    "docNo_required": "Acest camp este obligatoriu",
+    "division_label": "Divizie",
+    "division_placeholder": "Divizie",
+    "division_required": "Acest camp este obligatoriu",
+    "company_label": "Companie",
+    "company_placeholder": "Companie",
+    "company_required": "Acest camp este obligatoriu",
+    "asset_label": "Asset",
+    "asset_placeholder": "Asset",
+    "asset_required": "Acest camp este obligatoriu",
+    "inventory_label": "Inventar",
+    "inventory_placeholder": "Inventar",
+    "inventory_required": "Acest camp este obligatoriu",
+    "manager_label": "Emitent",
+    "manager_placeholder": "Emitent",
+    "supervisor_label": "Supervizor",
+    "supervisor_placeholder": "Supervizor",
+    "stateCode_label": "Stare",
+    "docDate_label": "Dată",
+    "config_label": "Configurare",
+
+    "search_placeholder": "Caută ...",
+    "adm_asset_placeholder": "Asset",
+    "committees_label": "Comisii",
+    "action_add_committee": "Adaugă comisie",
+    "action_add_participant": "Adaugă semnatar",
+    "label_participant_list": "Semnatari",
+    "action_completed": "Finalizare"
+  },
+  "page_asset_properties_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "name_label": "Nume",
+    "name_placeholder": "Nume",
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează"
+  },
+  "page_uoms_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+    "model_label": "Model",
+    "model_placeholder": "Model",
+    "sn_label": "SN",
+    "sn_placeholder": "SN",
+    "is_used_label": "Gasit?",
+    "is_used_placeholder": "Gasit?"
+  },
+  "page_inventory_details_component": {
+    "title": "Inventariere",
+    "action_add": "Adăugare",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie",
+    "committee_placeholder": "Comisii",
+    "inventory_placeholder": "Inventar",
+    "company_placeholder": "Companie",
+    "cost_center_placeholder": "Centru de cost",
+    "administration_placeholder": "Gestiune",
+    "committee_type_placeholder": "Tip comisii",
+    "adm_asset_placeholder": "Asset",
+    "adm_sector_placeholder": "Sector",
+    "asset_category_placeholder": "Categorie",
+    "acc_class_placeholder": "Cod clasificare",
+    "asset_class_placeholder": "Clasificare",
+    "idle_group_placeholder": "Idle Group",
+    "adm_ufi_placeholder": "UFI",
+    "adm_uwi_placeholder": "UWI",
+    "use_category_placeholder": "Use category",
+    "build_zone_placeholder": "Build zone",
+    "tax_relevant_placeholder": "Tax relevant",
+    "land_area_placeholder": "Carou",
+    "date_range": "Perioadă",
+    "date_range_start": "De la",
+    "date_range_end": "Până la"
+  },
+  "page_cost_centers_component": {
+    "title": "Centre de cost",
+    "action_add": "Adaugă centru de cost",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie",
+    "company_placeholder": "Companie"
+  },
+  "page_cost_center_selection": {
+    "title": "Centre de cost",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_cost_center_employees_component": {
+    "title": "Mapari centre de cost/ angajați",
+    "action_add": "Adaugă mapare",
+    "search_placeholder": "Caută ...",
+    "costCenter_placeholder": "Centru de cost",
+    "employee_placeholder": "Angajat"
+  },
+  "page_table_add_edit": {
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+
+    "header_code_label": "Cod antet",
+    "header_code_placeholder": "Cod antet",
+    "header_code_required": "Acest câmp este obligatoriu.",
+
+    "property_label": "Mapare",
+    "property_placeholder": "Mapare",
+    "property_required": "Acest câmp este obligatoriu.",
+
+    "include_label": "Cale",
+    "include_placeholder": "Cale",
+    "include_required": "Acest câmp este obligatoriu.",
+
+    "sort_by_label": "Ordonare",
+    "sort_by_placeholder": "Ordonare",
+    "sort_by_required": "Acest câmp este obligatoriu.",
+
+    "pipe_label": "Prelucrare",
+    "pipe_placeholder": "Prelucare",
+    "pipe_required": "Acest câmp este obligatoriu.",
+
+    "position_label": "Pozitie",
+    "position_placeholder": "Pozitie",
+    "position_required": "Acest câmp este obligatoriu.",
+
+    "active_label": "Activ",
+    "active_required": "Acest câmp este obligatoriu.",
+
+    "table_label": "Tabel",
+    "table_placeholder": "Tabel"
+  },
+  "page_cost_center_employee_add_edit": {
+    "title_add": "Mapare centru de cost / angajat nou",
+    "title_edit": "Modificare mapare centru de cost / angajat",
+    "action_add": "Adaugă mapare centru de cost / angajat",
+    "cost_center_label": "Centru de cost",
+    "cost_center_placeholder": "Centru de cost",
+    "employee_label": "Angajat",
+    "employee_placeholder": "Angajat",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_cost_center_employee_selection": {
+    "title": "Mapare centre de cost/ angajat",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_administration_employees_component": {
+    "title": "Mapari gestiuni/ angajați",
+    "action_add": "Adaugă mapare",
+    "search_placeholder": "Caută ...",
+    "administration_placeholder": "Gestiune",
+    "employee_placeholder": "Angajat"
+  },
+  "page_administration_employee_add_edit": {
+    "title_add": "Mapare gestiune / angajat nou",
+    "title_edit": "Modificare mapare gestiune / angajat",
+    "action_add": "Adaugă mapare gestiune / angajat",
+    "administration_label": "Gestiune",
+    "administration_placeholder": "Gestiune",
+    "employee_label": "Angajat",
+    "employee_placeholder": "Angajat",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_administration_employee_selection": {
+    "title": "Mapare Gestiune/ angajat",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_line_of_business_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează"
+  },
+  "page_asset_group_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează"
+  },
+  "page_custom_classes_component": {
+    "title": "Clasificări",
+    "action_add": "Adaugă clasificare nouă",
+    "search_placeholder": "Caută ..."
+  },
+  "page_custom_class_add_edit": {
+    "title_add": "Clasificare nouă",
+    "title_edit": "Modificare clasificare",
+    "action_add": "Adaugă clasificare",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_custom_class_selection": {
+    "title": "Clasificări",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_app_custom_fields_component": {
+    "title": "Motive",
+    "action_add": "Adaugă motiv nou",
+    "search_placeholder": "Caută ..."
+  },
+  "page_email_setting_add_edit": {
+    "title_add": "Adaugă setare",
+    "title_edit": "Editează setare ",
+    "action_add": "Adaugă setare",
+    "action_save": "Salvează",
+    "action_cancel": "Anulează",
+
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Câmpul cod este obligatoriu.",
+
+    "description_label": "Descriere",
+    "description_placeholder": "Descriere",
+    "description_required": "Câmpul descriere este obligatoriu.",
+
+    "upload_folder_label": "Încărcare folder",
+    "upload_folder_placeholder": "Încărcare folder",
+    "upload_folder_required": "Câmpul încărcare folder este obligatoriu.",
+
+    "upload_interval_label": "Încărcare interval",
+    "upload_interval_placeholder": "Încărcare interval",
+    "upload_interval_required": "Câmpul încărcare interval este obligatoriu.",
+
+    "notify_enabled_label": "Notificare activată",
+    "notify_enabled_placeholder": "Notificare activată",
+    "notify_enabled_required": "Câmpul notificare activată este obligatoriu.",
+
+    "notify_start_label": "Start notificare",
+    "notify_start_placeholder": "Data start notificare",
+    "notify_start_required": "Câmpul start notificare este obligatoriu.",
+
+    "notify_end_label": "Sfârșit notificare",
+    "notify_end_placeholder": "Dată sfârșit notificare",
+    "notify_end_required": "Câmpul sfârșit notificare este obligatoriu.",
+
+    "header_label": "Antet",
+    "header_placeholder": "Mesaj antet",
+
+    "footer_label": "Footer",
+    "footer_placeholder": "Mesaj footer"
+  },
+  "page_column_definition_component": {
+    "table_placeholder": "Tabel"
+  },
+  "page_email_types_component": {
+    "export_button_text": "Export"
+  },
+
+  "page_email_manage_add_edit": {
+    "title_add": "Adaugă email manage",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+    "action_cancel": "Anulează",
+
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Câmpul cod este obligatoriu.",
+
+    "description_label": "Descriere",
+    "description_placeholder": "Descriere",
+    "description_required": "Câmpul descriere este obligatoriu.",
+
+    "email_type_label": "Tip email",
+    "email_type_placeholder": "Tip email"
+  },
+
+  "page_app_custom_field_add_edit": {
+    "title_add": "Motiv nou",
+    "title_edit": "Modificare motiv",
+    "action_add": "Adaugă motiv",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "field_type_label": "Tip",
+    "field_type_placeholder": "Tip",
+    "field_type_required": "Tipul este obligatoriu!",
+    "field_type_min_length": "Tipul trebuie să conțină cel puțin un caracter!",
+    "field_type_max_length": "Tipul nu trebuie să depășească 4 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_app_custom_field_selection": {
+    "title": "Motive",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_asset_new_transfer": {
+    "operation_type_label": "Tip operație",
+
+    "location_label": "Locație",
+    "location_placeholder": "Locație",
+    "location_required": "Acest câmp este obligatoriu.",
+
+    "employee_label": "Angajat",
+    "employee_placeholder": "Angajat",
+    "employee_required": "Acest câmp este obligatoriu.",
+
+    "inv_state_label": "Status",
+    "inv_state_placeholder": "Status",
+    "inv_state_required": "Acest câmp este obligatoriu.",
+
+    "document_number_label": "Număr document",
+    "document_number_placeholder": "Număr document",
+    "document_number_required": "Acest câmp este obligatoriu.",
+
+    "document_date_label": "Dată document",
+
+    "person_label": "Persoană",
+    "person_placeholder": "Persoană",
+    "person_required": "Acest câmp este obligatoriu.",
+
+    "transport_details_label": "Detalii transport",
+    "transport_details_placeholder": "Detalii transport",
+    "transport_details_required": "Acest câmp este obligatoriu.",
+
+    "document_label": "Document",
+    "document_placeholder": "Document",
+    "document_required": "Acest câmp este obligatoriu.",
+
+    "department_label": "Departament",
+    "department_placeholder": "Selecteaza departament",
+    "department_required": "Acest câmp este obligatoriu.",
+
+    "cost_center_label": "Centru de cost",
+    "cost_center_placeholder": "Selecteaza CC",
+    "cost_center_required": "Acest câmp este obligatoriu.",
+
+    "quantity_label": "Cantitate",
+    "quantity_placeholder": "Cantitate",
+    "quantity_required": "Acest câmp este obligatoriu.",
+
+    "state_label" : "Stare",
+    "state_placeholder" : "Selecteaza stare",
+
+    "action_cancel": "Înapoi",
+    "action_save": "Salvează"
+  },
+  "page_reasons_component": {
+    "title": "Motive",
+    "action_add": "Adaugă motiv nou",
+    "search_placeholder": "Caută ..."
+  },
+  "page_reason_add_edit": {
+    "title_add": "Motiv nou",
+    "title_edit": "Modificare motiv",
+    "action_add": "Adaugă motiv",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "config_label": "Tip",
+    "config_placeholder": "Tip",
+    "plus_label": "Plus",
+    "plus_placeholder": "Plus",
+    "minus_label": "Minus",
+    "minus_placeholder": "Minus",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "document_types_label": "Documente",
+    "add_document_type_label": "Document nou",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_global_add_edit": {
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_add": "Adauga",
+    "action_save": "Salveaza",
+    "action_cancel": "Inchide",
+
+    "group_label": "Grup",
+    "group_placeholder": "Grup",
+    "group_required": "You must include a group.",
+
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "You must include a code.",
+
+    "description_label": "Descriere",
+    "description_placeholder": "Descriere",
+    "description_required": "You must include a description.",
+
+    "type_label": "Tip",
+    "type_placeholder": "Tip",
+    "type_required": "You must select a type.",
+
+    "text_value_label": "Valoare text",
+    "text_value_placeholder": "textValue",
+    "text_value_required": "You must include a text value.",
+
+    "numeric_value_label": "Valoare numeric",
+    "numeric_value_placeholder": "numericValue",
+    "numeric_value_required": "You must include a numeric value.",
+
+    "data_value_label": "Data",
+    "data_value_placeholder": "dd/mm/yyyy",
+    "data_value_required": "You must include a date.",
+
+    "bool_value_label": "Da/Nu",
+    "bool_value_placeholder": "Da/Nu",
+    "bool_value_required": "You must include a bool value."
+  },
+
+  "page_asset_retire_asset": {
+    "subnumber_label" : "Subnumar",
+
+    "company_label": "Companie",
+    "company_placeholder": "Companie",
+    "company_required": "Acest câmp este obligatoriu.",
+
+    "quantity_label": "Cantitate",
+    "quantity_placeholder": "Cantitate",
+
+    "class_label" : "Clasa",
+    "class_placeholder'" : "Clasa",
+    
+    "serial_no_label": "Serie",
+    "serial_no_placeholder": "Serie",
+
+    "label_label" : "Etichetă",
+
+    "description_label" : "Descriere",
+
+    "invoice_label": "Factură",
+    "invoice_placeholder": "Factură",
+
+    "storno_documents_label" : "Documnete - stornare",
+
+    "observations_label" : "Observatii",
+
+    "sum_label" : "Suma",
+
+    "percent_label" : "Procent"
+  },
+
+  "page_reason_selection": {
+    "title": "Motive",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_inv_state_selection": {
+    "title": "Stări",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_data-process-types_component": {
+    "title": "Tip import",
+    "action_add": "Adaugă import nou",
+    "search_placeholder": "Caută ..."
+  },
+  "page_data-process-type_add_edit": {
+    "title_add": "Tip nou",
+    "title_edit": "Modificare tip",
+    "action_add": "Adaugă tip",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "config_label": "Tip",
+    "config_placeholder": "Tip",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_data-process-type_selection": {
+    "title": "Tipuri",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+
+  "page_employees_component": {
+    "title": "Angajați",
+    "action_add": "Adaugă angajat",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie"
+  },
+  "page_employee_selection": {
+    "title": "Angajați",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_committee_add_edit": {
+    "title_add": "Comisie nouă",
+    "title_edit": "Detalii comisie",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Denumirea este obligatorie!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "division_label": "Divizie",
+    "division_placeholder": "Divizie",
+    "company_label": "Companie",
+    "company_placeholder": "Companie",
+    "adm_asset_label": "Asset",
+    "adm_asset_placeholder": "Asset",
+    "adm_sector_label": "Sector",
+    "adm_sector_placeholder": "Sector",
+    "adm_zone_label": "Zona",
+    "adm_zone_placeholder": "Zona",
+    "committee_type_label": "Tip comisie",
+    "committee_type_placeholder": "Tip comisie",
+    "committee_members_label": "Membri",
+    "committee_allocations_label": "Centre de cost",
+    "action_add_committee_member": "Adaugă",
+    "action_add_committee_allocation": "Adaugă",
+    "action_save": "Adaugă",
+    "action_cancel": "Inapoi",
+    "action_validate": "Validează"
+  },
+  "page_asset_add_edit": {
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+    "action_cancel": "Înapoi",
+
+    "subnumber_label" : "Subnumar",
+
+    "property_label": "Proprietate",
+    "property_placeholder": "Proprietate",
+    "property_required": "Acest câmp este obligatoriu.",
+
+    "type_label": "Tip",
+    "type_placeholder": "Tip",
+    "type_required": "Acest câmp este obligatoriu.",
+
+    "company_label": "Companie",
+    "company_placeholder": "Companie",
+    "company_required": "Acest câmp este obligatoriu.",
+
+    "location_label": "Locație",
+    "location_placeholder": "Locație",
+    "location_required": "Acest câmp este obligatoriu.",
+
+    "employee_label": "Angajat",
+    "employee_placeholder": "Angajat",
+    "employee_required": "Acest câmp este obligatoriu.",
+
+    "vendor_label": "Furnizor",
+    "vendor_placeholder": "Furnizor",
+    "vendor_required": "Acest câmp este obligatoriu.",
+
+    "item_label": "Item",
+    "item_placeholder": "Item",
+    "item_required": "Acest câmp este obligatoriu.",
+
+    "object_type_label": "Object type",
+    "object_type_placeholder": "Object type",
+    "object_type_required": "Acest câmp este obligatoriu.",
+
+    "brand_label": "Brand",
+    "brand_placeholder": "Brand",
+    "brand_required": "Acest câmp este obligatoriu.",
+
+    "model_label": "Model",
+    "model_placeholder": "Model",
+    "model_required": "Acest câmp este obligatoriu.",
+
+    "cost_center_label": "Centru de cost",
+    "asset_group_label": "Centru de cost",
+    "lob_label": "LOB",
+    "type_b_label": "Tip bun",
+
+    "acquisition_label": "Dată achiziție",
+    "acquisition_placeholder": "Dată achiziție",
+
+    "acquisition_price_label": "Preț achiziție",
+    "acquisition_price_placeholder": "Preț achiziție",
+
+    "quantity_label": "Cantitate",
+    "quantity_placeholder": "Cantitate",
+
+    "serial_no_label": "Serie",
+    "serial_no_placeholder": "Serie",
+
+    "comments_label": "Comentariu",
+    "comments_placeholder": "Comentariu",
+
+    "invoice_label": "Factură",
+    "invoice_placeholder": "Factură",
+
+    "description_label" : "Descriere",
+
+    "class_label" : "Clasa",
+    "class_placeholder'" : "Clasa",
+
+    "currency_label" : "Moneda",
+
+    "label_label" : "Etichetă",
+
+    "invoice_data_label": "Data factură",
+
+    "value_label" : "Valoare"
+  },
+
+  "page_employee_add_edit": {
+    "title_add": "Adaugă angajat",
+    "title_edit": "Editează angajat",
+    "firstName_label": "Nume",
+    "firstName_placeholder": "Nume",
+    "firstName_required": "Acest câmp este obligatoriu.",
+    "lastName_label": "Prenume",
+    "lastName_placeholder": "Prenume",
+    "lastName_required": "Acest câmp este obligatoriu.",
+    "internalCode_label": "Cod intern",
+    "internalCode_placeholder": "Cod intern",
+    "internalCode_required": "Acest câmp este obligatoriu.",
+    "email_label": "Email",
+    "email_placeholder": "Email",
+    "email_required": "Acest câmp este obligatoriu.",
+    "company_label": "Companie",
+    "company_placeholder": "Companie",
+    "empPosition_label": "Emp Position",
+    "empPosition_placeholder": "Emp Position",
+    "erpCode_label": "Cod ERP",
+    "erpCode_placeholder": "Cod ERP",
+    "erpCode_required": "Acest câmp este obligatoriu.",
+    "external_label": "Extern",
+    "external_required": "Acest câmp este obligatoriu.",
+    "action_cancel": "Anulează",
+    "action_save": "Adaugă",
+    "personel_number_label": "Număr personal",
+    "personel_number_placeholder": "Număr personal",
+    "personel_number_required": "Acest câmp este obligatoriu.",
+    "first_name_label": "Nume",
+    "first_name_placeholder": "Nume",
+    "first_name_required": "Acest câmp este obligatoriu.",
+    "first_name_min_length": "Numele trebuie să conțină cel puțin un caracter.",
+    "first_name_max_length": "First name cannot exceed 50 characters",
+    "last_name_label": "Prenume",
+    "last_name_placeholder": "Prenume",
+    "last_name_required": "Acest câmp este obligatoriu.",
+    "last_name_min_length": "Prenumele trebuie să conțină cel puțin un caracter.",
+    "last_name_max_length": "Last name cannot exceed 50 characters",
+    "department_label": "Funcție",
+    "department_placeholder": "Funcție",
+    "department_required": "Acest câmp este obligatoriu.",
+    "department_min_length": "Role must be at least 1 character long.",
+    "department_max_length": "Role cannot exceed 50 characters",
+    "r_manager_label": "Manager regional",
+    "r_manager_placeholder": "Manager regional",
+    "r_manager_required": "Acest câmp este obligatoriu.",
+    "r_manager_min_length": "Manager R. must be at least 1 character long.",
+    "r_manager_max_length": "Manager R. cannot exceed 50 characters",
+    "cost_center_label": "Centru de cost",
+    "cost_center_placeholder": "Cost center",
+    "cost_center_required": "Acest câmp este obligatoriu.",
+    "cost_center_min_length": "Cost center must be at least 1 character long.",
+    "cost_center_max_length": "Cost center cannot exceed 50 characters",
+    "lob_label": "LOB",
+    "lob_placeholder": "LOB",
+    "lob_required": "Acest câmp este obligatoriu.",
+    "lob_min_length": "LOB must be at least 1 character long.",
+    "lob_max_length": "LOB cannot exceed 50 characters"
+  },
+  "page_committee_allocation_add_edit": {
+    "title_add": "Centru de cost nou",
+    "title_edit": "Detalii centru de cost",
+    "cost_center_label": "Centru de cost",
+    "cost_center_placeholder": "Centru de cost",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_committee_member": {
+    "title_add": "Membru nou",
+    "title_edit": "Detalii membru",
+    "committee_position_label": "Funcție",
+    "committee_position_placeholder": "Funcție",
+    "employee_label": "Membru",
+    "employee_placeholder": "Membru",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează"
+  },
+  "page_committee_positions_component": {
+    "title": "Funcții in comisii/decizii",
+    "action_add": "Adaugă",
+    "search_placeholder": "Caută ...",
+    "ptype_placeholder": "Tip"
+  },
+  "page_committee_position_add_edit": {
+    "title_add": "Adaugă funcție noua",
+    "title_edit": "Modifică funcție",
+    "action_add": "Adaugă",
+    "ptype_label": "Tip",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu",
+    "code_max_length": "Codul este obligatoriu si nu poate depăși 20 de caractere",
+    "name_label": "Denumire (Ro)",
+    "name_placeholder": "Denumire (Ro)",
+    "name_required": "Denumirea este obligatorie.",
+    "name_length": "Denumirea este obligatorie si nu poate depasi 100 de caractere",
+    "name_en_label": "Denumire (En)",
+    "name_en_placeholder": "Denumire (En)",
+    "name_en_required": "Denumirea este obligatorie",
+    "name_en_length": "Denumirea este obligatorie si nu poate depasi 100 de caractere"
+  },
+  "page_committee_position_selection": {
+    "title": "Funcții",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_committee_types_component": {
+    "title": "Tipuri comisii",
+    "action_add": "Adaugă tip nou",
+    "search_placeholder": "Caută ..."
+  },
+  "page_committee_type_add_edit": {
+    "title_add": "Add committee type",
+    "title_edit": "Edit committee type",
+    "action_add": "Add committee type",
+    "code_label": "Code",
+    "code_placeholder": "Code",
+    "code_required": "You must include a code.",
+    "code_min_length": "Code must be at least 1 character long.",
+    "code_max_length": "Code cannot exceed 4 characters",
+    "name_label": "Name",
+    "name_placeholder": "Name",
+    "name_required": "You must specify a name.",
+    "name_min_length": "Name must be at least 1 character long.",
+    "name_max_length": "Name cannot exceed 50 characters"
+  },
+  "page_nomenclatures_component": {
+    "title": "Nomenclatoare"
+  },
+  "page_more_filters": {
+    "title_division_list": "Listă divizii",
+    "title_company_list": "Listă companii"
+  },
+  "page_assets_ops_component": {
+    "title": "Operations",
+    "action_add": "Add operation",
+    "search_placeholder": "Caută ...",
+    "adm_sector_label": "Sector",
+    "adm_sector_placeholder": "Sector",
+    "division_placeholder": "Divizie",
+    "company_placeholder": "Companie",
+    "cost_center_placeholder": "Centru de cost"
+  },
+  "page_reconciliations_component": {
+    "title": "Reconcilieri",
+    "action_add": "+",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie",
+    "company_placeholder": "Companie",
+    "cost_center_placeholder": "Centru de cost",
+    "adm_asset_placeholder": "Asset",
+    "adm_sector_placeholder": "Sector",
+    "asset_category_placeholder": "Categorie",
+    "acc_class_placeholder": "Cod clasificare",
+    "asset_class_placeholder": "Clasificare",
+    "idle_group_placeholder": "Idle Group",
+    "adm_ufi_placeholder": "UFI",
+    "adm_uwi_placeholder": "UWI"
+  },
+  "page_documents_component": {
+    "title": "Documente",
+    "action_add": "+",
+    "search_placeholder": "Caută ...",
+    "division_placeholder": "Divizie",
+    "company_placeholder": "Companie",
+    "cost_center_placeholder": "Centru de cost",
+    "adm_asset_placeholder": "Asset",
+    "adm_sector_placeholder": "Sector",
+    "asset_category_placeholder": "Categorie",
+    "acc_class_placeholder": "Cod clasificare",
+    "asset_class_placeholder": "Clasificare",
+    "idle_group_placeholder": "Idle Group",
+    "adm_ufi_placeholder": "UFI",
+    "adm_uwi_placeholder": "UWI"
+  },
+  "page_decisions_component": {
+    "title": "Decizii",
+    "search_placeholder": "Caută",
+    "action_add": "Adaugă Decizie"
+  },
+  "page_inventory_detail_filters": {
+    "title_division_register_list": "Divizie scriptic",
+    "title_company_register_list": "Companie scriptic",
+    "title_cost_center_register_list": "Centru de cost scriptic",
+    "title_administration_register_list": "Gestiune scriptic",
+    "title_employee_register_list": "Angajat scriptic",
+    "title_adm_asset_register_list": "Asset scriptic",
+    "title_adm_sector_register_list": "Sector scriptic",
+    "title_division_actual_list": "Divizie faptic",
+    "title_company_actual_list": "Companie faptic",
+    "title_cost_center_actual_list": "Centru de cost faptic",
+    "title_administration_actual_list": "Gestiune faptic",
+    "title_employee_actual_list": "Angajat faptic",
+    "title_adm_asset_actual_list": "Asset faptic",
+    "title_adm_sector_actual_list": "Sector faptic"
+  },
+  "page_appusers_component": {
+    "title": "Users",
+    "search_placeholder": "Search..",
+    "action_add": "Adaugă utilizator"
+  },
+  "page_data_admin_add_edit": {
+    "title": "Data admin",
+    "title_add": "Item nou",
+    "title_edit": "Modifica data admin",
+    "division_label": "Divizie",
+    "company_label": "Companie",
+    "cost_center_label": "Centru de cost",
+    "administration_label": "Gestiune",
+    "admAsset_label": "Asset",
+    "admSector_label": "Sector",
+    "action_save": "Salveaza"
+  },
+  "page_appusers_add_edit": {
+    "title_add": "Utilizator nou",
+    "title_edit": "Detalii utilizator",
+    "action_cancel": "Anulează",
+    "action_save": "Salvează",
+    "email_label": "Email",
+    "email_placeholder": "Email address",
+    "email_required": "Email address is required.",
+    "name_label": "Nume",
+    "name_placeholder": "Nume si prenume",
+    "name_required": "Name is required.",
+    "dataAdmin_label": "Data Admin",
+    "dataAdmin_placeholder": "Data Admin",
+    "add_dataAdmin_label": "Adaugă data",
+    "employee_placeholder": "Angajat",
+    "app_role_placeholder": "Rol"
+  },
+  "page_table_definition_component_add_edit": {
+    "action_add": "Adauga",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Edit",
+    "column_definition_label": "Tabele"
+  },
+  "list_column_definition": {
+    "value_header_code": "Antet",
+    "value_mapping": "Mapare",
+    "value_include": "Cale",
+    "value_sort_by": "Ordonare",
+    "value_position": "Pozitie",
+    "value_active": "Activ",
+    "value_pipe": "Prelucrare",
+    "value_format": "Format"
+  },
+  "list_config_values": {
+    "value_code": "Cod",
+    "value_description": "Descriere",
+    "value_type": "Tip valoare",
+    "value_numeric_value": "Valoare numeric",
+    "value_text_value": "Valoare text",
+    "value_date_value": "Valoare Data",
+    "value_bool_value": "Valoare boolean"
+  },
+  "page_category_add_edit": {
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_save": "Salveaza",
+    "action_cancel": "Inapoi",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "subcategory_label": "Supracategorie",
+    "subcategory_placeholder": "Supracategorie",
+    "subcategory_required": "Acest camp este obligatoriu!",
+    "category_en_label": "Categorie EN",
+    "category_en_placeholder": "Categorie EN",
+    "category_en_required": "Acest camp este obligatoriu!"
+  },
+  "page_category_en_add_edit": {
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_save": "Salveaza",
+    "action_cancel": "Inapoi",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "subcategory_en_label": "Supracategorie EN",
+    "subcategory_en_placeholder": "Supracategorie EN",
+    "subcategory_en_required": "Acest camp este obligatoriu!"
+  },
+  "page_column_definition_component_add_edit": {
+    "action_add": "Adauga",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Edit"
+  },
+  "page_temp_assets_component": {
+    "title": "Plusuri de inventar",
+    "action_add": "Adaugă",
+    "search_placeholder": "Caută ...",
+    "inventory_placeholder": "Inventar",
+    "division_placeholder": "Divizie",
+    "company_placeholder": "Companie",
+    "cost_center_placeholder": "Centru de cost",
+    "administration_placeholder": "Gestiune",
+    "adm_asset_placeholder": "Asset",
+    "adm_sector_placeholder": "Sector",
+    "asset_category_placeholder": "Categorie",
+    "asset_class_placeholder": "Clasificare",
+    "idle_group_placeholder": "Idle Group",
+    "adm_ufiuwi_placeholder": "UFI",
+    "idlegroup_placeholder": "UFI"
+  },
+  "page_permissions_component": {
+    "title": "Permisiuni",
+    "search_placeholder": "Caută ...",
+    "action_add": "Adaugă"
+  },
+  "page_app_permission_selection": {
+    "title": "Permisiuni",
+    "action_select": "Aplică",
+    "action_cancel": "Anulează",
+    "search_placeholder": "Caută ..."
+  },
+  "page_data_imports_component": {
+    "title": "Procesari fisiere",
+    "action_add_import": "Import nou",
+    "action_add_export": "Export nou",
+    "search_placeholder": "Caută ..."
+  },
+  "page_inv_component": {
+    "search_placeholder": "Caută ...",
+    "action_add": "Adaugă"
+  },
+  "list_asset_temp": {
+    "reco_name": "Nume reco",
+    "company_code": "Companie",
+    "image_count": "Numar poze",
+    "asset": "Asset",
+    "description": "Descriere",
+    "has_label": "are label?",
+    "sn_inventory": "SN inventar",
+    "type_inventory": "Tip inventar",
+    "comment": "Comment inventar",
+    "asset_temp_reco_name": "Asset temp nume reco",
+
+    "asset_temp_company": "Companie",
+    "asset_temp_asset": "Asset",
+    "asset_temp_description": "Descriere"
+  },
+  "page_data_import_add_edit": {
+    "title_add": "Export nou",
+    "division_label": "Divizie",
+    "division_placeholder": "Divizie",
+    "company_label": "Companie",
+    "company_placeholder": "Companie",
+    "adm_asset_label": "Asset",
+    "adm_asset_placeholder": "Asset",
+    "action_save": "Salveaza"
+  },
+  "page_reason_document_type_add_edit": {
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_save": "Salveaza",
+    "action_cancel": "Inapoi",
+    "document_type_label": "Tip document",
+    "mandatory_label": "Obligatoriu"
+  },
+  "page_inv_add_edit": {
+    "name_label": "Nume",
+    "name_placeholder": "Nume",
+    "name_required": "Name is required.",
+    "date_label": "Data",
+    "date_placeholder": "Data",
+    "date_required": "Date is required",
+    "end_label": "Sfarsit",
+    "end_placeholder": "Sfarsit",
+    "end_required": "End is required",
+    "adhoc_label": "Adhoc",
+    "adhoc_placeholder": "Adhoc",
+    "adhoc_required": "Adhoc is required",
+    "action_cancel": "Inapoi",
+    "action_save": "Salveaza",
+    "action_validate": "Valideaza",
+    "title_add": "Adauga",
+    "title_edit": "Modifica",
+    "allocation_label": "Scop inventariere",
+    "allocation_add": "Adaugă"
+  },
+  "page_inv_allocation_add_edit": {
+    "title_edit": "Modifica",
+    "title_add": "New Allocation",
+    "division_label": "Divizie",
+    "division_placeholder": "Divizie",
+    "company_label": "Companie",
+    "company_placeholder": "Companie",
+    "adm_asset_label": "Asset",
+    "adm_asset_placeholder": "Asset",
+    "administration_label": "Gestiune",
+    "cost_center_label": "Centru de cost",
+    "admAsset_label": "Asset",
+    "action_save": "Salveaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_table_document_type_component": {
+    "title": "Configurari",
+    "title_edit": "Modifica",
+    "title_add": "Adauga",
+    "search_placeholder": "Caută ...",
+    "action_add": "Adaugă"
+  },
+  "page_table_document_number_component": {
+    "title": "Configurari",
+    "title_edit": "Modifica",
+    "title_add": "Adauga",
+    "search_placeholder": "Caută ...",
+    "action_add": "Adaugă"
+  },
+  "page_document_type_add_edit": {
+    "title_edit": "Modifica",
+    "title_add": "Adauga",
+    "code_label": "Cod",
+    "name_label": "Nume",
+    "action_save": "Salveaza",
+    "action_cancel": "Inapoi",
+    "code_placeholder": "Cod",
+    "name_placeholder": "Nume"
+  },
+  "page_document_number_add_edit": {
+    "title_edit": "Modifica",
+    "title_add": "Adauga",
+    "action_save": "Salveaza",
+    "action_cancel": "Inapoi",
+    "division_label": "Divizie",
+    "division_code_label": "Cod personalizat divizie",
+    "division_code_placeholder": "Cod divizie",
+    "division_code": "Cod divizie",
+    "division_code_required": "Cod divizie obligatoriu",
+    "company_label": "Companie",
+    "company_placeholder": "Companie",
+    "company_code_label": "Cod Companie",
+    "company_code_placeholder": "Cod Companie",
+    "company_code_required": "Cod Companie obligatoriu",
+    "admAsset_label": "Asset",
+    "admAsset_placeholder": "Asset",
+    "admAsset_code_label": "Cod Asset",
+    "admAsset_code_placeholder": "Asset",
+    "admAsset_code_required": "Asset obligatoriu",
+    "current_index_label": "Index curent",
+    "current_index_placeholder": "Index curent",
+    "current_index_required": "Index curent obligatoriu",
+    "max_index_label": "Index maxim",
+    "max_index_placeholder": "Index maxim",
+    "max_index_required": "Index maxim obligatoriu",
+    "index_format_length_label": "Format index length",
+    "index_format_length_placeholder": "Format index length",
+    "index_format_length_required": "Format index length obligatoriu",
+    "index_replace_char_label": "Index replace char",
+    "index_replace_char_placeholder": "Index replace char",
+    "index_replace_char_required": "Index replace char",
+    "format_label": "Format",
+    "format_placeholder": "Format",
+    "format_required": "Format obligatoriu"
+  },
+  "page_inventory_plans_component": {
+    "title": "Decizii",
+    "action_add": "Decizie nouă",
+    "action_complete": "Finalizare planificare",
+    "action_download": "Descarca document",
+    "search_placeholder": "Caută ...",
+    "committee_type_placeholder": "Tip comisie",
+    "committee_placeholder": "Comisie",
+    "division_placeholder": "Divizie",
+    "inventory_placeholder": "Inventar",
+    "company_placeholder": "Companie",
+    "adm_asset_placeholder": "Asset",
+    "adm_sector_placeholder": "Sector",
+    "cost_center_placeholder": "Centru de cost",
+    "administration_placeholder": "Gestiune"
+  },
+  "page_transfers_component": {
+    "title": "Transferuri",
+    "action_add": "Transfer nou",
+    "search_placeholder": "Caută ...",
+    "adm_sector_label": "Sector",
+    "adm_sector_placeholder": "Sector",
+    "division_placeholder": "Divizie",
+    "company_placeholder": "Companie",
+    "cost_center_placeholder": "Centru de cost",
+    "date_range": "Perioada",
+    "date_range_start": "Început",
+    "date_range_end": "Sfârșit"
+  },
+  "page_transfer_details_component": {
+    "assets_label": "Mijloace fixe",
+    "asset_add": "Adauga"
+  },
+  "page_identity_add_edit": {
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_save": "Salveaza",
+    "action_cancel": "Inapoi",
+    "first_name_label": "Nume",
+    "first_name_placeholder": "Nume",
+    "first_name_required": "Acest camp este obligatoriu",
+    "family_name_label": "Prenume",
+    "family_name_placeholder": "Prenume",
+    "family_name_required": "Acest camp este obligatoriu",
+    "email_label": "Email",
+    "email_placeholder": "Email",
+    "password_label": "Parola",
+    "password_placeholder": "Parola",
+    "password_required": "Acest camp este obligatoriu",
+    "password_confirmation_label": "Confirmare parola",
+    "password_confirmation_placeholder": "Confirmare parola",
+    "password_confirmation_required": "Acest camp este obligatoriu"
+  },
+  "page_maps_component": {
+    "search_placeholder": "Caută locație",
+    "shops_placeholder": "Locații",
+    "reset_filters_button_text": "Resetează filtre",
+    "last_update_header": "Ultima actualizare",
+    "table_results_text": "rezultate"
+  },
+  "page_identity_change_password": {
+    "title": "Schimba parola",
+    "action_save": "Salveaza",
+
+    "new_password_label": "Parola noua",
+    "new_password_placeholder": "Parola noua",
+    "new_password_required": "You must include a new password.",
+
+    "new_password_confirmation_label": "Confirmare parola",
+    "new_password_confirmation_placeholder": "Confirmare parola",
+    "new_password_confirmation_required": "Parolele nu sunt identice."
+  },
+  "page_email_manager_component": {
+    "table_results_text": "rezultate",
+    "export_button_text": "Export",
+    "table_selected_text": "selectate",
+    "reset_button_text": "Reseteaza"
+  },
+  "list_asset_temp": {
+    "reco_name": "Nume reco",
+    "company_code": "Companie",
+    "image_count": "Numar poze",
+    "asset": "Asset",
+    "description": "Descriere",
+    "has_label": "Are label?",
+    "sn_inventory": "SN inventar",
+    "type_inventory": "Tip inventar",
+    "comment": "Comment inventar",
+    "asset_temp_reco_name": "Nume reco"
+  },
+  "list_location_types": {
+    "location_code": "Cod",
+    "location_name": "Descriere"
+  },
+  "list_months" : {
+    "month_first_day": "Prima zi",
+    "month_end_date": "Ultima zi",
+    "month_month": "Luna",
+    "month_year": "An",
+    "month_is_active": "Activ",
+    "month_active_month": "Luna contabila"
+  },
+  "list_tableDefinition": {
+    "code": "Cod",
+    "name": "Nume"
+  },
+  "list_managers": {
+    "manager_code": "Numar personal",
+    "manager_first_name": "Nume",
+    "manager_last_name": "Prenume",
+    "manager_email": "Email"
+  },
+  "list_columnDefinition": {
+    "headerCode": "Cod Header",
+    "property": "Proprietate",
+    "include": "Include",
+    "sortBy": "Sorteaza By",
+    "active": "Activ",
+    "position": "Pozitie"
+  },
+  "list_regional_managers": {
+    "manager_personal_number": "Numar personal",
+    "manager_first_name": "Nume",
+    "manager_last_name": "Prenume",
+    "manager_email": "Email",
+    "manager_sm_first_name": "Nume SM",
+    "manager_sm_last_name": "Prenume SM",
+    "manager_sm_email": "SM Email"
+  },
+  "list_acc_classes" : {
+    "acc_class_code": "Cod",
+    "acc_class_name": "Denumire",
+    "acc_class_useful_life": "Durata",
+    "acc_class_fiscal_useful_life": "Durata fiscală",
+    "acc_class_acc_class_type_name": "Tip"
+  },
+  "list_administrations" : {
+    "administration_code": "Cod",
+    "administration_name": "Denumire",
+    "cost_center_code": "Cod centru de cost",
+    "cost_center_name": "Centru de cost",
+    "company_code": "Cod companie",
+    "company_name": "Companie",
+    "division_code": "Cod divizie",
+    "division_name": "Divizie"
+  },
+  "list_building_types" : {
+    "building_type_code": "Cod",
+    "building_type_name": "Denumire",
+    "building_type_price": "Pret",
+    "building_main_type_name": "Tip Cladire"
+  },
+  "list_countries": {
+    "country_code": "Cod",
+    "country_name": "Denumire"
+  },
+  "list_types": {
+    "type_code": "Cod",
+    "type_name": "descriere",
+    "operation_id": "Cantitate transferata",
+    "operation_transfered_value": "Valoare transferata",
+    "operation_invoice_no": "Nr. Factura",
+    "operation_inv_value": "Valoare inventar",
+    "operation_inv_date": "Data factura",
+    "type_mastertype_code": "Cantitate stoc",
+    "type_mastertype_name": "Descriere cantitate stoc",
+    "type_quantity": "Cantitate"
+  },
+  "list_materials" : {
+    "material_price": "Pret",
+    "material_name": "Denumire"
+  },
+  "list_adm_assets" : {
+    "adm_asset_code": "Cod",
+    "adm_asset_name": "Denumire",
+    "division_name": "Divizie"
+  },
+  "list_asset_groups": {
+    "asset_group_code": "Cod",
+    "asset_group_name": "Descriere",
+    "asset_group_line_of_business": "Companie",
+    "asset_group_company": "Linie de business"
+  },
+  "list_adm_sectors" : {
+    "adm_sector_code": "Cod",
+    "adm_sector_name": "Denumire",
+    "adm_asset_code": "Cod asset",
+    "adm_asset_name": "Asset",
+    "division_code": "Cod divizie",
+    "division_name": "Divizie"
+  },
+  "list_asset_category": {
+    "asset_category_code": "Cod",
+    "asset_category_name": "Denumire"
+  },
+  "list_adm_zones" : {
+    "adm_zone_code": "Cod",
+    "adm_zone_name": "Denumire",
+    "adm_sector_name": "Sector",
+    "adm_asset_code": "Cod asset",
+    "adm_asset_name": "Asset"
+  },
+  "list_errors": {
+    "error_asset": "Asset",
+    "error_name": "Eroare",
+    "error_error_type": "Tip eroare",
+    "error_created_at": "Data"
+  },
+  "list_adm_ufis" : {
+    "adm_ufi_code": "Cod",
+    "adm_ufi_name": "Denumire"
+  },
+  "list_adm_uwis" : {
+    "adm_uwi_code": "Cod",
+    "adm_uwi_name": "Denumire"
+  },
+  "list_assets": {
+    "asset_erp_code": "Cod ERP",
+    "asset_company": "Companie",
+    "asset_invNo": "Asset",
+    "asset_name": "Descriere",
+    "asset_brand": "Brand",
+    "asset_object_type": "Tip obiect",
+    "asset_model": "Model",
+    "asset_serial_number": "Număr serial",
+    "asset_state": "Stare echipament",
+    "asset_shop_code": "Locație",
+    "asset_shop_name": "Nume locație",
+    "asset_invoice": "Factură",
+    "asset_invoice_date": "Dată factură",
+    "asset_value": "Valoare",
+    "asset_adm_asset_state": "Tip operație",
+    "asset_custody": "Custodie",
+    "asset_property_name": "Tip bun",
+    "asset_is_printed": "Printat?",
+    "asset_print_date": "Dată printare",
+    "asset_temp_reco": "Reconciliere inventar",
+    "asset_name2": "Descriere veche",
+    "asset_employee_lastname": "Nume",
+    "asset_employee_firstname": "Angajat",
+    "asset_is_scanned": "Scanat (Da/Nu)",
+    "asset_scan_date": "Dată scanare",
+    "asset_city": "Oraș",
+    "asset_county": "Județ",
+    "asset_internal_code": "Referent",
+    "asset_pif": "PIF"
+  },
+  "list_temp_assets": {
+    "asset_temp_inv_no": "Număr inventar",
+    "asset_temp_name": "Nume",
+    "asset_temp_serial_no": "Număr serial",
+    "asset_temp_cost_center_code": "Cod centru de cost",
+    "asset_temp_cost_center_name": "Denumire centru de cost"
+  },
+  "list_asset_categories" : {
+    "asset_category_code": "Cod",
+    "asset_category_name": "Denumire"
+  },
+  "list_asset_classes" : {
+    "asset_class_code": "Cod",
+    "asset_class_name": "Denumire"
+  },
+  "list_committee" : {
+    "committee_code": "Cod",
+    "committee_name": "Denumire",
+    "adm_asset_name": "Asset",
+    "adm_sector_name": "Sector",
+    "adm_zone_name": "Zona",
+    "division_code": "Cod divizie",
+    "division_name": "Divizie",
+    "company_code": "Cod companie",
+    "company_name": "Companie",
+    "committee_type_name": "Tip comisie",
+    "committee_validated": "Validat"
+  },
+  "list_counties": {
+    "county_code": "Cod",
+    "county_name": "Județ",
+    "country_name": "Țară"
+  },
+  "list_asset_types": {
+    "asset_type_code": "Cod",
+    "asset_type_name": "Denumire"
+  },
+  "list_asset_properties": {
+    "asset_property_code": "Cod",
+    "asset_property_name": "Denumire"
+  },
+  "list_dimensions": {
+    "dimension_code": "Cod",
+    "dimension_width": "Descriere",
+    "dimension_height": "Tip",
+    "dimension_dictionary_item": "Obiect",
+    "dimension_sub_type": "Consumabil",
+    "dimension_asset_type": "Categorie"
+  },
+  "list_supplier_models": {
+    "model_code": "Cod",
+    "model_name": "Descriere",
+    "model_brand": "Brand",
+    "model_dictionary_item": "Obiect",
+    "model_company": "Companie",
+    "model_product": "Produs",
+    "model_asset_type": "Categorie"
+  },
+  "list_supplier_brands": {
+    "brand_code": "Cod",
+    "brand_name": "Descriere",
+    "brand_dictionary_item": "Obiect",
+    "brand_administration": "Grup asset",
+    "brand_company": "Companie",
+    "brand_asset_type": "Categorie"
+  },
+  "list_dictionary_items": {
+    "dictionary_item_name": "Denumire",
+    "dictionary_asset_group_name": "Grup",
+    "dictionary_asset_company_code": "Cod companie",
+    "dictionary_asset_company_name": "Denumire companie",
+    "dictionary_asset_type": "Categorie"
+  },
+  "list_cities": {
+    "city_code": "Cod oraș",
+    "country_name": "Țară",
+    "county_name": "Județ",
+    "city_name": "Oraș"
+  },
+  "list_asset_op_details": {
+    "asset_op_details_document_type": "Tip document",
+    "asset_op_details_user_transfer_last_name": "Prenume user transfer",
+    "asset_op_details_operation_date": "Data operație",
+    "asset_op_details_room_name": "Nume locație",
+    "asset_op_details_room_code": "Cod locație"
+  },
+  "list_locations": {
+    "location_is_warehouse": "Este depozit?",
+    "location_budget_code": "Cod buget",
+    "location_shop_code": "Cod locatie",
+    "location_shop_name": "Nume locatie",
+    "location_city": "Oras",
+    "location_county": "Judet",
+    "location_mz_firstname": "Nume MZ",
+    "location_mz_lastname": "Prenume MZ",
+    "location_mr_firstname": "Nume MR",
+    "location_mr_lastname": "Prenume MR",
+    "location_lob": "LOB"
+  },
+  "list_employee_shops": {
+    "employee_shop_code": "Cod locație",
+    "employee_shop_name": "Nume locație",
+    "employee_first_name": "Nume angajat",
+    "employee_last_name": "Prenume angajat"
+  },
+  "list_employee_companies": {
+    "employee_company_code": "Cod companie",
+    "employee_company_name": "Companie",
+    "employee_first_name": "Nume angajat",
+    "employee_last_name": "Prenume angajat"
+  },
+  "list_companies" : {
+    "company_code": "Cod",
+    "company_name": "Denumire",
+    "division_name": "Divizie"
+  },
+  "list_committee_allocations" : {
+    "cost_center_code": "Cod",
+    "cost_center_name": "Denumire"
+  },
+  "list_committee_members" : {
+    "committee_position_name": "Rol inventariere",
+    "emp_position_name": "Funcție",
+    "employee_first_name": "Prenume",
+    "employee_last_name": "Nume",
+    "employee_internal_code": "Marca"
+  },
+  "list_operation_division": {
+    "operation_division_asset": "Asset",
+    "operation_division_description": "Descriere",
+    "operation_division_initial_shop": "Shop initial",
+    "operation_division_initial_city": "Oras initial",
+    "operation_division_transfer_shop": "Shop transfer",
+    "operation_division_transfer_city": "Oras transfer",
+    "operation_division_transfer_date": "Data emitere transfer",
+    "operation_division_approved_operator": "Aprobare operator"
+  },
+  "list_email_types": {
+    "email_type_code": "Cod",
+    "email_type_description": "Descriere",
+    "email_type_upload_folder": "Folder upload",
+    "email_type_notify_start": "Început notificare",
+    "email_type_notify_end": "Sfârșit notificare",
+    "email_type_interval": "Interval notificări",
+    "email_type_notify_last": "Ultima notificare",
+    "email_type_notify_enabled": "Notificări activate"
+  },
+  "list_operation_out": {
+    "operation_out_allocation": "Alocat pe Asset-ul",
+    "operation_out_transferred_quantity": "Cantitate transferată",
+    "operation_out_transferred_value": "Valoare transferată",
+    "operation_out_invoice_no": "Nr. factură",
+    "operation_out_invoice_date": "Dată factură",
+    "operation_out_asset": "Asset",
+    "operation_out_account": "Cont",
+    "operation_out_description": "Descriere",
+    "operation_out_state": "Stare",
+    "operation_out_company": "Descriere",
+    "operation_out_brand": "Brand",
+    "operation_out_model": "Model",
+    "operation_out_initial_shop": "Shop initial",
+    "operation_out_category": "Categorie",
+    "operation_out_initial_city": "Oraș inițial",
+    "operation_out_transferred_shop": "Shop transfer",
+    "operation_out_transferred_city": "Oraș transfer",
+    "operation_out_transfer_date": "Dată transfer",
+    "operation_out_transfer_employee": "Aprobare operator",
+    "operation_out_transfer_type": "Tip transfer",
+    "operation_out_operator": "Aprobare operator",
+    "operation_out_manager": "Aprobare manager"
+  },
+  "list_operation_declined": {
+    "operation_declined_invoice_no": "Nr. factură",
+    "operation_declined_account": "Cont",
+    "operation_declined_value": "Valoare",
+    "operation_declined_quantity": "Cantitate",
+    "operation_declined_asset": "Asset",
+    "operation_declined_description": "Descriere",
+    "operation_declined_state": "Stare",
+    "operation_declined_brand": "Brand",
+    "operation_declined_model": "Model",
+    "operation_declined_category": "Categorie",
+    "operation_declined_initial_shop": "Shop initial",
+    "operation_declined_initial_city": "Oras initial",
+    "operation_declined_transfer_shop": "Shop transfer",
+    "operation_declined_transfer_city": "Oras transfer",
+    "operation_declined_reason": "Motiv",
+    "operation_declined_transfer_date": "Data transfer",
+    "operation_declined_declined_date": "Data refuz"
+  },
+  "list_operation_validated": {
+    "operation_declined_allocation": "Alocat pe Asset-ul",
+    "operation_declined_invoice_no": "Nr. factură",
+    "operation_declined_account": "Cont",
+    "operation_declined_expenses_account": "Cont chelt.",
+    "operation_declined_expenses_transferred_qty": "Cantitate transferata",
+    "operation_declined_expenses_transferred_value": "Valoare transferata",
+    "operation_declined_expenses_invoiced_qty": "Cantitate facturata",
+    "operation_declined_expenses_invoiced_value": "Valoare factura",
+    "operation_declined_asset": "Asset",
+    "operation_declined_asset_description": "Descriere",
+    "operation_declined_state": "Stare",
+    "operation_declined_brand_name": "Brand",
+    "operation_declined_model_name": "Model",
+    "operation_declined_initial_code": "Cod initial",
+    "operation_declined_category": "Categorie",
+    "operation_declined_initial_shop": "Shop initial",
+    "operation_declined_initial_city": "Oras initial",
+    "operation_declined_transfer_shop_code": "Cod shop",
+    "operation_declined_transfer_shop_name": "Shop transfer",
+    "operation_declined_transfer_city": "Oras transfer",
+    "operation_declined_transfer_date": "Data transfer",
+    "operation_declined_operator_approval": "Aprobare operator",
+    "operation_declined_manager_approval": "Aprobare manager"
+  },
+  "list_divisions" : {
+    "division_code": "Cod",
+    "division_name": "Denumire"
+  },
+  "list_inventories": {
+    "inventory_description": "Descriere",
+    "inventory_active": "Activ",
+    "inventory_start": " Start",
+    "inventory_end": "Sfarsit",
+    "inventory_accMonth_month": "Luna contabila",
+    "inventory_accMonth_year": "An contabil"
+  },
+  "list_uoms": {
+    "uom_code": "Cod",
+    "uom_name": "Descriere",
+    "uom_model": "Model",
+    "uom_sn": "SN",
+    "uom_is_found": "Gasit?"
+  },
+  "list_identity_users": {
+    "user_username": "Utilizator",
+    "user_shop": "Locatie",
+    "user_shop_name": "Nume locatie",
+    "user_mz_number": "Mz numar"
+  },
+  "list_idle_groups" : {
+    "idle_group_code": "Cod",
+    "idle_group_name": "Denumire",
+    "ufi_uwi_code": "Cod Ufi/Uwi",
+    "ufi_uwi_name": "Denumire Ufi/Uwi",
+    "ufi_uwi_uType": "Tip"
+  },
+  "list_inv_decisions" : {
+    "division_name": "Divizie",
+    "adm_asset_code": "Cod asset",
+    "adm_asset_name": "Asset",
+    "company_code": "Cod companie",
+    "company_name": "Companie",
+    "manager_first_name": "Prenume manager",
+    "manager_last_name": "Nume manager",
+    "description": "Descriere",
+    "doc_no": "Document",
+    "stateCode": "Stare"
+  },
+  "list_inv_decision_committee" : {
+    "committee_code": "Cod comisie",
+    "committee_name": "Nume comisie",
+    "adm_asset_code": "Cod asset",
+    "adm_asset_name": "Asset",
+    "adm_sector_name": "Sector",
+    "adm_zone_name": "Zona",
+    "cost_center_code": "Cod centru de cost",
+    "cost_center_name": "Centru de cost",
+    "administration_code": "Cod gestiune",
+    "administration_name": "Gestiune",
+    "state": "Stare"
+  },
+  "list_inv_decision_participant" : {
+    "employee_first_name": "Prenume",
+    "employee_last_name": "Nume",
+    "committee_position_name": "Rol",
+    "signing_flow_index": "Ordine semnare",
+    "signature_required": "Semnatura necesara"
+  },
+  "list_cost_centers" : {
+    "cost_center_code": "Cod",
+    "cost_center_name": "Denumire",
+    "company_code": "Cod companie",
+    "company_name": "Companie",
+    "division_code": "Cod divizie",
+    "division_name": "Divizie",
+    "adm_asset": "Asset",
+    "adm_sector": "Sector"
+  },
+  "list_cost_center_employees" : {
+    "cost_center_code": "Cod centru de cost",
+    "cost_center_name": "Centru de cost",
+    "employee_first_name": "Nume",
+    "employee_last_name": "Prenume",
+    "adm_asset": "Asset",
+    "adm_sector": "Sector"
+  },
+  "list_administration_employees" : {
+    "administration_code": "Cod gestiune",
+    "administration_name": "Gestiune",
+    "costCenter_code": "Cod Centru de cost",
+    "costCenter_name": "Centru de cost",
+    "employee_first_name": "Nume",
+    "employee_last_name": "Prenume",
+    "adm_asset": "Asset",
+    "adm_sector": "Sector"
+  },
+  "list_custom_classes" : {
+    "custom_class_code": "Cod",
+    "custom_class_name": "Denumire",
+    "custom_class_company_code": "Cod companie",
+    "custom_class_company_name": "Companie"
+  },
+  "list_app_custom_fields" : {
+    "app_custom_field_code": "Cod",
+    "app_custom_field_type": "Tip",
+    "app_custom_field_name": "Denumire"
+  },
+  "list_reasons" : {
+    "reason_code": "Cod",
+    "reason_config": "Configurare",
+    "reason_name": "Denumire",
+    "plus": "Plus",
+    "minus": "Minus"
+  },
+  "list_partner": {
+    "partner_name": "Denumire",
+    "partner_registry_number": "Numar inregistrare",
+    "partner_company": "Companie"
+  },
+  "list_inv_states" : {
+    "inv_state_code": "Cod",
+    "inv_state_name": "Denumire",
+    "inv_state_badge_color": "Culoare badge",
+    "inv_state_badge_icon": "Icon badge"
+  },
+  "list_data-process-types" : {
+    "reason_code": "Cod",
+    "reason_config": "Configurare",
+    "reason_name": "Denumire"
+  },
+  "list_states" : {
+    "state_code": "Cod",
+    "state_name": "Denumire"
+  },
+  "list_shops": {
+    "shop_isWarehouse": "Este depozit",
+    "shop_bodget_code": "Cod buget",
+    "shop_shop_code": "Cod locație",
+    "shop_shop_name": "Nume locație",
+    "shop_city": "Oraș",
+    "shop_county": "Județ",
+    "shop_cost_center": "Centru de cost",
+    "shop_lob": "LOB",
+    "shop_state": "Stare"
+  },
+  "list_operation_employee": {
+    "operation_id": "ID",
+    "operation_transferValue": "Valoare transferată",
+    "operation_transferQuantity": "Cantitate transferată",
+    "operation_invoice_no": "Nr. Factură",
+    "operation_asset_allocation": "Alocat pe Asset-ul",
+    "operation_inventory_value": "Valoare de înv.",
+    "operation_invoice_date": "Dată factură",
+    "operation_account": "Cont",
+    "operation_asset": "Asset",
+    "operation_description": "Descriere",
+    "operation_invState": "Stare",
+    "operation_sn": "SN",
+    "operation_company": "Companie",
+    "operation_brand": "Brand",
+    "operation_model": "Model",
+    "operation_category": "Categorie",
+    "operation_initial_location": "Shop inițial",
+    "operation_transfer_type": "Tip transfer",
+    "operation_initial_city": "Oraș inițial",
+    "operation_shop_transfer": "Shop transfer",
+    "operation_transfer_city": "Oraș transfer",
+    "operation_transfer_date": "Dată transfer",
+    "operation_employee_email": "Angajat"
+  },
+  "list_employees" : {
+    "employee_id": "ID",
+    "employee_internalCode": "Numar personal",
+    "employee_firstName": "Nume",
+    "employee_lastName": "Prenume",
+    "employee_email": "Email",
+    "employee_role": "Functie",
+    "employee_company": "Companie",
+    "employee_cost_center": "Centru de cost",
+    "employee_lob": "LOB",
+    "employee_mr_firstname": "Nume MR",
+    "employee_mr_lastname": "Prenume MR",
+    "employee_mr_email": "Email MR",
+    "employee_sm_firstname": "Nume SM",
+    "employee_sm_lastname": "Prenume SM",
+    "employee_sm_email": "Email SM"
+  },
+  "list_asset_components" : {
+    "asset_component_code": "Cod",
+    "asset_component_name": "Denumire",
+    "asset_component_serialNumber": "Numar serial"
+  },
+  "list_entity_files" : {
+    "entity_files_name": "Denumire",
+    "entity_files_thumb": "Previzualizare"
+  },
+  "list_inventory_detail" : {
+    "asset_inv_no": "Număr inventar",
+    "asset_value": "Valoare",
+    "asset_inventory_number": "Proiect",
+    "asset_name": "Denumire scriptic",
+    "asset_category_name": "Categorie",
+    "asset_class_code": "Cod clasif",
+    "asset_class_name": "Clasificare",
+    "acc_class_code": "Cod clasif",
+    "acc_class_name": "Clasificare",
+    "cost_center_register_code": "Cod cc scriptic",
+    "cost_center_register_name": "Centru de cost scriptic",
+    "cost_center_actual_code": "Cod cc faptic",
+    "cost_center_actual_name": "Centru de cost faptic",
+    "company_register_code": "Cod comp scriptic",
+    "company_register_name": "Companie scriptic",
+    "company_actual_code": "Cod comp faptic",
+    "company_actual_name": "Companie faptic",
+    "administration_register_name": "Gestiune scriptic",
+    "administration_actual_name": "Gestiune faptic",
+    "reason_name": "Motiv",
+    "asset_in_reco": "In reconciliere",
+    "completed": "Validat",
+    "latitude": "Latitudine",
+    "longitude": "Longitudine",
+    "asset_subno": "SubNo",
+    "asset_tag": "Tag RFID",
+    "allow_label_actual": "Etichetabil",
+    "asset_name_actual": "Denumire inventar",
+    "info": "Info",
+    "modified_at": "Data ultimei modificari",
+    "inventory_date": "Data inventarierii",
+    "serial_number_register": "SN scriptic",
+    "serial_number_actual": "SN faptic",
+    "inv_state_actual_name": "Stare inventar",
+    "book_value": "Valoare",
+    "GPI": "GPI",
+    "asset_adm_sector_code": "Cod sector",
+    "asset_adm_sector_name": "Sector",
+    "asset_adm_asset_code": "Cod Asset",
+    "asset_adm_asset_name": "Asset",
+    "asset_idle_group_code": "Cod IdleGroup",
+    "asset_idle_group_name": "IdleGroup",
+    "asset_adm_ufi_uwi_code": "Cod AdmUfiUwi",
+    "asset_adm_ufi_uwi_name": "AdmUfiUwi",
+    "asset_land_area_code": "Carou",
+    "asset_capitalizationDate": "Data capitalizare",
+    "no_solution_level": "Nesolutionat la nivelul",
+    "asset_capitalization_date": "Data capitalizarii"
+  },
+  "list_reconciliation_detail" : {
+    "asset_inv_no": "Număr Inventar minus",
+    "entity_type_name": "Tip document",
+    "asset_name": "Denumire minus",
+    "tempAsset_inv_no": "Număr Inventar plus",
+    "tempAsset_name": "Denumire plus",
+    "reco_state_name": "Status"
+  },
+  "list_document_detail" : {
+    "entity_type_name": "Tip document",
+    "entityFile_name": "Fisier"
+  },
+  "list_transfers": {
+    "transfer_id": "Id",
+    "info": "Info",
+    "state_code": "Stare",
+    "asset_name": "Nume asset",
+    "asset_inv_no": "Număr inventar",
+    "asset_sub_no": "SubNo",
+    "srcCostCenter_code": "Cod CC predator",
+    "srcCostCenter_name": "CC predator",
+    "srcAdministration_code": "Gestiune predator",
+    "srcIdleGroup_code": "IdleGroup predator",
+    "srcCompany_code": "Companie predator",
+    "srcDivision_code": "Divizie predator",
+    "dstCostCenter_code": "Cod CC primitor",
+    "dstCostCenter_name": "CC primitor",
+    "dstAdministration_code": "Gestiune primitor",
+    "dstIdleGroup_code": "IdleGroup primitor",
+    "dstCompany_code": "Companie primitor",
+    "dstDivision_code": "Divizie primitor",
+    "temp_asset_inv_no": "Număr inventar plus",
+    "temp_asset_name": "Nume asset plus",
+    "asset_op_type": "Operatie",
+    "asset_op_state": "Status",
+    "app_document_number": "Nr. document",
+    "app_document_date": "Data document",
+    "asset_dep_detail_value_rem": "Valoare inventar",
+    "srcEmployee_first_name": "Prenume",
+    "srcEmployee_last_name": "Nume",
+    "dstEmployee_first_name": "Prenume",
+    "dstEmployee_last_name": "Nume",
+    "transfer_type_name": "Tip",
+    "transfer_date": "Data",
+    "srcAdmAsset_code": "Cod asset primitor",
+    "srcAdmAsset_name": "Cod asset primitor",
+    "srcAdmSector_code": "Cod sector primitor",
+    "dstAdmAsset_code": "Cod asset primitor",
+    "dstAdmAsset_name": "Cod asset primitor",
+    "dstAdmSector_code": "Cod sector primitor",
+    "customApproval_firstName": "Prenume validator",
+    "customApproval_lastName": "Nume validator",
+    "srcApproval_firstName": "Prenume aprobator",
+    "srcApproval_lastName": "Nume aprobator",
+    "dstApproval_firstName": "Prenume aprobator",
+    "dstApproval_lastName": "Nume aprobator"
+  },
+  "list_email_manager": {
+    "email_manager_date": "Data cerere",
+    "email_user": "User",
+    "email_emailType": "Tip",
+    "email_shop": "Locatie",
+    "email_resolved": "Rezolvat"
+  },
+  "list_localities": {
+    "locality_code": "Cod",
+    "locality_name": "Nume"
+  },
+  "list_transfer_details": {
+    "asset_invNo": "Numar inventar",
+    "asset_subNo": "Subnumar",
+    "asset_name": "Denumire"
+  },
+  "list_line_of_business": {
+    "lob_code": "Cod",
+    "lob_name": "Descriere"
+  },
+  "list_departments": {
+    "department_code": "Cod",
+    "department_name": "Descriere"
+  },
+  "list_decision": {
+    "division_name": "Divizie",
+    "company_name": "Companie",
+    "doc_no": "Număr document",
+    "company_code": "Cod Companie"
+  },
+  "list_appusers": {
+    "email": "Email",
+    "name": "Nume",
+    "dataAdmin": "DataAdmin",
+    "employee_first_name": "Prenume",
+    "employee_last_name": "Nume",
+    "employee_email": "Email",
+    "employee_internal_code": "XKey",
+    "app_role_name": "Rol"
+  },
+  "list_dataadmin": {
+    "allowed": "Allowed",
+    "division_name": "Divizie",
+    "company_name": "Companie",
+    "cost_center_name": "Centru de cost",
+    "administration_name": "Gestiune",
+    "adm_asset_code": "Asset",
+    "adm_sector_code": "Sector"
+  },
+  "list_app_permissions": {
+    "app_permission_code": "Cod",
+    "app_permission_name": "Nume",
+    "app_permission_info": "Descriere"
+  },
+  "list_app_role_permissions": {
+    "app_role_name": "Rol",
+    "app_permission_code": "Cod",
+    "app_permission_name": "Nume",
+    "app_permission_info": "Descriere"
+  },
+  "list_data_imports": {
+    "data_import_data_process_type_name": "Tip procesare",
+    "data_import_app_user_name": "Utilizator",
+    "data_import_import_type": "Tip import",
+    "data_import_name": "Denumire fisier",
+    "data_import_state_code": "Stare",
+    "data_import_records_total": "Total linii",
+    "data_import_records_processed": "Linii importate",
+    "data_import_started_at": "Inceput procesare",
+    "data_import_completed_at": "Finalizare procesare"
+  },
+  "list_inv": {
+    "inventory_name": "Nume",
+    "inventory_date": "Data",
+    "inventory_end": "Sfarsit",
+    "inventory_adhoc": "Adhoc",
+    "inventory_isvalidated": "Validat"
+  },
+  "list_inventory_allocation": {
+    "id": "ID",
+    "company_name": "Companie",
+    "division_name": "Divizie",
+    "administration_name": "Gestiune",
+    "cost_center_name": "Centru de cost"
+  },
+  "list_document_type": {
+    "id": "ID",
+    "code": "Cod",
+    "name": "Nume"
+  },
+  "list_document_number": {
+    "id": "ID",
+    "current_index": "Index curent",
+    "division_name": "Nume divizie",
+    "division_code": "Cod divizie",
+    "company_code": "Cod companie",
+    "company_name": "Nume companie",
+    "admAsset_code": "Cod gestiune",
+    "admAsset_name": "Nume gestiune",
+    "index_format_length": "Numar caractere",
+    "index_replace_char": "Caracter completare"
+  },
+  "list_emp_position": {
+    "code": "Cod",
+    "name": "Nume",
+    "nameEn": "Nume EN",
+    "erpCode": "Cod ERP"
+  },
+  "list_app_documents": {
+    "document_type_name": "Tip document",
+    "document_number": "Numar document",
+    "document_date": "Data document",
+    "isActive": "Activ",
+    "signing_state": "Stare semnare"
+  },
+  "list_reason_document_type": {
+    "document_type_name": "Tip document",
+    "mandatory": "Obligatoriu"
+  },
+  "component_view_settings": {
+    "label_settings": "Configurări",
+    "label_view": "Vizualizare",
+    "label_relaxed": "Relaxat",
+    "label_compact": "Compact"
+  },
+  "list_inventory_document": {
+    "document_type_name": "Tip document",
+    "app_document_file_name": "Fisier"
+  },
+  "list_inventory_detail_document": {
+    "document_type_name": "Tip document",
+    "app_document_file_name": "Fisier"
+  },
+  "list_asset_document": {
+    "document_type_name": "Tip document",
+    "app_document_file_name": "Fisier",
+    "app_document_info": "Info"
+  },
+  "list_inventory_plans": {
+    "committee_code": "Cod comisie",
+    "committee_name": "Nume comisie",
+    "committee_type_name": "Tip comisie",
+    "division_code": "Cod Divizie",
+    "company_code": "Cod Companie",
+    "adm_asset_code": "Cod asset",
+    "adm_asset_name": "Asset",
+    "adm_sector_name": "Sector",
+    "adm_zone_name": "Zona",
+    "cost_center_code": "Cod centru de cost",
+    "cost_center_name": "Centru de cost",
+    "administration_code": "Cod gestiune",
+    "administration_name": "Gestiune",
+    "state": "Stare",
+    "assets_register": "Scriptic",
+    "assets_actual": "Faptic",
+    "assets_plus": "Plusuri",
+    "assets_plus_final": "Plusuri finale",
+    "assets_plus_final_value": "Valoare plusuri finale",
+    "assets_minus": "Minusuri",
+    "assets_minus_final": "Minusuri finale",
+    "assets_minus_final_value": "Valoare minusuri finale",
+    "has_differences": "Diferente",
+    "assets_book_value": "Valoare",
+    "administrator_firstName": "Prenume",
+    "administrator_lastName": "Nume",
+    "invProject_code": "Proiect",
+    "reconciliation_level": "Nivel reconciliere",
+    "reconciliations_total": "Total",
+    "reconciliations_completed": "Finalizate",
+    "reconciliations_rejected": "Respinse"
+  },
+  "list_reconciliations": {
+    "cost_center_plus_code": "Cod centru de cost",
+    "cost_center_plus_name": "Nume centru de cost",
+    "asset_plus_invno": "Numar inventar",
+    "asset_plus_name": "Denumire",
+    "cost_center_minus_code": "Cod centru de cost",
+    "cost_center_minus_name": "Denumire centru de cost",
+    "asset_minus_invno": "Numar inventar",
+    "asset_minus_name": "Denumire",
+    "reconciliation_type": "Tip reconciliere",
+    "reconciliation_level": "Nivel",
+    "reconciliation_state": "Stare",
+    "validation_level": "Nivel validare",
+    "info": "Info",
+    "reconciliation_invNo": "Numar inventar SAP",
+    "reconciliation_projectCode": "Cod proiect",
+    "tax_state": "Opinie Taxe",
+    "tax_info": "Info Taxe",
+    "reporting_state": "Opinie Reporting",
+    "reporting_info": "Info Reporting"
+  },
+  "list_evaluation_classes": {
+    "evaluation_class_class_type": "Clasificare",
+    "evaluation_class_description": "Descriere",
+    "evaluation_class_uom": "Unitate masura",
+    "evaluation_class_reference_value": "Valoare",
+    "evaluation_class_currency": "Moneda"
+  },
+  "page_evaluation_class_selection": {
+    "title": "Evaluare plusuri",
+    "action_cancel": "Anulare",
+    "action_select": "Selecteaza"
+  },
+  "sidenav": {
+    "assets": "Mijloace fixe",
+    "inventoryPlan": "Planificare Inventar",
+    "committees": "Comisii",
+    "suppliers": "Furnizori",
+    "inventory_details": "Situatii",
+    "inventory": "Inventar",
+    "tempassets": "Plusuri de inventar",
+    "decisions": "Decizii",
+    "emails": "Email-uri",
+    "transfers": "Transfer-uri",
+    "reconciliations": "Reconcilieri",
+    "documents": "Documente",
+    "charts": "Grafice",
+    "dashboards": "Dashboard",
+    "reports": "Rapoarte",
+    "nomenclatures": "Nomenclatoare",
+    "admin_panel": "Panou Admin",
+    "app_configuration": "Configurări",
+    "locations": "Locatii",
+    "dataimports": "Procesari fisiere",
+    "divisions": "Divizii",
+    "inventories": "Inventare",
+    "adminPanel": "Panou admin",
+    "dataImport": "Import date",
+    "configuration": "Configurari",
+    "companies": "Companii",
+    "costCenters": "Centre de cost",
+    "costCentersEmployees": "Gestionari",
+    "administrationEmployee": "Gestiuni /Angajati",
+    "administrations": "Administrare",
+    "employees": "Angajati",
+    "admSectors": "Sectoare",
+    "accClasses": "Clase",
+    "committeePositions": "Functii in comisii",
+    "committeeTypes": "Tipuri comisii",
+    "buildingMainTypes": "Tipuri principale de cladiri",
+    "buildingTypes": "Tipuri cladiri",
+    "materials": "Materiale",
+    "assetClasses": "Clasificari",
+    "idleGroups": "Grupuri IDLE",
+    "admUfiuwis": "UFI/UWI",
+    "customClasses": "Clase custom",
+    "reasons": "Motive",
+    "tableDefinitions": "Definire tabel",
+    "assetcategories": "Categorii mijloc fix",
+    "buildingmaintypes": "Tip cladiri principal",
+    "buildingtypes": "Tipuri cladiri",
+    "assetclasses": "Clase mijloc fix",
+    "idlegroups": "Grupuri IDLE",
+    "admassets": "Asset-uri",
+    "admsectors": "Adm Sectors",
+    "admufiuwis": "Adm UFI UWIS",
+    "committeepositions": "Committee positions",
+    "committeetypes": "Tipuri comisie",
+    "costcenteremployees": "Gestionari",
+    "administrationemployees": "Angajati gestiune",
+    "customclasses": "Clase custom",
+    "appcustomfields": "Campuri custom",
+    "inventoryPlans": "Planificare inventar"
+  },
+  "states": {
+    "NEW": "Nou",
+    "INITIALIZATION": "Initializare",
+    "VALIDATED": "Validat",
+    "SIGNING": "Semnare",
+    "PLANNING": "Planificare",
+    "STARTED": "Pornit",
+    "FINISHED": "Finalizat teren",
+    "RECONCILIATION": "Reconciliere",
+    "COMPLETED": "Validat"
+  },
+  "reconciliation_constants": {
+    "L1": "Gestiune",
+    "L2": "Centru de cost",
+    "L3": "Asset",
+    "L4": "Companie",
+    "L5": "Divizie",
+    "NOT_SET": "Cod proiect in curs de clarificare",
+    "Matching": "Compensare plus-minus",
+    "Justifying": "Documente justificative",
+    "Acquisition": "Inregistrare recenta",
+    "Similarity": "Mijloc fix similar",
+    "RealEstate": "Evaluare cladiri",
+    "Material": "Evaluare deseuri",
+    "Minus": "Minus final"
+  },
+  "reconciliation_state": {
+    "Pending": "Spre aprobare",
+    "Approved": "Validat",
+    "Rejected": "Respins"
+  },
+  "errors": {
+    "NO_SCOPE_DEFINED": "Nici un scop definit",
+    "INVENTORY_START_NOT_DEFINED": "Data inceput nu este definita"
+  },
+  "page_pif_reconciliation_modal": {
+    "invNo_label": "Numar nou SAP",
+    "projectCode_label": "Cod proiect",
+    "invNo_placeholder": "numar nou SAP",
+    "projectCode_placeholder": "cod proiect",
+    "notSet_label": "In curs de clarificare",
+    "notSet_placeholder": "In curs de clarificare",
+    "action_cancel": "Anuleaza",
+    "action_save": "Salveaza",
+    "title_info": "Marcare numar inventar"
+  },
+  "page_eval_reconciliation_modal": {
+    "evaluation_class_label": "Categorie",
+    "acc_class_label": "Cod clasificare",
+    "quantity_label": "Cantitate",
+    "weight_label": "Tonaj",
+    "surface_label": "Suprafata",
+    "quantity_placeholder": "Cantitate",
+    "dep_percentage_label": "Grad de uzura (%)",
+    "dep_percentage_placeholder": "Grad de uzura (%)",
+    "value_inv_label": "Valoare",
+    "value_inv_placeholder": "Valoare",
+    "dep_period_rem_label": "Durata de viata (luni)",
+    "dep_period_rem_placeholder": "Durata de viata (luni)",
+    "action_cancel": "Anuleaza",
+    "action_save": "Salveaza",
+    "title_info_real_estate": "Evaluare plusuri de inventar de tipul Real Estate",
+    "title_info_material": "Evaluare plusuri de inventar de tipul Deseuri",
+    "title_info_similarity": "Evaluare plusuri de inventar prin mijloc fix similar"
+  },
+  "page_inventory_addresses_modal": {
+    "address_label": "Adresă",
+    "address_placeholder": "Adresă completă",
+    "locality_label": "Localitate",
+    "locality_placeholder": "Selectează o localitate",
+    "county_label": "Județ",
+    "county_placeholder": "Selectează un Județ"
+  },
+  "page_operation_employee_component": {
+    "shops_placeholder": "Shops",
+    "header_reset_filter_button": "Reseteaza filtre",
+    "header_reset_selections_button": "Reseteaza selectii",
+    "validate_button_text": "Valideaza transfer nou",
+    "approve_button_text": "Aproba transfer",
+    "cancel_button_text": "Anuleaza transfer"
+  },
+
+
+
+  "page_company_add_edit": {
+    "title_add": "Adauga",
+    "title_edit": "Editeaza company",
+    "action_add": "Adauga company",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Codul este obligatoriu.",
+    "code_min_length": "Cod must be at least 1 character long.",
+    "code_max_length": "Acest camp nu poate fi mai mare de 4 caractere",
+    "name_label": "Nume",
+    "name_placeholder": "Nume",
+    "name_required": "You must specify a name.",
+    "name_min_length": "Name must be at least 1 character long.",
+    "name_max_length": "Name cannot exceed 50 characters",
+    "action_save": "Salveaza"
+  },
+  "page_supplier_status_add_edit": {
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+    "cancel_action": "Înapoi",
+
+    "type_label": "Tip",
+    "type_placeholder": "Tip",
+    "type_required": "You must include a type.",
+
+    "company_label": "Companie",
+    "company_placeholder": "Selectează compania",
+    "company_required": "You must include a company.",
+
+    "location_label": "Locație",
+    "location_placeholder": "Selectează Locația",
+    "location_required": "You must include a location.",
+
+    "object_type_label": "Object type",
+    "object_type_placeholder": "Selectează Object type",
+    "object_type_required": "You must include a object type.",
+
+    "brand_label": "Brand",
+    "brand_placeholder": "Selectează brand",
+    "brand_required": "You must include a brand.",
+
+    "model_label": "Model",
+    "model_placeholder": "Selectează model",
+    "model_required": "You must include a model.",
+
+    "acquisition_label": "Dată achiziţie",
+    "acquisition_placeholder": "Dată achiziţie",
+    "acquisition_required": "You must include aquisition date.",
+
+    "acquisition_price_label": "Preț achiziţie",
+    "acquisition_price_placeholder": "Preț achiziţie",
+    "acquisition_price_required": "You must include aquisition price.",
+
+    "quantity_label": "Cantitate",
+    "quantity_placeholder": "Cantitate",
+    "quantity_required": "You must include quantity.",
+
+    "invoice_label": "Factură",
+    "invoice_placeholder": "Factură",
+    "invoice_required": "You must include invoice.",
+
+    "doc_type_label": "Tip document",
+    "doc_type_placeholder": "Selectează tip document",
+    "doc_type_required": "You must include document type.",
+
+    "vendor_label": "Furnizor",
+    "vendors_placeholder": "Selectează furnizor",
+    "vendors_required": "You must include vendor.",
+
+    "employee_label": "Angajat",
+    "employee_placeholder": "Selectează angajat",
+    "employee_required": "You must include an employee.",
+
+    "product_label": "Produs",
+    "product_placeholder": "Selectează un produs",
+    "product_required": "You must include a product.",
+
+    "ERPID_label": "ERPID",
+    "ERPID_placeholder": "Selectează RPID",
+    "ERPID_required": "You must include a rpid.",
+
+    "label_label": "Etichetă",
+    "label_placeholder": "Selectează eticheta",
+    "label_required": "You must include a label."
+  },
+  "page_suppliers_status_component": {
+    "filter_companies_placeholder": "Companie",
+    "filter_counties_placeholder": "Județ",
+    "filter_cities_placeholder": "Oraș",
+    "filter_shops_placeholder": "Locație",
+    "filter_asset_types_placeholder": "Asset types",
+    "filter_categories_placeholder": "Categorie",
+    "filter_brands_placeholder": "Brand",
+    "filter_models_placeholder": "Model",
+    "filter_new_item_placeholder": "Item nou",
+    "filter_parent_invoice_placeholder": "Factură părinte",
+    "reset_filter_button_text": "Reseteaza filtre",
+    "export_button_text": "Exportă",
+    "table_results_text": "rezultate"
+  },
+  "page_suppliers_status_shop_component": {
+    "companies_placeholder": "Companie",
+    "counties_placeholder": "Județ",
+    "cities_placeholder": "Oraș",
+    "locations_placeholder": "Locație",
+    "categories_placeholder": "Categorie",
+    "brands_placeholder": "Brand",
+    "models_placeholder": "Model"
+  },
+
+  "list_suppliers_status_shop": {
+    "status_shop_company_code": "Companie",
+    "status_shop_product": "Produs",
+    "status_shop_brand": "Brand",
+    "status_shop_category": "Categorie",
+    "status_shop_model": "Model",
+    "status_shop_state": "Stare",
+    "status_shop_status_shop_quantity": "Cantitate",
+    "status_shop_asset_allocation": "Alocat pe Asset-ul",
+    "status_shop_code": "Cod locație",
+    "status_shop_name": "Locație",
+    "status_shop_quantity": "Cantitate"
+  },
+  "list_suppliers_status" : {
+    "supplier_id": "ID",
+    "supplier_name": "Nume",
+    "supplier_company_code": "Companie",
+    "supplier_product": "Produs",
+    "supplier_quantity": "Cantitate",
+    "supplier_q_transfered": "Q. transferat",
+    "supplier_brand_code": "Brand",
+    "supplier_model_name": "Model",
+    "supplier_invState_name": "Stare activă",
+    "supplier_category_length": "Categorie",
+    "supplier_shop_code": "Cod locație",
+    "supplier_shop_name": "Nume locație",
+    "supplier_is_new": "Nou",
+    "supplier_value_invoice": "V. Factură",
+    "supplier_transfer_value": "V. transferată",
+    "supplier_value_rem": "V. rămasă",
+    "supplier_quantity_rem": "Q. rămasă",
+    "supplier_purchase_date": "Dată factură",
+    "supplier_room_tr_asset": "Shop tr. cod",
+    "supplier_shop_tr": "Locație tr.",
+    "supplier_invoice": "Factură"
+  },
+
+  "page_assets_component": {
+    "search_placeholder": "Caută.." ,
+    "search_invoice_placeholder": "Caută factuă..",
+    "top_add_button": "Adaugă",
+    "import_button_text": "Importă",
+    "export_button_text": "Exportă",
+    "filter_companies_placeholder": "Companie",
+    "filter_counties_placeholder": "Județ",
+    "filter_cities_placeholder": "Oraș",
+    "filter_shops_placeholder": "Locație",
+    "filter_asset_types_placeholder": "Asset types",
+    "filter_type_placeholder": "Tip",
+    "filter_categories_placeholder": "Categorie",
+    "filter_brands_placeholder": "Brand",
+    "filter_models_placeholder": "Model",
+    "filter_inv_states_placeholder": "Status",
+    "filter_dictionary_items_placeholder": "Dictionary items",
+    "filter_send_to_destination_placeholder": "Send to destination",
+    "filter_wait_for_manager_validation_placeholder": "Wait for manager validation",
+    "filter_all_placeholder": "Toate",
+    "filter_printed_placeholder": "Printat",
+    "filter_transferred_placeholder": "Transferat",
+    "filter_scanned_placeholder": "Scanat",
+    "filter_shop_errors_placeholder": "Erori shop",
+    "filter_movement_type_placeholder": "Tipuri miscari",
+    "filter_states_placeholder": "States",
+    "filter_uoms_placeholder": "SMDC",
+    "filter_types_placeholder": "Tipuri",
+    "filter_users_placeholder": "Utilizatori",
+    "all_placeholder": "Toate",
+    "reset_filter_button_text": "Resetează filtre",
+    "reset_selections_button_text": "Resetează selecții",
+    "new_transfer_button_text": "Transfer nou",
+    "add_description_button_text": "Adaugă descriere",
+    "print_label_button_text": "Printează etichetă",
+    "table_selected_text": "selectate",
+    "table_results_text": "rezultate"
+  },
+  "list_inventory": {
+    "inventory_initial_shop_name": "Nume locație inițială",
+    "inventory_initial_shop": "Locație inițială",
+    "inventory_reco": "Reco",
+    "inventory_reco_name": "Nume reco",
+    "inventory_reco_state": "Stare Reco",
+    "inventory_asset": "Asset",
+    "inventory_company": "Companie",
+    "inventory_sn_scriptic": "SN scriptic",
+    "inventory_description": "Descriere",
+    "inventory_photos_counts": "Numer poze",
+    "inventory_labelable": "Etichetabil?",
+    "inventory_type": "Tip inventar",
+    "inventory_serial": "Serie inventar",
+    "inventory_comment": "Comentariu",
+    "inventory_shop": "Locație",
+    "inventory_responsable": "Responsabil inventar",
+    "inventory_state": "Stare inventar",
+    "inventory_q": "Q. inventar",
+    "inventory_user": "User inventar",
+    "inventory_scan_date": "Dată scanare",
+    "inventory_sync_date": "Dată sincronizare",
+    "inventory_version": "Versiune",
+    "inventory_reason_minus": "Motiv minus"
+  },
+
+  "sidenav_menu_items": {
+    "title": "Conținut",
+
+    "dashboard": "Dashboard",
+    "maps": "Hărți",
+    "emails": "Emailuri",
+    "supplies": "Consumabile",
+    "employees": "Angajați",
+    "assets": "Asseturi",
+    "inventories": "Inventare",
+    "operations": "Operații",
+    "nomenclatures": "Nomenclatoare",
+    "settings_title": "Setări",
+    "admin_panel": "Panou admin",
+    "configurations_group": "Configurări"
+  },
+  "layout_header": {
+    "search_placeholder": "Caută..",
+    "second_search_placeholder": "Caută factură..",
+    "add_button": "Adaugă",
+    "table_settings": "Setari tabel",
+    "relaxed_table": "Relaxat",
+    "compact_table": "Compact",
+    "view_table": "Vizualizare",
+    "months_label": "Luna",
+    "export_button_text": "Export",
+    "export_po_status_button_text": "Export Status Validare P.O"
+  },
+
+  "page_asset_pre_validate_add_edit": {
+    "title_add": "Adauga asset",
+    "title_edit": "Editare",
+    "in_sap_validation": "Da",
+    "not_sap_validation": "Nu",
+    "action_cancel": "Inapoi",
+    "action_save": "Salveaza",
+    "label_in_sap_validation": "Inregistrat in SAP"
+
+  },
+
+  "page_dashboard_component": {
+    "department_code_label" : "Cod departament",
+    "department_label" : "Departament",
+    "bu_code_label" : "Cod B.U.",
+    "cost_center_code_label" : "Cod C.C. ",
+    "cost_center_label" : "Centru de cost",
+    "last_scan_label" : "Ultima scanare",
+    "activity_label" : "Activitate",
+    "by_script_label" : "scriptic",
+    "real_label" : "faptic",
+    "non_inventoried_label" : "neinventariate",
+    "location_label" : "Locatie",
+    "percent_label" : "Procent",
+    "table_title_label" : "Total active dupa categorie",
+    "administration_placeholder": "Cauta Locatie",
+    "department_placeholder": "Cauta B.U.",
+    "activities_placeholder": "Activity",
+    "admcenter_placeholder": "Profit Center",
+    "projecttypes_placeholder": "Proiect",
+    "assettypes_placeholder": "Cost type",
+    "division_placeholder": "Cauta departament",
+    "cost_center_placeholder": "Cauta Centru de cost",
+    "employee_placeholder": "Cauta angajat",
+    "last_update_text": "Ultima actualizare",
+    "total_value_text": "Valoare totala",
+    "total_assets_label": "Active totale",
+    "total_scanned_assets_label": "Total active scanate",
+    "percentage_scanned_assets_label": "Procent active scanate",
+    "total_current_bank_value_text": "Total CurrBkValue",
+    "total_accumul_dep_label": "Total AccumulDep",
+    "total_current_APC_label": "Total current APC",
+    "total_scanned_current_bank_value_text": "Total CurrBkValue",
+    "total_scanned_accumul_dep_label": "Scanned CurrBkValue",
+    "total_scanned_current_APC_label": "Procentage CurrBkValue",
+    "team_manager_tab": "Team manager",
+    "responsible_tab": "Responsabili",
+    "business_unit_tab": "Business Unit",
+    "departments_tab": "Departamente",
+    "cost_center_tab": "Centre de cost",
+    "locations_tab" : "Locatii"
+  },
+  "page_wfh_personal_component": {
+    "last_update_text": "Ultima actualizare",
+    "employee_label": "Angajati",
+    "total_value_text": "Valoare totala",
+    "email_label": "Emailuri",
+    "confirmation_label": "Confirmari",
+    "percentage_label": "Procent",
+    "equipment_delivery_button": "Predare echipament catre IT",
+    "transfer_to_another_user_button": "Transfer catre alt utilizator",
+    "delete_selections_button": "Sterge selectii",
+    "reload_list_button": "Reincarca lista",
+    "table_selected_text": "selectate",
+    "table_results_text": "rezultate",
+    "transfer_acceptance_button": "Acceptare transfer"
+  },
+  "page_budget_month_component": {
+    "wbs_filter_placeholder": "WBS",
+    "activity_filter_placeholder": "Activitate",
+    "owner_filter_placeholder": "Detinator",
+    "months_filter_placeholder": "Luni",
+    "table_selected_text": "selectate",
+    "table_results_text": "rezultate",
+    "department_filter_placeholder": "Departament"
+  },
+  "page_inventory_status_component": {
+    "inventory_filter_placeholder": "Inventar",
+    "photo_filter_placeholder": "Poza",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "option_all": "Toate",
+    "option_scanned": "Scanate",
+    "option_unscanned": "Nescanate",
+    "option_transfer_cost_center": "Transferuri centru de cost",
+    "user_filter_placeholder": "Utilizator",
+    "reset_filters": "Reseteaza filtre",
+    "filters_selection": "Selectează tip filtre",
+    "initial_filter": "Initial",
+    "final_filter": "Final",
+    "all_filter": "Toate",
+    "cost_center_filter_placeholder": "Centru de cost",
+    "division_filter_placeholder": "Divizie",
+    "photo_button": "Poza",
+    "sap_minus_button": "Sap Minus",
+    "reconciliation_button": "Reconciliere",
+    "table_selected_text": "selectate",
+    "table_results_text": "rezultate"
+  },
+  "page_asset_stock_component": {
+    "business_unit_filter_placeholder": "Business unit",
+    "divisions_filter_placeholder": "Departamente",
+    "locations_filter_placeholder": "Adrese",
+    "cost_center_filter_placeholder": "Centre de cost",
+    "wbs_filter_placeholder": "WBS",
+    "filter_printed_placeholder": "Printat",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "option_all": "Toate",
+    "filter_scanned_placeholder": "Scanat",
+    "reset_filters": "Reseteaza filtre",
+    "export_button_text": "Export",
+    "import_button_text": "Import",
+    "table_results_text": "rezultate",
+    "template_button_text": "Template",
+    "add_from_stock_button": "Adauga din stoc",
+    "operations_button": "Operatii",
+    "transfer_acceptance_button": "Acceptare transfer",
+    "label_button": "Eticheta",
+    "details_button": "Detalii"
+  },
+  "page_contract_manage_component": {
+    "suppliers_filter_placeholder": "Furnizori",
+    "cost_center_filter_placeholder": "Centre de cost",
+    "company_filter_placeholder": "Companii",
+    "employee_filter_placeholder": "Angajati",
+    "table_selected_text": "selectate",
+    "table_results_text": "rezultate",
+    "export_button_text":"Export"
+  },
+  "page_stock_it_component": {
+    "business_unit_filter_placeholder": "Business unit",
+    "divisions_filter_placeholder": "Departamente",
+    "locations_filter_placeholder": "Adrese",
+    "cost_center_filter_placeholder": "Centre de cost",
+    "wbs_filter_placeholder": "WBS",
+    "filter_printed_placeholder": "Printat",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "option_all": "Toate",
+    "filter_scanned_placeholder": "Scanat",
+    "reset_filters": "Reseteaza filtre",
+    "export_button_text": "Export",
+    "import_button_text": "Import",
+    "template_button_text": "Template",
+    "operations_button": "Operatii",
+    "transfer_acceptance_button": "Acceptare transfer",
+    "storno_mfx_button": "Storno MFX",
+    "label_button": "Eticheta",
+    "inventory_details_button": "Detalii nr. inventar",
+    "table_results_text": "rezultate"
+  },
+  "page_stock_it_to_employee_component": {
+    "business_unit_filter_placeholder": "Business unit",
+    "divisions_filter_placeholder": "Departamente",
+    "locations_filter_placeholder": "Adrese",
+    "cost_center_filter_placeholder": "Centre de cost",
+    "wbs_filter_placeholder": "WBS",
+    "filter_printed_placeholder": "Printat",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "option_all": "Toate",
+    "filter_scanned_placeholder": "Scanat",
+    "reset_filters": "Reseteaza filtre",
+    "export_button_text": "Export",
+    "operations_button": "Operatii",
+    "storno_mfx_button": "Storno MFX",
+    "label_button": "Eticheta",
+    "inventory_details_button": "Detalii nr. inventar",
+    "table_results_text": "rezultate",
+    "table_selected_text": "selectate"
+  },
+  "page_stock_it_from_employee_component": {
+    "business_unit_filter_placeholder": "Business unit",
+    "divisions_filter_placeholder": "Departamente",
+    "locations_filter_placeholder": "Adrese",
+    "cost_center_filter_placeholder": "Centre de cost",
+    "wbs_filter_placeholder": "WBS",
+    "filter_printed_placeholder": "Printat",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "option_all": "Toate",
+    "filter_scanned_placeholder": "Scanat",
+    "reset_filters": "Reseteaza filtre",
+    "export_button_text": "Export",
+    "operations_button": "Operatii",
+    "transfer_acceptance_button": "Acceptare transfer",
+    "label_button": "Eticheta",
+    "table_results_text": "rezultate",
+    "table_selected_text": "selectate",
+    "transfer_decline_button" : "Refuz transfer"
+  },
+  "page_stock_history_component": {
+    "reset_filters": "Reseteaza filtre",
+    "export_button_text": "Export",
+    "print_label_button": "Printeaza eticheta",
+    "inventory_details_button": "Detalii nr. inventar",
+    "operations_button": "Operatii",
+    "generate_mf_button": "Genereaza MF",
+    "table_results_text": "rezultate",
+    "operations_sap_text": "Operatii SAP",
+    "delete_button": "Stergere",
+    "block_button": "Blocheaza",
+    "transfer_button": "Transfer",
+    "clone_button": "Cloneaza",
+    "decommission_button": "Casare",
+    "storno_decommission_button": "Storno casare",
+    "storno_invoice_button": "Storno factura"
+  },
+  "page_assets_in_use_component": {
+    "cost_center_filter_placeholder": "Centre de cost",
+    "divisions_filter_placeholder": "Departamente",
+    "pc_filter_placeholder": "PC",
+    "pc_det_filter_placeholder": "PC Det",
+    "filter_printed_placeholder": "Printat",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "option_all": "Toate",
+    "filter_scanned_placeholder": "Scanat",
+    "filter_temporary_placeholder": "Temporare",
+    "reset_filters": "Reseteaza filtre",
+    "export_button_text": "Export",
+    "print_label_button": "Printeaza eticheta",
+    "inventory_details_button": "Detalii nr. inventar",
+    "transfer_button": "Transfer",
+    "transfer_button_it": "Transfer IT",
+    "transfer_button_storno": "Stornare",
+    "transfer_button_cassation": "Casare",
+    "table_results_text": "rezultate",
+    "operations_sap_text": "Operatii SAP",
+    "delete_button": "Stergere",
+    "block_button": "Blocheaza",
+    "clone_button": "Cloneaza",
+    "decommission_button": "Casare",
+    "storno_decommission_button": "Storno casare",
+    "storno_invoice_button": "Storno factura",
+    "delete_selections_button_text" :"Stergere selectii"
+  },
+  "page_project_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_project_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_level_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_level_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_area_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_area_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_project_type_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_project_type_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_inter_company_en_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_inter_company_en_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_storage_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_storages_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_matrix_status_component": {
+    "table_results_text": "rezultate",
+    "divisions_filter_placeholder": "Departamente",
+    "l1_filter_placeholder": "L1",
+    "reset_filters": "Reseteaza filtre",
+    "l2_filter_placeholder": "L2",
+    "l3_filter_placeholder": "L3",
+    "l4_filter_placeholder": "L4",
+    "s1_filter_placeholder": "S1",
+    "s2_filter_placeholder": "S2",
+    "s3_filter_placeholder": "S3"
+  },
+  "page_matrix_add_edit": {
+    "company_label": "Companie",
+    "company_placeholder": "Companie",
+    "company_required": "Acest camp este obligatoriu!",
+    "division_label": "Departament",
+    "division_placeholder": "Departament",
+    "employeeB1_label": "B1",
+    "employeeB1_placeholder": "B1",
+    "employeeB1_required": "Acest camp este obligatoriu!",
+    "employeeL1_label": "L1",
+    "employeeL1_placeholder": "L1",
+    "employeeL1_required": "Acest camp este obligatoriu!",
+    "employeeL2_label": "L2",
+    "employeeL2_placeholder": "L2",
+    "employeeL2_required": "Acest camp este obligatoriu!",
+    "employeeL3_label": "L3",
+    "employeeL3_placeholder": "L3",
+    "employeeL3_required": "Acest camp este obligatoriu!",
+    "employeeL4_label": "L4",
+    "employeeL4_placeholder": "L4",
+    "employeeL4_required": "Acest camp este obligatoriu!",
+    "employeeS1_label": "S1",
+    "employeeS1_placeholder": "S1",
+    "employeeS1_required": "Acest camp este obligatoriu!",
+    "employeeS2_label": "S2",
+    "employeeS2_placeholder": "S2",
+    "employeeS2_required": "Acest camp este obligatoriu!",
+    "employeeS3_label": "S3",
+    "employeeS3_placeholder": "S3",
+    "employeeS3_required": "Acest camp este obligatoriu!",
+    "amountL4_label": "L4",
+    "amountL4_placeholder": "L4",
+    "amountL4_required": "Acest camp este obligatoriu!",
+    "amountL3_label": "L3",
+    "amountL3_placeholder": "L3",
+    "amountL3_required": "Acest camp este obligatoriu!",
+    "amountL2_label": "L2",
+    "amountL2_placeholder": "L2",
+    "amountL2_required": "Acest camp este obligatoriu!",
+    "amountL1_label": "L1",
+    "amountL1_placeholder": "L1",
+    "amountL1_required": "Acest camp este obligatoriu!",
+    "amountS1_label": "S1",
+    "amountS1_placeholder": "S1",
+    "amountS1_required": "Acest camp este obligatoriu!",
+    "amountS2_label": "S2",
+    "amountS2_placeholder": "S2",
+    "amountS2_required": "Acest camp este obligatoriu!",
+    "amountS3_label": "S3",
+    "amountS3_placeholder": "S3",
+    "amountS3_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_sub_category_add_edit": {
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "category_en_label": "Categorie EN",
+    "category_en_placeholder": "Categorie EN",
+    "category_en_required": "Acest camp este obligatoriu!",
+    "category_label": "Categorie",
+    "category_placeholder": "Categorie",
+    "category_required": "Acest camp este obligatoriu!"
+  },
+  "page_sub_category_en_add_edit": {
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "category_en_label": "Categorie EN",
+    "category_en_placeholder": "Categorie EN",
+    "category_en_required": "Acest camp este obligatoriu!"
+  },
+  "page_inter_companies_add_edit": {
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "subcategory_en_label": "Supracategorie EN",
+    "subcategory_en_placeholder": "Supracategorie EN",
+    "subcategory_en_required": "Acest camp este obligatoriu!"
+  },
+  "page_table_definition_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_table_definition_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_permission_type_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_permission_type_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_permission_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_permission_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_wfh_component": {
+    "last_update_text": "Ultima actualizare",
+    "employee_label": "Angajati",
+    "total_value_text": "Valoare totala",
+    "email_label": "Emailuri",
+    "confirmation_label": "Confirmari",
+    "percentage_label": "Procent",
+    "table_selected_text": "Selectii",
+    "table_results_text": "Echipamente"
+  },
+  "page_asset_category_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_asset_category_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_asset_type_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_asset_type_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_matrix_accountancy_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_matrix_intercompany_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_matrix_category_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_matrix_category_en_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_matrix_subcategory_en_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_matrix_subcategory_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_matrix_acc_month_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_procurement_request_component": {
+    "type_filter_placeholder": "Tip",
+    "option_all": "Toate",
+    "option_personal": "Personale",
+    "table_results_text": "rezultate",
+    "table_selected_text": "selectate",
+    "upload_documents_button": "Incarca documente",
+    "refusal_pr_button": "Refuz P.R.",
+    "allocation_pr_button": "Alocare P.R.",
+    "table_title_text": "Fisiere",
+    "upload_documents_pr_button": "Incarca documente P.R.",
+    "export_button_text": "Export",
+    "delete_selections_button_text" : "Stergere selectii" 
+  },
+
+  "page_entity_files_list":{
+    "file_type_label" : "Tip fisier",
+    "file_header_label" : "Fisier incarcat",
+    "size_header_label" : "Dimensiune",
+    "upload_date_label" : "Data incarcare",
+    "request_details_label" : "PR detalii",
+    "wbs_details_label" : "WBS detalii",
+    "quantity_label" : "Cantitate",
+    "vendor_label" : "Furnizor",
+    "file_observations_label" : "Observatii fisier",
+    "select_cost_center_warning" : "Selectati un centru de cost pentru vizualizarea / incarcarea documentelor!",
+    "no_files_found_warning" : "Nu exista documente incarcate!"
+  },
+
+  "page_procurement_offer_component": {
+    "type_filter_placeholder": "Tip",
+    "option_all": "Toate",
+    "option_personal": "Personale",
+    "table_results_text": "rezultate",
+    "table_selected_text": "selectate",
+    "export_button_text":"Export"
+  },
+  "page_procurement_offer_email_component": {
+    "status_filter_placeholder": "Status",
+    "option_all": "Toate",
+    "export_button_text": "Export",
+    "table_results_text": "rezultate",
+    "approve_button": "Aproba",
+    "refuse_button": "Refuza",
+    "add_products_button": "Adauga produse",
+    "new_product_button": "Produs nou (daca nu exista)",
+    "delete_products_button": "Sterge produse",
+    "save_modifications_button": "Salvare modificari",
+    "reload_button": "Reincarca"
+  },
+  "page_procurement_order_component": {
+    "type_filter_placeholder": "Tip",
+    "option_all": "Toate",
+    "option_personal": "Personale",
+    "proof_additional_budget_button": "Incarca dovada suplimentare buget",
+    "approval_missing_contract": "Aprobare lipsa contract",
+    "table_results_text": "rezultate",
+    "table_selected_text": "selectate",
+    "export_button_text": "Export",
+    "approve_button_text" : "Aprobare",
+    "wbs_list" : "Lista WBS",
+    "product_list" : "Lista Produse",
+    "confirmation_message" : "Confirmare",
+    "yes" : "Da",
+    "no" : "Nu"
+  },
+  "page_material_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "ean_placeholder": "EAN",
+    "ean_required": "Acest camp este obligatoriu!",
+    "partNumber_placeholder": "PartNumber",
+    "partNumber_required": "Acest camp este obligatoriu!",
+    "price_placeholder": "Pret",
+    "price_required": "Acest camp este obligatoriu!",
+    "sub_category_label": "SubCategorie",
+    "sub_category_placeholder": "SubCategorie"
+  },
+  "page_procurement_catalog_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_procurement_partner_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_offer_type_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_offer_type_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_order_type_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_order_type_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_budget_base_component": {
+    "table_results_text": "rezultate",
+    "table_selected_text": "selectate"
+  },
+  "page_budget_forecast_correction_component": {
+    "budget_forecast_filter_placeholder": "Schimba buget",
+    "update_button_text": "Actualizare",
+    "table_results_text": "rezultate",
+    "table_selected_text": "selectate"
+  },
+  "page_asset_reception_component": {
+    "division_filter_placeholder": "Departamente",
+    "cost_center_filter_placeholder": "Centre de cost",
+    "filter_printed_placeholder": "Printat",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "option_all": "Toate",
+    "reset_filters": "Reseteaza filtre",
+    "export_button_text": "Export",
+    "table_selected_text": "selectate",
+    "table_results_text": "rezultate",
+    "upload_documents_button": "Incarca documente",
+    "label_button": "Eticheta"
+  },
+  "page_print_label_component": {
+    "import_button_text": "Import",
+    "export_button_text": "Export",
+    "table_results_text": "rezultate",
+    "print_label_button": "Printeaza"
+  },
+  "page_asset_to_validate_component": {
+    "cost_center_filter_placeholder": "Centru de cost",
+    "reset_filters": "Reseteaza filtre",
+    "validation_button": "Validare",
+    "operations_button": "Operatii",
+    "label_button": "Eticheta",
+    "description_button": "Descriere",
+    "table_selected_text": "selectate",
+    "table_results_text": "rezultate"
+  },
+  "page_asset_rejected_component": {
+    "business_unit_filter_placeholder": "Business Unit",
+    "divisions_filter_placeholder": "Departamente",
+    "locations_filter_placeholder": "Adrese",
+    "cost_center_filter_placeholder": "Centru de cost",
+    "wbs_filter_placeholder": "WBS",
+    "filter_printed_placeholder": "Printat",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "option_all": "Toate",
+    "filter_scanned_placeholder": "Scanat",
+    "reset_filters": "Reseteaza filtre",
+    "import_button_text": "Import",
+    "export_button_text": "Export",
+    "table_results_text": "rezultate"
+  },
+  "page_asset_suspended_component": {
+    "business_unit_filter_placeholder": "Business Unit",
+    "divisions_filter_placeholder": "Departamente",
+    "locations_filter_placeholder": "Adrese",
+    "cost_center_filter_placeholder": "Centru de cost",
+    "wbs_filter_placeholder": "WBS",
+    "filter_printed_placeholder": "Printat",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "option_all": "Toate",
+    "filter_scanned_placeholder": "Scanat",
+    "reset_filters": "Reseteaza filtre",
+    "import_button_text": "Import",
+    "export_button_text": "Export",
+    "table_results_text": "rezultate"
+  },
+  "page_asset_closed_component": {
+    "business_unit_filter_placeholder": "Business Unit",
+    "divisions_filter_placeholder": "Departamente",
+    "locations_filter_placeholder": "Adrese",
+    "cost_center_filter_placeholder": "Centru de cost",
+    "wbs_filter_placeholder": "WBS",
+    "filter_printed_placeholder": "Printat",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "option_all": "Toate",
+    "filter_scanned_placeholder": "Scanat",
+    "reset_filters": "Reseteaza filtre",
+    "import_button_text": "Import",
+    "export_button_text": "Export",
+    "table_results_text": "rezultate"
+  },
+  "page_asset_wfh_component": {
+    "reset_filters": "Reseteaza filtre",
+    "export_button_text": "Export",
+    "table_results_text": "rezultate",
+    "emplooyees_filter_placeholder": "Angajati",
+    "filter_year_placeholder": "An"
+  },
+  "page_asset_inv_plus_component": {
+    "business_unit_filter_placeholder": "Business Unit",
+    "divisions_filter_placeholder": "Departamente",
+    "locations_filter_placeholder": "Adrese",
+    "cost_center_filter_placeholder": "Centru de cost",
+    "wbs_filter_placeholder": "WBS",
+    "filter_printed_placeholder": "Printat",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "option_all": "Toate",
+    "filter_scanned_placeholder": "Scanat",
+    "reset_filters": "Reseteaza filtre",
+    "table_selected_text": "selectate",
+    "table_results_text": "rezultate",
+    "operation_button": "Operatie",
+    "description_button": "Descriere",
+    "details_button": "Detalii",
+    "label_button": "Eticheta"
+  },
+  "page_create_asset_sap_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_change_asset_sap_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_asset_minus_sap_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_asset_plus_sap_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_asset_retire_sap_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_asset_transfer_sap_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_transfer_in_stock_sap_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_amortization_sap_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_capamortization_sap_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_error_sap_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_rate_sap_component": {
+    "delete_button":"Delete",
+    "table_results_text": "rezultate",
+    "operations_sap_text": "Operations"
+  },
+  "page_wfh_personal_validate_component": {
+    "last_update_text": "Ultima actualizare",
+    "employee_label": "Angajati",
+    "total_value_text": "Valoare totala",
+    "email_label": "Emailuri",
+    "confirmation_label": "Confirmari",
+    "percentage_label": "Procent",
+    "table_selected_text": "selectate",
+    "table_results_text": "rezultate",
+    "transfer_acceptance_button": "Acceptare transfer",
+    "transfer_decline_button": "Refuz transfer",
+    "reload_list_button": "Reincarca lista",
+    "delete_selections_button": "Sterge selectii"
+  },
+  "page_wfh_team_status_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_wfh_dictionary_item_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_mobile_phone_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_mobile_phone_component": {
+    "table_results_text": "rezultate",
+    "import_button_text": "Import"
+  },
+  "page_brand_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_model_component": {
+    "table_results_text": "rezultate",
+    "import_button_text":"Import"
+  },
+  "page_email_type_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_wfh_check_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_config_value_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_permission_role_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_route_parent_component": {
+    "table_results_text": "rezultate",
+    "export_button_text": "Export",
+    "clone_button": "Cloneaza",
+    "role_filter_placeholder": "Roluri"
+  },
+  "page_route_child_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_route_badge_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_asset_reco_component": {
+    "table_results_text": "rezultate",
+    "export_button_text": "Export",
+    "filter_all_placeholder": "Toate",
+    "option_all": "Toate",
+    "option_reco_proposal": "Propunere reconciliere",
+    "option_validated": "Validate",
+    "reco_approval": "Aprobare reconciliere",
+    "cancel_reco_proposal": "Anulare propunere reconciliere",
+    "table_selected_text": "selectate"
+  },
+  "page_inv_state_item_add_edit": {
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+    "action_cancel": "Înapoi",
+
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest câmp este obligatoriu.",
+
+    "name_label": "Nume",
+    "name_placeholder": "Nume",
+    "name_required": "Acest câmp este obligatoriu.",
+
+    "badge_color_label": "Culoare badge",
+    "badge_color_placeholder": "Culoare badge",
+    "badge_color_required": "Acest câmp este obligatoriu.",
+
+    "badge_icon_label": "Iconiță badge",
+    "badge_icon_placeholder": "Iconiță badge",
+    "badge_icon_required": "Acest câmp este obligatoriu.",
+    "icon_placeholder": "Iconiță badge"
+  },
+  "page_exp_account_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_exp_account_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "sap_label": "SAP",
+    "sap_placeholder": "SAP",
+    "sap_required": "Acest camp este obligatoriu!"
+  },
+  "page_article_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_article_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_dimension_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "description_label": "UM",
+    "description_placeholder": "Descriere",
+    "description_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_dimension_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_department_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_department_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_administration_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_administration_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "administration_employee_label": "Membri Gestiuni",
+    "administration_employee_add": "Membru nou"
+  },
+  "page_budget_manager_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_budget_manager_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_type_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_type_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_sub_type_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_sub_type_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+
+  "page_asset_class_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_asset_class_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_adm_center_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_adm_center_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_region_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_region_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_insurance_category_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_insurance_category_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_dictionary_type_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_dictionary_type_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_device_type_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_device_type_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_month_add_edit": {
+    "month_label": "Lună",
+    "year_label": "An",
+    "isActive_label": "Activ",
+    "activeMonth_label": "Lună contabila",
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+    "month_placeholder": "Lună",
+    "year_placeholder": "An",
+    "action_cancel": "Inapoi"
+  },
+  "page_procurement_offer_status_component": {
+    "modal_title_text": "Detalii",
+    "offer_type_filter_title": "Tip oferta",
+    "offer_type_filter_placeholder": "Selecteaza tip oferta",
+    "reference_offer_filter_title": "Oferta Referinta",
+    "reference_offer_filter_placeholder": "Selecteaza oferta referinta",
+    "purchase_request_filter_title": "Cerere de cumparare",
+    "select_pr_filter_placeholder": "Selecteaza P.R.",
+    "applicant_filter_title": "Solicitant",
+    "upload_button": "Incarca",
+    "suppliers_available_pick_list": "Furnizori disponibili",
+    "suppliers_selected_pick_list": "Furnizori selectati",
+    "search_source_pick_list": "Cauta dupa denumire",
+    "search_target_pick_list": "Cauta dupa denumire",
+    "action_save": "Salvează",
+    "action_cancel": "Inapoi",
+
+    "contract_data" : "Date contract",
+    "upload_documents" : "Incarca documente",
+    "file_type" : "Tip fisier",
+    "file_name" : "Nume",
+    "no_results_found" : "Niciun rezultat găsit!"
+  },
+
+  "page_offer_validate_list": {
+    "modify_header": "Modifica",
+    "currency_header" : "Moneda *",
+    "exchange_rate_header" : "Curs *",
+    "exchange_rate_date_header" : "Data curs *",
+    "quantity_header" : "Cantitate *",
+    "price_header" : "Pret unitar *"
+  },
+
+  "page_order_details": {
+    "modal_title_text": "Detalii comanda",
+    "order_type_filter_title": "Tip comanda",
+    "order_type_filter_placeholder": "Selecteaza tip comanda",
+    "offer_filter_title": "Oferta",
+    "offer_filter_placeholder": "Selecteaza oferta",
+    "order_details_filter_title": "Detalii comanda",
+    "list_table_title": "Lista",
+    "products_catalog_button": "Catalog de produse",
+    "delete_products_mapping_button": "Sterge mapare produse",
+    "add_products_contract_table_title": "Adauga produse/contract",
+    "add_contract_button": "Adauga contract",
+    "add_product_button": "Adauga produs",
+    "delete_products_button": "Sterge produse",
+    "parent_number_button": "Numar parinte",
+    "update_parent_number_button": "Actualizare numar parinte",
+    "action_save": "Salveaza",
+    "action_close": "Inchide",
+    "subcategory_filter_placeholder": "Subcategorie",
+    "plant_initial_filter_placeholder": "Plant initial",
+    "plant_final_filter_placeholder": "Plant final",
+    "data_validation_button": "Validare date",
+
+    "order_value_bigger_than_offer_value" : "Valoarea totala din comanda depaseste valoarea totala din oferta!",
+    "order_quanitity_bigger_than_offer_quantity" : "Cantitatea totala din comanda depaseste cantitatea totala din oferta!",
+    "total_available_budget_is_not_enough_text" : "Total buget disponibil pentru anumite coduri de WBS nu este suficient! Dupa salvare va rugam sa incarcati dovada suplimentarii!",
+    "order_quanitity_bigger_than_offer_quantity_text" : "Cantitatea totala din comanda pentru anumite produse depaseste cantitatea totala din oferta!",
+    "contract_amount_not_enough_text" : "Total contract disponibil nu este suficient!",
+    "please_add_contract_text" : "Va rugam adaugati un contract! (Selectati un cod WBS si apoi click pe butonul Adauga Contract)",
+    "please_add_product_text" : "Va rugam adaugati cel putin un produs! (Selectati un cod WBS si apoi click pe butonul Adauga Produse)",
+    "order_value_bigger_than_contractAmount_rem_value_text" : "Valoarea PO-ului depasteste valoarea ramasa din contract!",
+    "contracts_label" : "Contracte",
+    "products_label" : "Produse"
+  },
+
+  "page_budget_add_edit":{
+    "pr_selection_placeholder" : "Selectie PR",
+    "owner_selection_text" : "Selectie Owner:",
+    "wbs_code_seletion_text" : "WBS",
+    "country_selection_text" : "Tara",
+    "project_selection_text" : "Proiect",
+    "execution_month_text" : "Luna executie",
+    "details_text" : "Detalii",
+    "new_buget_next" :"Buget nou (RON):",
+    "april_text" : "Aprilie",
+    "may_text" : "Mai",
+    "june_text" : "Iunie",
+    "july_text" : "Iulie",
+    "august_text" : "August",
+    "september_text" : "Septembrie",
+    "october_text" : "Octombrie",
+    "november_text" : "Noiembrie",
+    "december_text" : "Decembrie",
+    "january_text" : "Ianuarie",
+    "february_text" : "Februarie",
+    "march_text" : "Martie"
+  },
+
+  "page_contract_add_edit": {
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_save": "Salveaza",
+    "action_cancel": "Inapoi",
+    "budget_label": "Buget",
+    "budget_placeholder": "Buget",
+    "company_label": "Companie",
+    "company_placeholder": "Companie",
+    "employee_label": "Detinator",
+    "employee_placeholder": "Detinator",
+    "project_label": "Proiect",
+    "project_placeholder": "Proiect",
+    "adm_center_label": "PC",
+    "adm_center_placeholder": "PC",
+    "region_label": "PC det",
+    "region_placeholder": "PC det",
+    "asset_type_label": "Tip",
+    "asset_type_placeholder": "Tip",
+    "quantity_label": "PCS",
+    "quantity_placeholder": "PCS",
+    "info_label": "Info",
+    "info_placeholder": "Info"
+  },
+  "page_partner_add_edit": {
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_save": "Salvează",
+
+    "description_label": "Descriere",
+    "description_placeholder": "Descriere",
+    "description_required": "Acest câmp este obligatoriu!",
+
+    "registration_no_label": "Nr. inmatriculare",
+    "registration_no_placeholder": "Nr. inmatriculare",
+    "registration_no_required": "Acest câmp este obligatoriu!",
+
+    "cui_label": "CUI",
+    "cui_placeholder": "CUI",
+    "cui_required": "Acest câmp este obligatoriu.",
+
+    "address_label": "Adresa",
+    "address_placeholder": "Adresa",
+    "address_required": "Acest câmp este obligatoriu!",
+
+    "contact1_label": "Contact 1",
+    "contact1_placeholder": "Contact 1",
+    "contact1_required": "Acest câmp este obligatoriu!",
+
+    "contact2_label": "Contact 2",
+    "contact2_placeholder": "Contact 2",
+    "contact2_required": "Acest câmp este obligatoriu!",
+
+    "contact3_label": "Contact 3",
+    "contact3_placeholder": "Contact 3",
+    "contact3_required": "Acest câmp este obligatoriu!"
+  },
+  "page_asset_scrap_component": {
+    "business_unit_filter_placeholder": "Business Unit",
+    "divisions_filter_placeholder": "Departamente",
+    "locations_filter_placeholder": "Adrese",
+    "cost_center_filter_placeholder": "Centre de cost",
+    "wbs_filter_placeholder": "WBS",
+    "filter_printed_placeholder": "Printat",
+    "option_all": "Toate",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "filter_scanned_placeholder": "Scanat",
+    "reset_filters": "Reseteaza filtre",
+    "export_button_text": "Export",
+    "import_button_text": "Import",
+    "table_results_text": "rezultate"
+  },
+  "page_asset_sold_component": {
+    "business_unit_filter_placeholder": "Business Unit",
+    "divisions_filter_placeholder": "Departamente",
+    "locations_filter_placeholder": "Adrese",
+    "cost_center_filter_placeholder": "Centre de cost",
+    "wbs_filter_placeholder": "WBS",
+    "filter_printed_placeholder": "Printat",
+    "option_all": "Toate",
+    "option_yes": "Da",
+    "option_no": "Nu",
+    "filter_scanned_placeholder": "Scanat",
+    "reset_filters": "Reseteaza filtre",
+    "export_button_text": "Export",
+    "import_button_text": "Import",
+    "table_results_text": "rezultate",
+    "operations_button": "Operatii",
+    "label_button": "Eticheta",
+    "table_selected_text": "selectate"
+  },
+  "page_rate_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_asset_inventory_email_component": {
+    "inventory_filter_placeholder": "Inventar",
+    "state_filter_placeholder": "Status",
+    "option_all": "Toate",
+    "option_yes": "Da",
+    "reset_filters": "Reseteaza filtre",
+    "table_results_text": "rezultate"
+  },
+  "page_routes_add_edit": {
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "url_label": "URL",
+    "url_placeholder": "URL",
+    "icon_label": "Icon",
+    "icon_placeholder": "Icon",
+    "variant_label": "Variant",
+    "variant_placeholder": "Variant",
+    "class_label": "Class",
+    "class_placeholder": "Class",
+    "position_label": "Pozitie",
+    "position_placeholder": "Pozitie",
+    "badge_label": "Badge",
+    "badge_placeholder": "Badge",
+    "active_label": "Activ",
+    "role_label": "Rol",
+    "role_placeholder": "Rol"
+  },
+  "page_routes_child_add_edit": {
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "url_label": "Url",
+    "url_placeholder": "Url",
+    "url_required": "Acest camp este obligatoriu!",
+    "icon_label": "Icon",
+    "icon_placeholder": "Icon",
+    "icon_required": "Acest camp este obligatoriu!",
+    "variant_label": "Variant",
+    "variant_placeholder": "Variant",
+    "variant_required": "Acest camp este obligatoriu!",
+    "class_label": "Clasa",
+    "class_placeholder": "Clasa",
+    "class_required": "Acest camp este obligatoriu!",
+    "position_label": "Pozitie",
+    "position_placeholder": "Pozitie",
+    "position_required": "Acest camp este obligatoriu!",
+    "route_parent_label": "Route parent",
+    "route_parent_placeholder": "Route parent",
+    "route_parent_required": "Acest camp este obligatoriu!",
+    "badge_label": "Badge",
+    "badge_placeholder": "Badge",
+    "badge_required": "Acest camp este obligatoriu!",
+    "active_label": "Activ",
+    "role_label": "Rol",
+    "role_placeholder": "Rol",
+    "role_required": "Acest camp este obligatoriu!"
+  },
+  "page_badge_add_edit": {
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "variant_label": "Variant",
+    "variant_placeholder": "Variant",
+    "variant_required": "Acest camp este obligatoriu!",
+    "text_label": "Text",
+    "text_placeholder": "Text",
+    "text_required": "Acest camp este obligatoriu!"
+  },
+  "page_app_state_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "badge_color_label": "Culoare badge",
+    "badge_icon_label": "Icon badge",
+    "icon_placeholder": "Icon badge"
+  },
+  "page_app_state_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_nom_city_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_nom_inventory_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_inventory_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+    "description_label": "Descriere",
+    "start_label": "Început",
+    "end_label": "Sfârșit",
+    "active_label": "Activ",
+    "description_placeholder": "Descriere",
+    "start_placeholder": "Început",
+    "end_placeholder": "Sfârșit",
+    "months_label": "Luna contabila",
+    "months_placeholder": "Luna contabila",
+    "budget_months_label": "Luna buget",
+    "budget_months_placeholder": "Luna buget",
+    "action_cancel": "Inapoi"
+  },
+  "page_nom_state_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_nom_county_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_county_add_edit": {
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+    "action_cancel": "Inapoi",
+    "code_label": "Cod",
+    "name_label": "Descriere",
+    "code_placeholder": "Cod",
+    "name_placeholder": "Descriere",
+    "country_label": "Țara",
+    "country_placeholder": "Țara"
+  },
+  "page_city_add_edit": {
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+    "code_label": "Cod",
+    "name_label": "Descriere",
+    "code_placeholder": "Cod",
+    "name_placeholder": "Descriere",
+    "county_label": "Județ",
+    "county_placeholder": "Județ"
+  },
+  "page_location_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_location_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "name_label": "Descriere",
+    "name_placeholder": "Descriere",
+    "city_label": "Oraș",
+    "city_placeholder": "Oraș",
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+    "action_cancel": "Inapoi"
+  },
+  "page_room_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_room_add_edit": {
+    "title_add": "Adaugă",
+    "title_edit": "Editează",
+    "action_add": "Adaugă",
+    "action_save": "Salvează",
+    "code_label": "Cod",
+    "name_label": "Descriere",
+    "code_placeholder": "Cod",
+    "name_placeholder": "Descriere",
+    "location_label": "Adresa",
+    "location_placeholder": "Adresa",
+    "is_finished_label": "Este finalizat?",
+    "option_finished": "Finalizat",
+    "option_inventory": "De inventariat",
+    "action_cancel": "Inapoi"
+  },
+  "page_account_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_account_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_cost_center_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_cost_center_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_add": "Adauga",
+    "action_save": "Salveaza",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "profit_ctr_label": "Profit Ctr",
+    "profit_ctr_placeholder": "Profit Ctr",
+    "pc_detail_label": "PC Detaliu",
+    "pc_detail_placeholder": "PC Detaliu",
+    "department_label": "Departament",
+    "department_placeholder": "Departament",
+    "location_label": "Locatie",
+    "location_placeholder": "Locatie",
+    "address_label": "Adresa",
+    "address_placeholder": "Adresa",
+    "storage_label": "Storage",
+    "storage_placeholder": "Storage",
+    "action_cancel": "Inapoi",
+    "cost_center_employee_label": "Membri Cost Center",
+    "cost_center_employee_add": "Membru nou"
+  },
+  "page_division_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_division_add_edit": {
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_save": "Salveaza",
+    "action_cancel": "Inapoi",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "code_min_length": "Codul trebuie să conțină cel puțin un caracter!",
+    "code_max_length": "Codul nu trebuie să depășească 4 caractere!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "name_min_length": "Denumirea trebuie să conțină cel puțin un caracter!",
+    "name_max_length": "Denumirea nu poate să depășească 50 de caractere!",
+    "department_label": "Business Unit",
+    "department_placeholder": "Business Unit"
+  },
+  "page_tax_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_tax_add_edit": {
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "value_label": "Valoare",
+    "value_placeholder": "Valoare"
+  },
+  "page_device_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_device_add_edit": {
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "code_label": "Cod",
+    "code_placeholder": "Cod",
+    "code_required": "Acest camp este obligatoriu!",
+    "name_label": "Denumire",
+    "name_placeholder": "Denumire",
+    "name_required": "Acest camp este obligatoriu!",
+    "model_label": "Model",
+    "model_placeholder": "Model",
+    "model_required": "Acest camp este obligatoriu!",
+    "producer_label": "Producator",
+    "producer_placeholder": "Producator",
+    "producer_required": "Acest camp este obligatoriu!",
+    "platform_label": "Platforma",
+    "platform_placeholder": "Platforma",
+    "platform_required": "Acest camp este obligatoriu!",
+    "version_label": "Versiune",
+    "version_placeholder": "Versiune",
+    "version_required": "Acest camp este obligatoriu!",
+    "uui_label": "UUI",
+    "uui_placeholder": "UUI",
+    "uui_required": "Acest camp este obligatoriu!",
+    "serial_label": "Serie",
+    "serial_placeholder": "Serie",
+    "serial_required": "Acest camp este obligatoriu!",
+    "device_type_label": "Tipuri dispozitive",
+    "device_type_placeholder": "Tipuri dispozitive",
+    "device_type_required": "Acest camp este obligatoriu!"
+  },
+  "page_project_type_division_component": {
+    "table_results_text": "rezultate"
+  },
+  "page_project_type_division_add_edit": {
+    "project_type_label": "Tip proiect",
+    "project_type_placeholder": "Tip proiect",
+    "project_type_required": "Acest camp este obligatoriu!",
+    "department_label": "Departament",
+    "department_placeholder": "Departament",
+    "department_required": "Acest camp este obligatoriu!",
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi"
+  },
+  "page_accountancy_add_edit": {
+    "action_save": "Salveaza",
+    "title_add": "Adauga",
+    "title_edit": "Editeaza",
+    "action_cancel": "Inapoi",
+    "account_label": "Cont",
+    "account_placeholder": "Cont",
+    "account_required": "Acest camp este obligatoriu!",
+    "exp_account_label": "Exp account",
+    "exp_account_placeholder": "Exp account",
+    "exp_account_required": "Acest camp este obligatoriu!",
+    "asset_type_label": "Tip asset",
+    "asset_type_placeholder": "Tip asset",
+    "asset_type_required": "Acest camp este obligatoriu!",
+    "asset_category_label": "Categorie asset",
+    "asset_category_placeholder": "Categorie asset",
+    "department_required": "Acest camp este obligatoriu!",
+    "sub_category_label": "Subcategorie",
+    "sub_category_placeholder": "Subcategorie",
+    "sub_category_required": "Acest camp este obligatoriu!",
+    "value_label": "Valoare",
+    "value_placeholder": "Valoare",
+    "value_required": "Acest camp este obligatoriu!"
+  },
+  "page_request_add_edit": {
+    "modal_title_details": "Detalii",
+    "implementation_period_label": "Perioada de implementare",
+    "start_period_placeholder": "Inceput",
+    "end_period_placeholder": "Sfarsit",
+    "action_reset_date_picker": "Reseteaza",
+    "action_apply_date_picker": "Aplica",
+    "month_execution_filter_placeholder": "Luna executie*",
+    "pr_details_filter_placeholder": "Detalii P.R.*",
+    "budget_requested_filter_placeholder": "Buget solicitat (RON)",
+    "request_budget_button": "Solicita buget nou",
+    "select_responsible_label": "Selectie responsabil",
+    "select_budget_owner_label": "Selectie Owner Buget",
+    "select_business_unit_label": "Selectie Business unit",
+    "select_department_label": "Selectie Departament",
+    "select_project_label": "Selectie Proiect",
+    "select_type_label": "Selectie tip",
+    "budgets_available_header_picklist": "Bugete disponibile",
+    "budgets_selected_header_picklist": "Bugete selectate",
+    "search_picklist": "Cauta dupa denumire",
+    "available_budget_label": "Buget disponibil",
+    "additional_budget_label": "Suplimentare RON",
+    "total_budget_label": "Total RON",
+    "operations_list_title": "Lista operatii",
+    "files_list_title": "Lista fisiere",
+    "action_cancel": "Inchide",
+    "action_save": "Salveaza",
+    "select_filter_placeholder": "Selecteaza"
+  },
+  "far_upload_component":
+  {
+    "upload_warning" : "Fisierul de import trebuie sa fie conform template-ului pe care-l descarcati din acest ecran. Asset-urile se vor importa din primul sheet al fisierului.",
+    "action_close" : "Inchide"
+  }
+}
+

@@ -1,0 +1,412 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_order_details'">
+  <div class="modal-dialog-header">
+    <div class="d-flex align-items-center">
+      <h2 class="modal-title mb-0">{{ t('modal_title_text') }}</h2>
+      <div class="d-flex ml-15">
+        <div class="mr-15">
+          <div class="form-group inputs-modal-nomenclature d-grid">
+<!--            <label>-->
+<!--              {{ t('order_type_filter_title') }}:-->
+<!--              <span class="required-label-symbol">*</span>-->
+<!--            </label>-->
+            <order-type-item-select class="form-group-select_wrapper" [(ngModel)]="orderType" displayValue="name" placeholder="{{ t('order_type_filter_placeholder') }}" [ngModelOptions]="{standalone: true}">
+            </order-type-item-select>
+          </div>
+        </div>
+
+        <div *ngIf="orderType !== null && orderType.code !== 'C-IT'" class="mr-15">
+          <div class="form-group inputs-modal-nomenclature d-grid">
+<!--            <label>-->
+<!--              {{ t('offer_filter_title') }}:-->
+<!--              <span class="required-label-symbol">*</span>-->
+<!--            </label>-->
+            <offer-item-select class="form-group-select_wrapper" [(ngModel)]="offer" displayValue="code" placeholder="{{ t('offer_filter_placeholder') }}" [isDisabled]="orderType == null" [ngModelOptions]="{standalone: true}">
+            </offer-item-select>
+          </div>
+        </div>
+
+        <div *ngIf="offer !== null" class="">
+          <div class="form-group inputs-modal-nomenclature">
+<!--            <label>-->
+<!--              {{ t('order_details_filter_title') }}:-->
+<!--              <span class="required-label-symbol">*</span>-->
+<!--            </label>-->
+            <input matInput type="text" class="form-control" [(ngModel)]="order.name" name="name" placeholder="{{ t('order_details_filter_title') }}" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <div class="vertical-divider mr-10"></div>
+      <button type="button" class="btn-close" mat-dialog-close></button>
+    </div>
+
+
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container-fluid">
+
+        <div class="row">
+          <form #detailForm="ngForm">
+            <div class="row mx-auto">
+              <div class="col-12 mx-auto">
+
+                <div class="row dash-alerts-wrapper">
+                  <div *ngIf="!allowRequestBudgetForecastSaving" class="col-md-12">
+                    <div class="dash-alert-item">
+                      <div class="alert" role="alert">
+                        {{offer != null && offer.offerType != null && offer.offerType.code === 'O-V' ? 'Valoarea totala din comanda depaseste valoarea totala din oferta!' : 'Cantitatea totala din comanda depaseste cantitatea totala din oferta!'}}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!allowRequestBudgetForecastNeedBudgetSaving" class="col-md-12">
+                    <div class="dash-alert-item">
+                      <div class="alert" role="alert">
+                        Total buget disponibil pentru anumite coduri de WBS nu este suficient, contactati echipa de buget Capex-Opex! Dupa salvare va rugam sa incarcati dovada suplimentarii!
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!sumMaxMaterials" class="col-md-12">
+                    <div class="dash-alert-item">
+                      <div class="alert" role="alert">
+                        Cantitatea totala din comanda pentru anumite produse depaseste cantitatea totala din oferta!
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!allowRequestBudgetForecastNeedContractSaving" class="col-md-12">
+                    <div class="dash-alert-item">
+                      <div class="alert" role="alert">
+                        Total contract disponibil nu este suficient! Va rugam, contactati echipa PROCUREMENT!
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!missingContract" class="col-md-12">
+                    <div class="dash-alert-item">
+                      <div class="alert" role="alert">
+                        Va rugam adaugati un contract! (Selectati un cod WBS si apoi click pe butonul Adauga Contract)
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!sumMaterials && missingContract" class="col-md-12">
+                    <div class="dash-alert-item">
+                      <div class="alert" role="alert">
+                        Va rugam adaugati cel putin un produs! (Selectati un cod WBS si apoi click pe butonul Adauga Produse)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="(orderType !== null && orderType.code !== 'C-IT')">
+                  <div class="mb-5">
+                    <div class="">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">{{ t('list_table_title') }} ({{ requestBudgetForecastList.totalItems }})</span>
+                          <div class="d-flex">
+                            <button (click)="onContractAdd()" class="small-blue-btn mb-0 ml-15" [disabled]="requestBudgetForecastList.selectedItems.length === 0">
+                              <mat-icon>attach_file</mat-icon>
+                              {{ t('add_contract_button') }}
+                            </button>
+                            <button *ngIf="offer != null && offer.code == 'STOC INTERN'" class="small-blue-btn mb-0 ml-15" (click)="selectMaterial($event)">
+                              <svg class="d-flex my-auto" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                              </svg>
+                              {{ t('products_catalog_button') }}
+                            </button>
+                            <button *ngIf="(offer != null && offer.code == 'STOC INTERN') && offerMaterialList.selectedItems.length > 0" class="small-blue-btn mb-0 ml-15" (click)="onDeleteOfferMaterial($event)">
+                              <svg class="d-flex my-auto" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                              </svg>
+                              {{ t('delete_products_mapping_button') }}
+                            </button>
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-request-budget-forecast-ng-prime-validate #requestBudgetForecastList id="requestBudgetForecastList"
+                                                                           [dataSource]="requestBudgetForecastHttpService"
+                                                                           listTemplate="REQUESTBUDGETFORECASTS"
+                                                                           sortColumn="request.id"
+                                                                           sortDirection="desc"
+                                                                           dynamicQuery="true"
+                                                                           usePaging="true"
+                                                                           showSimpleSearch="false"
+                                                                           [pageSize]= 100
+                                                                           rowSelection="single"
+                                                                           (selectionChanged)="setSelectedItem($event)"
+                                                                           notifyOnChange="true">
+                            </app-request-budget-forecast-ng-prime-validate>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class=" mb-5">
+                    <div class="">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">{{ t('add_products_contract_table_title') }}</span>
+                          <div class="d-flex">
+                            <button (click)="onMaterialAdd()" class="small-blue-btn mb-0 ml-15" [disabled]="!missingContract || requestBudgetForecastList.selectedItems.length === 0">
+                              <mat-icon>production_quantity_limits</mat-icon>
+                              {{ t('add_product_button') }}
+                            </button>
+                            <button (click)="onDeleteRequestBudgetForecastMaterial()" class="small-danger-btn mb-0 ml-15" [disabled]="requestBudgetForecastMaterialList.selectedItems.length === 0">
+                              <mat-icon>delete_outline</mat-icon>
+                              {{ t('delete_products_button') }}
+                            </button>
+                            <button (click)="selectAssetEntity()" class="small-blue-btn mb-0 ml-15" [disabled]="requestBudgetForecastMaterialList.selectedItems.length === 0">
+                              <mat-icon>arrow_downward</mat-icon>
+                              {{ t('parent_number_button') }}
+                              {{ assetEntity != null ? assetEntity.invNo : ''}}
+                            </button>
+                            <button (click)="saveAssetParent()" class="small-blue-btn mb-0 ml-15" [disabled]="requestBudgetForecastMaterialList.selectedItems.length === 0">
+                              <mat-icon>refresh</mat-icon>
+                              {{ t('update_parent_number_button') }}
+                            </button>
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-request-budget-forecast-validate-list #requestBudgetForecastMaterialList id="requestBudgetForecastMaterialList"
+                                                                       [dataSource]="requestBudgetForecastMaterialHttpService"
+                                                                       showSimpleSearch="false"
+                                                                       listTemplate="REQUESTBUDGETFORECASTMATERIALS"
+                                                                       detailType=""
+                                                                       sortColumn="material.code"
+                                                                       sortDirection="asc"
+                                                                       dynamicQuery="true"
+                                                                       rowSelection="single"
+                                                                       notifyOnChange="true"
+                                                                       (selectionChanged)="onRequestBudgetForecastSelectionChanged($event)"
+                                                                       usePaging="true">
+                            </app-request-budget-forecast-validate-list>
+                          </div>
+
+
+                          <div class="col-sm-12" style="background-color: azure" style="display: none">
+                            <app-request-budget-forecast-validate-list #requestBudgetForecastMaterialAllList id="requestBudgetForecastMaterialAllList"
+                              [dataSource]="requestBudgetForecastMaterialHttpService"
+                              showSimpleSearch="false"
+                              listTemplate="REQUESTBUDGETFORECASTMATERIALS"
+                              detailType=""
+                              sortColumn="material.code"
+                              sortDirection="asc"
+                              dynamicQuery="true"
+                              rowSelection="single"
+                              notifyOnChange="true"
+                              [pageSize]= 100
+                              usePaging="true">
+                          </app-request-budget-forecast-validate-list>
+                            <app-offer-material-order-validate-list #offerMaterialList id="offerMaterialList"
+                              [dataSource]="offerMaterialHttpService"
+                              showSimpleSearch="false"
+                              listTemplate="OFFERMATERIALS"
+                              detailType=""
+                              sortColumn="material.id"
+                              sortDirection="desc"
+                              dynamicQuery="true"
+                              rowSelection="single"
+                              [pageSize]=10
+                              notifyOnChange="true"
+                              (selectionChanged)="onAssetInvFullDetailSelectionChanged($event)"
+                              (listAfterViewInit)="onAssetEmployeeValidateListAfterViewInit()"
+                              usePaging="true">
+                            </app-offer-material-order-validate-list>
+                        </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="orderType != null && orderType.code === 'C-IT'" class="mb-5">
+                  <div class="">
+                    <div class="col-12 attributes">
+                      <div class="files-header mb-2">
+                        <div class="d-flex w-100 justify-content-between">
+                          <div class="d-flex">
+                            <div class="filter-content-item child-w-200 mt-15">
+                              <sub-categories-item-select placeholder="{{ t('subcategory_filter_placeholder') }}" [(ngModel)]="subCategory" displayValue="code" showMinimizedPlaceHolder="true" [ngModelOptions]="{standalone: true}">
+                              </sub-categories-item-select>
+                            </div>
+                            <div class="filter-content-item child-w-200 mt-15">
+                              <plant-item-select placeholder="{{ t('plant_initial_filter_placeholder') }}" [(ngModel)]="plantInitial" displayValue="code" showMinimizedPlaceHolder="true" [ngModelOptions]="{standalone: true}">
+                              </plant-item-select>
+                            </div>
+                            <div class="filter-content-item child-w-200 mt-15">
+                              <plant-item-select placeholder="{{ t('plant_final_filter_placeholder') }}" [(ngModel)]="plantFinal" displayValue="code" showMinimizedPlaceHolder="true" [ngModelOptions]="{standalone: true}">
+                              </plant-item-select>
+                            </div>
+                          </div>
+                          <div class="d-flex" style="align-items: end;">
+                            <button class="small-green-btn mb-0 ml-15" (click)="getStockByCategoryID()">
+                              <mat-icon>list</mat-icon>
+                              {{'Afiseaza stock ' + (category != null ? category.name : '') }}
+                            </button>
+                            <button [disabled]="orderCheck" class="small-blue-btn mb-0 ml-15" (click)="saveCheckOrder()">
+                              <mat-icon>check_circle_outline</mat-icon>
+                              {{ t('data_validation_button') }}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="mb-3">
+                      <div>
+                        <div class="table-responsive border-1-gray">
+                          <app-stock-order-list #stockList id="stockList"
+                                                [dataSource]="stockHttpService"
+                                                dynamicQuery="true"
+                                                usePaging="true"
+                                                sortColumn="id"
+                                                sortDirection="asc"
+                                                showSimpleSearch="false"
+                                                (selectionChanged)="onStockListSelectionChanged($event)"
+                                                rowSelection="multiple"
+                                                [pageSize]="100"
+                                                notifyOnChange="true">
+                          </app-stock-order-list>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12" style="background-color: azure" style="display: none">
+                  <app-request-budget-forecast-validate-list #requestBudgetForecastMaterialAllList id="requestBudgetForecastMaterialAllList"
+                                                             [dataSource]="requestBudgetForecastMaterialHttpService"
+                                                             showSimpleSearch="false"
+                                                             listTemplate="REQUESTBUDGETFORECASTMATERIALS"
+                                                             detailType=""
+                                                             sortColumn="material.code"
+                                                             sortDirection="asc"
+                                                             dynamicQuery="true"
+                                                             rowSelection="single"
+                                                             notifyOnChange="true"
+                                                             [pageSize]= 100
+                                                             usePaging="true">
+                  </app-request-budget-forecast-validate-list>
+                  <app-offer-material-order-validate-list #offerMaterialList id="offerMaterialList"
+                                                          [dataSource]="offerMaterialHttpService"
+                                                          showSimpleSearch="false"
+                                                          listTemplate="OFFERMATERIALS"
+                                                          detailType=""
+                                                          sortColumn="material.id"
+                                                          sortDirection="desc"
+                                                          dynamicQuery="true"
+                                                          rowSelection="single"
+                                                          [pageSize]=10
+                                                          notifyOnChange="true"
+                                                          (selectionChanged)="onAssetInvFullDetailSelectionChanged($event)"
+                                                          (listAfterViewInit)="onAssetEmployeeValidateListAfterViewInit()"
+                                                          usePaging="true">
+                  </app-offer-material-order-validate-list>
+                </div>
+
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">{{ t('action_close') }}</button>
+    <button
+    *ngIf="orderType != null && orderType.code !== 'C-IT'"
+    mat-button
+            class="btn blue-btn"
+            type="submit"
+            (click)="saveOrder()"
+            [disabled]="!allowRequestBudgetForecastSaving || !missingContract || !sumMaterials || !sumMaxMaterials || blocked || !canYouAddValue"
+    >{{ t('action_save') }}
+    </button>
+    <button
+    *ngIf="orderType != null && orderType.code === 'C-IT'"
+    mat-button
+    class="btn blue-btn"
+    type="submit"
+    (click)="saveOrderStock()"
+    
+>{{ t('action_save') }}
+</button>
+  </mat-dialog-actions>
+</div>
+
+
+
+
+
+
+<div class="modal fade" bsModal #contractListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title pull-left">Contracte</h3>
+      </div>
+      <div class="modal-body">
+        <app-contract-list #contractList id="contractList"
+                           [dataSource]="contractHttpService"
+                           rowSelection="single"
+                           detailType="detailui"
+                           sortColumn="contract.id"
+                           sortDirection="asc"
+                           dynamicQuery="true"
+                           showSimpleSearch="true"
+                           notifyOnChange="false"
+                           listTemplate="CONTRACTUI"
+                           [pageSize]="5"
+                           usePaging="true">
+        </app-contract-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedContract()">Selecteaza</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="contractListModal.hide()">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #materialListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Produse</h4>
+       </div>
+       <div class="modal-body">
+           <material-list #materialList id="materialList"
+               [dataSource]="materialHttpService"
+               rowSelection="multiple"
+               sortColumn="code"
+               sortDirection="asc"
+               dynamicQuery="true"
+               notifyOnChange="false"
+               usePaging="true">
+           </material-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedMaterial()" [disabled]="materialList.selectedItems.length === 0">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="closeMaterial()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>

@@ -1,0 +1,494 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_budget_add_edit'">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">New budget</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container">
+
+        <div class="row">
+
+            <div class="row mx-auto">
+              <div class="col-10 mx-auto">
+
+                <div class="mb-3">
+                  <div class="row">
+                    <div class="col-12 col-md-4">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                        <label>
+                          P.R.:
+                          <span class="required-label-symbol">*</span>
+                        </label>
+                        <request-budget-base-item-select class="form-group-select_wrapper" [(ngModel)]="request" displayValue="code" placeholder="{{ t('pr_selection_placeholder') }}">
+                        </request-budget-base-item-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-5">
+                  <mat-tab-group mat-stretch-tabs="false" color="transparent">
+                    <mat-tab label="Buget">
+                      <div class="row mt-3">
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('owner_selection_text') }}
+                            </label>
+                            <employee-item-select class="form-group-select_wrapper" displayValue="email" [(ngModel)]="employeeOwners" placeholder="Selecteaza owner">
+                            </employee-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('wbs_code_seletion_text') }}:
+                            </label>
+                            <projects-item-select class="form-group-select_wrapper" [(ngModel)]="projects" placeholder="Selecteaza WBS">
+                            </projects-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('country_selection_text') }}:
+                            </label>
+                            <countries-item-select class="form-group-select_wrapper" [(ngModel)]="countries" placeholder="Selecteaza tara">
+                            </countries-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Activity:
+                            </label>
+                            <activities-item-select class="form-group-select_wrapper" [(ngModel)]="activities" placeholder="Selecteaza activity">
+                            </activities-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              B.U.:
+                            </label>
+                            <departments-item-select class="form-group-select_wrapper" [(ngModel)]="departments" placeholder="Selecteaza business unit">
+                            </departments-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Profit Center:
+                            </label>
+                            <adm-centers-item-select class="form-group-select_wrapper" [(ngModel)]="admCenters" placeholder="Selecteaza profit center">
+                            </adm-centers-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              PC Det:
+                            </label>
+                            <regions-item-select class="form-group-select_wrapper" [(ngModel)]="regions" placeholder="Selecteaza PC Det">
+                            </regions-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Departament:
+                            </label>
+                            <divisions-item-select class="form-group-select_wrapper" [(ngModel)]="divisions" placeholder="Selecteaza departament">
+                            </divisions-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('project_selection_text') }}:
+                            </label>
+                            <project-types-item-select class="form-group-select_wrapper" [(ngModel)]="projectTypes" placeholder="Selecteaza Proiect">
+                            </project-types-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              CostType:
+                            </label>
+                            <asset-types-item-select class="form-group-select_wrapper" [(ngModel)]="assetTypes" placeholder="Selecteaza CostType">
+                            </asset-types-item-select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Implementation date:
+                            </label>
+                            <acc-months-item-select class="form-group-select_wrapper" displayValue="createDate" [(ngModel)]="implementationDates" placeholder="Selecteaza Data implementare">
+                            </acc-months-item-select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('execution_month_text') }}:
+                            </label>
+                            <acc-months-item-select class="form-group-select_wrapper" displayValue="createDate" [(ngModel)]="executionDates" placeholder="Selecteaza luna executie">
+                            </acc-months-item-select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              ACQ Type:
+                            </label>
+                            <app-state-item-select class="form-group-select_wrapper" [(ngModel)]="appStates" placeholder="Selecteaza Stare">
+                            </app-state-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('details_text') }}:
+                            </label>
+                            <input matInput type="text" class="form-control" [(ngModel)]="budget.info" name="info" #info="ngModel">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('new_buget_next') }}:
+                            </label>
+                            <input matInput type="text" class="form-control" [(ngModel)]="budget.needeedBudget" name="needeedBudget" #needeedBudget="ngModel" step ="0.01">
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Buget / luni">
+                      <div class="row mt-3">
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('april_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.april" name="april" #april="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('may_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.may" name="may" #may="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('june_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.june" name="june" #june="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('july_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.july" name="july" #july="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('august_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.august" name="august" #august="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('september_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.september" name="september" #september="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('october_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.octomber" name="octomber" #octomber="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('november_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.november" name="november" #november="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('december_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.december" name="december" #december="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('january_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.january" name="january" #january="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('february_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.february" name="february" #february="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('march_text') }}:
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.march" name="march" #march="ngModel" step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Total:
+                            </label>
+                            <input matInput type="number" class="form-control" [ngModel]="budget.total | number : '1.2-2'" name="total"  step ="0.01" [readonly]="true">
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Forecast / luni">
+                      <div class="row mt-3">
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('april_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.aprilForecast | number : '1.2-4'" name="aprilForecast" step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.aprilForecastNew" name="aprilForecastNew" step ="0.01" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeApril($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('may_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.mayForecast | number : '1.2-4'" name="mayForecast" step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control"  [ngModel]="budget.mayForecastNew" name="mayForecastNew" step ="0.01" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeMay($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('june_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.juneForecast | number : '1.2-4'" name="juneForecast" step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.juneForecastNew" name="juneForecastNew"  step ="0.01" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeJune($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('july_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.julyForecast | number : '1.2-4'" name="julyForecast"  step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.julyForecastNew"  name="julyForecastNew"  step ="0.01" [ngModelOptions]="{ standalone: true }"  (ngModelChange)="valueChangeJuly($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('august_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.augustForecast | number : '1.2-4'" name="augustForecast"  step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.augustForecastNew" name="augustForecastNew"  step ="0.01" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeAugust($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('september_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.septemberForecast | number : '1.2-4'" name="septemberForecast"  step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.septemberForecastNew" name="septemberForecastNew"  step ="0.01" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeSeptember($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('october_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.octomberForecast | number : '1.2-4'" name="octomberForecast"  step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.octomberForecastNew" name="octomberForecastNew"  step ="0.01" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeOctomber($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('november_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.novemberForecast | number : '1.2-4'" name="novemberForecast"  step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.novemberForecastNew" name="novemberForecastNew"  step ="0.01" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeNovember($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('december_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.decemberForecast | number : '1.2-4'" name="decemberForecast"  step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.decemberForecastNew" name="decemberForecastNew"  step ="0.01" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDecember($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('january_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.januaryForecast | number : '1.2-4'" name="januaryForecast"  step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.januaryForecastNew" name="januaryForecastNew"  step ="0.01" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeJanuary($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('february_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.februaryForecast | number : '1.2-4'" name="februaryForecast"  step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.februaryForecastNew " name="februaryForecastNew"  step ="0.01" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeFebruary($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              {{ t('march_text') }}:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.marchForecast | number : '1.2-4'" name="marchForecast"  step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.marchForecastNew" name="marchForecastNew"  step ="0.01" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeMarch($event)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-4">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Total:
+                            </label>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budget.totalForecast" name="totalForecast"  step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budget.totalForecastNew" name="totalForecastNew"  step ="0.01">
+                            </div>
+                            <br>
+                            <div class="d-flex inputs-inline-group">
+                              <input matInput type="text" class="form-control mr-2" [ngModel]="budgetValueNeedInitial" name="budgetValueNeedInitial"  step ="0.01" [readonly]="true">
+                              <input matInput type="number" class="form-control" [ngModel]="budgetValueNeed" name="budgetValueNeed"  step ="0.01" [ngStyle]="budgetValueNeed != 0 ? {'background-color':'red', 'color': '#FFF'} : {'background-color': 'green', 'color': '#FFF'}">
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+
+                <div class="mt-5 mb-5">
+                  <div class="row mt-3">
+                    <div class="col-12 attributes">
+                      <div class="files-header mb-2">
+                        <span class="mr-15 my-auto">Operations ({{ budgetOpDetailList.totalItems }})</span>
+                      </div>
+                      <hr class="mb-3">
+                      <div>
+                        <div class="table-responsive border-1-gray">
+                          <budget-op-detail-list #budgetOpDetailList id="budgetOpDetailList"
+                                                 [dataSource]="budgetOpHttpService"
+                                                 showSimpleSearch="false"
+                                                 listTemplate="BUDGET_OPERATIONS"
+                                                 detailType="details"
+                                                 sortColumn="modifiedAt"
+                                                 sortDirection="asc"
+                                                 dynamicQuery="true"
+                                                 rowSelection="single"
+                                                 notifyOnChange="true"
+                                                 (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                                 usePaging="true">
+                          </budget-op-detail-list>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">Inchide</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            (click)="saveBudget()" [disabled]="!allowSaving || !isSaved || budgetValueNeed !== 0"
+    >Save</button>
+  </mat-dialog-actions>
+
+</div>

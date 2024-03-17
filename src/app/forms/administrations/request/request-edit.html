@@ -1,0 +1,1335 @@
+<div class="animated fadeIn">
+    <br>
+    <div class="card">
+        <div class="card-header" style="background-color: white;">
+          <button pButton type="button" [label]="request?.code" class="p-button-secondary"></button>
+          &nbsp;
+          <!-- <button pButton type="button" [label]="request?.appState?.name" class="p-button-secondary"></button>
+          &nbsp; -->
+          <label for="range">Implementare</label>
+            <p-calendar [disabled]="readOnlyPeriod" [(ngModel)]="rangeDates" yearRange="2022:2025" selectionMode="range" [readonlyInput]="true" inputId="range" [ngModelOptions]="{standalone: true}"></p-calendar>
+          <div class="card-header-actions">
+            <button pButton type="button" [label]="budgetForecastNew != null ? budgetForecastNew?.budgetBase?.code : 'Inlocuire buget'" class="p-button-warning" (click)="selectBudgetForecast()" [disabled]="selectedRequestBudgetForecasts.length !== 1"><i class="fa fa-exchange"></i>&nbsp;</button>
+            &nbsp;
+            <button  pButton type="button" label="Actualizare buget" class="p-button-warning" (click)="updateRequestBudgetForecast()" [disabled]="budgetForecastNew == null"><i class="fa fa-pencil"></i>&nbsp;</button>
+            &nbsp;
+            <button pButton type="button" label="Editare" class="p-button-info" (click)="edit()"><i class="fa fa-edit"></i></button>
+            &nbsp;
+            <button pButton type="button" label="Actualizare" class="p-button-warning" (click)="update()" [disabled]="readOnlyInfo && readOnlyAppState"><i class="fa fa-pencil"></i></button>
+            <!-- <button type="button" class="btn btn-success btn-sm" (click)="saveOrder()" [disabled]="!isSaved || !allowSaving"><i class="fa fa-save"></i> Update</button> -->
+            <!-- &nbsp;
+            <button *ngIf="selectedBudgetForecasts.length === 0" [disabled]="!allowNeedBudget" type="button" class="btn btn-warning btn-sm" (click)="needBudget()"><i class="fa fa-save"></i> Solicita buget nou</button> -->
+            &nbsp;
+            <button pButton type="button" label="Stergere" class="p-button-danger" (click)="onDeleteRequest()"><i class="fa fa-trash"></i></button>
+            &nbsp;
+            <button pButton type="button" label="Inapoi" class="p-button-dark" (click)="cancelChanges()"><i class="fa fa-step-backward"></i></button>
+            <!-- <button type="button" class="btn btn-dark btn-sm" (click)="cancelChanges()"><i class="fa fa-step-backward"></i> Inapoi</button> -->
+          </div>
+
+        </div>
+</div>
+       <div class="row">
+            <div class="col-md-12">
+                <form role="form" #detailForm="ngForm" novalidate>
+
+                  <p-tabView styleClass="p-tabview-panel" (onChange)="handleChange($event)">
+                    <p-tabPanel header="Detalii" leftIcon="fa fa-id-card">
+                        <div class="p-grid p-fluid">
+                            <div class="form-group row">
+                              <!-- <div class="col-md-2" *ngIf="request != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Cod
+                                </div>
+                                <div class="input-group">
+                                    <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                        [ngModel]="request.code" name="code" [readOnly]="true">
+                                </div>
+                            </div> -->
+                                <!-- <div class="col-md-2" *ngIf="request != null">
+                                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                        Luna / An fiscal
+                                    </div>
+                                    <div class="input-group">
+                                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                            [ngModel]="request.accMonth?.fiscalMonth + '|' + request.accMonth?.fiscalYear" name="fiscalMonth" [readOnly]="true">
+                                    </div>
+                                </div> -->
+                              <!-- <div class="col-md-2" *ngIf="request != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Luna / An contabil
+                                </div>
+                                <div class="input-group">
+                                    <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                        [ngModel]="request.accMonth?.month + '|' + request.accMonth?.year" name="month" [readOnly]="true">
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-md-3">
+                              <div class="p-field p-col-12 p-md-12">
+                                <label for="range">Perioada implementare</label>
+                                <p-calendar [(ngModel)]="rangeDates" yearRange="2022:2025" selectionMode="range" [readonlyInput]="true" inputId="range" [ngModelOptions]="{standalone: true}"></p-calendar>
+                            </div>
+                          </div> -->
+
+                            <!-- <div class="col-md-2" *ngIf="request != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Implementare de la
+                                </div>
+                              <div class="input-group">
+                                       <input
+                                       style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                       [readonly]="true"
+                                       type="date"
+                                       onkeydown="return false"
+                                       class="form-control"
+                                       required
+                                       #startExecution
+                                       [value]="request.startExecution | date: 'yyyy-MM-dd'"
+                                       name="request.startExecution"
+                                       (input)="request.startExecution=parseDate($event.target)">
+                              </div>
+                          </div> -->
+
+                          <!-- <div class="col-md-2" *ngIf="request != null">
+                            <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                              Implementare pana la
+                              </div>
+                            <div class="input-group">
+                                     <input
+                                     style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                     [readonly]="true"
+                                     type="date"
+                                     onkeydown="return false"
+                                     class="form-control"
+                                     required
+                                     #endExecution
+                                     [value]="request.endExecution | date: 'yyyy-MM-dd'"
+                                     name="request.endExecution"
+                                     (input)="request.endExecution=parseDate($event.target)">
+                            </div>
+                        </div> -->
+                            <div class="col-md-5" *ngIf="request != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                  Info
+                              </div>
+                              <div class="input-group">
+                                  <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                  [(ngModel)]="request.info" name="info" [readOnly]="readOnlyInfo">
+                              </div>
+                          </div>
+
+                          <div class="col-md-5" *ngIf="request != null">
+                            <ng-select [items]="owners"
+                               style="width: 300px; overflow: visible;font-size: 12px;color: black"
+                               [ngModelOptions]="{standalone: true}"
+                                bindLabel="email"
+                                class="custom"
+                                [disabled]="readOnlyOwner"
+                                placeholder="Owner"
+                                [multiple]="false"
+                                [searchable]="true"
+                                [clearable] ="true"
+                                appearance="outline"
+                                [hideSelected]="true"
+                                (add)="onOwnerSelectionAdd()"
+                                (clear)= "changeLists()"
+                                (focus) = "onOwnerListFocus()"
+                                [virtualScroll]= "true"
+                                [loading]="isOwnerLoading"
+                                [closeOnSelect]= "false"
+                                appendTo="body"
+                                [(ngModel)]="selectedOwner">
+
+                                <ng-template ng-loadingspinner-tmp>
+                                  <div class="lds-ellipsis">
+                                      <div></div>
+                                      <div></div>
+                                      <div></div>
+                                      <div></div>
+                                  </div>
+                              </ng-template>
+
+                            </ng-select>
+                          </div>
+                             </div>
+                             <!-- <div class="form-group row"> -->
+
+                              <!-- <div class="col-md-2" *ngIf="request != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                  Creat la
+                                  </div>
+                                <div class="input-group">
+                                         <input
+                                         style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                         [readonly]="true"
+                                         type="date"
+                                         onkeydown="return false"
+                                         class="form-control"
+                                         required
+                                         #createdAt
+                                         [value]="request.createdAt | date: 'yyyy-MM-dd'"
+                                         name="request.createdAt"
+                                         (input)="request.createdAt=parseDate($event.target)">
+                                </div>
+                            </div> -->
+
+                            <!-- <div class="col-md-2" *ngIf="request != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                  Creat de
+                              </div>
+                              <div class="input-group">
+                                  <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                      [ngModel]="request.user?.userName" name="userName" [readOnly]="true">
+                              </div>
+                          </div> -->
+
+                            <!-- <div class="col-md-2" *ngIf="request != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Modificat la
+                                </div>
+                              <div class="input-group">
+                                       <input
+                                       style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                       [readonly]="true"
+                                       type="date"
+                                       onkeydown="return false"
+                                       class="form-control"
+                                       required
+                                       #modifiedAt
+                                       [value]="request.modifiedAt | date: 'yyyy-MM-dd'"
+                                       name="request.modifiedAt"
+                                       (input)="request.modifiedAt=parseDate($event.target)">
+                              </div>
+                          </div> -->
+
+                             <!-- </div> -->
+                             <div class="form-group row">
+                              <div class="col-md-3" *ngIf="request != null">
+                                <ng-select [items]="appStates"
+                                   style="width: 200px; overflow: visible;font-size: 12px;color: black"
+                                   [ngModelOptions]="{standalone: true}"
+                                    bindLabel="name"
+                                    class="custom"
+                                    [disabled]="readOnlyAppState"
+                                    placeholder="Status"
+                                    [multiple]="false"
+                                    [searchable]="true"
+                                    [clearable] ="true"
+                                    appearance="outline"
+                                    [hideSelected]="true"
+                                    (add)="onAppStateSelectionAdd()"
+                                    (clear)= "changeLists()"
+                                    (focus) = "onAppStateListFocus()"
+                                    [virtualScroll]= "true"
+                                    [loading]="isAppStateLoading"
+                                    [closeOnSelect]= "false"
+                                    appendTo="body"
+                                    [(ngModel)]="selectedAppState">
+
+                                    <ng-template ng-loadingspinner-tmp>
+                                      <div class="lds-ellipsis">
+                                          <div></div>
+                                          <div></div>
+                                          <div></div>
+                                          <div></div>
+                                      </div>
+                                  </ng-template>
+
+                                </ng-select>
+                              </div>
+                              <div class="col-md-3" *ngIf="request != null">
+                                <ng-select [items]="divisions"
+                                   style="width: 200px; overflow: visible;font-size: 12px;color: black"
+                                   [ngModelOptions]="{standalone: true}"
+                                    bindLabel="name"
+                                    class="custom"
+                                    [disabled]="readOnlyDivision"
+                                    placeholder="Departament"
+                                    [multiple]="false"
+                                    [searchable]="true"
+                                    [clearable] ="true"
+                                    appearance="outline"
+                                    [hideSelected]="true"
+                                    (add)="onDivisionSelectionAdd()"
+                                    (clear)= "changeLists()"
+                                    (focus) = "onDivisionListFocus()"
+                                    [virtualScroll]= "true"
+                                    [loading]="isDivisionLoading"
+                                    [closeOnSelect]= "false"
+                                    appendTo="body"
+                                    [(ngModel)]="selectedDivision">
+
+                                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                      <span class="ng-value-label">{{item.code + ' ' + item.name}}</span>
+                                      <span class="ng-value-icon right" (click)="clear(item)">×</span>
+                                  </ng-template>
+
+                                    <ng-template ng-loadingspinner-tmp>
+                                      <div class="lds-ellipsis">
+                                          <div></div>
+                                          <div></div>
+                                          <div></div>
+                                          <div></div>
+                                      </div>
+                                  </ng-template>
+
+                                </ng-select>
+                              </div>
+                              <div class="col-md-3" *ngIf="request != null">
+                                <ng-select [items]="assetTypes"
+                                   style="width: 200px; overflow: visible;font-size: 12px;color: black"
+                                   [ngModelOptions]="{standalone: true}"
+                                    bindLabel="name"
+                                    class="custom"
+                                    [disabled]="readOnlyAssetType"
+                                    placeholder="Tip"
+                                    [multiple]="false"
+                                    [searchable]="true"
+                                    [clearable] ="true"
+                                    appearance="outline"
+                                    [hideSelected]="true"
+                                    (add)="onAssetTypeSelectionAdd()"
+                                    (clear)= "changeLists()"
+                                    (focus) = "onAssetTypeListFocus()"
+                                    [virtualScroll]= "true"
+                                    [loading]="isAssetTypeLoading"
+                                    [closeOnSelect]= "false"
+                                    appendTo="body"
+                                    [(ngModel)]="selectedAssetType">
+
+                                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                      <span class="ng-value-label">{{item.code + ' ' + item.name}}</span>
+                                      <span class="ng-value-icon right" (click)="clear(item)">×</span>
+                                  </ng-template>
+
+                                    <ng-template ng-loadingspinner-tmp>
+                                      <div class="lds-ellipsis">
+                                          <div></div>
+                                          <div></div>
+                                          <div></div>
+                                          <div></div>
+                                      </div>
+                                  </ng-template>
+
+                                </ng-select>
+                              </div>
+                              <div class="col-md-3" *ngIf="request != null">
+                                <ng-select [items]="projectTypes"
+                                   style="width: 200px; overflow: visible;font-size: 12px;color: black"
+                                   [ngModelOptions]="{standalone: true}"
+                                    bindLabel="name"
+                                    class="custom"
+                                    [disabled]="readOnlyProjectType"
+                                    placeholder="Proiect"
+                                    [multiple]="false"
+                                    [searchable]="true"
+                                    [clearable] ="true"
+                                    appearance="outline"
+                                    [hideSelected]="true"
+                                    (add)="onProjectTypeSelectionAdd()"
+                                    (clear)= "changeLists()"
+                                    (focus) = "onProjectTypeListFocus()"
+                                    [virtualScroll]= "true"
+                                    [loading]="isProjectTypeLoading"
+                                    [closeOnSelect]= "false"
+                                    appendTo="body"
+                                    [(ngModel)]="selectedProjectType">
+
+                                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                      <span class="ng-value-label">{{item.code + ' ' + item.name}}</span>
+                                      <span class="ng-value-icon right" (click)="clear(item)">×</span>
+                                  </ng-template>
+
+                                    <ng-template ng-loadingspinner-tmp>
+                                      <div class="lds-ellipsis">
+                                          <div></div>
+                                          <div></div>
+                                          <div></div>
+                                          <div></div>
+                                      </div>
+                                  </ng-template>
+
+                                </ng-select>
+                              </div>
+                             </div>
+                          </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Bugete" leftIcon="fa fa-money">
+                      <div class="card-footer" *ngIf="request != null">
+                        <!-- <div class="col-md-6">
+                          <button hideIfUnauthorized="UPLOAD|REQUEST" [disabled]="request == null || selectedRequestBudgetForecasts.length === 0" type="button" class="btn btn-warning btn-sm" (click)="onAssetDocumentFileUpload()">
+                            <i class="fa fa-upload"></i> Incarca documente P.R. </button>
+                        </div> -->
+                        <div class="col-sm-12">
+                            <app-request-budget-forecast-material-view-ng-prime-validate #requestBudgetForecastList id="requestBudgetForecastList"
+                            [dataSource]="requestBudgetForecastHttpService"
+                            showSimpleSearch="false"
+                            listTemplate="REQUESTBUDGETFORECASTS"
+                            detailType=""
+                            sortColumn="request.code"
+                            sortDirection="asc"
+                            dynamicQuery="true"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="setSelectedItem($event)"
+                            usePaging="true">
+                            </app-request-budget-forecast-material-view-ng-prime-validate>
+                          </div>
+                      </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Oferte" leftIcon="fa fa-book">
+                      <div class="card-footer" *ngIf="request != null">
+                        <div class="col-sm-12">
+                            <app-offer-view-ng-prime-validate #offerList id="offerList"
+                            [dataSource]="offerHttpService"
+                            showSimpleSearch="false"
+                            listTemplate="OFFERS"
+                            detailType=""
+                            sortColumn="offer.code"
+                            sortDirection="desc"
+                            dynamicQuery="true"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="setSelectedItem($event)"
+                            usePaging="true">
+                            </app-offer-view-ng-prime-validate>
+                          </div>
+                      </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Produse" leftIcon="fa fa-book">
+                      <div class="card-footer" *ngIf="request != null">
+                        <div class="col-sm-12">
+                            <app-offer-material-view-ng-prime-validate #offerMaterialList id="offerMaterialList"
+                            [dataSource]="offerMaterialHttpService"
+                            showSimpleSearch="false"
+                            listTemplate="OFFERMATERIALS"
+                            detailType=""
+                            sortColumn="offer.code"
+                            sortDirection="desc"
+                            dynamicQuery="true"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="setSelectedItem($event)"
+                            usePaging="true">
+                            </app-offer-material-view-ng-prime-validate>
+                          </div>
+                      </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="PO" leftIcon="fa fa-book">
+                      <div class="card-footer" *ngIf="request != null">
+                        <div class="col-sm-12">
+                            <app-order-view-ng-prime-validate #orderList id="orderList"
+                            [dataSource]="orderHttpService"
+                            showSimpleSearch="false"
+                            listTemplate="ORDERS"
+                            detailType=""
+                            sortColumn="order.code"
+                            sortDirection="desc"
+                            dynamicQuery="true"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="setSelectedItem($event)"
+                            usePaging="true">
+                            </app-order-view-ng-prime-validate>
+                          </div>
+                      </div>
+
+                    </p-tabPanel>
+                    <p-tabPanel header="Flux aprobare" leftIcon="fa fa-handshake-o">
+                      <p-toast [style]="{marginTop: '80px'}"></p-toast>
+                      <p>Flux aprobare PO</p>
+                      <p-organizationChart [value]="data2"
+                      selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)"
+                      styleClass="company">
+
+                      <ng-template let-node pTemplate="person">
+                        <div class="node-header">{{node.label}}</div>
+                        <!-- <div class="node-content">
+                            <div>{{node.level}}</div>
+                        </div> -->
+                    </ng-template>
+                    <ng-template let-node pTemplate="statusPO">
+                      <div class="node-header">{{node.skipValidate ? '' : node.validated ? 'Aprobat' : 'Lipsa aprobare'}}</div>
+                      <span>{{node.label}}</span><br>
+                      <span>{{node.validatedDate | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+                    </ng-template>
+
+                    <ng-template let-node pTemplate="validate">
+                      <span style="font-weight:bold">{{node.label}}</span>
+                  </ng-template>
+                      </p-organizationChart>
+
+                    </p-tabPanel>
+                    <p-tabPanel header="Receptii" leftIcon="fa fa-recycle">
+                      <div hideIfUnauthorized="VIEW|ASSET" class="card-footer" style="background-color: white;">
+                        <div class="col-sm-12">
+                                <app-asset-list #assetReceptionList id="assetReceptionList"
+                                [dataSource]="assetHttpService"
+                                listTemplate="ASSETS"
+                                detailType="reception"
+                                sortColumn="asset.invNo"
+                                sortDirection="desc"
+                                dynamicQuery="true"
+                                usePaging="true"
+                                [pageSize]="100"
+                                showSimpleSearch="false"
+                                notifyOnChange="true">
+                            </app-asset-list>
+                          </div>
+                      </div>
+
+                    </p-tabPanel>
+                    <p-tabPanel header="Achizitii" leftIcon="fa fa-barcode">
+                      <div hideIfUnauthorized="VIEW|ASSET" class="card-footer" style="background-color: white;">
+                        <div class="col-sm-12">
+                                <app-asset-list #assetList id="assetList"
+                                [dataSource]="assetHttpService"
+                                listTemplate="ASSETS"
+                                detailType="inuse"
+                                sortColumn="asset.invNo"
+                                sortDirection="asc"
+                                dynamicQuery="true"
+                                usePaging="true"
+                                [pageSize]="100"
+                                showSimpleSearch="false"
+                                notifyOnChange="true">
+                            </app-asset-list>
+                          </div>
+                      </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Operatii" leftIcon="fa fa-history">
+                      <div class="col-sm-12">
+                          <app-request-view-ng-prime-op #requestOpDetailList id="requestOpDetailList"
+                          [dataSource]="requestOpHttpService"
+                          showSimpleSearch="false"
+                          listTemplate="REQUEST_OPERATIONS"
+                          detailType="details"
+                          sortColumn="id"
+                          sortDirection="desc"
+                          dynamicQuery="true"
+                          rowSelection="single"
+                          notifyOnChange="true"
+                          usePaging="true">
+                      </app-request-view-ng-prime-op>
+                    </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Fisiere" leftIcon="fa fa-files-o">
+                      <div class="col-sm-12">
+                            <app-entity-file-list #entityFileList id="entityFileList"
+                                [dataSource]="entityFileHttpService"
+                                showSimpleSearch="false"
+                                rowSelection="single"
+                                notifyOnChange="true"
+                                (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                usePaging="false"
+                                [inInvetoryReport] = "false">
+                            </app-entity-file-list>
+                            <br>
+                            <!-- <app-entity-file-upload *ngIf="selectedRequests.length > 0 && selectedRequests[0].id > 0"
+                                [entityId]="selectedRequests[0].id"
+                                [entityTypeCode]="entityTypeCode"
+                                (uploadFinished)="refreshEntityFiles()">
+                            </app-entity-file-upload> -->
+                            <app-entity-file-validate-asset-download *ngIf="entityFile != null"
+                                [entityFile]="entityFile">
+                            </app-entity-file-validate-asset-download>
+                            <app-entity-file-request-delete *ngIf="entityFile != null"
+                                           (deleteFinished)="refreshEntityFiles()"
+                                          [entityFile]="entityFile">
+                            </app-entity-file-request-delete>
+                      </div>
+                    </p-tabPanel>
+                </p-tabView>
+                    <!-- <div class="row"> -->
+                       <!--
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <h6 style="color: #ff895e; font-size: 12px">Description</h6>
+                                <input type="text" class="form-control" placeholder="" maxlength="100"  style="font-size: 12px;"
+                                    [(ngModel)]="asset.name" name="name" #name="ngModel">
+                            </div>
+                        </div> -->
+                    <!-- <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color: #ff895e; font-size: 12px">Company</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px">{{ company != null ? company.name : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button style="font-size: 12px;" type="button" class="btn btn-outline-danger btn-sm" (click)="selectCompany()" [ngClass]="{'btn-icon button': company == null, 'btn-icon': company != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div> -->
+
+                <!-- <ng-select [items]="projectTypeDivisions" style="width: 300px;overflow: visible;font-size: 12px;" [ngModelOptions]="{standalone: true}"
+                    bindLabel="code"
+                    placeholder="Selectie proiect"
+                    [multiple]="true"
+                    [searchable]="true"
+                    [clearable] ="true"
+                    appearance="outline"
+                    [hideSelected]="true"
+                    (add)="onProjectTypeDivisionSelectionAdd()"
+                    (clear)= "changeLists()"
+                    (focus) = "onProjectTypeDivisionListFocus()"
+                    [virtualScroll]= "true"
+                    [loading]="isProjectTypeDivisionLoading"
+                    [closeOnSelect]= "false"
+                    [(ngModel)]="selectedprojectTypeDivisions">
+
+                    <ng-template ng-loadingspinner-tmp>
+                      <div class="lds-ellipsis">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                      </div>
+                  </ng-template>
+
+                </ng-select> -->
+                <!-- <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        <button  type="button" class="btn btn-dark btn-sm" (click)="selectEmployee()" ><i class="fa fa-search"></i>&nbsp;1. Selectie Owner</button>
+                      </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                            [value]="employee != null ? employee.email : ''" name="employee">
+                    </div>
+                </div> -->
+
+                <!-- <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        <button [disabled]="employee == null" type="button" class="btn btn-dark btn-sm" (click)="selectProjectTypeDivision()" ><i class="fa fa-search"></i>&nbsp;2. Selectie proiect</button>
+                      </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                            [value]="projectTypeDivision != null && projectTypeDivision.projectType != null ? projectTypeDivision.projectType.code + ' ' + projectTypeDivision.projectType.name : ''" name="projectTypeDivision">
+                    </div>
+                </div> -->
+                <!-- <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        <button [disabled]="projectTypeDivision == null" type="button" class="btn btn-dark btn-sm" (click)="selectCostCenter()" ><i class="fa fa-search"></i>&nbsp;Selectie centru de cost</button>
+                      </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                            [value]="costCenter != null ? costCenter.code + '-' + costCenter.name : ''" name="costCenter">
+                    </div>
+                </div> -->
+                <!-- <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: #dcdcdc">
+                        <button [disabled]="projectTypeDivision == null" type="button" class="btn btn-dark btn-sm" (click)="selectAssetType()" ><i class="fa fa-search"></i>&nbsp;3. Selectie tip</button>
+                      </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                            [value]="assetType != null ? assetType.code + '-' + assetType.name : ''" name="assetType">
+                    </div>
+                </div> -->
+                <!-- <div class="col-md-3"> -->
+                  <!-- <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                      <button type="button" class="btn btn-dark btn-sm" (click)="selectStartAccMonth()" ><i class="fa fa-search"></i>&nbsp; Implementation Date</button>
+                  </div> -->
+                  <!-- <div class="input-group">
+                  <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="startAccMonth != null ? startAccMonth.month + ' | ' + startAccMonth.year : ''" type="text" id="input51-group3" name="input51-group3" class="form-control" placeholder="...">
+                  </div> -->
+
+                  <!-- <div class="p-field p-col-12 p-md-12">
+                    <label for="range">Perioada implementare</label>
+                    <p-calendar [(ngModel)]="rangeDates" yearRange="2022:2025" selectionMode="range" [readonlyInput]="true" inputId="range" [ngModelOptions]="{standalone: true}"></p-calendar>
+                </div> -->
+
+                  <!-- <div class="mt-auto mr-15">
+                    <mat-form-field appearance="fill" class="datepicker-range-input">
+                      <mat-label>Perioada implementare</mat-label>
+                      <mat-date-range-input [rangePicker]="rangePicker">
+                        <input matStartDate placeholder="de la..." [(ngModel)]="monthStartDate" [ngModelOptions]="{standalone: true}">
+                        <input matEndDate placeholder="pana la..." [(ngModel)]="monthEndDate" [ngModelOptions]="{standalone: true}">
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #rangePicker>
+                        <mat-date-range-picker-actions class="mat-dialog-actions">
+                          <button mat-button matDateRangePickerCancel class="gray-btn-outline">Înapoi</button>
+                          <button mat-raised-button matDateRangePickerApply (click)="notifyDateChange()">Aplică</button>
+                        </mat-date-range-picker-actions>
+                      </mat-date-range-picker>
+                    </mat-form-field>
+                  </div> -->
+              <!-- </div> -->
+                <!-- <div class="col-md-3">
+                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                      <button [disabled]="projectTypeDivision == null || assetType == null" type="button" class="btn btn-dark btn-sm" (click)="selectBudgetForecast()" ><i class="fa fa-search"></i>&nbsp;4. Selectie forecast</button>
+                    </div>
+                  <div class="input-group">
+                      <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                          [value]="budgetForecast != null &&  budgetForecast.budgetBase != null ? budgetForecast.budgetBase.code : ''" name="budgetForecast">
+                  </div>
+              </div> -->
+                <!-- <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        <button [disabled]="projectTypeDivision == null || costCenter == null" type="button" class="btn btn-dark btn-sm" (click)="selectBudget()" ><i class="fa fa-search"></i>&nbsp;Selectie buget</button>
+                      </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                            [value]="budget != null ? budget.code : ''" name="budget">
+                    </div>
+                </div> -->
+                <!-- </div> -->
+                <!-- <div class="row"> -->
+
+                    <!-- <div class="col-md-3">
+                      <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                          <button [disabled]="projectTypeDivision == null || costCenter == null" type="button" class="btn btn-dark btn-sm" (click)="selectBudgetBase()" ><i class="fa fa-search"></i>&nbsp;Selectie buget</button>
+                        </div>
+                      <div class="input-group">
+                          <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                              [value]="budgetBase != null ? budgetBase.code : ''" name="budgetBase">
+                      </div>
+                  </div> -->
+                        <!-- <div class="col-md-6">
+                            <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Detalii ticket
+                            </div>
+                            <div class="input-group">
+                                <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                    [(ngModel)]="request.info" name="info" #info="ngModel">
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-md-2">
+                          <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                              Cantitate
+                          </div>
+                          <div class="input-group">
+                              <input  type="number" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                  [(ngModel)]="request.quantity" name="quantity" #quantity="ngModel">
+                          </div>
+                      </div> -->
+                        <!-- <div class="col-md-3">
+                            <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Luna executie
+                            </div>
+                            <div class="input-group">
+                                    <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" type="date" onkeydown="return false" class="form-control" required #endDate [value]="request.endDate | date: 'yyyy-MM-dd'" name="request.endDate" (input)="request.endDate=parseDate($event.target)">
+                            </div> -->
+
+                            <!-- <div class="input-group">
+                              <p-calendar [(ngModel)]="request.endDate" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" inputId="endDate"></p-calendar>
+                          </div> -->
+
+                        <!-- </div> -->
+                        <!-- <div class="col-md-3" *ngIf="selectedBudgetForecasts.length === 0">
+                            <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Buget solicitat (RON)
+                            </div>
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                    [(ngModel)]="request.budgetValueNeed" name="budgetValueNeed" #budgetValueNeed="ngModel" step ="0.01">
+                            </div>
+                        </div> -->
+            <!-- </div> -->
+            <!-- <div class="row">
+              <div class="col-sm-12">
+                <p-pickList [source]="availableBudgetForecasts" [target]="selectedBudgetForecasts" sourceHeader="Bugete disponibile" targetHeader="Bugete selectate" [dragdrop]="true"
+                [showSourceFilter]="false" [showTargetFilter]="false" [showSourceControls]="false" [showTargetControls]="false" [responsive]="true" [sourceStyle]="{'height':'20rem', 'background-color': 'ghostwhite'}" [targetStyle]="{'height':'20rem', 'background-color': 'ghostwhite'}" filterBy="name" (onMoveToTarget)="moveToTarget($event)"
+                sourceFilterPlaceholder="cauta dupa denumire" targetFilterPlaceholder="cauta dupa denumire">
+                <ng-template let-budgetForecast pTemplate="item">
+                    <div class="partner-item">
+                        <div class="product-list-detail">
+                            <h5 class="p-mb-2">{{budgetForecast?.budgetBase?.code}} ({{budgetForecast.totalRem | number: '1.2-2'}} RON)</h5>
+                            <i class="pi pi-tag product-category-icon"></i>
+                            <span class="product-category">{{budgetForecast?.budgetBase?.info}} / {{budgetForecast?.project?.code}} </span>
+                            <div class="progress progress-xs">
+                              <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': ((budgetForecast.totalRem/budgetForecast.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                <strong>{{(budgetForecast.totalRem/budgetForecast.total) * 100.0 | number: '1.2-2'}}</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-pickList>
+              </div>
+            </div> -->
+                    <!-- <div class="row" *ngIf="request != null && request.id > 0">
+                        <div class="col-sm-12">
+
+                          <tabset #staticTabs> -->
+                            <!-- <tab>
+                              <ng-template tabHeading><i class="fa fa-id-card"></i> Detalii &nbsp;<span class="badge badge-success"></span></ng-template>
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                    <h6 style="color: #ff895e; font-size: 12px">Cod</h6>
+                                    <input type="text" class="form-control" placeholder="" maxlength="100"  style="font-size: 12px;"
+                                        [(ngModel)]="request.code" name="code" #code="ngModel">
+                                </div>
+                            </div>
+                            </tab> -->
+                            <!-- <tab>
+                              <ng-template tabHeading><i class="fa fa-money"></i> Bugete &nbsp;<span class="badge badge-success"></span></ng-template>
+
+                            </tab>
+                            <tab>
+                              <ng-template tabHeading><i class="fa fa-book"></i> PO &nbsp;<span class="badge badge-success"></span></ng-template>
+
+                            </tab>
+                            <tab>
+                              <ng-template tabHeading><i class="fa fa-handshake-o"></i> Flux aprobare &nbsp;<span class="badge badge-success"></span></ng-template>
+
+                            </tab> -->
+                            <!-- <tab>
+                                <ng-template tabHeading><i class="fa fa-history"></i> Jurnal operatii &nbsp;<span class="badge badge-success"></span></ng-template>
+                                    <request-op-detail-list #requestOpDetailList id="requestOpDetailList"
+                                    [dataSource]="requestOpHttpService"
+                                    showSimpleSearch="false"
+                                    listTemplate="REQUEST_OPERATIONS"
+                                    detailType="details"
+                                    sortColumn="modifiedAt"
+                                    sortDirection="asc"
+                                    dynamicQuery="true"
+                                    rowSelection="single"
+                                    notifyOnChange="true"
+                                    (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                    usePaging="true">
+                                </request-op-detail-list>
+                              </tab> -->
+                              <!-- <tab>
+                                <ng-template tabHeading><i class="fa fa-files-o"></i> Fisiere &nbsp;<span class="badge badge-success"></span></ng-template>
+                                <app-entity-file-list #entityFileList id="entityFileList"
+                                    [dataSource]="entityFileHttpService"
+                                    showSimpleSearch="false"
+                                    rowSelection="single"
+                                    notifyOnChange="true"
+                                    (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                    usePaging="false">
+                                </app-entity-file-list>
+                                <br> -->
+                                <!-- <app-entity-file-upload *ngIf="request.id > 0"
+                                    [entityId]="request.id"
+                                    [entityTypeCode]="entityTypeCode"
+                                    (uploadFinished)="refreshEntityFiles()">
+                                </app-entity-file-upload> -->
+                                <!-- <app-entity-file-download *ngIf="request.id > 0"
+                                    [entityFile]="entityFile">
+                                </app-entity-file-download>
+                            </tab> -->
+                          <!-- </tabset>
+                        </div>
+                    </div> -->
+                </form>
+            </div>
+      </div>
+    </div>
+<div class="modal fade" bsModal #masterTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">PC</h3>
+       </div>
+       <div class="modal-body">
+           <app-master-type-list #masterTypeList id="masterTypeList"
+               [dataSource]="masterTypeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-master-type-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedMasterType()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="masterTypeListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #typeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Expence Type</h3>
+       </div>
+       <div class="modal-body">
+           <type-list #typeList id="typeList"
+               [dataSource]="typeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </type-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedType()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="typeListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #subTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Details</h3>
+       </div>
+       <div class="modal-body">
+           <sub-type-list #subTypeList id="subTypeList"
+               [dataSource]="subTypeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </sub-type-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedSubType()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="subTypeListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Activity</h3>
+       </div>
+       <div class="modal-body">
+           <app-administration-list #administrationList id="administrationList"
+               [dataSource]="administrationHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-administration-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministration()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="administrationListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+    <div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Owner Project</h3>
+                </div>
+                <div class="modal-body">
+                    <app-employee-list #employeeList id="employeeList"
+                        [dataSource]="employeeHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        usePaging="true">
+                    </app-employee-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployee()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- <div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Cost Centers</h3>
+           </div>
+           <div class="modal-body">
+               <app-cost-center-list #costCenterList id="costCenterList"
+                   [dataSource]="costCenterHttpService"
+                   rowSelection="single"
+                   sortColumn="code"
+                   sortDirection="asc"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-cost-center-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenter()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="costCenterListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div> -->
+
+<div class="modal fade" bsModal #assetTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Tip</h3>
+           </div>
+           <div class="modal-body">
+               <app-asset-type-list #assetTypeList id="assetTypeList"
+                   [dataSource]="assetTypeHttpService"
+                   rowSelection="single"
+                   sortColumn="code"
+                   sortDirection="asc"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-asset-type-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetType()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="assetTypeListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+
+    <div class="modal fade" bsModal #partnerListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Supplier</h3>
+                </div>
+                <div class="modal-body">
+                    <app-partner-list #partnerList id="partnerList"
+                        [dataSource]="partnerHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        usePaging="true">
+                    </app-partner-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedPartner()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="partnerListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #uomListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Currency</h3>
+                </div>
+                <div class="modal-body">
+                    <app-uom-list #uomList id="uomList"
+                        [dataSource]="uomHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        usePaging="true">
+                    </app-uom-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUom()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="uomListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+        tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+              <span aria-hidden="true">&times;</span>
+            </button> -->
+            <h3 class="modal-title">Confirmare</h3>
+          </div>
+          <div class="modal-body">
+            {{ confirmationMessage }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-sm" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<div class="modal fade" bsModal #projectListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Project</h3>
+       </div>
+       <div class="modal-body">
+           <project-list #projectList id="projectList"
+               [dataSource]="projectHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </project-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedProject()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="projectListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+<div class="modal fade" bsModal #projectTypeDivisionListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Proiecte / Departamente</h3>
+       </div>
+       <div class="modal-body">
+           <app-project-type-division-list #projectTypeDivisionList id="projectTypeDivisionList"
+               [dataSource]="projectTypeDivisionHttpService"
+               rowSelection="single"
+               sortColumn="projectType.code"
+               sortDirection="asc"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-project-type-division-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedProjectTypeDivision()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="projectTypeDivisionListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #companyListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Company</h3>
+       </div>
+       <div class="modal-body">
+           <app-company-list #companyList id="companyList"
+               [dataSource]="companyHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-company-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompany()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="companyListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<!-- <div class="modal fade" bsModal #budgetBaseListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Budget base</h3>
+       </div>
+       <div class="modal-body">
+           <app-budget-base-list #budgetBaseList id="budgetBaseList"
+               [dataSource]="budgetBaseHttpService"
+               rowSelection="single"
+               detailType="detailui"
+               sortColumn="budgetBase.id"
+               sortDirection="asc"
+               dynamicQuery="true"
+               showSimpleSearch="true"
+               notifyOnChange="false"
+               listTemplate="BUDGETBASEUI"
+               [pageSize]="5"
+               usePaging="true">
+           </app-budget-base-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedBudgetBase()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="budgetBaseListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div> -->
+
+<!-- <div class="modal fade" bsModal #budgetForecastListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Bugete</h3>
+       </div>
+       <div class="modal-body">
+           <app-budget-forecast-ui-list #budgetForecastList id="budgetForecastList"
+               [dataSource]="budgetForecastHttpService"
+               rowSelection="single"
+               detailType="detailui"
+               sortColumn="budgetForecast.id"
+               sortDirection="asc"
+               dynamicQuery="true"
+               showSimpleSearch="true"
+               notifyOnChange="false"
+               listTemplate="BUDGETFORECASTUI"
+               [pageSize]="5"
+               usePaging="true">
+           </app-budget-forecast-ui-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedBudgetForecast()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="budgetForecastListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div> -->
+<div class="modal fade" bsModal #budgetForecastListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Forecast</h4>
+            </div>
+            <div class="modal-body">
+                <!-- <app-budget-forecast-list #budgetChangeForecastList id="budgetChangeForecastList"
+                [dataSource]="budgetForecastHttpService"
+                listTemplate="BUDGETFORECASTUI"
+                sortColumn="budgetForecast.id"
+                sortDirection="asc"
+                dynamicQuery="true"
+                usePaging="true"
+                [pageSize]= 5
+                showSimpleSearch="true"
+                rowSelection="single"
+                (selectionChanged)="onBudgetSelectionChanged($event)"
+                notifyOnChange="true"
+
+                >
+            </app-budget-forecast-list> -->
+
+
+            <app-budget-forecast-material-view-ng-prime-validate #budgetForecastList id="budgetForecastList"
+              [dataSource]="budgetForecastHttpService"
+              listTemplate="BUDGETFORECASTUI"
+              sortColumn="budgetForecast.id"
+              sortDirection="desc"
+              dynamicQuery="true"
+              usePaging="true"
+              detailType="detailui"
+              showSimpleSearch="true"
+              [pageSize]="5"
+              rowSelection="single"
+              (selectionChanged)="setSelectedItem($event)"
+              notifyOnChange="true">
+              </app-budget-forecast-material-view-ng-prime-validate>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedBudgetForecast()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="budgetForecastListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #interCompanyListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Total life in periods</h3>
+       </div>
+       <div class="modal-body">
+           <app-inter-company-list #interCompanyList id="interCompanyList"
+               [dataSource]="interCompanyHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-inter-company-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInterCompany()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="interCompanyListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+<div class="modal fade" bsModal #accMonthListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Year</h3>
+       </div>
+       <div class="modal-body">
+           <app-acc-month-list #accMonthList id="accMonthList"
+               [dataSource]="accMonthHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-acc-month-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAccMonth()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="accMonthListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #accountListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">GL accounts</h4>
+      </div>
+      <div class="modal-body">
+          <account-list #accountList id="accountList"
+              [dataSource]="accountHttpService"
+              rowSelection="multiple"
+              notifyOnChange="false"
+              [pageSize]="5"
+              usePaging="true">
+          </account-list>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAccount()">Selecteaza</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="accountListModal.hide()">Inchide</button>
+      </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #startAccMonthListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Implementation Date (month&year)</h3>
+       </div>
+       <div class="modal-body">
+           <app-acc-month-list #startAccMonthList id="startAccMonthList"
+               [dataSource]="accMonthHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-acc-month-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedStartAccMonth()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="startAccMonthListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>

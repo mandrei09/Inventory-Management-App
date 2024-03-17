@@ -1,0 +1,1498 @@
+<div class="card">
+    <div class="card-header">
+    <div class="col-lg-12 col-md-12">
+        <div class="card-header-actions">
+            <div class="row align-items-right">
+                <div class="col-12 col-xl mb-3 mb-xl-0">
+                    <div class="col-3 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+                            <!-- <button type="button" style="background-color: rgb(173,216,230); color: black;" class="btn btn-outline-dark btn-sm" (click)="onIsInTransferUpdateBtn(2)">Awaiting manager validation</button> -->
+                            <button type="button" style="background-color: rgb(173,216,230);color: black;" class="btn btn-outline-dark btn-sm" (click)="onIsInTransferUpdateBtn(3)">Waiting validation</button>
+                            <button type="button" style="background-color: rgb(240,230,140); color: black;" class="btn btn-outline-dark btn-sm" (click)="onIsPrintedUpdate('YES')">Printed</button>
+                            <button type="button" class="btn btn-success btn-sm" (click)="exportStanleyBet()" ><i class="fa fa-file-excel-o"></i> &nbsp; Export </button>
+                            <button *ngIf="showAll === false" (click)="updateCheckMinus(true)" class="btn btn-primary btn-sm" type="button" [style.backgroundColor] = "'rgb(168, 16, 0)'"><i class="fa fa-minus"></i> &nbsp; SMDC</button>
+                    <button *ngIf="showAll === true" (click)="updateCheckMinus(false)" class="btn btn-danger btn-sm" type="button" [style.backgroundColor] = "'black'"><i class="fa fa-check"></i> &nbsp; SMDC</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <br>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+                     <!-- <div class="btn-group flex-dropdown" dropdown  [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenters()" >Regiuni</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdmCenters.length > 0 ? selectedAdmCenters.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearAdmCenterSelection()">Clear all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let admCenter of selectedAdmCenters" class="dropdown-item"><a (click)="removeFromAdmCenterSelection(admCenter)">{{ admCenter.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                     </div> -->
+
+                     <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="showRegionDetails" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRegions()" >Judete</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedRegions.length > 0 ? selectedRegions.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearRegionSelection()">Clear all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let region of selectedRegions" class="dropdown-item"><a (click)="removeFromRegionSelection(region)">{{ region.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                     </div> -->
+
+
+
+                     
+                      <div class="btn-group flex-dropdown" dropdown  [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCompanies()" >Companies</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedCompanies.length > 0 ? selectedCompanies.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearCompanySelection()">Clear all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let company of selectedCompanies" class="dropdown-item"><a (click)="removeFromCompanySelection(company)">{{ company.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div>
+
+                     <div class="btn-group flex-dropdown" dropdown [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCounties()" >Counties</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedCounties.length > 0 ? selectedCounties.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearCountySelection()">Clear all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let county of selectedCounties" class="dropdown-item"><a (click)="removeFromCountySelection(county)">{{ county.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                     </div>
+
+                     <div class="btn-group flex-dropdown" dropdown [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCities()" >Cities</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedCities.length > 0 ? selectedCities.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearCitySelection()">Clear all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let city of selectedCities" class="dropdown-item"><a (click)="removeFromCitySelection(city)">{{ city.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                     </div>
+
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="showLocationDetails" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectLocations()" >Locations</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedLocations.length > 0 ? selectedLocations.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearLocationSelection()">Clear all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let location of selectedLocations" class="dropdown-item"><a (click)="removeFromLocationSelection(location)">{{ location.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                    <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>Printed
+                            {{ (isPrinted === '-' ? '-' : (isPrinted === 'YES' ? 'YES' : 'NO')) }}
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li role="menuitem" (click)="onIsPrintedUpdate('-')">
+                                <a class="dropdown-item"> - </a>
+                            </li>
+                            <li role="menuitem" (click)="onIsPrintedUpdate('YES')">
+                                <a class="dropdown-item"> YES </a>
+                            </li>
+                            <li role="menuitem" (click)="onIsPrintedUpdate('NO')">
+                                <a class="dropdown-item"> NO </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button type="button" class="btn btn-warning btn-sm" (click)="changeRowSelection()" >
+                        <i class="fa fa-list" *ngIf="assetRowSelection === 'multiple'"></i>
+                        <i class="fa fa-check-square" *ngIf="assetRowSelection === 'single'"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="clearSelection()" [style.backgroundColor] = "'rgb(168, 16, 0)'"><i class="fa fa-check"></i></button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="clearFilters()" [style.backgroundColor] = "'rgb(168, 16, 0)'" ><i class="fa fa-close"></i></button>
+                    
+                   
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="showRoomsDetails" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRooms()" >Adrese</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedRooms.length > 0 ? selectedRooms.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearRoomSelection()">Clear all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let room of selectedRooms" class="dropdown-item"><a (click)="removeFromRoomSelection(room)">{{ room.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div> -->
+
+                  
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAdministrations" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAdministrations()">Centre de cost</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdministrations.length > 0 ? selectedAdministrations.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearAdministrationSelection()">Clear all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let administration of selectedAdministrations" class="dropdown-item"><a (click)="removeFromAdministrationSelection(administration)">{{ administration.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div> -->
+
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="showCostCentersDetails" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectCostCenters()">Centre de cost</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedCostCenters.length > 0 ? selectedCostCenters.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearCostCenterSelection()">Clear All <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let costcenter of selectedCostCenters" class="dropdown-item"><a (click)="removeFromCostCenterSelection(partner)">{{ costcenter.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div> -->
+
+
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="showEmployeesDetails" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectEmployees()" >Gestionari</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedEmployees.length > 0 ? selectedEmployees.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearEmployeeSelection()">Clear All <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let employee of selectedEmployees" class="dropdown-item"><a (click)="removeFromEmployeeSelection(employee)">{{ employee.firstName }}, {{ employee.lastName }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAssetTypes">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAssetTypes()" >Producatori</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetTypes.length > 0 ? selectedAssetTypes.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearAssetTypeSelection()">Clear all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let assetType of selectedAssetTypes" class="dropdown-item"><a (click)="removeFromAssetTypeSelection(assetType)">{{ assetType.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                     </div> -->
+
+
+                     <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAssetCategory" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAssetCategories()" >Categorii</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetCategories.length > 0 ? selectedAssetCategories.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearAssetCategorySelection()">Clear all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let assetCategory of selectedAssetCategories" class="dropdown-item"><a (click)="removeFromAssetCategorySelection(assetCategory)">{{ assetCategory.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                      <!-- <div class="btn-group flex-dropdown" dropdown [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectPartners()">Furnizori</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedPartners.length > 0 ? selectedPartners.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearPartnerSelection()">Clear All <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let partner of selectedPartners" class="dropdown-item"><a (click)="removeFromPartnerSelection(partner)">{{ partner.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown  [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectUoms()" >Models</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedUoms.length > 0 ? selectedUoms.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearUomSelection()">Clear all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let uom of selectedUoms" class="dropdown-item"><a (click)="removeFromUomSelection(uom)">{{ uom.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div>
+
+                    <div class="btn-group flex-dropdown" dropdown  [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDimensions()" >Dimensions</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedDimensions.length > 0 ? selectedDimensions.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearDimensionSelection()">Clear all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let dimension of selectedDimensions" class="dropdown-item"><a (click)="removeFromDimensionSelection(dimension)">{{ dimension.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div> -->
+
+
+
+
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAssetClasses">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAssetClasses()">{{'ASSET_CLASSES' | translate}}</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetClasses.length > 0 ? selectedAssetClasses.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearAssetClassSelection()">Clear all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let assetClass of selectedAssetClasses" class="dropdown-item"><a (click)="removeFromAssetClassSelection(assetClass)">{{ assetClass.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDepartments()" >Departamente</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedDepartments.length > 0 ? selectedDepartments.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearDepartmentSelection()">Clear all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let department of selectedDepartments" class="dropdown-item"><a (click)="removeFromDepartmentSelection(department)">{{ department.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+                        <!-- <br>
+                        <input type="checkbox"  [(ngModel)]="filterName" (change)="checkForRefresh()"/>Denumire
+                        <input type="checkbox"  [(ngModel)]="filterInv" (change)="checkForRefresh()"/>Numar inventar
+                        <br> -->
+                        <!-- <label for="transferStartDate">Luna intrare: </label>
+                        <input type="date" [value]="transferStartDate | date:'yyyy-MM-dd'" (input)="transferStartDate=parseStartDate($event.target.value)" [(ngModel)]="filterPurchaseDate" (change)="checkForRefresh()" /> -->
+                        <!-- <input type="date"  [(ngModel)]="filterPurchaseDate" (change)="checkForRefresh()"/>Data achizitie -->
+
+                  
+
+                    <!-- <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                            {{ assetStateName }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li role="menuitem" (click)="onAssetStateUpdate('ALL')">
+                                <a class="dropdown-item"> Toate </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('SALE')">
+                                <a class="dropdown-item"> Vanzare </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('CASSATION')">
+                                <a class="dropdown-item"> Casate </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('DONATION')">
+                                <a class="dropdown-item"> Donatie </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('OTHERS')">
+                                <a class="dropdown-item"> Altele </a>
+                            </li>
+                        </ul>
+                    </div> -->
+
+                    <!-- <div class="btn-group" dropdown keyboardNav="true" *ngIf="useAssetStates">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                            Stari<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li role="menuitem" (click)="onAssetStateUpdate(-1)">
+                                 <a class="dropdown-item"> Toate </a>
+                            </li>
+                            <li *ngFor="let assetState of assetStates" role="menuitem" (click)="onAssetStateUpdate(assetState.id)">
+                                <a class="dropdown-item"> {{ assetState.name }} </a>
+                            </li>
+                        </ul>
+                    </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="Cauta..." [(ngModel)]="filter" (change)="checkForRefresh()" />
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="Search invoice..." [(ngModel)]="filterDoc" (change)="checkForRefresh()"/>
+              </div>
+        </div>
+    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="ui-toolbar-group-left">
+                              <div class="text-left">
+                                   
+                    
+                    
+                                        <!-- <div class="btn-group" dropdown keyboardNav="true">
+                                            <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>Dubluri
+                                                {{ (isDuplicate === '-' ? '-' : (isDuplicate === 'DA' ? 'DA' : 'NU')) }}
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                                <li role="menuitem" (click)="onIsDuplicateUpdate('-')">
+                                                    <a class="dropdown-item"> - </a>
+                                                </li>
+                                                <li role="menuitem" (click)="onIsDuplicateUpdate('DA')">
+                                                    <a class="dropdown-item"> DA </a>
+                                                </li>
+                                                <li role="menuitem" (click)="onIsDuplicateUpdate('NU')">
+                                                    <a class="dropdown-item"> Nu </a>
+                                                </li>
+                                            </ul>
+                                        </div> -->
+                    
+                    
+                                        <!-- <div class="btn-group" dropdown keyboardNav="true">
+                                            <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>Aprobare Manager
+                                                {{ (isWaitingValidation === '-' ? '-' : (isWaitingValidation === 'DA' ? 'DA' : 'NU')) }}
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                                <li role="menuitem" (click)="onIsWaitingValidationUpdate('-')">
+                                                    <a class="dropdown-item"> - </a>
+                                                </li>
+                                                <li role="menuitem" (click)="onIsWaitingValidationUpdate('DA')">
+                                                    <a class="dropdown-item"> DA </a>
+                                                </li>
+                                                <li role="menuitem" (click)="onIsWaitingValidationUpdate('NU')">
+                                                    <a class="dropdown-item"> Nu </a>
+                                                </li>
+                                            </ul>
+                                        </div> -->
+                    
+                                        <!-- <div class="btn-group" dropdown keyboardNav="true">
+                                            <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>In transfer
+                                                {{ (isInTransfer === '-' ? '-' : (isInTransfer === 'DA' ? 'DA' : 'NU')) }}
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                                <li role="menuitem" (click)="onIsInTransferUpdate('-')">
+                                                    <a class="dropdown-item"> - </a>
+                                                </li>
+                                                <li role="menuitem" (click)="onIsInTransferUpdate('DA')">
+                                                    <a class="dropdown-item"> DA </a>
+                                                </li>
+                                                <li role="menuitem" (click)="onIsInTransferUpdate('NU')">
+                                                    <a class="dropdown-item"> Nu </a>
+                                                </li>
+                                            </ul>
+                                        </div> -->
+                                       
+                                        <button *ngIf="isAdmin" type="button" class="btn btn-info btn-sm" (click)="addNewAsset()"><i class="fa fa-plus"></i> Add Asset</button>
+                                        <button type="button" class="btn btn-danger btn-sm" (click)="deleteAsset()" *ngIf="isAdmin" ><i class="fa fa-trash-o"></i>&nbsp; Delete Asset</button>
+                                        <button *ngIf="isAdmin" type="button" class="btn btn-warning btn-sm" (click)="editAsset()" [disabled]="selectedAssets?.length !== 1" ><i class="fa fa-edit"></i> Details</button>
+                                        <button [disabled]="selectedAssets?.length === 0" type="button" class="btn btn-warning btn-sm" style="color: black;" (click)="newAsset()"><i class="fa fa-plus"></i> &nbsp;Add Description</button>
+                                        <button [disabled]="selectedAssets?.length === 0" type="button" class="btn btn-success btn-sm" (click)="printLabel()" ><i class="fa fa-barcode"></i> Print Label</button>
+                                        <button type="button" class="btn btn-info btn-sm" (click)="addNewOperation()" [disabled]="selectedAssets?.length === 0" ><i class="fa fa-list-alt"></i> New transfer</button>
+                                        <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="printLabel()" ><i class="fa fa-close"></i>&nbsp; <span style="font-family: 'Roboto'">QR label</span></button> -->
+                                       
+                                        <!-- <div class="btn-group flex-dropdown" dropdown [style.backgroundColor] = "'rgb(255, 255, 255)'" *ngIf="isAdmin">
+                                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectDivisions()">Manageri</button>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                                              <span class="sr-only">Toggle Dropdown</span>
+                                              <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedDivisions.length > 0 ? selectedDivisions.length : ''}}</span>
+                                            </button>
+                                            <ul class="dropdown-menu" dropdownMenu>
+                                              <li class="dropdown-item"><a (click)="clearDivisionSelection()">Clear all <i class="fa fa-times"></i></a></li>
+                                              <li *ngFor="let division of selectedDivisions" class="dropdown-item"><a (click)="removeFromDivisionSelection(division)">{{ division.name }} <i class="fa fa-times"></i></a></li>
+                                            </ul>
+                                         </div> -->
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- <div class="row">
+                            <div class="col-sm-12">
+                                <div class="ui-toolbar-group-left">
+                                  <div class="text-left"> -->
+                    <!-- <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-warning" dropdownToggle >
+                            {{ assetState }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                            <li role="menuitem" (click)="onAssetStateUpdate(-1, 'Tipuri miscari')">
+                                 <a class="dropdown-item"> Toate </a>
+                                 <div class="dropdown-divider"></div>
+                            </li>
+                            <li *ngFor="let assetState of assetStates" role="menuitem" (click)="onAssetStateUpdate(assetState.id, assetState.name)">
+                                <a class="dropdown-item"> {{ assetState.name }} </a>
+                                <div class="dropdown-divider"></div>
+                            </li>
+                        </ul>
+                    </div> -->
+                    <!-- <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-warning" dropdownToggle >
+                            {{ invState }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                            <li role="menuitem" (click)="onInvStateUpdate(-1, 'Stari bunuri')">
+                                 <a class="dropdown-item"> Toate </a>
+                                 <div class="dropdown-divider"></div>
+                            </li>
+                            <li *ngFor="let invState of invStates" role="menuitem" (click)="onInvStateUpdate(invState.id, invState.name)">
+                                <a class="dropdown-item"> {{ invState.name }} </a>
+                                <div class="dropdown-divider"></div>
+                            </li>
+                        </ul>
+                    </div> -->
+                    
+                    <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="checkForRefresh()"><i class="fa fa-refresh"></i></button> -->
+                  
+                  
+                   <!-- <div class="btn-group" dropdown keyboardNav="true">
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>Stare Agentie
+                        {{ (isClosed === '-' ? '-' : (isClosed === 'INCHISE' ? 'INCHISE' : 'DESCHISE')) }}
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                        <li role="menuitem" (click)="onIsInRoomUpdate('-')">
+                            <a class="dropdown-item"> - </a>
+                        </li>
+                        <li role="menuitem" (click)="onIsInRoomUpdate('INCHISE')">
+                            <a class="dropdown-item"> INCHISE </a>
+                        </li>
+                        <li role="menuitem" (click)="onIsInRoomUpdate('DESCHISE')">
+                            <a class="dropdown-item"> DESCHISE </a>
+                        </li>
+                    </ul>
+                </div> -->
+                   <!-- </div>
+                   </div>
+                   </div>
+                    </div>
+                    <br> -->
+<!-- <br>
+                   <div class="row">
+                    <div class="col-sm-12">
+                        <div class="ui-toolbar-group-left">
+                          <div class="text-left"> -->
+
+                   <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcelInBnr()" *ngIf="useExportIn" ><i class="fa fa-file-excel-o"></i> Export Intrari</button> -->
+                   <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcelOutBnr()" *ngIf="useExportOut"><i class="fa fa-file-excel-o"></i> Export iesiri</button> -->
+                   <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcelInOtp()"  *ngIf="useExportOTP"><i class="fa fa-file-excel-o"></i> Export OTP</button> -->
+                   <!-- <form style="display: inline-flex;" >-->
+                   <!-- <input #fileInput type="file" class="form-control" id="fileName"  accept=".xlsx" required (change)="loadFile($event)" placeholder="Choose file" *ngIf="isAdmin"/>  -->
+                   <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="importData()" [disabled]="((fileEvent === null) || (fileEvent === undefined))"><i class="fa fa-file-excel-o"></i> Import</button> -->
+                   <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="upload()" [disabled]="((fileEvent === null) || (fileEvent === undefined))" style="background-color: forestgreen; color: blanchedalmond" *ngIf="isAdmin"><i class="fa fa-upload"></i> Import</button> -->
+                <!-- </form> -->
+                
+                   
+                <!-- <label *ngIf="isAdmin" for="transferStartDate" >Achizitii de la: </label> -->
+                   <!-- <input type="date" [value]="transferStartDate | date:'yyyy-MM-dd'" (input)="transferStartDate=parseStartDate($event.target.value)" [(ngModel)]="filterPurchaseDate" (change)="checkForRefresh()"   *ngIf="isAdmin"/> -->
+                   <!-- <label for="outStartDate" *ngIf="isAdmin">Luna iesire: </label>
+                   <input type="date" [value]="outStartDate | date:'yyyy-MM-dd'" (input)="outStartDate=parseOutStartDate($event.target.value)" [(ngModel)]="filterOutDate" (change)="checkForRefresh()" [style.backgroundColor] = "'rgb(255, 102, 102)'"  *ngIf="isAdmin"/> -->
+
+                   <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="showPifList()" [disabled]="selectedAssets.length !== 1" *ngIf="useExportPIF"><i class="fa fa-file-excel-o"></i> Export PIF</button>
+                   <button type="button" class="btn btn-outline-success btn-sm" (click)="showPvList()" [disabled]="selectedAssets.length !== 1" *ngIf="useExportPV"><i class="fa fa-file-excel-o"></i> Export PV</button> -->
+                   <!-- <input #fileInputCassation type="file" (change)="loadFileCassation($event)" placeholder="Choose file"/>
+                   <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadCassation()" [disabled]="((fileEvent === null) || (fileEvent === undefined))"><i class="fa fa-file-excel-o"></i> Import Casari</button> -->
+                   <!-- <ng2-datepicker *ngIf="isAdmin" class="popup" [options]="options" [(ngModel)]="fromDate" (ngModelChange)="onChangeFrom($event)"></ng2-datepicker>
+                   <label *ngIf="isAdmin" for="transferStartDate" >Achizitii pana la: </label>
+                   <ng2-datepicker *ngIf="isAdmin" class="popup" [options]="options" [(ngModel)]="toDate"   (ngModelChange)="onChangeTo($event)"></ng2-datepicker> -->
+                  <!-- </div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="row">
+            <!--<div class="col-sm-12">
+                <div class="ui-toolbar-group-left">
+                    <div class="text-left">-->
+                        <!-- <div class="col-md-1">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="previousMonth()"><i class="fa fa-chevron-left"></i></button>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="ui-toolbar-group-left">
+                                <div class="btn-group" dropdown keyboardNav="true">
+                                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                                        {{ months[selectedMonth - 1] }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                        <li role="menuitem" (click)="setSelectedMonth(1)">
+                                            <a class="dropdown-item"> {{ months[0] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(2)">
+                                            <a class="dropdown-item"> {{ months[1] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(3)">
+                                            <a class="dropdown-item"> {{ months[2] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(4)">
+                                            <a class="dropdown-item"> {{ months[3] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(5)">
+                                            <a class="dropdown-item"> {{ months[4] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(6)">
+                                            <a class="dropdown-item"> {{ months[5] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(7)">
+                                            <a class="dropdown-item"> {{ months[6] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(8)">
+                                            <a class="dropdown-item"> {{ months[7] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(9)">
+                                            <a class="dropdown-item"> {{ months[8] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(10)">
+                                            <a class="dropdown-item"> {{ months[9] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(11)">
+                                            <a class="dropdown-item"> {{ months[10] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(12)">
+                                            <a class="dropdown-item"> {{ months[11] }} </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="ui-toolbar-group-left">
+                                <div class="btn-group" dropdown keyboardNav="true">
+                                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                                        {{ selectedYear }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                        <li role="menuitem" (click)="setSelectedYear(2013)">
+                                            <a class="dropdown-item"> 2013 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2014)">
+                                            <a class="dropdown-item"> 2014 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2015)">
+                                            <a class="dropdown-item"> 2015 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2016)">
+                                            <a class="dropdown-item"> 2016 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2017)">
+                                            <a class="dropdown-item"> 2017 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2018)">
+                                            <a class="dropdown-item"> 2018 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2019)">
+                                            <a class="dropdown-item"> 2019 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2020)">
+                                            <a class="dropdown-item"> 2020 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2021)">
+                                            <a class="dropdown-item"> 2021 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2022)">
+                                            <a class="dropdown-item"> 2022 </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="nextMonth()"><i class="fa fa-chevron-right"></i></button>
+                        </div> -->
+                    <!--</div>
+                </div>
+            </div>-->
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <app-asset-reco-list #assetRecoList id="assetRecoList"
+                    [dataSource]="assetRecoHttpService"
+                    listTemplate="ASSETRECOS"
+                    sortColumn="asset.invNo"
+                    sortDirection="asc"
+                    dynamicQuery="true"
+                    usePaging="true"
+                    [pageSize]="5"
+                    showSimpleSearch="false"
+                    [rowSelection]="assetRowSelection"
+                    (selectionChanged)="onAssetSelectionChanged($event)"
+                    notifyOnChange="true">
+                </app-asset-reco-list>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="showAllLists">
+            <div class="col-md-12">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-right">
+                    <div class="col-sm-4">
+                        <button *ngIf="isAdmin" type="button" class="btn btn-outline-primary btn-sm" (click)="onReconcile()" [disabled]="!allowReconciliation"><i class="fa fa-handshake-o"></i> Reconciliere</button>
+                        <button type="button" class="btn btn-danger btn-sm" (click)="clearAllFilters()" [style.backgroundColor] = "'rgb(168, 16, 0)'" ><i class="fa fa-close"></i></button>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" placeholder="Cauta..." [(ngModel)]="filterAll" (change)="checkForRefresh()" />
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" placeholder="Search invoice..." [(ngModel)]="filterAllDoc" (change)="checkForRefresh()"/>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+
+                <app-asset-reco-all-list #assetRecoAllList id="assetRecoAllList"
+                    [dataSource]="assetRecoAllHttpService"
+                    listTemplate="ASSETRECOALL"
+                    sortColumn="asset.invNo"
+                    sortDirection="asc"
+                    dynamicQuery="true"
+                    usePaging="true"
+                    [pageSize]="5"
+                    showSimpleSearch="false"
+                    [rowSelection]="assetAllRowSelection"
+                    (selectionChanged)="onAssetAllSelectionChanged($event)"
+                    notifyOnChange="true">
+                </app-asset-reco-all-list>
+                <!-- <uom-list #uomRecoList id="uomRecoList"
+                  [dataSource]="uomRecoHttpService"
+                  listTemplate="ASSETRECOALL"
+                  sortColumn="code"
+                  sortDirection="asc"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  pageSize="5"
+                  showSimpleSearch="false"
+                  (selectionChanged)="onAssetAllSelectionChanged($event)"
+                  [rowSelection]="assetAllRowSelection"
+                  notifyOnChange="true">
+              </uom-list> -->
+            </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+ <!-- <div id="barcodes" style="border: 0px solid red;margin:0px; padding:0px; display: none;">
+         <table *ngFor="let asset of selectedAssets"  style="border-collapse: collapse; text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:5px" > 
+            <tr style="border: 0px solid red"><td style="font-size:12px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif" >{{ companyName }}</td></tr>
+            <tr><td style="font-size:8px; margin:0px; padding:0px">{{ asset.costCenterCode  }}</td></tr>
+            <tr><td style="font-size:10px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">{{ asset.name }}</td></tr>
+            <tr><td style="font-size:11px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">SN: {{ asset.serialNumber }}</td></tr>  
+            <tr style="border: 0px solid red"><td><div><img class="barcode" style="border: none"/></div></td></tr>
+            <tr><td style="font-size:11px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">{{ asset.invNo }}</td></tr> 
+        </table>
+</div> -->
+ <!-- <div id="barcodes" style="border: 0px solid red;margin:0px; padding:0px; display: none;">
+         <table *ngFor="let asset of selectedAssets"  style="border-collapse: collapse; text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:0px;margin:auto;"> 
+            <tr><td style="font-size:11px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:left" >{{ companyName }}       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    {{ barcodeDateTime | date: 'MMyy' }}</td></tr>
+            <tr><td style="font-size:11px; margin:0px; padding:0px">B129937 - AG. BREZOIANU</td></tr>
+            <tr><td style="font-size:11px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">{{ asset.name }}</td></tr>
+            <tr><td style="font-size:9px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">SN: {{ asset.serialNumber }}</td></tr>  
+            <tr style="transform: scale(2,1); text-align:center"><td><div><img class="barcode" style="margin: auto"/></div></td></tr>
+            <tr><td style="font-size:10px; margin:0px; padding:0px; transform: scale(2,1); font-family:Arial, Helvetica, sans-serif">{{ asset.invNo }}</td></tr> 
+        </table>
+</div> -->
+
+<!-- <div id="barcodes" style="margin:0px; padding:0px; display: none;"> 
+    <table *ngFor="let asset of selectedAssets" style="text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:0px;margin:auto;"> 
+            <tr> 
+                <td style="font-size:11px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:left; width:50%;">{{ companyName }}</td> 
+                <td style="font-size:11px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:right; width:50%;">{{ barcodeDateTime | date: 'MMyy' }}</td> 
+            </tr> 
+            <tr>
+                <td colspan="2" style="font-size:11px; margin:0px; padding:0px">{{ asset.adm.costCenter.code + '-' + asset.adm.costCenter.name }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:11px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif;">{{ asset.name.length > 45 ? asset.name.substring(0, 41) : asset.name }}</td>
+            </tr> 
+            <tr>
+                <td colspan="2" style="font-size:9px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">SN: {{ asset.serialNumber }}</td>
+            </tr> 
+            <tr>
+              <td colspan="2">
+                  <div><img class="barcode" style="margin: auto"/></div>
+             </td> 
+            </tr> 
+            <tr>
+                <td colspan="2" style="font-size:10px; margin:0px; padding:0px; transform: scale(2,1); font-family:Arial, Helvetica, sans-serif">{{ asset.invNo }}</td>
+            </tr> 
+    </table> 
+</div> -->
+
+<!-- <div id="barcodes" style="margin:0px; padding:0px; display: none;"> 
+    <table *ngFor="let asset of selectedAssets" style="text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:0px;margin:auto;"> 
+            <tr> 
+                <td style="font-size:13px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:left; width:50%;"><br></td> 
+            </tr>
+            <tr> 
+                <td style="font-size:18px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:left; width:50%;">MEGA IMAGE</td> 
+            </tr>
+            <tr> 
+                    <td style="font-size:9px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:left; width:50%;"><br></td> 
+                </tr>
+            <tr>
+                <td colspan="2" style="font-size:15px; margin:0px; padding:0px; font-family:Tahoma, Geneva, sans-serif;">MASA INOX DULAP CU SPALAT MOBILIER INOX SPALATOR CUVA STANGA 180 USI GLISANTE</td>
+            </tr> 
+            <tr>
+                <td colspan="2" style="font-size:18px; margin:0px; padding:0px; font-family:Arial Black, Gadget, sans-serif;">{{ asset.invNo }}</td>
+            </tr> 
+            <tr>
+              <td colspan="2">
+                  <div><img class="barcode" style="margin: auto"/></div>
+             </td> 
+            </tr> 
+            <tr>
+                <td colspan="2" style="font-size:16px; margin:0px; padding:0px; transform: scale(1,1); font-family:Tahoma, Geneva, sans-serif;">ECHIPAMENT ETICHETABIL</td>
+            </tr> 
+    </table> 
+</div> -->
+<!-- 
+<div id="barcodes" style="margin:0px; padding:0px; display: none;"> 
+    <table *ngFor="let asset of selectedAssets" style="text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:0px;margin:auto;"> 
+            <tr> 
+                <td style="font-size:15px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:ceter; width:50%;">{{ companyName }}</td> 
+            </tr> 
+            <tr>
+                <td colspan="2" style="font-size:15px; margin:0px; padding:0px">{{ asset.adm.room.name }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:15px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif;">{{ asset.name }}</td>
+            </tr> 
+            <tr>
+                <td colspan="2" style="font-size:15px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">SN: {{ asset.serialNumber }}</td>
+            </tr> 
+            <tr>
+              <td colspan="2">
+                  <div><img class="barcode" style="margin: auto"/></div>
+             </td> 
+            </tr> 
+            <tr>
+                <td colspan="2" style="font-size:12npx; margin:0px; padding:0px; transform: scale(2,1); font-family:Arial, Helvetica, sans-serif">{{ asset.invNo }}</td>
+            </tr> 
+    </table> 
+</div> -->
+<div id="barcodes" style="margin:0px; padding:0px; display: none;">
+    <table *ngFor="let asset of selectedAssets" style="text-align:center; border-spacing:0px 0px;font-family:Candal, sans-serif; page-break-after:always; margin-top:0px;margin:auto;">
+        <br>
+            <tr>
+                <td style="font-size:24px;margin:0px; padding:0px;font-weight:bold; font-family:Candal, sans-serif; text-align:center; width:50%;">SuperBet</td>
+            </tr>
+            <!-- <tr>
+                <td colspan="2" style="font-size:15px; margin:0px; padding:0px">{{ asset.adm.room.name }}</td>
+            </tr> -->
+            <tr>
+                <!-- <td colspan="2" style="font-size:15px; margin:0px; padding:0px; font-family:Candal, sans-serif;">{{ asset.name.length > 50 ? asset.name.substring(0, 45) : asset.name }}</td> -->
+                <td colspan="2" style="font-size:16px; margin:0px; font-weight:bold; padding:0px; font-family:Candal, sans-serif;"> {{ asset.name }}</td>
+            </tr>
+            <!-- <tr *ngIf="asset.uom != null && asset.uom.name.length > 1">
+                    <td colspan="1" style="font-size:16px; margin:0px; font-weight:bold; padding:0px; font-family:Candal, sans-serif;">Model: {{ asset.uom.name }}</td>
+                </tr>
+                <tr *ngIf="asset.dimension != null && asset.dimension.length.length > 1">
+                        <td colspan="1" style="font-size:16px; margin:0px; font-weight:bold; padding:0px; font-family:Candal, sans-serif;">Dimensiune: {{ asset.dimension.length }}</td>
+                    </tr> -->
+            <!-- <tr *ngIf="!asset.invNo.startsWith('T')"> -->
+            <!-- <tr>
+                <td colspan="2" style="font-size:16px; margin:0px; padding:0px; font-weight:bold; font-family:Candal, sans-serif">SN: {{ asset.serialNumber }}</td>
+            </tr> -->
+            <tr>
+              <td colspan="2">
+                  <div><img class="barcode" style="margin: auto"/></div>
+             </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:20px; margin:0px; font-weight: bold; padding:0px; transform: scale(1.5,1); font-family:Candal, sans-serif">{{ asset.invNo }}</td>
+            </tr>
+    </table>
+</div>
+
+<div class="modal fade" bsModal #departmentListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Departament</h4>
+            </div>
+            <div class="modal-body">
+                <app-department-list #departmentList id="departmentList"
+                    [dataSource]="departmentHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-department-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDepartments()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="departmentListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Gestionari</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployees()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #regionListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Judet</h4>
+       </div>
+       <div class="modal-body">
+           <app-region-list #regionList id="regionList"
+               [dataSource]="regionHttpService"
+               rowSelection="multiple"
+               notifyOnChange="false"
+               [pageSize]="5"
+               usePaging="true">
+           </app-region-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRegions()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-primary btn-sm" (click)="regionListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #admCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Regiuni</h4>
+       </div>
+       <div class="modal-body">
+           <app-adm-center-list #admCenterList id="admCenterList"
+               [dataSource]="admCenterHttpService"
+               rowSelection="multiple"
+               notifyOnChange="false"
+               [pageSize]="5"
+               usePaging="true">
+           </app-adm-center-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdmCenters()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-primary btn-sm" (click)="admCenterListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #locationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Shops</h4>
+                <!-- <button *ngIf="allLocations === 'NO'" (click)="showAllLocations()" class=" modal-title pull-right btn btn-outline-success btn-lg" type="button">Active</button>
+                <button *ngIf="allLocations === 'YES'" (click)="showAllLocations()" class="modal-title pull-right btn btn-outline-danger btn-lg" type="button">Inactive</button> -->
+            </div>
+            <!-- <label for="transferStartDate" ><h5>&nbsp;Locatii finalizate <span style="color: red">{{ finishedLocations }}</span> in data de: </h5></label>
+            <ng2-datepicker class="popup" [options]="options" [(ngModel)]="closeDate"   (ngModelChange)="closeOn($event)"></ng2-datepicker> -->
+            <div class="modal-body">
+                <app-location-list #locationList id="locationList"
+                    [dataSource]="locationHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-location-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocations()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="locationListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #roomListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Adrese</h4>
+            </div>
+            <div class="modal-body">
+                <app-room-list #roomList id="roomList"
+                    [dataSource]="roomDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-room-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRooms()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="roomListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Centre de cost</h4>
+            </div>
+            <div class="modal-body">
+                <app-administration-list #administrationList id="administrationList"
+                    [dataSource]="administrationDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-administration-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministrations()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="administrationListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #assetCategoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Categorii</h4>
+            </div>
+            <div class="modal-body">
+                <app-asset-category-list #assetCategoryList id="assetCategoryList"
+                    [dataSource]="assetCategoryHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-asset-category-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetCategories()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="assetCategoryListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="modal fade" bsModal #uomListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Modele</h4>
+            </div>
+            <div class="modal-body">
+                <uom-list #uomList id="uomList"
+                    [dataSource]="uomHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </uom-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUoms()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="uomListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="modal fade" bsModal #uomListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Modele</h4>
+       </div>
+       <div class="modal-body">
+           <app-uom-list #uomList id="uomList"
+               [dataSource]="uomHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               [pageSize]="5"
+               usePaging="true">
+           </app-uom-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUoms()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="uomListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #companyListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Company</h4>
+            </div>
+            <div class="modal-body">
+                <app-company-list #companyList id="companyList"
+                    [dataSource]="companyHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-company-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompanies()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="companyListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" bsModal #assetClassListModal="bs-modal" [config]="{backdrop: 'static'}"
+ tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Classe</h4>
+       </div>
+       <div class="modal-body">
+           <app-asset-class-list #assetClassList id="assetClassList"
+               [dataSource]="assetClassHttpService"
+               rowSelection="multiple"
+               notifyOnChange="false"
+               [pageSize]="5"
+               usePaging="true">
+           </app-asset-class-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetClasses()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-primary btn-sm" (click)="assetClassListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #assetTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">Producatori</h4>
+      </div>
+      <div class="modal-body">
+          <app-asset-type-list #assetTypeList id="assetTypeList"
+              [dataSource]="assetTypeHttpService"
+              rowSelection="multiple"
+              notifyOnChange="false"
+              [pageSize]="5"
+              usePaging="true">
+          </app-asset-type-list>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetTypes()">Selecteaza</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="assetTypeListModal.hide()">Inchide</button>
+      </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #divisionListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">Manageri</h4>
+      </div>
+      <div class="modal-body">
+          <app-division-list #divisionList id="divisionList"
+              [dataSource]="divisionHttpService"
+              rowSelection="multiple"
+              notifyOnChange="false"
+              [pageSize]="5"
+              usePaging="true">
+          </app-division-list>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivisions()">Selecteaza</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="divisionListModal.hide()">Inchide</button>
+      </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #partnerListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Furnizori</h4>
+            </div>
+            <div class="modal-body">
+                <app-partner-list #partnerList id="partnerList"
+                    [dataSource]="partnerHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-partner-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedPartners()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="partnerListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Centre de cost</h4>
+            </div>
+            <div class="modal-body">
+                <app-cost-center-list #costCenterList id="costCenterList"
+                    [dataSource]="costCenterHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenters()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="costCenterListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #importDataModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Import date</h4>
+      </div>
+      <div class="modal-body">
+        <progressbar [max]="noOfItems" [value]="importIndex" type="success"><b>{{ importIndex }} / {{ noOfItems }}</b></progressbar>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #dimensionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Dimensiuni</h4>
+            </div>
+            <div class="modal-body">
+                <app-dimension-list #dimensionList id="dimensionList"
+                    [dataSource]="dimensionHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-dimension-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDimensions()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="dimensionListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #countyListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Counties</h4>
+       </div>
+       <div class="modal-body">
+           <app-county-list #countyList id="countyList"
+               [dataSource]="countyHttpService"
+               rowSelection="multiple"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-county-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCounties()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-primary btn-sm" (click)="countyListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #cityListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Cities</h4>
+       </div>
+       <div class="modal-body">
+           <app-city-list #cityList id="cityList"
+               [dataSource]="cityHttpService"
+               rowSelection="multiple"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-city-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCities()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-primary btn-sm" (click)="cityListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #newAssetModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                        <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4 style="color:#ff895e">Description</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h6>{{ dictionaryItem != null ?  dictionaryItem.name : "-" }}</h6>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div style="text-align: right;">
+                                                <button type="button" class="btn btn-default btn-icon" (click)="selectDictionaryItem()"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>
+                            <!-- <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h3 style="color:#ff895e">Model</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h4>{{ uomNew != null ?  uomNew.name : "-" }}</h4>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div style="text-align: right;">
+                                                <button type="button" *ngIf="!validated" class="btn btn-default btn-icon" (click)="selectUomNew()"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                             </div> -->
+                             <!-- <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h3 style="color:#ff895e">Dimension</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h4>{{ dimensionNew != null ?  dimensionNew.length : "-" }}</h4>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div style="text-align: right;">
+                                                <button type="button" *ngIf="!validated" class="btn btn-default btn-icon" (click)="selectDimensionNew()"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                             </div> -->
+            </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                <div class="row">
+                    <div class="horizontal-scroll">
+                        <table  class="table table-hover table-bordered" style="white-space: pre" [style.font-size.px]="12">
+                            <thead [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'white'">
+                            <tr>
+                                <th scope="col">Asset</th>
+                                <th scope="col">Description</th>
+                                <!-- <th scope="col">Model</th>
+                                <th scope="col">Dimension</th> -->
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let asset of selectedAssets">
+                            <tr>
+                                <td>{{ asset.invNo }}</td>
+                                <td>{{ asset.name }}</td>
+                                <!-- <td>{{ uomNew != null ? uomNew.name : '' }}</td>
+                                <td>{{ dimensionNew != null ? dimensionNew.length : '' }}</td> -->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- <div class="modal-body">
+                    <asset-inventory-upload [files]="fileInput?.nativeElement"></asset-inventory-upload>
+            </div> -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="newAssetModal.hide()">Inchide</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="saveNewAsset(selectedAssets)">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #dictionaryItemDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Denumire Noua</h4>
+       </div>
+       <div class="modal-body">
+           <app-dictionary-item-detail #dictionaryItemDetail id="dictionaryItemDetail"
+                           [dataSource]="dictionaryItemHttpService"
+                           (itemAdded)="dictionaryItemAdded($event)"
+                           (changesCanceled)="dictionaryItemAddCanceled()">
+          </app-dictionary-item-detail>
+       </div>
+   </div>
+</div>
+</div>
+<div class="modal fade" bsModal #dictionaryItemListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Dictionar</h4>
+       </div>
+       <div class="modal-body">
+           <app-dictionary-item-list #dictionaryItemList id="dictionaryItemList"
+               [dataSource]="dictionaryItemHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               [pageSize]="5"
+               usePaging="true">
+           </app-dictionary-item-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDictionaryItem()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="dictionaryItemListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #dimensionListNewModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Dimensiuni</h4>
+       </div>
+       <div class="modal-body">
+           <app-dimension-list #dimensionListNew id="dimensionListNew"
+               [dataSource]="dimensionHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-dimension-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDimensionNew()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="dimensionListNewModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #uomListNewModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Modele</h4>
+       </div>
+       <div class="modal-body">
+           <app-uom-list #uomListNew id="uomListNew"
+               [dataSource]="uomHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-uom-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUomNew()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="uomListNewModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}" 
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Confirmare</h4>
+      </div>
+      <div class="modal-body">
+            {{ confirmationMessage }}
+            <br>
+            <ul *ngFor="let assetInvNo of assetInvNos" >
+                <li >
+                    {{ assetInvNo }}
+                </li>
+            </ul>
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+        <button type="button" class="btn btn-primary" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> Nu</button>
+      </div>
+    </div>
+  </div>
+</div>

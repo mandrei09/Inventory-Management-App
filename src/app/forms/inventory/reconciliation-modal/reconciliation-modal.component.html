@@ -1,0 +1,354 @@
+<div class="add-assets-modal reconciliate-modal">
+  <div>
+    <div class="modal-dialog-header">
+      <h2 class="modal-title mb-0" id="exampleModalLabel">Reconciliere</h2>
+      <button type="button" class="btn-close" mat-dialog-close></button>
+    </div>
+    <div class="modal-hero">
+      <div class="row">
+        <div class="col-3 mb-16">
+          <div class="form-group asset-form d-grid">
+            <label>Nr. inventar</label>
+            <span>{{ item?.invNo ? item?.invNo : 'N/A' }}</span>
+          </div>
+        </div>
+        <div class="col-3 mb-16">
+          <div class="form-group asset-form d-grid">
+            <label>Denumire</label>
+            <span>{{ item?.name ? item?.name : '-' }}</span>
+          </div>
+        </div>
+        <div class="col-3 mb-16">
+          <div class="form-group asset-form d-grid">
+            <label>Denumire inventar</label>
+<!--            <span>{{ inventoryDetail?.assetNameActual ? inventoryDetail?.assetNameActual : '-' }}</span>-->
+            <span>N/A</span>
+          </div>
+        </div>
+        <div class="col-3 mb-16">
+          <div class="form-group asset-form d-grid">
+            <label>Clasificare</label>
+<!--            <span>{{ item?.accClass ? item?.accClass?.code + ' - ' + item?.accClass?.name : '-' }}</span>-->
+            <span>N/A</span>
+          </div>
+        </div>
+
+        <div class="col-3 mb-16">
+          <div class="form-group asset-form d-grid">
+            <label>Companie scriptic</label>
+<!--            <span>{{ inventoryDetail?.costCenterRegister?.company ? inventoryDetail?.costCenterRegister?.company?.name : '-' }}</span>-->
+            <span>N/A</span>
+          </div>
+        </div>
+        <div class="col-3 mb-16">
+          <div class="form-group asset-form d-grid">
+            <label>Centru de cost</label>
+<!--            <span>{{ inventoryDetail?.costCenterRegister ? (inventoryDetail?.costCenterRegister?.code + ' - ' + inventoryDetail?.costCenterRegister?.name) : '-' }}</span>-->
+            <span>N/A</span>
+          </div>
+        </div>
+        <div class="col-3 mb-16">
+          <div class="form-group asset-form d-grid">
+            <label>Gestiune</label>
+<!--            <span>{{ inventoryDetail?.administrationRegister ? (inventoryDetail?.administrationRegister?.code + ' - ' + inventoryDetail?.administrationRegister?.name) : '-' }}</span>-->
+            <span>N/A</span>
+          </div>
+        </div>
+
+        <div class="col-3 mb-16">
+        </div>
+
+        <div class="col-3 mb-16">
+          <div class="form-group asset-form d-grid">
+            <label>Companie faptic</label>
+<!--            <span>{{ inventoryDetail?.costCenterActual?.company ? inventoryDetail?.costCenterActual?.company?.name : '-' }}</span>-->
+            <span>N/A</span>
+          </div>
+        </div>
+        <div class="col-3 mb-16">
+          <div class="form-group asset-form d-grid">
+            <label>Centru de cost</label>
+<!--            <span>{{ inventoryDetail?.costCenterActual ? (inventoryDetail?.costCenterActual?.code + ' - ' + inventoryDetail?.costCenterActual?.name) : '-' }}</span>-->
+            <span>N/A</span>
+          </div>
+        </div>
+        <div class="col-3 mb-16">
+          <div class="form-group asset-form d-grid">
+            <label>Gestiune</label>
+<!--            <span>{{ inventoryDetail?.administrationActual ? (inventoryDetail?.administrationActual?.code + ' - ' + inventoryDetail?.administrationActual?.name) : '-' }}</span>-->
+            <span>N/A</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-typography">
+    <div class="modal-dialog-body">
+      <div class="modal-top-frame pb-0">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex">
+            <div class="frame-title my-auto">
+              <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.6094 8.57812L21.0156 9.98438L11.5 19.5L6.4375 14.3906L7.84375 12.9844L11.5 16.6875L19.6094 8.57812ZM4.42188 8.01562H8.54688L6.48438 2.48438L4.42188 8.01562ZM10.4688 12.9844L9.29688 9.98438H3.67188L2.54688 12.9844H0.4375L5.54688 0H7.42188L12.5312 12.9844H10.4688Z" fill="#0B4FFF"/>
+              </svg>
+              <span>Match</span>
+            </div>
+            <div class="frame-selects">
+              <div class="frame-selects_item">
+                <mat-form-field appearance="fill">
+                  <mat-label>Words:</mat-label>
+                  <mat-select (selectionChange)="onWordChanged($event)">
+                    <mat-option [value]="0">all</mat-option>
+                    <mat-option [value]="1">1</mat-option>
+                    <mat-option [value]="2">2</mat-option>
+                    <mat-option [value]="3">3</mat-option>
+                    <mat-option [value]="4">4</mat-option>
+                    <mat-option [value]="5">5</mat-option>
+                    <mat-option [value]="6">6</mat-option>
+                    <mat-option [value]="7">7</mat-option>
+                    <mat-option [value]="8">8</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="frame-selects_item">
+                <mat-form-field appearance="fill">
+                  <mat-label>Litere</mat-label>
+                  <mat-select matNativeControl (selectionChange)="onLetterChanged($event)">
+                    <mat-option [value]="0">toate</mat-option>
+                    <mat-option [value]="1">1</mat-option>
+                    <mat-option [value]="2">2</mat-option>
+                    <mat-option [value]="3">3</mat-option>
+                    <mat-option [value]="4">4</mat-option>
+                    <mat-option [value]="5">5</mat-option>
+                    <mat-option [value]="6">6</mat-option>
+                    <mat-option [value]="7">7</mat-option>
+                    <mat-option [value]="8">8</mat-option>
+                    <mat-option [value]="9">9</mat-option>
+                    <mat-option [value]="10">10</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="frame-selects_item">
+                <mat-form-field appearance="fill">
+                  <mat-label>Minim</mat-label>
+                  <mat-select matNativeControl (selectionChange)="onMinimumChanged($event)">
+                    <mat-option [value]="0">toate</mat-option>
+                    <mat-option [value]="1">1</mat-option>
+                    <mat-option [value]="2">2</mat-option>
+                    <mat-option [value]="3">3</mat-option>
+                    <mat-option [value]="4">4</mat-option>
+                    <mat-option [value]="5">5</mat-option>
+                    <mat-option [value]="6">6</mat-option>
+                    <mat-option [value]="7">7</mat-option>
+                    <mat-option [value]="8">8</mat-option>
+                    <mat-option [value]="9">9</mat-option>
+                    <mat-option [value]="10">10</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="frame-selects_item">
+                <mat-form-field appearance="fill">
+                  <mat-label>Conditie</mat-label>
+                  <mat-select (selectionChange)="updateConditionType($event)">
+                    <mat-option [value]="'AND'">SI</mat-option>
+                    <mat-option [value]="'OR'">SAU</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <form class="header-search helper-mr-16">
+              <input type="text" [(ngModel)]="filter" placeholder="Search.." name="search" (change)="doSimpleSearch($event)">
+              <button type="submit">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.32812 9.70312C4.20312 10.5781 5.26562 11.0156 6.51562 11.0156C7.76562 11.0156 8.82812 10.5781 9.70312 9.70312C10.5781 8.82812 11.0156 7.76562 11.0156 6.51562C11.0156 5.26562 10.5781 4.20313 9.70312 3.32812C8.82812 2.45312 7.76562 2.01562 6.51562 2.01562C5.26562 2.01562 4.20312 2.45312 3.32812 3.32812C2.45312 4.20313 2.01562 5.26562 2.01562 6.51562C2.01562 7.76562 2.45312 8.82812 3.32812 9.70312ZM12.5156 11.0156L17.4844 15.9844L15.9844 17.4844L11.0156 12.5156V11.7188L10.7344 11.4375C9.54688 12.4688 8.14062 12.9844 6.51562 12.9844C4.70312 12.9844 3.15625 12.3594 1.875 11.1094C0.625 9.85938 0 8.32812 0 6.51562C0 4.70312 0.625 3.17188 1.875 1.92188C3.15625 0.640625 4.70312 0 6.51562 0C8.32812 0 9.85938 0.640625 11.1094 1.92188C12.3594 3.17188 12.9844 4.70312 12.9844 6.51562C12.9844 7.17188 12.8281 7.92188 12.5156 8.76562C12.2031 9.57812 11.8438 10.2344 11.4375 10.7344L11.7188 11.0156H12.5156Z"/>
+                </svg>
+              </button>
+            </form>
+          </div>
+
+          <div class="frame-right-box d-flex my-auto">
+            <span class="my-auto">Fotografii</span>
+            <mat-slide-toggle class="my-auto" (change)="showImagesBox()"></mat-slide-toggle>
+            <div class="import-export-dropdown custom-dropdown">
+              <div class="dropdown">
+                <button  class="btn dropdown-toggle">
+                  <svg width="14" height="18" viewBox="0 0 14 18" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.9844 14.0156H13.9844L10 18L6.01562 14.0156H9.01562V6.98438H10.9844V14.0156ZM4 0L7.98438 3.98438H4.98438V11.0156H3.01562V3.98438H0.015625L4 0Z" />
+                  </svg>
+                </button>
+<!--                <mat-menu #data="matMenu" class="hamburger">-->
+<!--                  <ul class="custom-dropdown-open">-->
+<!--                    <li class="data-dropdown">Data</li>-->
+<!--                    <li>-->
+<!--                      <hr class="dropdown-divider">-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                      <a class="dropdown-item" href="#">-->
+<!--                        <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                          <path d="M3.34375 9L6 6.34375L8.65625 9L7.71875 9.96875L6.65625 8.90625V11.6562H5.34375V8.90625L4.28125 9.9375L3.34375 9ZM10 12.3438V5H6.65625V1.65625H2V12.3438H10ZM7.34375 0.34375L11.3438 4.34375V12.3438C11.3438 12.6979 11.2083 13.0104 10.9375 13.2812C10.6667 13.5312 10.3542 13.6562 10 13.6562H2C1.64583 13.6562 1.33333 13.5312 1.0625 13.2812C0.791667 13.0104 0.65625 12.6979 0.65625 12.3438L0.6875 1.65625C0.6875 1.30208 0.8125 1 1.0625 0.75C1.33333 0.479167 1.64583 0.34375 2 0.34375H7.34375Z"/>-->
+<!--                        </svg>-->
+<!--                        Import-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                      <a class="dropdown-item" href="#">-->
+<!--                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                          <path d="M6.65625 6.4375L8.40625 4.71875L9.34375 5.65625L6 9L2.65625 5.65625L3.59375 4.71875L5.34375 6.4375V0H6.65625V6.4375ZM10.6562 6H12V10.6562C12 11.0104 11.8646 11.3229 11.5938 11.5938C11.3229 11.8646 11.0104 12 10.6562 12H1.34375C0.989583 12 0.677083 11.8646 0.40625 11.5938C0.135417 11.3229 0 11.0104 0 10.6562V6H1.34375V10.6562H10.6562V6Z"/>-->
+<!--                        </svg>-->
+<!--                        Export-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </mat-menu>-->
+              </div>
+            </div>
+            <div class="settings-table-dropdown custom-dropdown">
+              <div class="dropdown">
+                <button mat-button class="btn dropdown-toggle">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.51562 12.4844C8.20312 13.1719 9.03125 13.5156 10 13.5156C10.9688 13.5156 11.7969 13.1719 12.4844 12.4844C13.1719 11.7969 13.5156 10.9688 13.5156 10C13.5156 9.03125 13.1719 8.20312 12.4844 7.51562C11.7969 6.82812 10.9688 6.48438 10 6.48438C9.03125 6.48438 8.20312 6.82812 7.51562 7.51562C6.82812 8.20312 6.48438 9.03125 6.48438 10C6.48438 10.9688 6.82812 11.7969 7.51562 12.4844ZM17.4531 10.9844L19.5625 12.625C19.7812 12.7812 19.8125 13 19.6562 13.2812L17.6406 16.75C17.5156 16.9688 17.3125 17.0312 17.0312 16.9375L14.5469 15.9531C13.8906 16.4219 13.3281 16.75 12.8594 16.9375L12.4844 19.5625C12.4219 19.8438 12.2656 19.9844 12.0156 19.9844H7.98438C7.73438 19.9844 7.57812 19.8438 7.51562 19.5625L7.14062 16.9375C6.54688 16.6875 5.98438 16.3594 5.45312 15.9531L2.96875 16.9375C2.6875 17.0312 2.48438 16.9688 2.35938 16.75L0.34375 13.2812C0.1875 13 0.21875 12.7812 0.4375 12.625L2.54688 10.9844C2.51562 10.7656 2.5 10.4375 2.5 10C2.5 9.5625 2.51562 9.23438 2.54688 9.01562L0.4375 7.375C0.21875 7.21875 0.1875 7 0.34375 6.71875L2.35938 3.25C2.48438 3.03125 2.6875 2.96875 2.96875 3.0625L5.45312 4.04688C6.10938 3.57812 6.67188 3.25 7.14062 3.0625L7.51562 0.4375C7.57812 0.15625 7.73438 0.015625 7.98438 0.015625H12.0156C12.2656 0.015625 12.4219 0.15625 12.4844 0.4375L12.8594 3.0625C13.4531 3.3125 14.0156 3.64062 14.5469 4.04688L17.0312 3.0625C17.3125 2.96875 17.5156 3.03125 17.6406 3.25L19.6562 6.71875C19.8125 7 19.7812 7.21875 19.5625 7.375L17.4531 9.01562C17.4844 9.23438 17.5 9.5625 17.5 10C17.5 10.4375 17.4844 10.7656 17.4531 10.9844Z"/>
+                  </svg>
+                </button>
+<!--                <mat-menu #menu="matMenu" class="hamburger">-->
+<!--                  <ul class="custom-dropdown-open" (click)="$event.stopPropagation()">-->
+<!--                    <li class="data-dropdown">Settings</li>-->
+<!--                    <li>-->
+<!--                      <hr class="dropdown-divider">-->
+<!--                    </li>-->
+<!--                    <li class="list-group-title">View</li>-->
+<!--                    <li class="data-dropdown pb-0">-->
+<!--                      <label class="d-flex">-->
+<!--                        <input class="form-check-input" type="radio" name="flexRadioDefault">-->
+<!--                        <div class="justify-space-between separated-items">-->
+<!--                          Relaxed <img class="checkbox-image" src="../../../../../../assets/icons/png/Icon.png">-->
+<!--                        </div>-->
+<!--                      </label>-->
+<!--                    </li>-->
+<!--                    <li class="data-dropdown">-->
+<!--                      <label class="d-flex">-->
+<!--                        <input class="form-check-input" type="radio" name="flexRadioDefault">-->
+<!--                        <div class="justify-space-between separated-items">-->
+<!--                          Compact <img class="checkbox-image" src="../../../../../../assets/icons/png/Icon.png">-->
+<!--                        </div>-->
+<!--                      </label>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                      <hr class="dropdown-divider">-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                      <a class="dropdown-item" href="#">-->
+<!--                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                          <path d="M15.125 12.6562C15.2708 12.7396 15.3333 12.8854 15.3125 13.0938C15.3125 13.2812 15.2292 13.4479 15.0625 13.5938L13.5312 15.125C13.2188 15.4375 12.9062 15.4375 12.5938 15.125L6.53125 9.0625C5.78125 9.375 4.97917 9.44792 4.125 9.28125C3.29167 9.09375 2.5625 8.6875 1.9375 8.0625C1.27083 7.39583 0.854167 6.60417 0.6875 5.6875C0.520833 4.77083 0.645833 3.91667 1.0625 3.125L4 6L6 4L3.125 1.125C3.91667 0.75 4.77083 0.635417 5.6875 0.78125C6.60417 0.927083 7.39583 1.33333 8.0625 2C8.6875 2.625 9.08333 3.36458 9.25 4.21875C9.4375 5.05208 9.375 5.84375 9.0625 6.59375L15.125 12.6562Z"/>-->
+<!--                        </svg>-->
+<!--                        Configure columns-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </mat-menu>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-filters mb-3" style="padding-left: 16px;">
+        <div class="filter-content-item child-w-150 mt-10">
+<!--          <companies-item-select [(ngModel)]="companies" selectionType="multiple" placeholder="{{ t('filter_companies_placeholder') }}" showMinimizedPlaceHolder="true">-->
+<!--          </companies-item-select>-->
+        </div>
+
+        <div class="filter-content-item child-w-150 mt-10">
+<!--          <counties-item-select [(ngModel)]="counties" selectionType="multiple" placeholder="{{ t('filter_counties_placeholder') }}" showMinimizedPlaceHolder="true">-->
+<!--          </counties-item-select>-->
+        </div>
+
+        <div class="filter-content-item child-w-150 mt-10">
+<!--          <cities-item-select [(ngModel)]="cities" selectionType="multiple" placeholder="{{ t('filter_cities_placeholder') }}" showMinimizedPlaceHolder="true">-->
+<!--          </cities-item-select>-->
+        </div>
+
+        <div class="filter-content-item child-w-150 mt-10">
+<!--          <locations-item-select [(ngModel)]="shops" selectionType="multiple" placeholder="{{ t('filter_shops_placeholder') }}" showMinimizedPlaceHolder="true">-->
+<!--          </locations-item-select>-->
+        </div>
+
+        <div class="filter-content-item child-w-150 mt-10">
+<!--          <inv-states-item-select [(ngModel)]="states" selectionType="multiple" placeholder="{{ t('filter_states_placeholder') }}" showMinimizedPlaceHolder="true">-->
+<!--          </inv-states-item-select>-->
+        </div>
+
+        <div class="filter-content-item child-w-150 mt-10">
+<!--          <uoms-item-select [(ngModel)]="uoms" selectionType="multiple" placeholder="{{ t('filter_uoms_placeholder') }}" showMinimizedPlaceHolder="true">-->
+<!--          </uoms-item-select>-->
+        </div>
+
+        <div class="filter-content-item child-w-150 mt-10">
+<!--          <dimensions-item-select [(ngModel)]="types" selectionType="multiple" displayValue="code" placeholder="{{ t('filter_types_placeholder') }}" showMinimizedPlaceHolder="true">-->
+<!--          </dimensions-item-select>-->
+        </div>
+
+        <div class="filter-content-item child-w-150 mt-10">
+          <users-item-select [(ngModel)]="users" selectionType="multiple" displayValue="userName" placeholder="Utilizatori" showMinimizedPlaceHolder="true">
+          </users-item-select>
+        </div>
+
+        <div class="filter-content-item child-w-200 mt-10 mr-10">
+          <div class="mt-auto d-flex filter-select-wrapper">
+            <div class="static-form-select">
+              <mat-form-field appearance="fill">
+                <mat-label>Toate:</mat-label>
+                <mat-select [(ngModel)]="assetState">
+                  <mat-option [value]="null">-</mat-option>
+                  <mat-option [value]="'Toate'">All</mat-option>
+                  <mat-option [value]="'Propunere'">Propuneri reconciliere</mat-option>
+                  <mat-option [value]="'Aprobate'">Aprobate</mat-option>
+                  <mat-option [value]="'Fara'">Fara</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex">
+          <button class="selected-filter-remove mr-15 mt-10" (click)="onClearFilters()">
+            <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 3.34375H9V6.15625L11.3438 7.5625L10.8438 8.375L8 6.65625V3.34375ZM4.40625 1.75C5.59375 0.583333 7.01042 0 8.65625 0C10.3021 0 11.7083 0.583333 12.875 1.75C14.0625 2.91667 14.6562 4.33333 14.6562 6C14.6562 7.66667 14.0625 9.08333 12.875 10.25C11.7083 11.4167 10.3021 12 8.65625 12C7.96875 12 7.20833 11.8333 6.375 11.5C5.5625 11.1458 4.91667 10.7292 4.4375 10.25L5.375 9.28125C6.29167 10.1979 7.38542 10.6562 8.65625 10.6562C9.94792 10.6562 11.0521 10.2083 11.9688 9.3125C12.8854 8.39583 13.3438 7.29167 13.3438 6C13.3438 4.70833 12.8854 3.61458 11.9688 2.71875C11.0521 1.80208 9.94792 1.34375 8.65625 1.34375C7.36458 1.34375 6.26042 1.80208 5.34375 2.71875C4.44792 3.61458 4 4.70833 4 6H6L3.3125 8.6875L3.25 8.59375L0.65625 6H2.65625C2.65625 4.33333 3.23958 2.91667 4.40625 1.75Z" fill="#CC1010"/>
+            </svg>
+            Resetare filtre
+          </button>
+        </div>
+      </div>
+
+      <app-asset-inv-temp-detail-list #assetInvTempDetailListTemp id="assetInvTempDetailListTemp"
+                                      [dataSource]="assetHttpService"
+                                      dynamicQuery="true"
+                                      detailType="temp"
+                                      sortColumn="asset.invNo"
+                                      sortDirection="asc"
+                                      usePaging="true"
+                                      showSimpleSearch="false"
+                                      rowSelection="single"
+                                      [pageSize]="10"
+                                      (selectionChanged)="onAssetInvTempDetailTempSelectionChanged($event)"
+                                      notifyOnChange="true">
+      </app-asset-inv-temp-detail-list>
+
+    </div>
+
+    <div class="d-flex" style="position:absolute;bottom:66px;width: 100%;background: #FFF;box-shadow: 0px -4px 16px rgba(17, 16, 82, .15);">
+<!--      <app-entity-files-thumb-preview *ngIf="showUploadedImages" [entityId]="assetId" entityType="asset"></app-entity-files-thumb-preview>-->
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">Cancel</button>
+    <button mat-button class="btn blue-btn" (click)="onReconcile()" >
+      <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 12V10L8.65625 12.6562L6 15.3438V13.3438C4.54167 13.3438 3.28125 12.8229 2.21875 11.7812C1.17708 10.7188 0.65625 9.45833 0.65625 8C0.65625 6.95833 0.9375 6.01042 1.5 5.15625L2.46875 6.125C2.15625 6.6875 2 7.3125 2 8C2 9.10417 2.38542 10.0521 3.15625 10.8438C3.94792 11.6146 4.89583 12 6 12ZM6 2.65625C7.45833 2.65625 8.70833 3.1875 9.75 4.25C10.8125 5.29167 11.3438 6.54167 11.3438 8C11.3438 9.04167 11.0625 9.98958 10.5 10.8438L9.53125 9.875C9.84375 9.3125 10 8.6875 10 8C10 6.89583 9.60417 5.95833 8.8125 5.1875C8.04167 4.39583 7.10417 4 6 4V6L3.34375 3.34375L6 0.65625V2.65625Z" fill="#C6C6D5"/>
+      </svg>
+      Reconciliere
+    </button>
+  </mat-dialog-actions>
+</div>

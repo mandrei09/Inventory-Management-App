@@ -1,0 +1,139 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+        <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+            
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" placeholder="name" required maxlength="100"
+                    [(ngModel)]="item.name" name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    Description is mandatory!
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="code">Url</label>
+                <input type="text" class="form-control" placeholder="url" required maxlength="20"
+                    [(ngModel)]="item.url" name="code" #url="ngModel">
+                <div [hidden]="url.valid || url.pristine" class="alert alert-danger">
+                    Codul este obligatoriu!
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Icon</label>
+                <input type="text" class="form-control" placeholder="icon" required maxlength="100"
+                    [(ngModel)]="item.icon" name="icon" #icon="ngModel">
+                <div [hidden]="icon.valid || icon.pristine" class="alert alert-danger">
+                    Icon is mandatory!
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Variant</label>
+                <input type="text" class="form-control" placeholder="success|info|warning.." required maxlength="100"
+                    [(ngModel)]="item.variant" name="variant" #variant="ngModel">
+                <div [hidden]="variant.valid || variant.pristine" class="alert alert-danger">
+                    Variant is mandatory!
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">Class</label>
+                <input type="text" class="form-control" placeholder="mt-auto..." required maxlength="100"
+                    [(ngModel)]="item.class" name="class" #class="ngModel">
+                <div [hidden]="class.valid || class.pristine" class="alert alert-danger">
+                    Class is mandatory!
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">Position</label>
+                <input type="text" class="form-control" placeholder="position..." required maxlength="100"
+                    [(ngModel)]="item.position" name="position" #position="ngModel">
+                <div [hidden]="position.valid || position.pristine" class="alert alert-danger">
+                    Position is mandatory!
+                </div>
+            </div>
+            <br>
+
+
+            <div class="input-group">
+                <span class="input-group-prepend">
+                  <button type="button" class="btn btn-secondary" (click)="askForBadge()"><i class="fa fa-search"></i> Badge</button>
+                </span>
+                <input type="text" id="disabled-input" name="disabled-input" class="form-control" placeholder="Parent..." [value]="selectedBadge != null ? selectedBadge.text + ' ' + selectedBadge.variant : ''" disabled>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary"  (click)="setBadge(null)">X</button>
+                </span>
+              </div>
+
+              <br>
+
+            <div class="col-md-3" style="margin-top: 35px;">
+                <div class="btn-group" dropdown>
+                    <button dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle">
+                        Active {{ item.active === true ? 'DA' : 'NU' }}<span class="caret"></span>
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu" role="menu" style="background-color: #212529;color: ghostwhite;">
+                        <li role="menuitem" (click)="item.active = true;">
+                            <a class="dropdown-item"> DA </a>
+                        </li>
+                        <li role="menuitem" (click)="item.active = false;">
+                            <a class="dropdown-item"> NU </a>
+                        </li>
+                    </ul>
+                  </div>
+              </div>    
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">Role</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <!-- <h4>{{ selectedCountry != null ? selectedCountry.name : "" }}</h4> -->
+                            <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedRole != null ? selectedRole.name : ''" disabled>
+                            <span class="input-group-append">
+                                <button type="button"  class="btn btn-success"  (click)="askForRole()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                                <button type="button"  class="btn btn-danger"  (click)="setRole(null)"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+                            </span>
+                          </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <br>
+
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-left">
+                        <div *ngIf="!deleteConfirmationMode">
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Sterge</button>
+                        </div>
+                        <div *ngIf="deleteConfirmationMode">
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteItem()"><i class="fa fa-check"></i>Da</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> No</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-right">
+                        <div class="text-right">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-outline-success btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Save</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Inchide</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_inventory_plan_detail'">
+    <div class="modal-dialog-header">
+      <h2 class="modal-title mb-0">{{ t((item === null || item.id! < 1) ? 'title_add' : 'title_edit') }}</h2>
+      <button type="button" class="btn-close" [mat-dialog-close] ="null"></button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+      <div class="modal-dialog-body">
+        <div class="container">
+          <div class="row">
+              <div class="row mx-auto">
+                <div class="col-10 mx-auto">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group inputs-modal-nomenclature mt-3 mb-3 d-grid">
+                        <label style="font-weight: bold;" >{{ t('date_started_label') }}</label>
+                          <mat-form-field appearance="fill" class="datepicker-input-custom" style="margin-right: 10px;">
+                              <input matInput [matDatepicker]="pickerInventoryDateStart" formControlName="dateStarted" placeholder="Data inceput inventar">
+                              <mat-datepicker-toggle matSuffix [for]="pickerInventoryDateStart"></mat-datepicker-toggle>
+                              <mat-datepicker #pickerInventoryDateStart></mat-datepicker>
+                          </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group inputs-modal-nomenclature mt-3 mb-3 d-grid">
+                      <label style="font-weight: bold;" >{{ t('date_finished_label') }}</label>
+                          <mat-form-field appearance="fill" class="datepicker-input-custom" style="margin-right: 10px;">
+                              <input matInput [matDatepicker]="pickerInventoryDateEnd" formControlName="dateFinished" placeholder="Data sfarsit inventar">
+                              <mat-datepicker-toggle matSuffix [for]="pickerInventoryDateEnd"></mat-datepicker-toggle>
+                              <mat-datepicker #pickerInventoryDateEnd></mat-datepicker>
+                          </mat-form-field>
+                      </div>
+                    </div> 
+                  </div>
+                  <hr>
+                  <div class="files-header mt-15 mb-15">
+                    <label style="font-weight: bold;">{{ t('committee_employee_label') }}</label>
+                    <button type="button" class="medium-blue-btn mb-0" (click)="onCommitteeEmployeeAdd()">
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                      </svg>
+                      {{ t('committee_employee_add') }}
+                    </button>
+                  </div>
+                  <hr>
+                  <div>
+                    <app-inv-committee-member-list #itemList id="itemList"
+                      [dataSource]="invCommitteeMemberHttpService"
+                      usePaging="true"
+                      showHeader="false"
+                      showSimpleSearch="false"
+                      showEditAction="true"
+                      showDeleteAction="true"
+                      [itemAddedEvent]="itemAddedEvent"
+                      [itemUpdatedEvent]="itemUpdatedEvent"
+                      [itemDeletedEvent]="itemDeletedEvent"
+                      [requestSelectionEvent]="requestSelectionEvent"
+                      [requestRefreshEvent]="requestRefreshEvent"
+                      (selectionChanged)="setSelectedItem($event)"
+                      (itemEdit)="onEmployeeItemEdit($event)"
+                      (itemDelete)="itemDeleted($event)"
+                      rowSelection="single"
+                      notifyOnChange="true">
+                    </app-inv-committee-member-list>  
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end">
+      <button mat-button  [mat-dialog-close]="null" class="btn gray-btn-outline">{{ t('action_cancel') }}</button>
+      <button mat-button
+              class="btn blue-btn"
+              type="submit"
+              [disabled]="!form.valid"
+      >{{ t('action_save') }}</button>
+    </mat-dialog-actions>
+    </form>
+  </div>

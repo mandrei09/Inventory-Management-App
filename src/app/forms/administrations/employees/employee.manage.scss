@@ -1,0 +1,23 @@
+.modal {
+    text-align: center;
+}
+.modal-dialog {
+    text-align: left; /* you'll likely want this */
+    max-width: 80%;
+    min-width: 50%;
+    width: auto !important;
+    display: inline-block;
+}
+
+.confirmed {
+  font-weight: 700;
+  background-color: rgb(34, 179, 154);
+  color: #000000;
+}
+
+.notconfirmed {
+  font-weight: 700;
+  background-color: rgb(240, 128, 128);
+  color: #000000;
+  // text-decoration: line-through;
+}

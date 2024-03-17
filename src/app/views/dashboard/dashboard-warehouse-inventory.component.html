@@ -1,0 +1,1796 @@
+<div *transloco="let t; read: 'page_dashboard_component'" style="height: 100%;">
+  <div class="content-page-header">
+    <div class="modal-filters">
+      <div class="filter-content-item child-w-200">
+        <administrations-item-select [(ngModel)]="administrations" selectionType="multiple" displayValue="code" placeholder="{{ t('administration_placeholder') }}" showMinimizedPlaceHolder="true">
+        </administrations-item-select>
+      </div>
+
+      <div class="filter-content-item child-w-200">
+        <departments-item-select [(ngModel)]="departments" selectionType="multiple" displayValue="name" placeholder="{{ t('department_placeholder') }}" showMinimizedPlaceHolder="true">
+        </departments-item-select>
+      </div>
+
+      <div class="filter-content-item child-w-200">
+        <divisions-item-select [(ngModel)]="divisions" [params]="divisionParams" selectionType="multiple" displayValue="name" placeholder="{{ t('division_placeholder') }}" showMinimizedPlaceHolder="true">
+        </divisions-item-select>
+      </div>
+
+      <div class="filter-content-item child-w-200">
+        <cost-centers-item-select [(ngModel)]="costCenters" [params]="costCenterParams" selectionType="multiple" displayValue="name" placeholder="{{ t('cost_center_placeholder') }}" showMinimizedPlaceHolder="true">
+        </cost-centers-item-select>
+      </div>
+
+      <div class="filter-content-item child-w-200">
+        <employee-item-select [(ngModel)]="employee" selectionType="multiple" displayValue="full-name" placeholder="{{ t('employee_placeholder') }}" showMinimizedPlaceHolder="true">
+        </employee-item-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-page-header-two d-flex">
+    <div class="last-update">
+      <span>{{ t('last_update_text') }}: {{ currentDate | date:'dd/MM/yyyy HH:mm:ss' }}</span>
+    </div>
+  </div>
+
+  <div class="dash-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 dash-column">
+          <div class="dashboard-item-header">
+            <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.3125 0.3125L14 3H24.6875C25.3958 3 26 3.27083 26.5 3.8125C27.0417 4.35417 27.3125 4.97917 27.3125 5.6875V19C27.3125 19.7083 27.0417 20.3333 26.5 20.875C26 21.4167 25.3958 21.6875 24.6875 21.6875H3.3125C2.60417 21.6875 1.97917 21.4167 1.4375 20.875C0.9375 20.3333 0.6875 19.7083 0.6875 19V3C0.6875 2.29167 0.9375 1.66667 1.4375 1.125C1.97917 0.583333 2.60417 0.3125 3.3125 0.3125H11.3125Z"/>
+            </svg>
+            <span>{{ t('total_assets_label') }}</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-blue-color">{{ itemsInventoryArray[0].initial | number:'1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="col-md-4 dash-column">
+          <div class="dashboard-item-header">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="28" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+            <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
+              <g><g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"><path d="M4549.3,5016.1c-42.2-3.8-170.7-17.3-287.7-26.8c-654-65.2-1284.9-230.1-1791.2-471.8c-598.4-285.8-976.2-642.5-1100.8-1035.6l-46-145.8l-191.8-99.7c-523.6-274.3-863-606-985.8-964.7c-44.1-122.7-46-155.3-46-619.4c0-464.1,1.9-496.7,46-619.4c128.5-374,504.4-730.7,1047.1-995.4c117-55.6,214.8-103.5,216.7-105.5c3.8-1.9-13.4-57.5-38.4-124.7c-42.2-115.1-44.1-145.7-44.1-609.9c0-466,1.9-494.8,44.1-611.8c24.9-67.1,71-163,101.7-214.8l53.7-94l-53.7-94c-30.7-51.8-76.7-147.7-101.7-214.8c-42.2-117-44.1-145.8-44.1-611.8c0-464.1,1.9-496.7,46-619.5c214.8-627.1,1075.9-1156.4,2264.9-1394.2c500.6-99.7,761.4-122.8,1361.6-122.8c600.3,0,861.1,23,1361.6,122.8c1189,237.8,2050.1,767.1,2264.9,1394.2c44.1,122.7,46,155.3,46,619.5c0,466-1.9,494.8-44.1,611.8c-24.9,67.1-72.9,166.9-103.6,220.6c-57.5,95.9-57.5,97.8-24.9,155.3c69,118.9,140,270.4,153.4,331.8c11.5,55.6,32.6,72.9,178.3,145.8c529.3,266.6,897.5,621.4,1022.2,983.8c44.1,122.8,46,155.3,46,619.5s-1.9,496.7-46,619.4c-128.5,374-502.5,730.7-1047.1,995.4c-115.1,55.6-214.8,103.6-216.7,105.5c-3.8,1.9,13.4,57.5,38.4,124.7c42.2,115.1,44.1,145.7,44.1,609.9c0,464.1-1.9,496.7-46,619.4c-197.5,575.3-945.5,1074-1996.4,1334.8c-506.3,126.6-916.7,176.4-1524.7,184.1C4842.7,5021.8,4591.5,5019.9,4549.3,5016.1z M5510.1,4701.6c1133.4-88.2,2077-429.6,2568-928.2c304.9-308.8,368.2-588.8,207.1-912.9c-72.9-143.8-322.2-391.2-529.3-527.4c-1026-665.5-2846-870.7-4338.1-489c-663.6,170.7-1171.8,425.8-1495.9,755.6c-393.1,398.9-393.1,776.7,0,1173.7c329.9,333.7,826.6,584.9,1495.9,755.6C4054.5,4692,4821.6,4755.3,5510.1,4701.6z M1321.6,2674.4c11.5-354.8,40.3-462.2,189.9-684.6c189.9-285.8,506.3-531.2,958.9-747.9c508.2-241.7,1062.5-389.3,1800.8-475.6c224.4-24.9,983.8-32.6,1323.3-11.5l220.5,13.4l-163-57.5C5015.3,486.2,4077.5,380.7,3262.5,444c-1133.4,88.2-2077,429.6-2567.9,928.2C527.7,1541,449,1673.3,412.6,1849.8c-72.9,345.2,201.4,730.7,742.2,1049c74.8,42.2,140,76.7,145.8,76.7C1308.2,2975.5,1317.8,2839.4,1321.6,2674.4z M8695.6,1738.5c680.8-345.2,1003-784.4,872.6-1191c-101.6-322.2-439.2-629-968.5-880.3c-993.4-471.8-2497-602.2-3743.6-326c-239.7,53.7-629,164.9-617.5,176.4c5.8,3.8,128.5,19.2,274.3,34.5c1191,126.6,2197.8,535.1,2644.7,1077.8c118.9,143.8,226.3,339.4,258.9,469.9c23,90.1,24.9,92.1,218.6,193.7c270.4,140,452.6,266.6,623.3,429.6c80.5,76.7,157.2,138.1,168.8,140C8440.6,1863.2,8561.4,1807.6,8695.6,1738.5z M1931.5-248.3c111.2-30.7,329.9-84.4,489-115.1c157.3-32.6,287.7-59.5,289.6-61.4c17.3-46,176.4-234,280-329.9c502.5-464.1,1367.4-794,2422.2-922.5c293.4-36.4,1024.1-47.9,1409.6-23c201.4,13.4,214.8,13.4,159.2-11.5c-101.6-46-460.3-143.8-705.8-193.7c-713.4-143.8-1513.1-161.1-2291.8-47.9c-1355.9,197.5-2408.8,864.9-2353.2,1495.9c9.6,103.6,63.3,268.5,88.2,268.5C1724.4-188.9,1820.3-215.7,1931.5-248.3z M2138.6-2267.7c947.4-575.4,2474-813.2,3887.4-607.9c870.7,128.5,1695.4,446.8,2124.9,826.6c49.9,44.1,94,78.6,97.8,74.8c3.8-3.8,30.7-53.7,59.5-111.2c216.7-431.5-145.8-939.7-935.9-1315.6c-1317.5-625.2-3419.5-625.2-4744.7,0c-790.1,374-1146.8,874.5-937.8,1319.4l51.8,107.4l140-111.2C1960.3-2146.9,2075.3-2229.4,2138.6-2267.7z"/><path d="M4712.3,4310.3c0-115.1-11.5-126.6-128.5-126.6c-130.4,0-477.5-61.4-627.1-109.3c-186-63.3-356.7-170.7-433.4-276.2c-99.7-138.1-74.8-314.5,59.5-427.7c186-157.3,483.3-245.5,1167.9-345.2c462.2-69,721.1-120.8,805.5-164.9c111.2-57.5,126.6-136.2,44.1-214.8c-86.3-80.5-218.6-115.1-489-126.6c-479.5-19.2-771,65.2-897.5,260.8l-28.8,44.1l-439.2-47.9c-239.7-26.8-441.1-51.8-446.9-55.6c-3.8-5.8,40.3-61.4,101.7-126.6c195.6-212.9,540.8-341.4,1052.9-391.2l249.3-23l5.8-140l5.8-138.1H5000h287.7v141.9v140l187.9,13.4c502.5,36.4,882.2,153.4,1079.7,331.8c101.7,92.1,132.3,155.3,132.3,272.3c0,132.3-80.6,234-258.9,329.9c-184.1,99.7-408.5,155.3-1026,258.9c-797.8,130.4-889.9,157.3-914.8,255.1c-13.4,57.5,7.7,94,88.2,149.6c84.4,57.5,220.5,82.5,448.8,82.5c291.5,0,512.1-69,661.7-209l63.3-59.5l383.6,63.3c209,36.4,389.3,71,397,78.6c23,26.8-172.6,184.1-312.6,251.2c-199.5,95.9-512.1,164.9-843.8,186l-76.7,5.8l-5.8,111.2l-5.7,109.3H5000h-287.7V4310.3z"/></g></g>
+            </svg>
+            <span>{{ t('total_scanned_assets_label') }}:</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-black-color">{{ itemsInventoryArray[0].scanned | number:'1.2-2' }}</span>
+          </div>
+        </div>
+        <div class="col-md-4 dash-column">
+          <div class="dashboard-item-header">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 97.04" style="enable-background:new 0 0 122.88 97.04" width="27" height="28"  xml:space="preserve"><g><path d="M2.38,0h18.33v4.76H4.76V17.2H0V2.38C0,1.07,1.07,0,2.38,0L2.38,0z M17.92,16.23h8.26v64.58h-8.26V16.23L17.92,16.23z M69.41,16.23h5.9v64.58h-5.9V16.23L69.41,16.23z M57.98,16.23h4.42v64.58h-4.42V16.23L57.98,16.23z M33.19,16.23h2.51v64.58h-2.51 V16.23L33.19,16.23z M97.59,16.23h7.37v64.58h-7.37V16.23L97.59,16.23z M82.32,16.23h8.26v64.58h-8.26V16.23L82.32,16.23z M42.71,16.23h8.26v64.58h-8.26V16.23L42.71,16.23z M4.76,79.84v12.44h15.95v4.76H2.38C1.07,97.04,0,95.98,0,94.66V79.84H4.76 L4.76,79.84z M103.4,0h17.1c1.31,0,2.38,1.07,2.38,2.38V17.2h-4.76V4.76H103.4V0L103.4,0z M122.88,79.84v14.82 c0,1.31-1.07,2.38-2.38,2.38h-17.1v-4.76h14.72V79.84H122.88L122.88,79.84z"/></g></svg>
+            <span>{{ t('percentage_scanned_assets_label') }}:</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-black-color">{{ itemsInventoryArray[0].procentage | number:'1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="col-md-4 dash-column">
+          <div class="dashboard-item-header">
+            <svg width="28" height="22" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                 viewBox="0 0 263.285 263.285" xml:space="preserve">
+              <g>
+                <path d="M193.882,8.561c-7.383-3.756-16.414-0.813-20.169,6.573L62.153,234.556c-3.755,7.385-0.812,16.414,6.573,20.169
+                  c2.178,1.107,4.499,1.632,6.786,1.632c5.466,0,10.735-2.998,13.383-8.205L200.455,28.73
+                  C204.21,21.345,201.267,12.316,193.882,8.561z"/>
+                <path d="M113.778,80.818c0-31.369-25.521-56.89-56.89-56.89C25.521,23.928,0,49.449,0,80.818c0,31.368,25.521,56.889,56.889,56.889
+                  C88.258,137.707,113.778,112.186,113.778,80.818z M56.889,107.707C42.063,107.707,30,95.644,30,80.818
+                  c0-14.827,12.063-26.89,26.889-26.89c14.827,0,26.89,12.062,26.89,26.89C83.778,95.644,71.716,107.707,56.889,107.707z"/>
+                <path d="M206.396,125.58c-31.369,0-56.89,25.521-56.89,56.889c0,31.368,25.52,56.889,56.89,56.889
+                  c31.368,0,56.889-25.52,56.889-56.889C263.285,151.1,237.765,125.58,206.396,125.58z M206.396,209.357
+                  c-14.827,0-26.89-12.063-26.89-26.889c0-14.826,12.063-26.889,26.89-26.889c14.826,0,26.889,12.063,26.889,26.889
+                  C233.285,197.294,221.223,209.357,206.396,209.357z"/>
+              </g>
+            </svg>
+            <span>{{ t('total_current_bank_value_text') }}:</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-blue-color">{{ itemsInventoryArray[0].currBkValue | currency : 'RON ' : true : '1.2-2' }}</span>
+          </div>
+        </div>
+
+        <div class="col-md-4 dash-column">
+          <div class="dashboard-item-header">
+            <svg version="1.1" width="32" height="34" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+                <g><g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)"><path d="M6192.7,4948.4c-47.1-33.3-786.5-594.3-1639.6-1245.4L2999.7,2520.3H1942.6c-633.5,0-1100.3-7.9-1163-19.6c-221.6-43.1-400.1-174.6-509.9-376.6l-66.7-123.6V-941.4v-2941.9l54.9-105.9c109.8-207.9,300.1-351.1,521.7-394.2c153-29.4,4308.9-27.5,4393.3,2c33.3,11.8,70.6,37.3,80.4,56.9c27.5,53,23.5,143.2-7.9,188.3c-27.4,37.3-78.5,37.3-2255.5,47.1c-1478.8,5.9-2231.9,15.7-2245.7,29.4c-13.7,13.7,225.5,731.6,753.1,2253.5c425.6,1229.7,788.4,2253.5,804.1,2279c15.7,25.5,56.9,51,92.2,56.9c35.3,5.9,1635.7,7.8,3555.8,5.9l3491.1-5.9l25.5-56.9c54.9-113.8,37.3-178.5-237.3-902.2c-147.1-388.3-268.7-725.7-268.7-751.2c0-72.6,31.4-117.7,98.1-141.2c64.7-21.6,133.4-5.9,170.6,39.2c11.8,15.7,147.1,358.9,300.1,762.9c274.6,729.6,276.5,735.5,264.8,859c-13.7,153-60.8,280.5-149,407.9c-121.6,176.5-3196.9,4214.8-3230.2,4240.3C6361.3,5026.8,6282.9,5015.1,6192.7,4948.4z M7483.2,3079.3c639.4-841.4,1282.7-1686.7,1429.8-1876.9l264.8-349.1H8456h-721.7l-998.3,1312.1c-676.6,890.4-1014,1320-1049.3,1335.6c-35.3,13.7-70.6,15.7-102,2c-78.5-29.4-105.9-78.5-98.1-182.4c0-17.7,409.9-568.8,910-1225.8c500.1-655.1,914-1204.2,923.8-1216c11.8-19.6-86.3-25.5-466.8-25.5h-480.5l-717.8,947.3c-396.2,519.7-745.3,968.9-776.7,1000.3c-70.6,64.7-153,68.6-207.9,9.8c-56.9-62.8-68.6-115.7-37.3-174.6c21.6-43.1,455-617.8,1163-1541.6l184.4-241.2h-486.4H5008l-498.2,657c-529.5,696.3-557,723.7-666.8,670.8c-70.6-33.3-105.9-113.8-80.4-180.4c11.8-29.4,200.1-288.3,417.7-576.6c219.7-286.3,404-533.5,411.9-545.2c13.7-19.6-84.3-25.5-464.8-25.5h-480.5l-247.1,323.6c-135.3,176.5-262.8,331.4-284.4,343.2c-60.8,33.3-127.5,21.6-176.5-29.4c-82.4-88.3-64.7-143.2,133.4-400.1l178.5-235.4l-474.6-5.9c-345.2-3.9-492.3,0-537.4,17.7c-119.6,47.1-207.9-21.6-211.8-166.7c0-51-15.7-119.6-33.3-151c-17.6-33.3-117.7-307.9-221.6-608c-105.9-302-194.2-551.1-196.1-555C1566-625.6,791.3,402.1,791.3,423.7c0,31.4,5466.1,4193.2,5499.4,4189.3C6306.4,4611,6841.8,3920.6,7483.2,3079.3z M2546.6,2179C2501.5,2137.9,526.5,637.5,516.7,637.5c-5.9,0-9.8,292.2-9.8,647.2c0,608,2,653.1,39.2,725.7c45.1,90.2,125.5,151,227.5,174.5c43.1,9.8,464.8,17.7,939.4,19.6C2448.6,2206.5,2570.2,2202.6,2546.6,2179z M981.5-364.7c243.2-319.7,447.2-590.3,455-602.1c9.8-15.7-651.1-1957.4-890.4-2622.2c-35.3-96.1-37.3-53-37.3,1873c-2,1104.2,5.9,1961.3,15.7,1951.5C532.4,223.6,740.3-45,981.5-364.7z"/><path d="M6608.4-521.7c-835.5-176.5-1492.5-863-1659.2-1731.8c-37.3-190.3-41.2-580.5-9.8-757.1C5062.9-3689.1,5490.5-4250,6124-4559.9c862.9-423.6,1843.6-253,2494.7,435.4c731.6,772.7,810,1947.5,184.4,2777.2c-333.4,443.3-857.1,755.1-1418,847.3C7185.1-468.7,6814.4-478.5,6608.4-521.7z M7538.1-833.5c319.7-82.4,627.6-262.8,855.1-506c166.7-174.6,237.3-278.5,341.3-500.1c141.2-298.1,176.5-460.9,176.5-817.9c-2-339.3-31.4-486.4-155-757.1c-255-549.2-790.4-947.3-1408.2-1047.3c-231.4-37.3-592.3-15.7-806.1,47.1c-631.5,188.3-1090.5,672.7-1272.9,1347.4c-62.8,233.4-62.8,678.6,0,910c49,174.5,166.7,435.4,260.8,570.7c276.6,404,778.6,711.9,1282.7,792.4C6990.9-766.8,7357.7-786.4,7538.1-833.5z"/><path d="M6943.8-1172.8c-41.2-43.2-43.1-60.8-47.1-670.8l-5.9-627.6l-637.4-5.9c-619.8-3.9-637.4-5.9-680.6-47.1c-56.9-53-58.8-151-7.8-213.8l37.2-47.1l749.2-5.9l747.2-5.9l56.9,58.8l58.8,56.9v710c0,743.3-5.9,800.2-88.3,831.6C7059.5-1113.9,6985-1127.7,6943.8-1172.8z"/></g></g>
+            </svg>
+            <span>{{ t('total_accumul_dep_label') }}:</span>
+          </div>
+          <div class="dashboard-item">
+            <span class="span-number">{{ itemsInventoryArray[0].accumulDep | currency : 'RON ' : true : '1.2-2' }}</span>
+          </div>
+        </div>
+        <div class="col-md-4 dash-column">
+          <div class="dashboard-item-header">
+            <svg width="40" height="32"  version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                 viewBox="0 0 502 502" xml:space="preserve">
+            <g>
+              <g>
+                <g>
+                  <path d="M363.05,97.025c5.54,4.119,10.913,8.592,15.969,13.296c1.926,1.792,4.37,2.679,6.809,2.679
+                    c2.68,0,5.354-1.071,7.324-3.188c3.762-4.043,3.534-10.371-0.51-14.133c-5.591-5.202-11.533-10.149-17.661-14.705
+                    c-4.433-3.295-10.697-2.374-13.991,2.06C357.695,87.466,358.617,93.73,363.05,97.025z"/>
+                  <path d="M88.349,215.226c-29.071,0-52.721,23.651-52.721,52.721c0,29.071,23.65,52.722,52.721,52.722
+                    s52.721-23.651,52.721-52.722C141.07,238.876,117.42,215.226,88.349,215.226z M88.349,300.668
+                    c-18.042,0-32.721-14.679-32.721-32.722c0-18.042,14.679-32.721,32.721-32.721s32.721,14.679,32.721,32.721
+                    C121.07,285.99,106.392,300.668,88.349,300.668z"/>
+                  <path d="M304.018,85.999c0-29.071-23.651-52.721-52.721-52.721c-29.071,0-52.722,23.65-52.722,52.721
+                    c0,29.071,23.652,52.721,52.722,52.721S304.018,115.07,304.018,85.999z M218.575,85.999c0-18.042,14.679-32.721,32.722-32.721
+                    c18.042,0,32.721,14.679,32.721,32.721c0,18.042-14.679,32.721-32.721,32.721C233.254,118.72,218.575,104.041,218.575,85.999z"/>
+                  <path d="M457.038,276.589C458.334,267.155,459,257.566,459,248c0-45.997-14.711-89.589-42.543-126.065
+                    c-3.351-4.391-9.626-5.234-14.016-1.884c-4.391,3.351-5.234,9.625-1.884,14.016C425.707,167.027,439,206.425,439,248
+                    c0,6.782-0.369,13.575-1.09,20.303c-7.699-2.268-15.835-3.507-24.259-3.507c-47.42,0-85.999,38.579-85.999,85.999
+                    c0,13.751,6.741,33.337,20.076,58.439C318.573,426.765,285.304,436,251,436c-49.67,0-95.989-18.927-131.28-53.443
+                    c4.769-6.991,9.912-14.747,15.081-22.924c26.241-41.51,39.547-72.357,39.547-91.686c0-47.42-38.579-85.999-85.999-85.999
+                    c-4.709,0-9.325,0.396-13.831,1.127c16.3-44.196,49.006-81.026,90.971-102.528c-0.114,1.805-0.191,3.619-0.191,5.452
+                    c0,19.329,13.306,50.176,39.547,91.686c19.021,30.088,37.726,54.572,38.513,55.6c1.892,2.471,4.827,3.919,7.939,3.919
+                    s6.047-1.449,7.939-3.92c0.787-1.027,19.492-25.511,38.513-55.599c26.242-41.51,39.547-72.357,39.547-91.686
+                    C337.296,38.579,298.717,0,251.297,0c-36.913,0-68.461,23.381-80.633,56.107C112.775,80.38,68.422,130.189,51.092,190.445
+                    C22.277,204.352,2.35,233.866,2.35,267.947c0,19.329,13.306,50.176,39.547,91.686c19.021,30.088,37.726,54.572,38.513,55.6
+                    c1.892,2.471,4.827,3.919,7.939,3.919s6.047-1.449,7.939-3.919c0.383-0.5,5.004-6.55,11.831-16.081
+                    c17.369,16.45,37.224,29.657,59.179,39.319C193.731,450.102,221.893,456,251,456c37.754,0,74.383-10.117,106.53-29.326
+                    c3.001,5.085,6.22,10.351,9.669,15.807c19.021,30.088,37.726,54.572,38.513,55.6c1.892,2.471,4.827,3.919,7.939,3.919
+                    s6.047-1.449,7.939-3.919c0.787-1.028,19.492-25.511,38.513-55.6c26.241-41.51,39.547-72.357,39.547-91.686
+                    C499.65,319.193,482.504,291.536,457.038,276.589z M251.297,20c36.392,0,65.999,29.607,65.999,65.999
+                    c0,28.12-42.186,91.813-65.999,124.476c-23.813-32.663-65.999-96.356-65.999-124.476C185.298,49.607,214.905,20,251.297,20z
+                     M88.349,392.422C64.536,359.759,22.35,296.066,22.35,267.947c0-36.392,29.607-65.999,65.999-65.999
+                    c36.392,0,65.999,29.607,65.999,65.999C154.348,296.066,112.162,359.759,88.349,392.422z M413.651,475.271
+                    c-23.813-32.663-65.999-96.356-65.999-124.476c0-36.392,29.607-65.999,65.999-65.999c36.392,0,65.999,29.607,65.999,65.999
+                    C479.65,378.915,437.464,442.607,413.651,475.271z"/>
+                  <path d="M413.651,298.074c-29.071,0-52.721,23.65-52.721,52.721c0,29.071,23.65,52.721,52.721,52.721
+                    c29.071,0,52.721-23.65,52.721-52.721C466.372,321.724,442.722,298.074,413.651,298.074z M413.651,383.516
+                    c-18.042,0-32.721-14.679-32.721-32.721c0-18.042,14.679-32.721,32.721-32.721c18.042,0,32.721,14.679,32.721,32.721
+                    C446.372,368.837,431.693,383.516,413.651,383.516z"/>
+                </g>
+              </g>
+            </g>
+            </svg>
+            <span>{{ t('total_current_APC_label') }}:</span>
+          </div>
+          <div class="dashboard-item">
+            <span class="span-number span-black-color">{{ itemsInventoryArray[0].currentAPC | currency : 'RON ' : true : '1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-chart">
+      <div style="padding-top: 3rem;background: #FFF;">
+        <div class="container-fluid">
+          <mat-tab-group color="transparent" (selectedTabChange)="handleChange($event);">
+            <mat-tab label="{{ t('team_manager_tab') }}">
+              <div>
+                <table class="table dashboard-static-table" style="white-space: nowrap; text-decoration: none !important; font-weight: 500;" [style.font-size.px]="12">
+                  <thead>
+                  <tr>
+                    <th class="text-left" colspan="6" style="text-align:center">
+                      Total assets w/o Intangibles, Land, Investment Property, Leasing and WIP
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="text-left"><i class="icon-speech"></i>
+                      T.M.
+                    </th>
+                    <th class="text-left">
+                      <i class="icon-pie-chart"></i>
+                      Procent (
+                        <span class="turcoise-color">scriptic</span> vs
+                        <span class="green-color">faptic</span> vs
+                        <span class="danger-color">neinventariate</span> vs
+                        <span class="blue-color">temporare</span>
+                      )
+                    </th>
+                    <th class="text-left">
+                      <i class="icon-pie-chart"></i>
+                      CurrBkValue (
+                        <span class="turcoise-color">scriptic</span> vs
+                        <span class="green-color">faptic</span> vs
+                        <span class="danger-color">neinventariate</span>
+                      )
+                    </th>
+                    <th class="text-left">
+                      <i class="icon-pie-chart"></i>
+                      AccumulDep (
+                        <span class="turcoise-color">scriptic</span> vs
+                        <span class="green-color">faptic</span> vs
+                        <span class="danger-color">neinventariate</span>
+                      )
+                    </th>
+                    <th class="text-left">
+                      <i class="icon-pie-chart"></i>
+                      CurrentAPC (
+                        <span class="turcoise-color">scriptic</span> vs
+                        <span class="green-color">faptic</span> vs
+                        <span class="danger-color">neinventariate</span>
+                      )
+                    </th>
+                    <th class="text-left">
+                      <i class="icon-people"></i>
+                      Activitate
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of itemsTeamManagerArray">
+                    <td>
+                      <div><strong>{{item.code}}</strong></div>
+                      <div class="small text-muted">
+                        <span><strong>{{item.name}}</strong></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <strong style="font-size: 12px">{{((item.scanned/item.initial) * 100.0 | number: '1.2-2')+ '%'}}</strong>
+                        </div>
+                        <div class="float-right">
+                          <strong class="text-muted"><span class="turcoise-color">{{item.initial}}</span> /
+                            <span class="green-color">{{item.scanned}}</span> /
+                            <span class="danger-color">{{item.notScanned}}</span> /
+                            <span class="blue-color">{{item.temp}}</span>
+                          </strong>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div
+                          [ngClass]="{'progress-bar blue-bar':  ((item.scanned/item.initial) * 100.0)}"
+                          [ngStyle]="{'width': ((item.scanned/item.initial) * 100.0 | number: '1.2-2') + '%'}"
+                          role="progressbar"
+
+                          aria-valuenow="item.scanned"
+                          aria-valuemin="0"
+                          aria-valuemax="100">
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <strong style="font-size: 12px">{{((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0 | number: '1.2-2')+ '%'}}</strong>
+                        </div>
+                        <div class="float-right">
+                          <strong class="text-muted">
+                            <span class="turcoise-color">{{item.initialCurrBkValue | number: '1.2-2'}}</span> /
+                            <span class="green-color">{{item.scannedCurrBkValue | number: '1.2-2'}}</span> /
+                            <span class="danger-color">{{item.notScannedCurrBkValue | number: '1.2-2'}}</span>
+                          </strong>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div
+                          [ngClass]="{'progress-bar blue-bar':  ((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0)}"
+                          [ngStyle]="{'width': ((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0 | number: '1.2-2') + '%'}"
+                          role="progressbar"
+
+                          aria-valuenow="item.scannedCurrBkValue"
+                          aria-valuemin="0"
+                          aria-valuemax="100">
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <strong style="font-size: 12px">{{((item.scannedAccumulDep/item.initialAccumulDep) * 100.0 | number: '1.2-2')+ '%'}}</strong>
+                        </div>
+                        <div class="float-right">
+                          <strong class="text-muted">
+                            <span class="turcoise-color">{{item.initialAccumulDep | number: '1.2-2'}}</span> /
+                            <span class="green-color">{{item.scannedAccumulDep | number: '1.2-2'}}</span> /
+                            <span class="danger-color">{{item.notScannedAccumulDep | number: '1.2-2'}}</span>
+                            </strong>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div
+                          [ngClass]="{'progress-bar blue-bar':  ((item.scannedAccumulDep/item.initialAccumulDep) * 100.0)}"
+                          [ngStyle]="{'width': ((item.scannedAccumulDep/item.initialAccumulDep) * 100.0 | number: '1.2-2') + '%'}"
+                          role="progressbar"
+
+                          aria-valuenow="item.scannedAccumulDep"
+                          aria-valuemin="0"
+                          aria-valuemax="100">
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <strong style="font-size: 12px">{{((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0 | number: '1.2-2')+ '%'}}</strong>
+                        </div>
+                        <div class="float-right">
+                          <strong class="text-muted">
+                            <span class="turcoise-color">{{item.initialCurrentAPC | number: '1.2-2'}}</span> /
+                            <span class="green-color">{{item.scannedCurrentAPC | number: '1.2-2'}}</span> /
+                            <span class="danger-color">{{item.notScannedCurrentAPC | number: '1.2-2'}}</span>
+                          </strong>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div
+                          [ngClass]="{'progress-bar':  ((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0)}"
+                          [ngStyle]="{'width': ((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0 | number: '1.2-2') + '%'}"
+                          role="progressbar"
+
+                          aria-valuenow="item.scannedCurrentAPC"
+                          aria-valuemin="0"
+                          aria-valuemax="100">
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="small text-muted">Ultima scanare</div>
+                      <small>{{item.lastScan | date: 'short'}}</small>
+                    </td>
+                  </tr>
+                  <tr *ngIf="itemsTeamManagerArray.length === 0">
+                    <td colspan="12" style="text-align: left; padding: .5rem .5rem !important; min-width: 100vw;">
+                      <div class="table-no_results">No results found!</div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </mat-tab>
+            <mat-tab label="{{ t('responsible_tab') }}">
+              <div>
+                <table class="table dashboard-static-table" style="white-space: nowrap; text-decoration: none !important; font-weight: 500;" [style.font-size.px]="12">
+                  <thead>
+                  <tr>
+                    <th class="text-left" colspan="6" style="text-align:center">
+                      Total assets w/o Intangibles, Land, Investment Property, Leasing and WIP
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="text-left">
+                      <i class="icon-speech"></i>
+                      Responsabil
+                    </th>
+                    <th class="text-left" >
+                      <i class="icon-pie-chart"></i>
+                      Procent (
+                      <span class="turcoise-color">scriptic</span> vs
+                      <span class="green-color">faptic</span> vs
+                      <span class="danger-color">neinventariate</span> vs
+                      <span class="blue-color">temporare</span>)
+                    </th>
+                    <th class="text-left">
+                      <i class="icon-pie-chart"></i>
+                      CurrBkValue (
+                      <span class="turcoise-color">scriptic</span> vs
+                      <span class="green-color">faptic</span> vs
+                      <span class="danger-color">neinventariate</span>)
+                    </th>
+                    <th class="text-left">
+                      <i class="icon-pie-chart"></i>
+                      AccumulDep (<span class="turcoise-color">scriptic</span> vs
+                      <span class="green-color">faptic</span> vs
+                      <span class="danger-color">neinventariate</span>)
+                    </th>
+                    <th class="text-left">
+                      <i class="icon-pie-chart"></i>
+                      CurrentAPC (<span class="turcoise-color">scriptic</span> vs
+                      <span class="green-color">faptic</span> vs
+                      <span class="danger-color">neinventariate</span>)
+                    </th>
+                    <th class="text-left" ><i class="icon-people"></i>
+                      Activitate</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of itemsResponsableArray" >
+                    <td>
+                      <div><strong>{{item.code}}</strong></div>
+                      <div class="small text-muted">
+                        <span><strong>{{item.name}}</strong></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <strong style="font-size: 10px">{{((item.scanned/item.initial) * 100.0 | number: '1.2-2')+ '%'}}</strong>
+                        </div>
+                        <div class="float-right">
+                          <strong class="text-muted">
+                            <span class="turcoise-color">{{item.initial}}</span> /
+                            <span class="green-color">{{item.scanned}}</span> /
+                            <span class="danger-color">{{item.notScanned}}</span> /
+                            <span class="blue-color">{{item.temp}}</span>
+                          </strong>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div
+                          [ngClass]="{'progress-bar blue-bar':  ((item.scanned/item.initial) * 100.0)}"
+                          [ngStyle]="{'width': ((item.scanned/item.initial) * 100.0 | number: '1.2-2') + '%'}"
+                          role="progressbar"
+
+                          aria-valuenow="item.scanned"
+                          aria-valuemin="0"
+                          aria-valuemax="100">
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <strong style="font-size: 10px">{{((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0 | number: '1.2-2')+ '%'}}</strong>
+                        </div>
+                        <div class="float-right">
+                          <strong class="text-muted">
+                            <span class="turcoise-color">{{item.initialCurrBkValue | number: '1.2-2'}}</span> /
+                            <span class="green-color">{{item.scannedCurrBkValue | number: '1.2-2'}}</span> /
+                            <span class="danger-color">{{item.notScannedCurrBkValue | number: '1.2-2'}}</span>
+                          </strong>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div
+                          [ngClass]="{'progress-bar':  ((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0)}"
+                          [ngStyle]="{'width': ((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0 | number: '1.2-2') + '%'}"
+                          role="progressbar"
+
+                          aria-valuenow="item.scannedCurrBkValue"
+                          aria-valuemin="0"
+                          aria-valuemax="100">
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <strong style="font-size: 10px">{{((item.scannedAccumulDep/item.initialAccumulDep) * 100.0 | number: '1.2-2')+ '%'}}</strong>
+                        </div>
+                        <div class="float-right">
+                          <strong class="text-muted"><span class="turcoise-color">{{item.initialAccumulDep | number: '1.2-2'}}</span> /
+                            <span class="green-color">{{item.scannedAccumulDep | number: '1.2-2'}}</span> /
+                            <span class="danger-color">{{item.notScannedAccumulDep | number: '1.2-2'}}</span>
+                          </strong>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div
+                          [ngClass]="{'progress-bar':  ((item.scannedAccumulDep/item.initialAccumulDep) * 100.0)}"
+                          [ngStyle]="{'width': ((item.scannedAccumulDep/item.initialAccumulDep) * 100.0 | number: '1.2-2') + '%'}"
+                          role="progressbar"
+
+                          aria-valuenow="item.scannedAccumulDep"
+                          aria-valuemin="0"
+                          aria-valuemax="100">
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <strong style="font-size: 10px">{{((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0 | number: '1.2-2')+ '%'}}</strong>
+                        </div>
+                        <div class="float-right">
+                          <strong class="text-muted"><span class="turcoise-color">{{item.initialCurrentAPC | number: '1.2-2'}}</span> /
+                            <span class="green-color">{{item.scannedCurrentAPC | number: '1.2-2'}}</span> /
+                            <span class="danger-color">{{item.notScannedCurrentAPC | number: '1.2-2'}}</span>
+                          </strong>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div
+                          [ngClass]="{'progress-bar':  ((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0)}"
+                          [ngStyle]="{'width': ((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0 | number: '1.2-2') + '%'}"
+                          role="progressbar"
+
+                          aria-valuenow="item.scannedCurrentAPC"
+                          aria-valuemin="0"
+                          aria-valuemax="100">
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="small text-muted">Ultima scanare</div>
+                      <small>{{item.lastScan | date: 'short'}}</small>
+                    </td>
+                  </tr>
+                  <tr *ngIf="itemsResponsableArray.length === 0">
+                    <td colspan="12" style="text-align: left; padding: .5rem .5rem !important; min-width: 100vw;">
+                      <div class="table-no_results">No results found!</div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </mat-tab>
+            <mat-tab label="{{ t('business_unit_tab') }}">
+              <div>
+                <table class="table dashboard-static-table" style="white-space: nowrap; text-decoration: none !important; font-weight: 500;" [style.font-size.px]="12">
+                  <thead >
+                  <tr>
+                    <th class="text-left" colspan="6" style="text-align:center">
+                      Total assets w/o Intangibles, Land, Investment Property, Leasing and WIP
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="text-left">
+                      <i class="icon-speech"></i>
+                      Cod B.U.
+                    </th>
+                    <th class="text-left" >
+                      <i class="icon-basket-loaded"></i>
+                      Business Unit (B.U.)</th>
+                    <th class="text-left" ><i class="icon-pie-chart"></i>
+                      Procent (<span class="turcoise-color">scriptic</span> vs
+                      <span class="green-color">faptic</span>)</th>
+                    <th class="text-left" ><i class="icon-people"></i>
+                      Activitate</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of itemsDepartmentArray">
+                    <td>
+                      <div><strong>{{item.code}}</strong></div>
+                      <!-- <div class="small text-muted">
+                        <span><strong>{{item.name}}</strong></span>
+                      </div> -->
+                    </td>
+                    <td>
+                      <div><strong>{{item.name}}</strong></div>
+                      <!-- <div class="small text-muted">
+                        <span><strong>{{item.name}}</strong></span>
+                      </div> -->
+
+                    </td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <strong>{{((item.scanned/item.initial) * 100.0 | number: '1.2-2')+ '%'}}</strong>
+                        </div>
+                        <div class="float-right">
+                          <strong class="text-muted">
+                            <span class="turcoise-color">{{item.initial}}</span> /
+                            <span class="green-color">{{item.scanned}}</span></strong>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div
+                          [ngClass]="{
+                                  'progress-bar':  ((item.scanned/item.initial) * 100.0)
+                              }"
+                          role="progressbar" [ngStyle]="{'width': ((item.scanned/item.initial) * 100.0 | number: '1.2-2') + '%'}" aria-valuenow="item.scanned" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="small text-muted">Ultima scanare</div>
+                      <small>{{item.lastScan | date: 'short'}}</small>
+                    </td>
+                  </tr>
+                  <tr *ngIf="itemsDepartmentArray.length === 0">
+                    <td colspan="12" style="text-align: left; padding: .5rem .5rem !important; min-width: 100vw;">
+                      <div class="table-no_results">No results found!</div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="{{ t('departments_tab') }}">
+              <div>
+                <table class="table dashboard-static-table" style="white-space: nowrap; text-decoration: none !important; font-weight: 500;" [style.font-size.px]="12">
+                  <thead>
+                  <tr>
+                    <th class="text-left" colspan="6" style="text-align:center">
+                      Total assets w/o Intangibles, Land, Investment Property, Leasing and WIP
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="text-left" ><i class="icon-speech"></i>
+                      Cod Departament
+                    </th>
+                    <th class="text-left"><i class="icon-basket-loaded"></i>
+                      Departament</th>
+                    <th class="text-left"><i class="icon-pie-chart"></i>
+                      Procent (<span class="turcoise-color">scriptic</span> vs
+                      <span class="green-color">faptic</span>)</th>
+                    <th class="text-left" ><i class="icon-people"></i>
+                      Activitate</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of itemsDivisionArray" >
+                    <td>
+                      <div><strong>{{item.code}}</strong></div>
+                      <!-- <div class="small text-muted">
+                        <span><strong>{{item.name}}</strong></span>
+                      </div> -->
+                    </td>
+                    <td>
+                      <div><strong>{{item.name}}</strong></div>
+                      <!-- <div class="small text-muted">
+                        <span><strong>{{item.name}}</strong></span>
+                      </div> -->
+
+                    </td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <strong>{{((item.scanned/item.initial) * 100.0 | number: '1.2-2')+ '%'}}</strong>
+                        </div>
+                        <div class="float-right">
+                          <strong class="text-muted"><span class="turcoise-color">{{item.initial}}</span> /
+                            <span class="green-color">{{item.scanned}}</span></strong>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div
+                          [ngClass]="{
+                                  'progress-bar':  ((item.scanned/item.initial) * 100.0)
+                              }"
+                          role="progressbar" [ngStyle]="{'width': ((item.scanned/item.initial) * 100.0 | number: '1.2-2') + '%'}" aria-valuenow="item.scanned" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="small text-muted">Ultima scanare</div>
+                      <small>{{item.lastScan | date: 'short'}}</small>
+                    </td>
+                  </tr>
+                  <tr *ngIf="itemsDivisionArray.length === 0">
+                    <td colspan="12" style="text-align: left; padding: .5rem .5rem !important; min-width: 100vw;">
+                      <div class="table-no_results">No results found!</div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="{{ t('cost_center_tab') }}">
+              <div>
+                <table class="table dashboard-static-table" style="white-space: nowrap; text-decoration: none !important; font-weight: 500;" [style.font-size.px]="12">
+                  <thead class="thead-dark">
+                  <tr>
+                    <th class="text-left" colspan="6" style="text-align:center">
+                      Total assets w/o Intangibles, Land, Investment Property, Leasing and WIP
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="text-left" ><i class="icon-speech"></i>
+                      Cod centru de cost
+                    </th>
+                    <th class="text-left" ><i class="icon-basket-loaded"></i>
+                      Centru de cost</th>
+                    <th class="text-left"><i class="icon-pie-chart"></i>
+                      Procent (<span class="turcoise-color">scriptic</span> vs <span class="green-color">faptic</span>)</th>
+                    <th class="text-left"><i class="icon-people"></i>
+                      Activitate</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of itemsCostCenterArray">
+                    <td>
+                      <div><strong>{{item.code}}</strong></div>
+                      <!-- <div class="small text-muted">
+                        <span><strong>{{item.name}}</strong></span>
+                      </div> -->
+                    </td>
+                    <td>
+                      <div><strong>{{item.name}}</strong></div>
+                      <!-- <div class="small text-muted">
+                        <span><strong>{{item.name}}</strong></span>
+                      </div> -->
+
+                    </td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-left">
+                          <strong>{{((item.scanned/item.initial) * 100.0 | number: '1.2-2')+ '%'}}</strong>
+                        </div>
+                        <div class="float-right">
+                          <strong class="text-muted"><span class="turcoise-color">{{item.initial}}</span> / <span class="green-color">{{item.scanned}}</span></strong>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div
+                          [ngClass]="{
+                                  'progress-bar':  ((item.scanned/item.initial) * 100.0)
+                              }"
+                          role="progressbar" [ngStyle]="{'width': ((item.scanned/item.initial) * 100.0 | number: '1.2-2') + '%'}" aria-valuenow="item.scanned" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="small text-muted">Ultima scanare</div>
+                      <small>{{item.lastScan | date: 'short'}}</small>
+                    </td>
+                  </tr>
+                  <tr *ngIf="itemsCostCenterArray.length === 0">
+                    <td colspan="12" style="text-align: left; padding: .5rem .5rem !important; min-width: 100vw;">
+                      <div class="table-no_results">No results found!</div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!--<div class="animated fadeIn">-->
+<!--  <br>-->
+<!--  <div class="row">-->
+<!--    <div class="col-sm-6 col-lg-4">-->
+<!--      <div class="card text-white bg-info">-->
+<!--        <div class="card-body pb-0">-->
+<!--          <button type="button" class="btn btn-transparent p-0 float-right">-->
+<!--            <i class="icon-location-pin"></i>-->
+<!--          </button>-->
+<!--          <div class="text-value">{{itemsInventoryArray[0].initial | number:'1.0-0'}}</div>-->
+<!--          <div>Total active</div>-->
+<!--        </div>-->
+<!--        <div class="chart-wrapper mt-3 mx-3" style="height:1px;">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; <div class="col-sm-6 col-lg-4">-->
+<!--      <div class="card text-white bg-primary">-->
+<!--        <div class="card-body pb-0">-->
+<!--          <div class="btn-group float-right" dropdown>-->
+<!--            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>-->
+<!--              <i class="icon-settings"></i>-->
+<!--            </button>-->
+<!--          </div>-->
+
+<!--          <div class="text-value">{{itemsInventoryArray[0].currBkValue | currency : 'RON ' : true : '1.2-2'}}</div>-->
+<!--          <div class="text-value">{{itemsInventoryArray[0].accumulDep | currency : 'RON ' : true : '1.2-2'}}</div>-->
+<!--          <div class="text-value">{{itemsInventoryArray[0].currentAPC | currency : 'RON ' : true : '1.2-2'}}</div>-->
+<!--          <div>Total valoare active</div>-->
+<!--        </div>-->
+<!--        <div class="chart-wrapper mt-3 mx-3" style="height:1px;">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div> &ndash;&gt;-->
+<!--    <div class="col-sm-6 col-lg-4">-->
+<!--      <div class="card text-white bg-success">-->
+<!--        <div class="card-body pb-0">-->
+<!--          <div class="btn-group float-right" dropdown>-->
+<!--            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>-->
+<!--              <i class="icon-settings"></i>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--          <div class="text-value">{{itemsInventoryArray[0].scanned | number:'1.0-0'}}</div>-->
+<!--          <div>Total active scanate</div>-->
+<!--        </div>-->
+<!--        <div class="chart-wrapper mt-3" style="height:1px;">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-sm-6 col-lg-4">-->
+<!--      <div class="card text-white bg-primary">-->
+<!--        <div class="card-body pb-0">-->
+<!--          <div class="btn-group float-right" dropdown>-->
+<!--            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>-->
+<!--              <i class="icon-settings"></i>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--          <div class="text-value">{{itemsInventoryArray[0].procentage | number:'1.2-2'}}</div>-->
+<!--          <div>Procent active scanate</div>-->
+<!--        </div>-->
+<!--        <div class="chart-wrapper mt-3 mx-3" style="height:1px;">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="row">-->
+<!--    &lt;!&ndash; <div class="col-sm-6 col-lg-4">-->
+<!--      <div class="card text-white bg-info">-->
+<!--        <div class="card-body pb-0">-->
+<!--          <button type="button" class="btn btn-transparent p-0 float-right">-->
+<!--            <i class="icon-location-pin"></i>-->
+<!--          </button>-->
+<!--          <div class="text-value">0</div>-->
+<!--          <div>Total temporare</div>-->
+<!--        </div>-->
+<!--        <div class="chart-wrapper mt-3 mx-3" style="height:1px;">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div> &ndash;&gt;-->
+<!--    <div class="col-sm-6 col-lg-4">-->
+<!--      <div class="card text-white bg-info">-->
+<!--        <div class="card-body pb-0">-->
+<!--          <div class="btn-group float-right" dropdown>-->
+<!--            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>-->
+<!--              <i class="icon-settings"></i>-->
+<!--            </button>-->
+<!--          </div>-->
+
+<!--          <div class="text-value">{{itemsInventoryArray[0].currBkValue | currency : 'RON ' : true : '1.2-2'}}</div>-->
+<!--          <div>Total CurrBkValue</div>-->
+<!--        </div>-->
+<!--        <div class="chart-wrapper mt-3 mx-3" style="height:1px;">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-sm-6 col-lg-4">-->
+<!--      <div class="card text-white bg-info">-->
+<!--        <div class="card-body pb-0">-->
+<!--          <div class="btn-group float-right" dropdown>-->
+<!--            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>-->
+<!--              <i class="icon-settings"></i>-->
+<!--            </button>-->
+<!--          </div>-->
+
+<!--          <div class="text-value">{{itemsInventoryArray[0].accumulDep | currency : 'RON ' : true : '1.2-2'}}</div>-->
+<!--          <div>Total AccumulDep</div>-->
+<!--        </div>-->
+<!--        <div class="chart-wrapper mt-3 mx-3" style="height:1px;">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-sm-6 col-lg-4">-->
+<!--      <div class="card text-white bg-info">-->
+<!--        <div class="card-body pb-0">-->
+<!--          <div class="btn-group float-right" dropdown>-->
+<!--            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>-->
+<!--              <i class="icon-settings"></i>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--          <div class="text-value">{{itemsInventoryArray[0].currentAPC | currency : 'RON ' : true : '1.2-2'}}</div>-->
+<!--          <div>Total CurrentAPC</div>-->
+<!--        </div>-->
+<!--        <div class="chart-wrapper mt-3 mx-3" style="height:1px;">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="row">-->
+<!--    <div class="col-md-12">-->
+<!--      <button type="button" class="btn btn-dark btn-sm" (click)="selectAdministrations()"><i class="fa fa-search"></i> {{selectedAdministrations.length > 0 ? selectedAdministrations[0].name : 'Cauta Locatie'}}-->
+<!--      </button>-->
+<!--      &nbsp;&nbsp;-->
+<!--      <button type="button" class="btn btn-dark btn-sm" (click)="selectDepartments()"><i class="fa fa-search"></i> {{selectedDepartments.length > 0 ? selectedDepartments[0].name : 'Cauta B.U.'}}-->
+<!--      </button>-->
+<!--      &nbsp;&nbsp;-->
+<!--      <button type="button" class="btn btn-dark btn-sm" (click)="selectDivisions()"><i class="fa fa-search"></i> {{selectedDivisions.length > 0 ? selectedDivisions[0].name : 'Cauta Departament'}}-->
+<!--      </button>-->
+<!--      &nbsp;&nbsp;-->
+<!--      <button type="button" class="btn btn-dark btn-sm" (click)="selectCostCenters()"><i class="fa fa-search"></i> {{selectedCostCenters.length > 0 ? selectedCostCenters[0].code : 'Cauta Centru de cost'}}-->
+<!--      </button>-->
+<!--      &nbsp;&nbsp;-->
+<!--      <button type="button" class="btn btn-dark btn-sm" (click)="selectEmployees()"><i class="fa fa-search"></i> {{selectedEmployees.length > 0 ? selectedEmployees[0].email : 'Cauta angajat'}}-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="row">-->
+<!--    <div class="col-md-12">-->
+
+<!--        <p-tabView styleClass="p-tabview-panel" (onChange)="handleChange($event)">-->
+<!--          <p-tabPanel header="Team Manager" leftIcon="fa fa-barcode">-->
+<!--            <div class="p-grid p-fluid">-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                  <div class="card border-0">-->
+<!--                    <div class="card-body table-responsive table w-auto small border-0">-->
+
+<!--                      <table class="table table-bordered table-striped border-0" style="white-space: nowrap; text-decoration: none !important; font-weight: 500;" [style.font-size.px]="12">-->
+<!--                          <thead class="thead-dark" style="background-color: black;">-->
+<!--                            <tr>-->
+<!--                              <th class="text-left" colspan="6" style="color: white; text-align:center">-->
+<!--                                Total assets w/o Intangibles, Land, Investment Property, Leasing and WIP-->
+<!--                              </th>-->
+<!--                            </tr>-->
+<!--                          <tr>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-speech"></i>-->
+<!--                              T.M.-->
+<!--                            </th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-pie-chart"></i>-->
+<!--                              Procent (<span style="color: aqua; font-size: 10px">scriptic</span> vs <span style="color: darkseagreen; font-size: 10px">faptic</span> vs <span style="color: indianred; font-size: 10px">neinventariate</span> vs <span style="color: cornflowerblue; font-size: 10px">temporare</span>)</th>-->
+<!--                              <th class="text-left" style="color: wheat;"><i class="icon-pie-chart"></i>-->
+<!--                              CurrBkValue (<span style="color: aqua; font-size: 10px">scriptic</span> vs <span style="color: darkseagreen; font-size: 10px">faptic</span> vs <span style="color: indianred; font-size: 10px">neinventariate</span>)</th>-->
+<!--                              <th class="text-left" style="color: wheat;"><i class="icon-pie-chart"></i>-->
+<!--                              AccumulDep (<span style="color: aqua; font-size: 10px">scriptic</span> vs <span style="color: darkseagreen; font-size: 10px">faptic</span> vs <span style="color: indianred; font-size: 10px">neinventariate</span>)</th>-->
+<!--                              <th class="text-left" style="color: wheat;"><i class="icon-pie-chart"></i>-->
+<!--                                CurrentAPC (<span style="color: aqua; font-size: 10px">scriptic</span> vs <span style="color: darkseagreen; font-size: 10px">faptic</span> vs <span style="color: indianred; font-size: 10px">neinventariate</span>)</th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-people"></i>-->
+<!--                              Activitate</th>-->
+<!--                          </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                          <tr *ngFor="let item of itemsTeamManagerArray" style="background-color: #343a40; color: white;">-->
+<!--                            <td>-->
+<!--                              <div><strong>{{item.code}}</strong></div>-->
+<!--                              <div class="small text-muted">-->
+<!--                                <span><strong>{{item.name}}</strong></span>-->
+<!--                              </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="clearfix">-->
+<!--                                <div class="float-left">-->
+<!--                                  <strong style="font-size: 10px">{{((item.scanned/item.initial) * 100.0 | number: '1.2-2')+ '%'}}</strong>-->
+<!--                                </div>-->
+<!--                                <div class="float-right">-->
+<!--                                  <strong class="text-muted"><span style="color: aqua; font-size: 10px">{{item.initial}}</span> / <span style="color: darkseagreen; font-size: 10px">{{item.scanned}}</span> / <span style="color: indianred; font-size: 10px">{{item.notScanned}}</span> / <span style="color: cornflowerblue; font-size: 10px">{{item.temp}}</span></strong>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="progress progress-xs">-->
+<!--                                <div-->
+<!--                                  [ngClass]="{'progress-bar bg-warning':  ((item.scanned/item.initial) * 100.0)}"-->
+<!--                                  [ngStyle]="{'width': ((item.scanned/item.initial) * 100.0 | number: '1.2-2') + '%'}"-->
+<!--                                  role="progressbar"-->
+
+<!--                                  aria-valuenow="item.scanned"-->
+<!--                                  aria-valuemin="0"-->
+<!--                                  aria-valuemax="100">-->
+<!--                              </div>-->
+<!--                              </div>-->
+<!--                            </td>-->
+
+<!--                            <td>-->
+<!--                              <div class="clearfix">-->
+<!--                                <div class="float-left">-->
+<!--                                  <strong style="font-size: 10px">{{((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0 | number: '1.2-2')+ '%'}}</strong>-->
+<!--                                </div>-->
+<!--                                <div class="float-right">-->
+<!--                                  <strong class="text-muted"><span style="color: aqua; font-size: 10px">{{item.initialCurrBkValue | number: '1.2-2'}}</span> / <span style="color: darkseagreen; font-size: 10px">{{item.scannedCurrBkValue | number: '1.2-2'}}</span> / <span style="color: indianred; font-size: 10px">{{item.notScannedCurrBkValue | number: '1.2-2'}}</span></strong>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="progress progress-xs">-->
+<!--                                <div-->
+<!--                                  [ngClass]="{'progress-bar bg-warning':  ((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0)}"-->
+<!--                                  [ngStyle]="{'width': ((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0 | number: '1.2-2') + '%'}"-->
+<!--                                  role="progressbar"-->
+
+<!--                                  aria-valuenow="item.scannedCurrBkValue"-->
+<!--                                  aria-valuemin="0"-->
+<!--                                  aria-valuemax="100">-->
+<!--                              </div>-->
+<!--                              </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="clearfix">-->
+<!--                                <div class="float-left">-->
+<!--                                  <strong style="font-size: 10px">{{((item.scannedAccumulDep/item.initialAccumulDep) * 100.0 | number: '1.2-2')+ '%'}}</strong>-->
+<!--                                </div>-->
+<!--                                <div class="float-right">-->
+<!--                                  <strong class="text-muted"><span style="color: aqua; font-size: 10px">{{item.initialAccumulDep | number: '1.2-2'}}</span> / <span style="color: darkseagreen; font-size: 10px">{{item.scannedAccumulDep | number: '1.2-2'}}</span> / <span style="color: indianred; font-size: 10px">{{item.notScannedAccumulDep | number: '1.2-2'}}</span></strong>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="progress progress-xs">-->
+<!--                                <div-->
+<!--                                  [ngClass]="{'progress-bar bg-warning':  ((item.scannedAccumulDep/item.initialAccumulDep) * 100.0)}"-->
+<!--                                  [ngStyle]="{'width': ((item.scannedAccumulDep/item.initialAccumulDep) * 100.0 | number: '1.2-2') + '%'}"-->
+<!--                                  role="progressbar"-->
+
+<!--                                  aria-valuenow="item.scannedAccumulDep"-->
+<!--                                  aria-valuemin="0"-->
+<!--                                  aria-valuemax="100">-->
+<!--                              </div>-->
+<!--                              </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="clearfix">-->
+<!--                                <div class="float-left">-->
+<!--                                  <strong style="font-size: 10px">{{((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0 | number: '1.2-2')+ '%'}}</strong>-->
+<!--                                </div>-->
+<!--                                <div class="float-right">-->
+<!--                                  <strong class="text-muted"><span style="color: aqua; font-size: 10px">{{item.initialCurrentAPC | number: '1.2-2'}}</span> / <span style="color: darkseagreen; font-size: 10px">{{item.scannedCurrentAPC | number: '1.2-2'}}</span> / <span style="color: indianred; font-size: 10px">{{item.notScannedCurrentAPC | number: '1.2-2'}}</span></strong>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="progress progress-xs">-->
+<!--                                <div-->
+<!--                                  [ngClass]="{'progress-bar bg-warning':  ((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0)}"-->
+<!--                                  [ngStyle]="{'width': ((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0 | number: '1.2-2') + '%'}"-->
+<!--                                  role="progressbar"-->
+
+<!--                                  aria-valuenow="item.scannedCurrentAPC"-->
+<!--                                  aria-valuemin="0"-->
+<!--                                  aria-valuemax="100">-->
+<!--                              </div>-->
+<!--                              </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="small text-muted">Ultima scanare</div>-->
+<!--                              <small>{{item.lastScan | date: 'short'}}</small>-->
+<!--                            </td>-->
+<!--                          </tr>-->
+<!--                        </tbody>-->
+<!--                      </table>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--          </p-tabPanel>-->
+<!--          <p-tabPanel header="Responsabili" leftIcon="fa fa-barcode">-->
+<!--            <div class="p-grid p-fluid">-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                  <div class="card border-0">-->
+<!--                    <div class="card-body table-responsive table w-auto small border-0">-->
+
+<!--                      <table class="table table-bordered table-striped border-0" style="white-space: nowrap; text-decoration: none !important; font-weight: 500;" [style.font-size.px]="12">-->
+<!--                          <thead class="thead-dark" style="background-color: black;">-->
+<!--                            <tr>-->
+<!--                              <th class="text-left" colspan="6" style="color: white; text-align:center">-->
+<!--                                Total assets w/o Intangibles, Land, Investment Property, Leasing and WIP-->
+<!--                              </th>-->
+<!--                            </tr>-->
+<!--                          <tr>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-speech"></i>-->
+<!--                              Responsabil-->
+<!--                            </th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-pie-chart"></i>-->
+<!--                              Procent (<span style="color: aqua; font-size: 10px">scriptic</span> vs <span style="color: darkseagreen; font-size: 10px">faptic</span> vs <span style="color: indianred; font-size: 10px">neinventariate</span> vs <span style="color: cornflowerblue; font-size: 10px">temporare</span>)</th>-->
+<!--                              <th class="text-left" style="color: wheat;"><i class="icon-pie-chart"></i>-->
+<!--                              CurrBkValue (<span style="color: aqua; font-size: 10px">scriptic</span> vs <span style="color: darkseagreen; font-size: 10px">faptic</span> vs <span style="color: indianred; font-size: 10px">neinventariate</span>)</th>-->
+<!--                              <th class="text-left" style="color: wheat;"><i class="icon-pie-chart"></i>-->
+<!--                              AccumulDep (<span style="color: aqua; font-size: 10px">scriptic</span> vs <span style="color: darkseagreen; font-size: 10px">faptic</span> vs <span style="color: indianred; font-size: 10px">neinventariate</span>)</th>-->
+<!--                              <th class="text-left" style="color: wheat;"><i class="icon-pie-chart"></i>-->
+<!--                                CurrentAPC (<span style="color: aqua; font-size: 10px">scriptic</span> vs <span style="color: darkseagreen; font-size: 10px">faptic</span> vs <span style="color: indianred; font-size: 10px">neinventariate</span>)</th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-people"></i>-->
+<!--                              Activitate</th>-->
+<!--                          </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                          <tr *ngFor="let item of itemsResponsableArray" style="background-color: #343a40; color: white;">-->
+<!--                            <td>-->
+<!--                              <div><strong>{{item.code}}</strong></div>-->
+<!--                              <div class="small text-muted">-->
+<!--                                <span><strong>{{item.name}}</strong></span>-->
+<!--                              </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="clearfix">-->
+<!--                                <div class="float-left">-->
+<!--                                  <strong style="font-size: 10px">{{((item.scanned/item.initial) * 100.0 | number: '1.2-2')+ '%'}}</strong>-->
+<!--                                </div>-->
+<!--                                <div class="float-right">-->
+<!--                                  <strong class="text-muted"><span style="color: aqua; font-size: 10px">{{item.initial}}</span> / <span style="color: darkseagreen; font-size: 10px">{{item.scanned}}</span> / <span style="color: indianred; font-size: 10px">{{item.notScanned}}</span> / <span style="color: cornflowerblue; font-size: 10px">{{item.temp}}</span></strong>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="progress progress-xs">-->
+<!--                                <div-->
+<!--                                  [ngClass]="{'progress-bar bg-warning':  ((item.scanned/item.initial) * 100.0)}"-->
+<!--                                  [ngStyle]="{'width': ((item.scanned/item.initial) * 100.0 | number: '1.2-2') + '%'}"-->
+<!--                                  role="progressbar"-->
+
+<!--                                  aria-valuenow="item.scanned"-->
+<!--                                  aria-valuemin="0"-->
+<!--                                  aria-valuemax="100">-->
+<!--                              </div>-->
+<!--                              </div>-->
+<!--                            </td>-->
+
+<!--                            <td>-->
+<!--                              <div class="clearfix">-->
+<!--                                <div class="float-left">-->
+<!--                                  <strong style="font-size: 10px">{{((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0 | number: '1.2-2')+ '%'}}</strong>-->
+<!--                                </div>-->
+<!--                                <div class="float-right">-->
+<!--                                  <strong class="text-muted"><span style="color: aqua; font-size: 10px">{{item.initialCurrBkValue | number: '1.2-2'}}</span> / <span style="color: darkseagreen; font-size: 10px">{{item.scannedCurrBkValue | number: '1.2-2'}}</span> / <span style="color: indianred; font-size: 10px">{{item.notScannedCurrBkValue | number: '1.2-2'}}</span></strong>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="progress progress-xs">-->
+<!--                                <div-->
+<!--                                  [ngClass]="{'progress-bar bg-warning':  ((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0)}"-->
+<!--                                  [ngStyle]="{'width': ((item.scannedCurrBkValue/item.initialCurrBkValue) * 100.0 | number: '1.2-2') + '%'}"-->
+<!--                                  role="progressbar"-->
+
+<!--                                  aria-valuenow="item.scannedCurrBkValue"-->
+<!--                                  aria-valuemin="0"-->
+<!--                                  aria-valuemax="100">-->
+<!--                              </div>-->
+<!--                              </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="clearfix">-->
+<!--                                <div class="float-left">-->
+<!--                                  <strong style="font-size: 10px">{{((item.scannedAccumulDep/item.initialAccumulDep) * 100.0 | number: '1.2-2')+ '%'}}</strong>-->
+<!--                                </div>-->
+<!--                                <div class="float-right">-->
+<!--                                  <strong class="text-muted"><span style="color: aqua; font-size: 10px">{{item.initialAccumulDep | number: '1.2-2'}}</span> / <span style="color: darkseagreen; font-size: 10px">{{item.scannedAccumulDep | number: '1.2-2'}}</span> / <span style="color: indianred; font-size: 10px">{{item.notScannedAccumulDep | number: '1.2-2'}}</span></strong>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="progress progress-xs">-->
+<!--                                <div-->
+<!--                                  [ngClass]="{'progress-bar bg-warning':  ((item.scannedAccumulDep/item.initialAccumulDep) * 100.0)}"-->
+<!--                                  [ngStyle]="{'width': ((item.scannedAccumulDep/item.initialAccumulDep) * 100.0 | number: '1.2-2') + '%'}"-->
+<!--                                  role="progressbar"-->
+
+<!--                                  aria-valuenow="item.scannedAccumulDep"-->
+<!--                                  aria-valuemin="0"-->
+<!--                                  aria-valuemax="100">-->
+<!--                              </div>-->
+<!--                              </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="clearfix">-->
+<!--                                <div class="float-left">-->
+<!--                                  <strong style="font-size: 10px">{{((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0 | number: '1.2-2')+ '%'}}</strong>-->
+<!--                                </div>-->
+<!--                                <div class="float-right">-->
+<!--                                  <strong class="text-muted"><span style="color: aqua; font-size: 10px">{{item.initialCurrentAPC | number: '1.2-2'}}</span> / <span style="color: darkseagreen; font-size: 10px">{{item.scannedCurrentAPC | number: '1.2-2'}}</span> / <span style="color: indianred; font-size: 10px">{{item.notScannedCurrentAPC | number: '1.2-2'}}</span></strong>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="progress progress-xs">-->
+<!--                                <div-->
+<!--                                  [ngClass]="{'progress-bar bg-warning':  ((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0)}"-->
+<!--                                  [ngStyle]="{'width': ((item.scannedCurrentAPC/item.initialCurrentAPC) * 100.0 | number: '1.2-2') + '%'}"-->
+<!--                                  role="progressbar"-->
+
+<!--                                  aria-valuenow="item.scannedCurrentAPC"-->
+<!--                                  aria-valuemin="0"-->
+<!--                                  aria-valuemax="100">-->
+<!--                              </div>-->
+<!--                              </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="small text-muted">Ultima scanare</div>-->
+<!--                              <small>{{item.lastScan | date: 'short'}}</small>-->
+<!--                            </td>-->
+<!--                          </tr>-->
+<!--                        </tbody>-->
+<!--                      </table>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--          </p-tabPanel>-->
+<!--          <p-tabPanel header="Business Unit" leftIcon="fa fa-barcode">-->
+<!--            <div class="p-grid p-fluid">-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                  <div class="card border-0">-->
+<!--                    <div class="card-body table-responsive table w-auto small border-0">-->
+<!--                      <table class="table table-responsive-sm table-hover table-outline mb-0" style="white-space: nowrap; font-weight: 500" [style.font-size.px]="12">-->
+<!--                          <thead class="thead-dark">-->
+<!--                            <tr>-->
+<!--                              <th class="text-left" colspan="6" style="color: white; text-align:center">-->
+<!--                                Total assets w/o Intangibles, Land, Investment Property, Leasing and WIP-->
+<!--                              </th>-->
+<!--                            </tr>-->
+<!--                          <tr>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-speech"></i>-->
+<!--                              Cod B.U.-->
+<!--                            </th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-basket-loaded"></i>-->
+<!--                              Business Unit (B.U.)</th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-pie-chart"></i>-->
+<!--                              Procent (<span style="color: aqua; font-size: 10px">scriptic</span> vs <span style="color: darkseagreen; font-size: 10px">faptic</span>)</th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-people"></i>-->
+<!--                              Activitate</th>-->
+<!--                          </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                          <tr *ngFor="let item of itemsDepartmentArray" style="background-color: #343a40; color: white;">-->
+<!--                            <td>-->
+<!--                              <div><strong>{{item.code}}</strong></div>-->
+<!--                              &lt;!&ndash; <div class="small text-muted">-->
+<!--                                <span><strong>{{item.name}}</strong></span>-->
+<!--                              </div> &ndash;&gt;-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div><strong>{{item.name}}</strong></div>-->
+<!--                              &lt;!&ndash; <div class="small text-muted">-->
+<!--                                <span><strong>{{item.name}}</strong></span>-->
+<!--                              </div> &ndash;&gt;-->
+
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="clearfix">-->
+<!--                                <div class="float-left">-->
+<!--                                  <strong>{{((item.scanned/item.initial) * 100.0 | number: '1.2-2')+ '%'}}</strong>-->
+<!--                                </div>-->
+<!--                                <div class="float-right">-->
+<!--                                  <strong class="text-muted"><span style="color: aqua; font-size: 10px">{{item.initial}}</span> / <span style="color: darkseagreen; font-size: 10px">{{item.scanned}}</span></strong>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="progress progress-xs">-->
+<!--                                <div-->
+<!--                                [ngClass]="{-->
+<!--                                  'progress-bar bg-warning':  ((item.scanned/item.initial) * 100.0)-->
+<!--                              }"-->
+<!--                                role="progressbar" [ngStyle]="{'width': ((item.scanned/item.initial) * 100.0 | number: '1.2-2') + '%'}" aria-valuenow="item.scanned" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                              </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="small text-muted">Ultima scanare</div>-->
+<!--                              <small>{{item.lastScan | date: 'short'}}</small>-->
+<!--                            </td>-->
+<!--                          </tr>-->
+<!--                        </tbody>-->
+<!--                      </table>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--          </p-tabPanel>-->
+<!--          <p-tabPanel header="Departamente" leftIcon="fa fa-barcode">-->
+<!--            <div class="p-grid p-fluid">-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                  <div class="card border-0">-->
+<!--                    <div class="card-body table-responsive table w-auto small border-0">-->
+<!--                      <table class="table table-responsive-sm table-hover table-outline mb-0" style="white-space: nowrap; font-weight: 500" [style.font-size.px]="12">-->
+<!--                          <thead class="thead-dark">-->
+<!--                            <tr>-->
+<!--                              <th class="text-left" colspan="6" style="color: white; text-align:center">-->
+<!--                                Total assets w/o Intangibles, Land, Investment Property, Leasing and WIP-->
+<!--                              </th>-->
+<!--                            </tr>-->
+<!--                          <tr>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-speech"></i>-->
+<!--                              Cod Departament-->
+<!--                            </th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-basket-loaded"></i>-->
+<!--                              Departament</th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-pie-chart"></i>-->
+<!--                              Procent (<span style="color: aqua; font-size: 10px">scriptic</span> vs <span style="color: darkseagreen; font-size: 10px">faptic</span>)</th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-people"></i>-->
+<!--                              Activitate</th>-->
+<!--                          </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                          <tr *ngFor="let item of itemsDivisionArray" style="background-color: #343a40; color: white;">-->
+<!--                            <td>-->
+<!--                              <div><strong>{{item.code}}</strong></div>-->
+<!--                              &lt;!&ndash; <div class="small text-muted">-->
+<!--                                <span><strong>{{item.name}}</strong></span>-->
+<!--                              </div> &ndash;&gt;-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div><strong>{{item.name}}</strong></div>-->
+<!--                              &lt;!&ndash; <div class="small text-muted">-->
+<!--                                <span><strong>{{item.name}}</strong></span>-->
+<!--                              </div> &ndash;&gt;-->
+
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="clearfix">-->
+<!--                                <div class="float-left">-->
+<!--                                  <strong>{{((item.scanned/item.initial) * 100.0 | number: '1.2-2')+ '%'}}</strong>-->
+<!--                                </div>-->
+<!--                                <div class="float-right">-->
+<!--                                  <strong class="text-muted"><span style="color: aqua; font-size: 10px">{{item.initial}}</span> / <span style="color: darkseagreen; font-size: 10px">{{item.scanned}}</span></strong>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="progress progress-xs">-->
+<!--                                <div-->
+<!--                                [ngClass]="{-->
+<!--                                  'progress-bar bg-warning':  ((item.scanned/item.initial) * 100.0)-->
+<!--                              }"-->
+<!--                                role="progressbar" [ngStyle]="{'width': ((item.scanned/item.initial) * 100.0 | number: '1.2-2') + '%'}" aria-valuenow="item.scanned" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                              </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="small text-muted">Ultima scanare</div>-->
+<!--                              <small>{{item.lastScan | date: 'short'}}</small>-->
+<!--                            </td>-->
+<!--                          </tr>-->
+<!--                        </tbody>-->
+<!--                      </table>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--          </p-tabPanel>-->
+<!--          <p-tabPanel header="Centre de cost" leftIcon="fa fa-barcode">-->
+<!--            <div class="p-grid p-fluid">-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                  <div class="card border-0">-->
+<!--                    <div class="card-body table-responsive table w-auto small border-0">-->
+<!--                      <table class="table table-responsive-sm table-hover table-outline mb-0" style="white-space: nowrap; font-weight: 500" [style.font-size.px]="12">-->
+<!--                          <thead class="thead-dark">-->
+<!--                            <tr>-->
+<!--                              <th class="text-left" colspan="6" style="color: white; text-align:center">-->
+<!--                                Total assets w/o Intangibles, Land, Investment Property, Leasing and WIP-->
+<!--                              </th>-->
+<!--                            </tr>-->
+<!--                          <tr>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-speech"></i>-->
+<!--                              Cod centru de cost-->
+<!--                            </th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-basket-loaded"></i>-->
+<!--                              Centru de cost</th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-pie-chart"></i>-->
+<!--                              Procent (<span style="color: aqua; font-size: 10px">scriptic</span> vs <span style="color: darkseagreen; font-size: 10px">faptic</span>)</th>-->
+<!--                            <th class="text-left" style="color: wheat;"><i class="icon-people"></i>-->
+<!--                              Activitate</th>-->
+<!--                          </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                          <tr *ngFor="let item of itemsCostCenterArray" style="background-color: #343a40; color: white;">-->
+<!--                            <td>-->
+<!--                              <div><strong>{{item.code}}</strong></div>-->
+<!--                              &lt;!&ndash; <div class="small text-muted">-->
+<!--                                <span><strong>{{item.name}}</strong></span>-->
+<!--                              </div> &ndash;&gt;-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div><strong>{{item.name}}</strong></div>-->
+<!--                              &lt;!&ndash; <div class="small text-muted">-->
+<!--                                <span><strong>{{item.name}}</strong></span>-->
+<!--                              </div> &ndash;&gt;-->
+
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="clearfix">-->
+<!--                                <div class="float-left">-->
+<!--                                  <strong>{{((item.scanned/item.initial) * 100.0 | number: '1.2-2')+ '%'}}</strong>-->
+<!--                                </div>-->
+<!--                                <div class="float-right">-->
+<!--                                  <strong class="text-muted"><span style="color: aqua; font-size: 10px">{{item.initial}}</span> / <span style="color: darkseagreen; font-size: 10px">{{item.scanned}}</span></strong>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="progress progress-xs">-->
+<!--                                <div-->
+<!--                                [ngClass]="{-->
+<!--                                  'progress-bar bg-warning':  ((item.scanned/item.initial) * 100.0)-->
+<!--                              }"-->
+<!--                                role="progressbar" [ngStyle]="{'width': ((item.scanned/item.initial) * 100.0 | number: '1.2-2') + '%'}" aria-valuenow="item.scanned" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                              </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                              <div class="small text-muted">Ultima scanare</div>-->
+<!--                              <small>{{item.lastScan | date: 'short'}}</small>-->
+<!--                            </td>-->
+<!--                          </tr>-->
+<!--                        </tbody>-->
+<!--                      </table>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--          </p-tabPanel>-->
+<!--        </p-tabView>-->
+
+<!--  </div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Angajat</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployees($event)">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Locatie</h4>
+            </div>
+            <div class="modal-body">
+                <app-administration-list #administrationList id="administrationList"
+                    [dataSource]="administrationHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-administration-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministrations($event)">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="administrationListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #departmentListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Business Unit</h4>
+            </div>
+            <div class="modal-body">
+                <app-department-list #departmentList id="departmentList"
+                    [dataSource]="departmentHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-department-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDepartments($event)">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="departmentListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #divisionListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">Departament</h4>
+      </div>
+      <div class="modal-body">
+          <app-division-list #divisionList id="divisionList"
+              [dataSource]="divisionHttpService"
+              rowSelection="single"
+              notifyOnChange="false"
+              [pageSize]="5"
+              usePaging="true">
+          </app-division-list>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivisions($event)">Selecteaza</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="divisionListModal.hide()">Inchide</button>
+      </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #locationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Adrese</h4>
+            </div>
+            <div class="modal-body">
+                <app-location-list #locationList id="locationList"
+                    [dataSource]="locationHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-location-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocations()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="locationListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Centre de cost</h4>
+            </div>
+            <div class="modal-body">
+                <app-cost-center-list #costCenterList id="costCenterList"
+                    [dataSource]="costCenterHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenters($event)">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="costCenterListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #typeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Supracategorii</h4>
+            </div>
+            <div class="modal-body">
+                <type-list #typeList id="typeList"
+                    [dataSource]="typeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </type-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedTypes()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="typeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #assetTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Types</h4>
+            </div>
+            <div class="modal-body">
+                <app-asset-type-list #assetTypeList id="assetTypeList"
+                    [dataSource]="assetTypeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-asset-type-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetTypes()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="assetTypeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #projectListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">WBS</h4>
+       </div>
+       <div class="modal-body">
+           <project-list #projectList id="projectList"
+               [dataSource]="projectHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </project-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedProjects()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-primary btn-sm" (click)="projectListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="departmentReportModal" tabindex="-1" role="dialog" aria-labelledby="departmentReportTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #departmentReportModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">Raport Business Unit</h3>
+                <button type="button" class="btn btn-success btn-sm" (click)="export()">Export</button>
+            </div>
+            <div class="modal-body">
+              <app-dashboard-entity-list #dashboardDepartmentEntityList id="dashboardDepartmentEntityList"
+              [dataSource]="dashboardWarehouseHttpService"
+              detailType="report"
+              sortColumn="inventoryasset.asset.invNo"
+              sortDirection="asc"
+              dynamicQuery="true"
+              usePaging="true"
+              [pageSize]="5"
+              showSimpleSearch="true"
+              rowSelection="single"
+              notifyOnChange="false"
+              usePaging="true">
+          </app-dashboard-entity-list>
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info btn-sm" (click)="hideDepartmentReport()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #divisionReportModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">Raport Departamente</h3>
+                <button type="button" class="btn btn-success btn-sm" (click)="export()">Export</button>
+            </div>
+            <div class="modal-body">
+              <app-dashboard-entity-list #dashboardDivisionEntityList id="dashboardDivisionEntityList"
+              [dataSource]="dashboardWarehouseHttpService"
+              detailType="report"
+              sortColumn="inventoryasset.asset.invNo"
+              sortDirection="asc"
+              dynamicQuery="true"
+              usePaging="true"
+              [pageSize]="5"
+              showSimpleSearch="true"
+              rowSelection="single"
+              notifyOnChange="false"
+              usePaging="true">
+          </app-dashboard-entity-list>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info btn-sm" (click)="hideDivisionReport()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #costCenterReportModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">Raport Centre de cost</h3>
+                <button type="button" class="btn btn-success btn-sm" (click)="export()">Export</button>
+            </div>
+            <div class="modal-body">
+              <app-dashboard-entity-list #dashboardCostCenterEntityList id="dashboardCostCenterEntityList"
+              [dataSource]="dashboardWarehouseHttpService"
+              detailType="report"
+              sortColumn="inventoryasset.asset.invNo"
+              sortDirection="asc"
+              dynamicQuery="true"
+              usePaging="true"
+              [pageSize]="5"
+              showSimpleSearch="true"
+              rowSelection="single"
+              notifyOnChange="false"
+              usePaging="true">
+          </app-dashboard-entity-list>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info btn-sm" (click)="hideCostCenterReport()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #typeReportModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">Raport Supracategorii</h3>
+                <button type="button" class="btn btn-success btn-sm" (click)="export()">Export</button>
+            </div>
+            <div class="modal-body">
+              <app-dashboard-entity-list #dashboardTypeEntityList id="dashboardTypeEntityList"
+              [dataSource]="dashboardWarehouseHttpService"
+              detailType="report"
+              sortColumn="inventoryasset.asset.invNo"
+              sortDirection="asc"
+              dynamicQuery="true"
+              usePaging="true"
+              [pageSize]="5"
+              showSimpleSearch="true"
+              rowSelection="single"
+              notifyOnChange="false"
+              usePaging="true">
+          </app-dashboard-entity-list>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info btn-sm" (click)="hideTypeReport()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #assetTypeReportModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">Raport Types</h3>
+                <button type="button" class="btn btn-success btn-sm" (click)="export()">Export</button>
+            </div>
+            <div class="modal-body">
+              <app-dashboard-entity-list #dashboardAssetTypeEntityList id="dashboardAssetTypeEntityList"
+              [dataSource]="dashboardWarehouseHttpService"
+              detailType="report"
+              sortColumn="inventoryasset.asset.invNo"
+              sortDirection="asc"
+              dynamicQuery="true"
+              usePaging="true"
+              [pageSize]="5"
+              showSimpleSearch="true"
+              rowSelection="single"
+              notifyOnChange="false"
+              usePaging="true">
+          </app-dashboard-entity-list>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info btn-sm" (click)="hideAssetTypeReport()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #projectReportModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">Raport WBS</h3>
+                <button type="button" class="btn btn-success btn-sm" (click)="export()">Export</button>
+            </div>
+            <div class="modal-body">
+              <app-dashboard-entity-list #dashboardProjectEntityList id="dashboardProjectEntityList"
+              [dataSource]="dashboardWarehouseHttpService"
+              detailType="report"
+              sortColumn="inventoryasset.asset.invNo"
+              sortDirection="asc"
+              dynamicQuery="true"
+              usePaging="true"
+              [pageSize]="5"
+              showSimpleSearch="true"
+              rowSelection="single"
+              notifyOnChange="false"
+              usePaging="true">
+          </app-dashboard-entity-list>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info btn-sm" (click)="hideProjectReport()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>

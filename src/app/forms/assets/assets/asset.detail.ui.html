@@ -1,0 +1,1887 @@
+<div class="animated fadeIn">
+    <br>
+    <div class="card">
+      <div class="card-header">
+        <app-document-type-drop-down-list #documentTypeDropDownList
+        [dataSource]="documentTypeHttpService"
+        selectionRequired="false"
+        notifyOnChange="true"
+        (selectionChanged)="setSelectedDocumentType($event)">
+    </app-document-type-drop-down-list>
+        <div class="card-header-actions">
+            <button type="button" class="btn btn-outline-success btn-sm" (click)="saveAsset()"><i class="fa fa-save"></i> Save</button>
+            <button type="button" class="btn btn-primary btn-sm" (click)="cancelChanges()"><i class="fa fa-step-backward"></i> Inapoi</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <form action="" method="post" class="form-horizontal">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAccount()" ><i class="fa fa-search"></i>&nbsp;Bal.sh.acct APC</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="account != null ? account.name : ''" type="text" id="input14-group1" name="input14-group1" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button  type="button" class="btn btn-outline-dark btn-sm" (click)="selectExpAccount()" ><i class="fa fa-search"></i>&nbsp; Asset class</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="expAccount != null ? expAccount.name : ''" type="text" id="input41-group2" name="input41-group2" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAssetCategory()" ><i class="fa fa-search"></i>&nbsp; Asset classification</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="assetCategory != null ?  assetCategory.name : ''" type="text" id="input41-group3" name="input41-group3" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectPartner()" ><i class="fa fa-search"></i>&nbsp;Vendor</button>
+                        <button  type="button" class="btn btn-outline-dark btn-sm" (click)="searchPartnerByCUI()" ><i class="fa fa-search"></i>&nbsp;ANAF</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="partner != null ? partner.registryNumber + ' | ' + partner.name : ''" type="text" id="input15-group1" name="input15-group1" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group row">
+
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button  type="button" class="btn btn-outline-dark btn-sm" (click)="selectArticle()" ><i class="fa fa-search"></i>&nbsp; Location</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="article != null ? article.name : ''" type="text" id="input51-group2" name="input51-group2" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCostCenter()" ><i class="fa fa-search"></i>&nbsp; Cost center</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="costCenter != null ? costCenter.code + ' | ' + costCenter.name : ''" type="text" id="input51-group3" name="input51-group3" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDepartment()" ><i class="fa fa-search"></i>&nbsp;Departament</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="department != null ? department.name : ''" type="text" id="input1-group18" name="input18-group1" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button  type="button" class="btn btn-outline-dark btn-sm" (click)="selectDivision()" ><i class="fa fa-search"></i>&nbsp; Divizie</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="division != null ? division.name : ''" type="text" id="input61-group2" name="input61-group2" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRoom()" ><i class="fa fa-search"></i>&nbsp; Adresa</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="room != null ? room.name : ''" type="text" id="input61-group3" name="input61-group3" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCountry()" ><i class="fa fa-search"></i>&nbsp;Tara</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="country != null ? country.name : ''" type="text" id="input16-group1" name="input16-group1" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button  type="button" class="btn btn-outline-dark btn-sm" (click)="selectCounty()" ><i class="fa fa-search"></i>&nbsp; Judet</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="county != null ? county.name : ''" type="text" id="input71-group2" name="input71-group2" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCity()" ><i class="fa fa-search"></i>&nbsp; Oras</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="city != null ? city.name : ''" type="text" id="input71-group3" name="input71-group3" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdministration()" ><i class="fa fa-search"></i>&nbsp;Locatie</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="administration != null ? administration.name : ''" type="text" id="input11-group1" name="input11-group1" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button  type="button" class="btn btn-outline-dark btn-sm" (click)="selectBudgetManager()" ><i class="fa fa-search"></i>&nbsp; FY Start</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="budgetManager != null ? budgetManager.name : ''" type="text" id="input81-group2" name="input81-group2" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAssetNature()" ><i class="fa fa-search"></i>&nbsp; Text lung cont CM</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="assetNature != null ? assetNature.name : ''" type="text" id="input1-group3" name="input1-group3" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectType()" ><i class="fa fa-search"></i>&nbsp;Supracategorie</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="type != null ? type.name : ''" type="text" id="input1-group12" name="input12-group1" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group row">
+
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button  type="button" class="btn btn-outline-dark btn-sm" (click)="selectEmployee()" ><i class="fa fa-search"></i>&nbsp; Angajat</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="employee != null ? employee.internalCode + ' | ' + employee.firstName + ' ' + employee.lastName : ''" type="text" id="input91-group2" name="input91-group2" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectMaterial()" ><i class="fa fa-search"></i>&nbsp; Material</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="material != null ? material.name : ''" type="text" id="input11-group3" name="input11-group3" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectInterCompany()" ><i class="fa fa-search"></i>&nbsp;Supracategorie TRN</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="interCompany != null ? interCompany.name : ''" type="text" id="input1-group13" name="input13-group1" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button  type="button" class="btn btn-outline-dark btn-sm" (click)="selectSubType()" ><i class="fa fa-search"></i>&nbsp; Tip asset</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="subType != null ? subType.name : ''" type="text" id="input1-group2" name="input1-group2" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group row">
+
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAssetClass()" ><i class="fa fa-search"></i>&nbsp; Clasificare asset</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="assetClass != null ? assetClass.name : ''" type="text" id="input21-group3" name="input21-group3" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenter()" ><i class="fa fa-search"></i>&nbsp;Profit center</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="admCenter != null ? admCenter.name : ''" type="text" id="input1-group1" name="input1-group1" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button  type="button" class="btn btn-outline-dark btn-sm" (click)="selectRegion()" ><i class="fa fa-search"></i>&nbsp; PC detaliu</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="region != null ? region.name : ''" type="text" id="input21-group2" name="input21-group2" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectInsuranceCategory()" ><i class="fa fa-search"></i>&nbsp; BS</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="insuranceCategory != null ? insuranceCategory.name : ''" type="text" id="input31-group3" name="input31-group3" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAssetType()" ><i class="fa fa-search"></i>&nbsp;Type</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="assetType != null ? assetType.name : ''" type="text" id="input17-group1" name="input17-group1" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button  type="button" class="btn btn-outline-dark btn-sm" (click)="selectProject()" ><i class="fa fa-search"></i>&nbsp; WBS</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="project != null ? project.name : ''" type="text" id="input311-group2" name="input311-group2" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button  type="button" class="btn btn-dark btn-sm" (click)="selectOrder()" ><i class="fa fa-search"></i>&nbsp; Order</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="order != null ? order.name : ''" type="text" id="input31145646-group2" name="input311453-group2" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button  type="button" class="btn btn-outline-dark btn-sm" (click)="selectDictionaryItem()" ><i class="fa fa-search"></i>&nbsp; Descriere</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="dictionaryItem != null ? dictionaryItem.name : asset != null ? asset.name : ''" type="text" id="input31-group2" name="input31-group2" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+              </div>
+           <div class="form-group row">
+            <div class="col-md-2" *ngIf="asset != null">
+                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                    Asset
+                  </div>
+                <div class="input-group">
+                    <input  type="text" class="form-control" placeholder="" maxlength="15" [readonly]="true" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                        [(ngModel)]="asset.invNo" name="invNo" #invNo="ngModel">
+                </div>
+            </div>
+            <div class="col-md-2" *ngIf="asset != null">
+                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                    SubNo
+                  </div>
+                <div class="input-group">
+                    <input  type="text" class="form-control" placeholder="" maxlength="15" [readonly]="true" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                        [(ngModel)]="asset.subNo" name="subNo" #subNo="ngModel">
+                </div>
+            </div>
+            <div class="col-md-2" *ngIf="asset != null">
+                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                    PCS
+                  </div>
+                <div class="input-group">
+                    <input  type="text" class="form-control" placeholder="" maxlength="15"  style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                        [(ngModel)]="asset.quantity" name="quantity" #quantity="ngModel">
+                </div>
+            </div>
+            <div class="col-md-2" *ngIf="asset != null && asset.erpCode != undefined">
+                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                    FAR
+                  </div>
+              <div class="input-group">
+                  <input type="text" class="form-control" placeholder="" maxlength="30"  [readonly]="true" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                      [(ngModel)]="asset.erpCode" name="erpCode" #erpCode="ngModel">
+              </div>
+          </div>
+            <div class="col-md-2" *ngIf="asset != null">
+                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                    License
+                  </div>
+                <div class="input-group">
+                    <input  type="text" class="form-control" placeholder="" maxlength="15" [readonly]="true" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                        [(ngModel)]="asset.license" name="license" #license="ngModel">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                    Invoice
+                    </div>
+                <div class="input-group">
+                    <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="text" class="form-control" placeholder="" maxlength="50"
+                        [(ngModel)]="asset.docNo1" name="docNo1">
+                </div>
+            </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Serial number
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="text" class="form-control" placeholder=""
+                            [(ngModel)]="asset.serialNumber" name="serialNumber" #serialNumber="ngModel">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Agreement
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="text" class="form-control" placeholder="" maxlength="30"
+                            [(ngModel)]="asset.agreement" name="agreement" #agreement="ngModel">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Manufacturer
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="text" class="form-control" placeholder="" maxlength="30"
+                            [(ngModel)]="asset.manufacturer" name="manufacturer" #manufacturer="ngModel">
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="asset != null">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Inventory Number
+                      </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" maxlength="15" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true"
+                            [(ngModel)]="asset.sapCode" name="sapCode" #sapCode="ngModel">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Useful life
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.depPeriodIn" name="depPeriodIn" #depPeriodIn="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Tot. life in periods
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.depPeriod" name="depPeriod" #depPeriod="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Exp.life in periods
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.depPeriodMonth" name="depPeriodMonth" #depPeriodMonth="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Rem.life in periods
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.depPeriodRem" name="depPeriodRem" #depPeriodRem="ngModel">
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        APC FY start
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueInvIn" name="valueInvIn" #valueInvIn="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Dep. FY start
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueDepIn" name="valueDepIn" #valueDepIn="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Bk.val.FY strt
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueDepPU" name="valueDepPU" #valueDepPU="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Acquisition
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueDepYTDIn" name="valueDepYTDIn" #valueDepYTDIn="ngModel">
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Dep. for year
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueDepYTD" name="valueDepYTD" #valueDepYTD="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Retirement
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueRet" name="valueRet" #valueRet="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Dep.retir.
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueRetIn" name="valueRetIn" #valueRetIn="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Curr.bk.val.
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueDepPUIn" name="valueDepPUIn" #valueDepPUIn="ngModel">
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Transfer
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueTr" name="valueTr" #valueTr="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Dep.transfer
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueTrIn" name="valueTrIn" #valueTrIn="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Post-capital.
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueRem" name="valueRem" #valueRem="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Dep.post-cap.
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueRemIn" name="valueRemIn" #valueRemIn="ngModel">
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Invest.support
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.investSupport" name="investSupport" #investSupport="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Write-ups
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.writeUps" name="writeUps" #writeUps="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Current APC
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueInv" name="valueInv" #valueInv="ngModel">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Accumul. dep.
+                        </div>
+                    <div class="input-group">
+                        <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="number" class="form-control"
+                            min="0.00" max="9999999999.99"
+                            onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off
+                            onkeydown="return event.keyCode == 69 ? false : true" step="0.01"
+                            [(ngModel)]="asset.valueDep" name="valueDep" #valueDep="ngModel">
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Capitalized on
+                      </div>
+                    <div class="input-group">
+                        <!-- <input style="font-size: 12px;font-weight: bold;" type="date" onkeydown="return false" class="form-control" [min]="min | date:'yyyy-MM-dd'" [max]="max | date:'yyyy-MM-dd'"  required #documentDate [value]="asset.purchaseDate | date:'yyyy-MM-dd'" (input)="asset.purchaseDate=parseDate($event.target.value)" /> -->
+                             <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="date" onkeydown="return false" class="form-control" required #documentDate [value]="asset.purchaseDate | date: 'yyyy-MM-dd'" name="asset.purchaseDate" (input)="asset.purchaseDate=parseDate($event.target)">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Ord.dep.start date
+                      </div>
+                    <div class="input-group">
+                        <!-- <input style="font-size: 12px;font-weight: bold;" type="date" onkeydown="return false" class="form-control" [min]="min | date:'yyyy-MM-dd'" [max]="max | date:'yyyy-MM-dd'"  required #documentDate [value]="asset.purchaseDate | date:'yyyy-MM-dd'" (input)="asset.purchaseDate=parseDate($event.target.value)" /> -->
+                             <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="date" onkeydown="return false" class="form-control" required #invoiceDate [value]="asset.invoiceDate | date: 'yyyy-MM-dd'" name="asset.invoiceDate" (input)="asset.invoiceDate=parseDate($event.target)">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Deactivation on
+                      </div>
+                    <div class="input-group">
+                        <!-- <input style="font-size: 12px;font-weight: bold;" type="date" onkeydown="return false" class="form-control" [min]="min | date:'yyyy-MM-dd'" [max]="max | date:'yyyy-MM-dd'"  required #documentDate [value]="asset.purchaseDate | date:'yyyy-MM-dd'" (input)="asset.purchaseDate=parseDate($event.target.value)" /> -->
+                             <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [readonly]="true" type="date" onkeydown="return false" class="form-control" required #removalDate [value]="asset.removalDate | date: 'yyyy-MM-dd'" name="asset.removalDate" (input)="asset.removalDate=parseDate($event.target)">
+                    </div>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="card-footer">
+            <div class="col-sm-12">
+            <!-- Nav tabs -->
+
+            <ul class="nav nav-pills justify-content-center">
+              <li>
+                <a class="active" id="home-tab" data-toggle="tab" href="#operation" (click)="changeTab('operatii',$event)">Istoric operatii</a>
+              </li>
+              <li>
+                <a  id="profile-tab" data-toggle="tab" href="#component" (click)="changeTab('componente',$event)">Componente</a>
+              </li>
+              <li>
+                <a  id="messages-tab" data-toggle="tab" href="#files" (click)="changeTab('fisiere',$event)">Fisiere</a>
+              </li>
+              <li >
+                <a  id="settings-tab" data-toggle="tab" href="#label" (click)="changeTab('eticheta',$event)">Eticheta</a>
+              </li>
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content clearfix">
+              <div class="tab-pane active" id="operation">
+                  <div class="col-sm-12">
+                    <div class="jumbotron bg-transparent">
+                            <app-asset-op-detail-list #assetOpDetailList id="assetOpDetailList"
+                            [dataSource]="assetOpHttpService"
+                            showSimpleSearch="false"
+                            listTemplate="ASSET_OPERATIONS"
+                            detailType="details"
+                            sortColumn="modifiedAt"
+                            sortDirection="asc"
+                            dynamicQuery="true"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                            usePaging="true">
+                        </app-asset-op-detail-list>
+                    </div>
+                  </div>
+              </div>
+              <div class="tab-pane" id="component">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="jumbotron bg-transparent">
+                        <!-- <asset-component-list #assetComponentList id="assetComponentList"
+                        [dataSource]="assetHttpService"
+                        listTemplate="ASSETCOMPONENTS"
+                        detailType="assetcomponents"
+                        sortColumn="asset.invNo"
+                        sortDirection="asc"
+                        showSimpleSearch="false"
+                        dynamicQuery="true"
+                        rowSelection="single"
+                        notifyOnChange="true"
+                        (selectionChanged)="onAssetComponentListSelectionChanged($event)"
+                        usePaging="true">
+                    </asset-component-list>      -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="files" >
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="jumbotron bg-transparent">
+                        <app-entity-file-list #entityFileList id="entityFileList"
+                            [dataSource]="entityFileHttpService"
+                            showSimpleSearch="false"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                            usePaging="false"
+                            [inInvetoryReport] = "false">
+                        </app-entity-file-list>
+                        <br>
+                        <app-entity-file-upload *ngIf="asset.id > 0"
+                            [entityId]="asset.id"
+                            [entityTypeCode]="entityTypeCode"
+                            (uploadFinished)="refreshEntityFiles()">
+                        </app-entity-file-upload>
+                        <app-entity-file-download *ngIf="asset.id > 0"
+                            [entityFile]="entityFile">
+                        </app-entity-file-download>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="label" >
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="jumbotron bg-transparent">
+                      <div id="barcodes">
+                        <div>
+                            <div>
+                                <span style="font-size: 16px;font-weight: bold;font-family: arial;text-align:left;">{{ companyName }}</span>
+                            </div>
+                            <div>
+                            <img class="barcode" id="assetBarcodeLabel" style="font-size: 16px;font-weight: bold;font-family: arial;text-align:center;" />
+                            </div>
+                            <div>
+                            <span style="font-size: 12px;font-weight: bold;font-family: arial;text-align:center;">{{ asset.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              </div>
+        <!-- <div class="col-sm-12">
+            <tabset #staticTabs>
+                <tab heading="Operation History">
+                    <app-asset-op-detail-list #assetOpDetailList id="assetOpDetailList"
+                        [dataSource]="assetOpHttpService"
+                        showSimpleSearch="false"
+                        listTemplate="ASSET_OPERATIONS"
+                        detailType="details"
+                        sortColumn="modifiedAt"
+                        sortDirection="asc"
+                        dynamicQuery="true"
+                        rowSelection="single"
+                        notifyOnChange="true"
+                        (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                        usePaging="true">
+                    </app-asset-op-detail-list>
+                </tab>
+                <tab heading="Files">
+                    <app-entity-file-list #entityFileList id="entityFileList"
+                        [dataSource]="entityFileHttpService"
+                        showSimpleSearch="false"
+                        rowSelection="single"
+                        notifyOnChange="true"
+                        (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                        usePaging="false">
+                    </app-entity-file-list>
+                    <br>
+                    <app-entity-file-upload *ngIf="asset.id > 0"
+                        [entityId]="asset.id"
+                        [entityTypeCode]="entityTypeCode"
+                        (uploadFinished)="refreshEntityFiles()">
+                    </app-entity-file-upload>
+                    <app-entity-file-download *ngIf="asset.id > 0"
+                        [entityFile]="entityFile">
+                    </app-entity-file-download>
+                </tab>
+                <tab heading="Label">
+                    <div id="barcodes">
+                        <div>
+                            <div>
+                                <span style="font-size: 16px;font-weight: bold;font-family: arial;text-align:left;">{{ companyName }}</span>
+                            </div>
+                            <div>
+                            <img class="barcode" id="assetBarcodeLabel" style="font-size: 16px;font-weight: bold;font-family: arial;text-align:center;" />
+                            </div>
+                            <div>
+                            <span style="font-size: 12px;font-weight: bold;font-family: arial;text-align:center;">{{ asset.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </div> -->
+      </div>
+    </div>
+  </div>
+    <div class="modal fade" bsModal #assetCategoryDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Adauga Categorie</h3>
+                </div>
+                <div class="modal-body">
+                    <app-asset-category-detail #assetCategoryDetail id="assetCategoryDetail"
+                                    [dataSource]="assetCategoryHttpService"
+                                    (itemAdded)="assetCategoryAdded($event)"
+                                    (changesCanceled)="assetCategoryAddCanceled()">
+                   </app-asset-category-detail>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" bsModal #assetCategoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Asset Category</h3>
+                </div>
+                <div class="modal-body">
+                    <app-asset-category-list #assetCategoryList id="assetCategoryList"
+                        [dataSource]="assetCategoryHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        [pageSize]="5"
+                        usePaging="true">
+                    </app-asset-category-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetCategory()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="assetCategoryListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #dictionaryItemDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Denumire Noua</h3>
+           </div>
+           <div class="modal-body">
+               <app-dictionary-item-detail #dictionaryItemDetail id="dictionaryItemDetail"
+                               [dataSource]="dictionaryItemHttpService"
+                               (itemAdded)="dictionaryItemAdded($event)"
+                               (changesCanceled)="dictionaryItemAddCanceled()">
+              </app-dictionary-item-detail>
+           </div>
+       </div>
+   </div>
+</div>
+<div class="modal fade" bsModal #dictionaryItemListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Denumiri</h3>
+           </div>
+           <div class="modal-body">
+               <app-dictionary-item-list #dictionaryItemList id="dictionaryItemList"
+                   [dataSource]="dictionaryItemHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   [pageSize]="5"
+                   usePaging="true">
+               </app-dictionary-item-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDictionaryItem()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="dictionaryItemListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+    <div class="modal fade" bsModal #assetTypeDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Producatori</h3>
+           </div>
+           <div class="modal-body">
+               <app-asset-type-detail #assetTypeyDetail id="assetTypeDetail"
+                               [dataSource]="assetTypeHttpService"
+                               (itemAdded)="assetTypeAdded($event)"
+                               (changesCanceled)="assetTypeAddCanceled()">
+              </app-asset-type-detail>
+           </div>
+       </div>
+   </div>
+</div>
+
+<div class="modal fade" bsModal #assetTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Tipuri</h3>
+           </div>
+           <div class="modal-body">
+               <app-asset-type-list #assetTypeList id="assetTypeList"
+                   [dataSource]="assetTypeHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   [pageSize]="5"
+                   usePaging="true">
+               </app-asset-type-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetType()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="assetTypeListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+    <div class="modal fade" bsModal #invStateListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Stari</h3>
+           </div>
+           <div class="modal-body">
+               <inv-state-list #invStateList id="invStateList"
+                   [dataSource]="invStateHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   [pageSize]="5"
+                   usePaging="true">
+               </inv-state-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInvState()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="invStateListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+    <!--<div class="modal fade" bsModal #assetClassListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Clasificari</h6>
+                </div>
+                <div class="modal-body">
+                    <asset-class-list #assetClassList id="assetClassList"
+                        [dataSource]="assetClassHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        usePaging="true">
+                    </asset-class-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetClass()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="assetClassListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="modal fade" bsModal #departmentDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Adauga departament</h3>
+                </div>
+                <div class="modal-body">
+                    <app-department-detail #departmentDetail id="departmentDetail"
+                                    [dataSource]="departmentHttpService"
+                                    (itemAdded)="departmentAdded($event)"
+                                    (changesCanceled)="departmentAddCanceled()">
+                   </app-department-detail>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #departmentListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Departamente</h3>
+                </div>
+                <div class="modal-body">
+                    <app-department-list #departmentList id="departmentList"
+                        [dataSource]="departmentHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        [pageSize]="5"
+                        usePaging="true">
+                    </app-department-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDepartment()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="departmentListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #employeeDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Referent nou</h3>
+                </div>
+                <div class="modal-body">
+                    <app-employee-detail id="employeeDetail" #employeeDetail
+                                    [dataSource]="employeeHttpService"
+                                    (itemAdded)="employeeAdded($event)"
+                                    (changesCanceled)="employeeAddCanceled()">
+                   </app-employee-detail>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Employee</h3>
+                </div>
+                <div class="modal-body">
+                    <app-employee-list #employeeList id="employeeList"
+                        [dataSource]="employeeHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        [pageSize]="5"
+                        usePaging="true">
+                    </app-employee-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployee()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" bsModal #locationDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Adauga Oras</h3>
+                </div>
+                <div class="modal-body">
+                    <app-location-detail #locationDetail id="locationDetail"
+                                    [dataSource]="locationHttpService"
+                                    (itemAdded)="locationAdded($event)"
+                                    (changesCanceled)="locationAddCanceled()">
+                   </app-location-detail>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" bsModal #locationListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Etaj</h3>
+                </div>
+                <div class="modal-body">
+                    <app-location-list #locationList id="locationList"
+                        [dataSource]="locationHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        [pageSize]="5"
+                        usePaging="true">
+                    </app-location-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocation()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="locationListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #costCenterDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Adauga Centre de cost</h3>
+           </div>
+           <div class="modal-body">
+               <app-cost-center-detail #costCenterDetail id="costCenterDetail"
+                               [dataSource]="costCenterHttpService"
+                               (itemAdded)="costCenterAdded($event)"
+                               (changesCanceled)="costCenterAddCanceled()">
+              </app-cost-center-detail>
+           </div>
+       </div>
+   </div>
+</div>
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Cost center</h3>
+           </div>
+           <div class="modal-body">
+               <app-cost-center-list #costCenterList id="costCenterList"
+                   [dataSource]="costCenterHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   [pageSize]="5"
+                   usePaging="true">
+               </app-cost-center-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenter()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="costCenterListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+<div class="modal fade" bsModal #uomDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Adauga Cont</h3>
+       </div>
+       <div class="modal-body">
+           <app-uom-detail #uomDetail id="uomDetail"
+                           [dataSource]="uomHttpService"
+                           (itemAdded)="uomAddCanceled()"
+                           (changesCanceled)="uomAddCanceled()">
+          </app-uom-detail>
+       </div>
+   </div>
+</div>
+</div>
+<div class="modal fade" bsModal #uomListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Unitati de masura</h3>
+       </div>
+       <div class="modal-body">
+           <app-uom-list #uomList id="uomList"
+               [dataSource]="uomHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               [pageSize]="5"
+               usePaging="true">
+           </app-uom-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUom()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="uomListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #assetNatureListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Culori</h3>
+       </div>
+       <div class="modal-body">
+           <app-asset-nature-list #assetNatureList id="assetNatureList"
+               [dataSource]="assetNatureHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               [pageSize]="5"
+               usePaging="true">
+           </app-asset-nature-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetNature()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="assetNatureListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+    <div class="modal fade" bsModal #roomDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Adauga Shop</h3>
+                </div>
+                <div class="modal-body">
+                    <app-room-detail id="roomDetail" #roomDetail
+                                    [dataSource]="roomDetailHttpService"
+                                    (itemAdded)="roomAdded($event)"
+                                    (changesCanceled)="roomAddCanceled()">
+                   </app-room-detail>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" bsModal #roomListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Zona</h3>
+                </div>
+                <div class="modal-body">
+                    <app-room-list #roomList id="roomList"
+                        [dataSource]="roomDetailHttpService"
+                        dynamicQuery="true"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        [pageSize]="5"
+                        usePaging="true">
+                    </app-room-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRoom()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="roomListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" bsModal #partnerListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Vendor</h3>
+                </div>
+                <div class="modal-body">
+                    <app-partner-list #partnerList id="partnerList"
+                        [dataSource]="partnerHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        [pageSize]="5"
+                        usePaging="true">
+                    </app-partner-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedPartner()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="partnerListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" bsModal #partnerDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Adauga furnizor</h3>
+                </div>
+                <div class="modal-body">
+                    <app-partner-detail #partnerDetail id="partnerDetail"
+                                    [dataSource]="partnerHttpService"
+                                    (itemAdded)="partnerAdded($event)"
+                                    (changesCanceled)="partnerAddCanceled()">
+                   </app-partner-detail>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+        tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h6 class="modal-title">Confirmare</h6>
+          </div>
+          <div class="modal-body">
+            {{ confirmationMessage }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> Nu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" bsModal #dimensionListFinalModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Dimensiuni</h3>
+           </div>
+           <div class="modal-body">
+               <app-dimension-list #dimensionListFinal id="dimensionListFinal"
+                   [dataSource]="dimensionHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-dimension-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDimensionFinal()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="dimensionListFinalModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #uomListFinalModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Modele Inventar</h3>
+           </div>
+           <div class="modal-body">
+               <app-uom-list #uomListFinal id="uomListFinal"
+                   [dataSource]="uomHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-uom-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUomFinal()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="uomListFinalModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #companyListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Categorii</h3>
+           </div>
+           <div class="modal-body">
+               <app-company-list #companyList id="companyList"
+                   [dataSource]="companyHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-company-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompany()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="companyListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #accountListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Bal.sh.acct APC</h3>
+           </div>
+           <div class="modal-body">
+               <account-list #accountList id="accountList"
+                   [dataSource]="accountHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </account-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAccount()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="accountListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #expAccountListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Asset Class</h3>
+           </div>
+           <div class="modal-body">
+               <exp-account-list #expAccountList id="expAccountList"
+                   [dataSource]="expAccountHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </exp-account-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedExpAccount()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="expAccountListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #articleListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Location</h3>
+           </div>
+           <div class="modal-body">
+               <article-list #articleList id="articleList"
+                   [dataSource]="articleHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </article-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedArticle()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="articleListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #divisionListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Divizie</h3>
+           </div>
+           <div class="modal-body">
+               <app-division-list #divisionList id="divisionList"
+                   [dataSource]="divisionHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-division-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivision()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="divisionListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #countryListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Tara</h3>
+           </div>
+           <div class="modal-body">
+               <app-country-list #countryList id="countryList"
+                   [dataSource]="countryHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-country-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCountry()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="countryListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #countyListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Judet</h3>
+           </div>
+           <div class="modal-body">
+               <app-county-list #countyList id="countyList"
+                   [dataSource]="countyHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-county-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCounty()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="countyListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #cityListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Oras</h3>
+           </div>
+           <div class="modal-body">
+               <app-city-list #cityList id="cityList"
+                   [dataSource]="cityHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-city-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCity()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="cityListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #budgetManagerListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">FY Start</h3>
+           </div>
+           <div class="modal-body">
+               <budget-manager-list #budgetManagerList id="budgetManagerList"
+                   [dataSource]="budgetManagerHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </budget-manager-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedBudgetManager()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="budgetManagerListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #typeListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Supracategorie</h3>
+           </div>
+           <div class="modal-body">
+               <type-list #typeList id="typeList"
+                   [dataSource]="typeHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </type-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedType()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="typeListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #materialListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Material</h3>
+           </div>
+           <div class="modal-body">
+               <material-list #materialList id="materialList"
+                   [dataSource]="materialHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </material-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedMaterial()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="materialListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #subTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Tip asset</h3>
+           </div>
+           <div class="modal-body">
+               <sub-type-list #subTypeList id="subTypeList"
+                   [dataSource]="subTypeHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </sub-type-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedSubType()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="subTypeListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #assetClassListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Clasificare asset</h3>
+           </div>
+           <div class="modal-body">
+               <app-asset-class-list #assetClassList id="assetClassList"
+                   [dataSource]="assetClassHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-asset-class-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetClass()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="assetClassListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #admCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Profit center</h3>
+           </div>
+           <div class="modal-body">
+               <app-adm-center-list #admCenterList id="admCenterList"
+                   [dataSource]="admCenterHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-adm-center-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdmCenter()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="admCenterListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #regionListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">PC detaliu</h3>
+           </div>
+           <div class="modal-body">
+               <app-region-list #regionList id="regionList"
+                   [dataSource]="regionHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-region-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRegion()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="regionListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #dimensionListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Latimi</h3>
+           </div>
+           <div class="modal-body">
+               <app-dimension-list #dimensionList id="dimensionList"
+                   [dataSource]="dimensionHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-dimension-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDimension()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="dimensionListModal.hide()">Inchide</button>
+           </div>
+       </div>
+    </div>
+    </div>
+
+    <div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Locatie</h3>
+           </div>
+           <div class="modal-body">
+               <app-administration-list #administrationList id="administrationList"
+                   [dataSource]="administrationHttpService"
+                   dynamicQuery="true"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   [pageSize]="5"
+                   usePaging="true">
+               </app-administration-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministration()">Selecteza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="administrationListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+<div class="modal fade" bsModal #interCompanyListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Supracategorie TRN</h4>
+            </div>
+            <div class="modal-body">
+                <app-inter-company-list #interCompanyList id="interCompanyList"
+                    [dataSource]="interCompanyHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-inter-company-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInterCompany()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="interCompanyListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #insuranceCategoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">BS</h4>
+            </div>
+            <div class="modal-body">
+                <insurance-category-list #insuranceCategoryList id="insuranceCategoryList"
+                    [dataSource]="insuranceCategoryHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </insurance-category-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInsuranceCategory()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="insuranceCategoryListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #projectListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">OS</h4>
+            </div>
+            <div class="modal-body">
+                <project-list #projectList id="projectList"
+                    [dataSource]="projectHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </project-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedProject()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="projectListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #orderListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Order</h4>
+            </div>
+            <div class="modal-body">
+                <order-list #orderList id="orderList"
+                    [dataSource]="orderHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    detailType="detailui"
+                    sortColumn="order.id"
+                    sortDirection="asc"
+                    dynamicQuery="true"
+                    showSimpleSearch="true"
+                    listTemplate="ORDERUI"
+                    usePaging="true">
+                </order-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedOrder()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="orderListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #brandListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Brand</h4>
+            </div>
+            <div class="modal-body">
+                <brand-list #brandList id="brandList"
+                    [dataSource]="brandHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </brand-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedBrand()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="brandListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>

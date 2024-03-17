@@ -1,0 +1,386 @@
+<div class="animated fadeIn">
+    <br>
+    <div class="card">
+      <div class="card-header">
+        <strong>ANGAJAT</strong>
+        <small>DETALII</small>
+        <div class="card-header-actions">
+            <button type="button" class="btn btn-info btn-sm" (click)="selectCostCenter()"><i class="fa fa-search"></i>&nbsp;Mapare CC</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteEmployeeCostCenter()" *ngIf="employeeCostCenterList.selectedItems.length > 0"><i class="fa fa-trash"></i> &nbsp;Sterge mapare CC</button>
+            <button type="button" class="btn btn-info btn-sm" (click)="selectCompany()"><i class="fa fa-search"></i>&nbsp;Mapare Companie</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteEmployeeCompany()" *ngIf="employeeCompanyList.selectedItems.length > 0"><i class="fa fa-trash"></i> &nbsp;Sterge mapare Companie</button>
+            <button type="button" class="btn btn-info btn-sm" (click)="selectDivision()"><i class="fa fa-search"></i>&nbsp;Mapare Departament</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteEmployeeDivision()" *ngIf="employeeDivisionList.selectedItems.length > 0"><i class="fa fa-trash"></i> &nbsp;Sterge mapare Departament</button>
+            <button type="button" class="btn btn-info btn-sm" (click)="selectStorage()"><i class="fa fa-search"></i>&nbsp;Mapare Storage</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteEmployeeStorage()" *ngIf="employeeStorageList.selectedItems.length > 0"><i class="fa fa-trash"></i> &nbsp;Sterge mapare Storage</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAssetComponent()" [ngClass]="{'btn-icon button': assetComponent == null, 'btn-icon': assetComponent != null}" [style.backgroundColor] = "'rgb(255, 137, 94)'" [style.color]="'white'"><i class="fa fa-search"></i>Adauga accesorii</button>
+            <button *ngIf="isAdmin && (assetList.selectedItems.length > 0 ) && showTransferBtn === true" type="button" class="btn btn-outline-danger btn-sm" (click)="selectAsset()" [ngClass]="{'btn-icon button': asset == null, 'btn-icon': asset != null}" [style.backgroundColor] = "'rgb(255, 137, 94)'" [style.color]="'white'"><i class="fa fa-search"></i>Transfer nou</button>
+            <button *ngIf="isAdmin && (assetComponentList.selectedItems.length > 0 ) && showMoveToStocksBtn === true" type="button" class="btn btn-outline-danger btn-sm" (click)="selectAssetComponentTransfer()" [ngClass]="{'btn-icon button': assetComponentTransfer == null, 'btn-icon': assetComponentTransfer != null}" [style.backgroundColor] = "'rgb(255, 137, 94)'" [style.color]="'white'"><i class="fa fa-search"></i> Transfer nou accesoriu</button>
+        </div>
+
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group col-sm-3">
+            <label for="city">Marca</label>
+            <input type="text" class="form-control" id="igg" placeholder="Marca" [(ngModel)]="employeeUI.internalCode">
+          </div>
+          <div class="form-group col-sm-3">
+            <label for="postal-code">Nume</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Nume" [(ngModel)]="employeeUI.firstName">
+          </div>
+          <div class="form-group col-sm-3">
+            <label for="postal-code">Prenume</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Prenume" [(ngModel)]="employeeUI.lastName">
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="sendBookEmail()" style="background-color: darkseagreen; color: black;"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Fisa lichidare </button>
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="sendITBookEmail()" style="background-color: darkseagreen; color: black;"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Validare IT </button>
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="sendBookEmailPreview()" style="background-color: darkseagreen; color: black;"><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;Previzualizare </button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="onDeleteAssetComponent()" *ngIf="assetComponentList.selectedItems.length > 0 && showMoveToStocksBtn === true"><i class="fa fa-trash"></i> Transfera pe stoc</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Inchide</button>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <tabset #staticTabs>
+                    <tab heading="Operations" (select)="changeTab('Operatii',$event)">
+                        <asset-component-op-detail-list #assetComponentOpDetailList id="assetComponentOpDetailList"
+                            [dataSource]="assetComponentOpHttpService"
+                            showSimpleSearch="false"
+                            listTemplate="ASSETCOMPONENTOPERATIONS"
+                            detailType="details"
+                            sortColumn="id"
+                            sortDirection="asc"
+                            dynamicQuery="true"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="onAssetComponentOpDetailListSelectionChanged($event)"
+                            usePaging="true">
+                        </asset-component-op-detail-list>
+                    </tab>
+                    <tab heading="Fixed assets" (select)="changeTab('Active',$event)">
+                        <app-asset-list #assetList id="assetList"
+                            [dataSource]="assetHttpService"
+                            showSimpleSearch="false"
+                            listTemplate="ASSETLISTUI"
+                            detailType="detailUI"
+                            sortColumn="invNo"
+                            sortDirection="asc"
+                            dynamicQuery="true"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="onAssetListSelectionChanged($event)"
+                            usePaging="true">
+                        </app-asset-list>
+                    </tab>
+                    <tab heading="Accesories" (select)="changeTab('Accesorii',$event)">
+                        <asset-component-list #assetComponentList id="assetComponentList"
+                            [dataSource]="assetComponentHttpService"
+                            showSimpleSearch="false"
+                            listTemplate="ASSETCOMPONENTS"
+                            detailType="details"
+                            sortColumn="code"
+                            sortDirection="asc"
+                            dynamicQuery="true"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="onAssetComponentListSelectionChanged($event)"
+                            usePaging="true">
+                        </asset-component-list>
+                    </tab>
+                    <tab heading="Mapare CC" (select)="changeTab('Mapare CC',$event)">
+                        <employee-cost-center-list #employeeCostCenterList id="employeeCostCenterList"
+                            [dataSource]="employeeCostCenterHttpService"
+                            showSimpleSearch="false"
+                            listTemplate="EMPLOYEECOSTCENTERS"
+                            detailType=""
+                            sortColumn="costCenter.code"
+                            sortDirection="asc"
+                            dynamicQuery="true"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="onEmployeeCostCenterListSelectionChanged($event)"
+                            usePaging="true">
+                        </employee-cost-center-list>
+                    </tab>
+                    <tab heading="Mapare Departamente" (select)="changeTab('Mapare Departamente',$event)">
+                      <employee-division-list #employeeDivisionList id="employeeDivisionList"
+                          [dataSource]="employeeDivisionHttpService"
+                          showSimpleSearch="false"
+                          listTemplate="EMPLOYEEDIVISIONS"
+                          detailType=""
+                          sortColumn="division.code"
+                          sortDirection="asc"
+                          dynamicQuery="true"
+                          rowSelection="single"
+                          notifyOnChange="true"
+                          (selectionChanged)="onEmployeeDivisionListSelectionChanged($event)"
+                          usePaging="true">
+                      </employee-division-list>
+                  </tab>
+                  <tab heading="Mapare Storage" (select)="changeTab('Mapare Storage',$event)">
+                    <employee-storage-list #employeeStorageList id="employeeStorageList"
+                        [dataSource]="employeeStorageHttpService"
+                        showSimpleSearch="false"
+                        listTemplate="EMPLOYEESTORAGES"
+                        detailType=""
+                        sortColumn="storage.code"
+                        sortDirection="asc"
+                        dynamicQuery="true"
+                        rowSelection="single"
+                        notifyOnChange="true"
+                        (selectionChanged)="onEmployeeStorageListSelectionChanged($event)"
+                        usePaging="true">
+                    </employee-storage-list>
+                </tab>
+                    <!-- <tab heading="Fisiere">
+                        <entity-file-list #entityFileList id="entityFileList"
+                            [dataSource]="entityFileHttpService"
+                            showSimpleSearch="false"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                            usePaging="false">
+                        </entity-file-list>
+                        <br>
+                        <entity-file-upload *ngIf="employeeUI.id > 0"
+                            [entityId]="employeeUI.id"
+                            [entityTypeCode]="entityTypeCode"
+                            (uploadFinished)="refreshEntityFiles()">
+                        </entity-file-upload>
+                        <entity-file-download *ngIf="employeeUI.id > 0"
+                            [entityFile]="entityFile">
+                        </entity-file-download>
+                    </tab> -->
+                </tabset>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="modal fade" bsModal #assetComponentAddListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h4 class="modal-title pull-left">Accesorii</h4>
+           </div>
+           <div class="modal-body">
+               <asset-component-list #assetComponentAddList id="assetComponentAddList"
+                   [dataSource]="assetComponentHttpService"
+                   rowSelection="multiple"
+                   detailType="detailUI"
+                   sortColumn="code"
+                   sortDirection="asc"
+                   dynamicQuery="true"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </asset-component-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetComponent()" [disabled]="assetComponentAddList.selectedItems.length === 0">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="closeAssetComponent()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+<div class="modal fade" bsModal #assetAddListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Active</h4>
+            </div>
+            <div class="modal-body">
+                <app-asset-entity-list #assetAddList id="assetAddList"
+                    [dataSource]="assetHttpService"
+                    detailType="components"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-asset-entity-list>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" dropdown keyboardNav="true">
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-warning btn-sm" dropdownToggle style="font-family: 'Roboto'" >
+                        {{ invState }}<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'" style="font-family: 'Roboto'">
+                        <li role="menuitem" (click)="onInvStateUpdate(-1, 'Stari bunuri')">
+                             <a class="dropdown-item"> All </a>
+                             <div class="dropdown-divider"></div>
+                        </li>
+                        <li *ngFor="let invState of invStates" role="menuitem" (click)="onInvStateUpdate(invState.id, invState.name)" style="font-family: 'Roboto'">
+                            <a class="dropdown-item"> {{ invState.name }} </a>
+                            <div class="dropdown-divider"></div>
+                        </li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAsset()" [disabled]="assetAddList.selectedItems.length === 0">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="closeAsset()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #assetComponentTransferAddListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Accesorii</h4>
+            </div>
+            <div class="modal-body">
+                <asset-component-list #assetComponentTransferAddList id="assetComponentTransferAddList"
+                    [dataSource]="assetComponentHttpService"
+                    detailType="detailUI"
+                    dynamicQuery="true"
+                    sortColumn="code"
+                    sortDirection="asc"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </asset-component-list>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" dropdown keyboardNav="true">
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-warning btn-sm" dropdownToggle style="font-family: 'Roboto'" >
+                        {{ invState }}<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'" style="font-family: 'Roboto'">
+                        <li role="menuitem" (click)="onInvStateUpdate(-1, 'Stari bunuri')">
+                             <a class="dropdown-item"> All </a>
+                             <div class="dropdown-divider"></div>
+                        </li>
+                        <li *ngFor="let invState of invStates" role="menuitem" (click)="onInvStateUpdate(invState.id, invState.name)" style="font-family: 'Roboto'">
+                            <a class="dropdown-item"> {{ invState.name }} </a>
+                            <div class="dropdown-divider"></div>
+                        </li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetComponentTransfer()" [disabled]="assetComponentTransferAddList.selectedItems.length === 0">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="closeAssetComponentTransfer()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" *ngIf="message !=''">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div baCardClass="with-scroll table-panel">
+      <div class="row">
+          <div class="col-md-12" [innerHTML]="message | sanitizeHtml">
+          </div>
+        </div>
+    </div>
+        </div>
+    </div>
+  </div>
+
+<div bsModal #confirmationModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-info" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Confirmare</h4>
+          <button type="button" class="close" (click)="confirmationModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ confirmationMessage }}&hellip;</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success btn-sm" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> No</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Centre de cost</h4>
+       </div>
+       <div class="modal-body">
+           <app-cost-center-list #costCenterList id="costCenterList"
+               [dataSource]="costCenterHttpService"
+               rowSelection="multiple"
+               sortColumn="code"
+               sortDirection="asc"
+               dynamicQuery="true"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-cost-center-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenter()" [disabled]="costCenterList.selectedItems.length === 0">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="closeCostCenter()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+<div class="modal fade" bsModal #divisionListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Departamente</h4>
+       </div>
+       <div class="modal-body">
+           <app-division-list #divisionList id="divisionList"
+               [dataSource]="divisionHttpService"
+               rowSelection="multiple"
+               sortColumn="code"
+               sortDirection="asc"
+               dynamicQuery="true"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-division-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivision()" [disabled]="divisionList.selectedItems.length === 0">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="closeDivision()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #storageListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Storage</h4>
+       </div>
+       <div class="modal-body">
+           <app-storage-list #storageList id="storageList"
+               [dataSource]="storageHttpService"
+               rowSelection="multiple"
+               sortColumn="code"
+               sortDirection="asc"
+               dynamicQuery="true"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-storage-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedStorage()" [disabled]="storageList.selectedItems.length === 0">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="closeStorage()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+

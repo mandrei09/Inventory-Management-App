@@ -1,0 +1,75 @@
+<div class="animated fadeIn">
+    <div class="card" *ngIf="showSimpleSearch === 'true'">
+            <div class="card-header">
+                <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2" [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)">
+            </div>
+    </div>
+    <div class="card-body table-responsive table w-auto small">
+        <table class="table table-bordered table-striped" style="white-space: nowrap; font-weight: 500;" [style.font-size.px]="12">
+            <thead class="thead" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'burlywood'">
+            <tr>
+                <th>
+                        <button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-default btn-sm" type="button"><i class="fa fa-check"></i></button>
+                        <button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+                </th>
+                <th>
+                    Status
+                </th>
+                <th *ngFor="let column of columns" class="align-left">
+                    <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+                        <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                        <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                        <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                        {{ column.headerCode }}
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "tableItem.selected ? 'rgb(95,158,160)' : 'rgb(255, 255, 255)'">
+                <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+                <td>
+                    <div class="progress progress-xs">
+                      <div  role="progressbar" style="width: 100%;"
+                      [ngClass]="{
+                          'progress-bar bg-primary':  tableItem.item.appStateId  === 33,
+                          'progress-bar bg-dark':  tableItem.item.appStateId  === 35,
+                          'progress-bar bg-success' : tableItem.item.appStateId === 34,
+                          'progress-bar bg-warning' : tableItem.item.appStateId === 40,
+                          'progress-bar bg-secondary' : tableItem.item.appStateId === 55,
+                          'progress-bar bg-danger' : tableItem.item.appStateId === 53}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+
+                    </div>
+                    </div>
+                  </td>
+                <td *ngFor="let column of columns" [style.text-align]="column.textAlign" >{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <nav>
+        <div class="row">
+            <div class="col-xs-12 col-12 col-md-6">
+                <pagination
+                [totalItems]="totalItems"
+                [(ngModel)]="currentPage"
+                [maxSize]="maxSize"
+                class="pagination-sm"
+                [itemsPerPage]="pageSize"
+                previousText="&lsaquo;"
+                nextText="&rsaquo;"
+                firstText="&laquo;"
+                lastText="&raquo;"
+                (pageChanged)="pageChanged($event)"
+                [boundaryLinks]="true"
+                [rotate]="false"
+                (numPages)="numPages = $event">
+            </pagination>
+          </div>
+        <div class="col-xs-12 col-12 col-md-6">
+            <h6 style="text-align: right;">Total: {{ totalItems }}</h6>
+          </div>
+        </div>
+      </nav>
+</div>
+</div>
+

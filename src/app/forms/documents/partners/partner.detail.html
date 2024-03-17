@@ -1,0 +1,82 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+        <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+            <div class="form-group">
+                <label for="name">Descriere</label>
+                <input type="text" class="form-control" placeholder="descriere" required maxlength="100"
+                    [(ngModel)]="item.name" name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    <!-- {{'VALIDATE_MESSAGE_DESCRIPTION'  |translate}} -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fiscalCode">Nr. Înmatriculare</label>
+                <input type="text" class="form-control" placeholder="..." required maxlength="30"
+                    [(ngModel)]="item.fiscalCode" name="fiscalCode" #fiscalCode="ngModel">
+                <div [hidden]="fiscalCode.valid || fiscalCode.pristine" class="alert alert-danger">
+                    <!-- {{'VALIDATE_MESSAGE_CUI' | translate}} -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="registryNumber">CUI</label>
+                <input type="text" class="form-control" placeholder="..." required maxlength="50"
+                    [(ngModel)]="item.registryNumber" name="registryNumber" #registryNumber="ngModel">
+                <div [hidden]="registryNumber.valid || registryNumber.pristine" class="alert alert-danger">
+                    <!-- {{'VALIDATE_MESSAGE_REGISTER_NUMBER'  |translate}} -->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="registryNumber">Adresa</label>
+                <input type="text" class="form-control" placeholder="..." maxlength="100"
+                    [(ngModel)]="item.address" name="address" #address="ngModel">
+            </div>
+
+
+            <div class="form-group">
+                <label for="registryNumber">Date contact 1</label>
+                <input type="text" class="form-control" placeholder="..." maxlength="100"
+                    [(ngModel)]="item.contactInfo" name="contactInfo" #contactInfo="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="registryNumber">Date contact 2</label>
+                <input type="text" class="form-control" placeholder="..." maxlength="100"
+                    [(ngModel)]="item.bank" name="bank" #bank="ngModel">
+            </div>
+
+
+            <div class="form-group">
+                <label for="registryNumber">Date contact 3</label>
+                <input type="text" class="form-control" placeholder="..." maxlength="100"
+                    [(ngModel)]="item.bankAccount" name="bankAccount" #bankAccount="ngModel">
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-left">
+                        <div *ngIf="!deleteConfirmationMode">
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Sterge</button>
+                        </div>
+                        <div *ngIf="deleteConfirmationMode">
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteItem()"><i class="fa fa-check"></i>Da</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> Nu</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-right">
+                        <div class="text-right">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-outline-success btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Salveaza</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Inclide</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

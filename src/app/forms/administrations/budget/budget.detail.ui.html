@@ -1,0 +1,717 @@
+<div class="animated fadeIn">
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-header-actions">
+                <button type="button" class="btn btn-success btn-sm" (click)="saveBudget()" [disabled]="!allowSaving || !isSaved"><i class="fa fa-save"></i> Save</button>
+                <button type="button" class="btn btn-primary btn-sm" (click)="cancelChanges()"><i class="fa fa-step-backward"></i> Inapoi</button>
+            </div>
+        </div>
+      </div>
+       <div class="row">
+            <div class="col-md-12">
+                <form role="form" #detailForm="ngForm" novalidate>
+                    <div class="row">
+                       <!-- <div class="col-md-2">
+                            <div class="form-group">
+                                <h6 style="color: #ff895e; font-size: 12px">Code</h6>
+                                <input type="text" class="form-control" placeholder="" maxlength="100"  style="font-size: 12px;"
+                                    [(ngModel)]="asset.code" name="code" #code="ngModel">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <h6 style="color: #ff895e; font-size: 12px">Description</h6>
+                                <input type="text" class="form-control" placeholder="" maxlength="100"  style="font-size: 12px;"
+                                    [(ngModel)]="asset.name" name="name" #name="ngModel">
+                            </div>
+                        </div> -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color: #ff895e; font-size: 12px">Company</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px">{{ company != null ? company.name : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button style="font-size: 12px;" type="button" class="btn btn-outline-danger btn-sm" (click)="selectCompany()" [ngClass]="{'btn-icon button': company == null, 'btn-icon': company != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 style="color:#ff895e; font-size: 12px;">Project</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <h6 style="font-size: 12px">{{ project != null ?  project.name : "" }}</h6>
+                            </div>
+                            <div class="col-sm-3">
+                                <div style="text-align: right;">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectProject()" [ngClass]="{'btn-icon button': project == null, 'btn-icon': project != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h6 style="color:#ff895e; font-size: 12px;">Activity</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h6 style="font-size: 12px">{{ administration != null ?  administration.name : "" }}</h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <div style="text-align: right;">
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAdministration()" [ngClass]="{'btn-icon button': administration == null, 'btn-icon': administration != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+            </div>
+            <div class="row">
+                <hr style="height:1px;color:#341E16;background-color:#341E16;">
+        </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 style="color:#ff895e; font-size: 12px;">PC</h6>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h6 style="font-size: 12px">{{ masterType != null ? masterType.name : "" }}</h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <div style="text-align: right;">
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectMasterType()" [ngClass]="{'btn-icon button': masterType == null, 'btn-icon': masterType != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 style="color:#ff895e; font-size: 12px;">Expence Type</h6>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h6 style="font-size: 12px">{{ type != null ? type.name : "" }}</h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <div style="text-align: right;">
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectType()" [ngClass]="{'btn-icon button': type == null, 'btn-icon': type != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 style="color:#ff895e; font-size: 12px;">Detail</h6>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h6 style="font-size: 12px">{{ subType != null ? subType.name : "" }}</h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <div style="text-align: right;">
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectSubType()" [ngClass]="{'btn-icon button': subType == null, 'btn-icon': subType != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                <div class="row">
+                    <hr style="height:1px;color:#341E16;background-color:#341E16;">
+            </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color:#ff895e; font-size: 12px;">Project Owner</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px">{{ employee != null ? employee.lastName + ', ' + employee.firstName : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectEmployee()" [ngClass]="{'btn-icon button': employee == null, 'btn-icon': employee != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color:#ff895e; font-size: 12px;">Year</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px">{{ accMonth != null ? accMonth.year : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAccMonth()" [ngClass]="{'btn-icon button': accMonth == null, 'btn-icon': accMonth != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color:#ff895e; font-size: 12px;">Total life in periods</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px">{{ interCompany != null ?  interCompany.name : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectInterCompany()" [ngClass]="{'btn-icon button': interCompany == null, 'btn-icon': interCompany != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                </div>
+                <div class="row">
+                    <hr style="height:1px;color:#341E16;background-color:#341E16;">
+            </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color:#ff895e; font-size: 12px;">Supplier</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px">{{ partner != null ?  partner.name : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectPartner()" [ngClass]="{'btn-icon button': partner == null, 'btn-icon': partner != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color:#ff895e; font-size: 12px;">GL accounts</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px">{{ account != null ?  account.name : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAccount()" [ngClass]="{'btn-icon button': account == null, 'btn-icon': account != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color:#ff895e; font-size: 12px;">Cost Center</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px">{{ costCenter != null ? costCenter.name : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectCostCenter()" [ngClass]="{'btn-icon button': costCenter == null, 'btn-icon': costCenter != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <hr style="height:1px;color:#341E16;background-color:#341E16;">
+                </div>
+                    <!-- <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <h6 style="color:#ff895e; font-size: 12px;">Initial budget </h6>
+                                <input type="number" class="form-control" placeholder="" min="0" step="0.01"
+                                    [(ngModel)]="budget.valueIni" name="valueIni">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <h6 style="color:#ff895e; font-size: 12px;">Final budget</h6>
+                                <input type="number" class="form-control" placeholder="" min="0" step="0.01"
+                                    [(ngModel)]="budget.valueFin" name="valueFin">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <h6 style="color:#ff895e; font-size: 12px;">Quantity</h6>
+                                <input type="number" class="form-control" placeholder="" min="0" step="1" max="10"
+                                    [(ngModel)]="budget.quantity" name="quantity">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <h6 style="color: #ff895e; font-size: 12px">Comment</h6>
+                                <input type="text" class="form-control" placeholder="" maxlength="30"
+                                    [(ngModel)]="budget.info" name="info">
+                            </div>
+                        </div>
+                </div> -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- <tabset #staticTabs>
+                                <tab heading="Operations">
+                                    <budget-op-detail-list #budgetOpDetailList id="budgetOpDetailList"
+                                        [dataSource]="budgetOpHttpService"
+                                        showSimpleSearch="false"
+                                        listTemplate="BUDGET_OPERATIONS"
+                                        detailType="details"
+                                        sortColumn="modifiedAt"
+                                        sortDirection="asc"
+                                        dynamicQuery="true"
+                                        rowSelection="single"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                        usePaging="true">
+                                    </budget-op-detail-list>
+                                </tab>
+                                <tab heading="Files">
+                                    <app-entity-file-list #entityFileList id="entityFileList"
+                                        [dataSource]="entityFileHttpService"
+                                        showSimpleSearch="false"
+                                        rowSelection="single"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                        usePaging="false">
+                                    </app-entity-file-list>
+                                    <br>
+                                    <app-entity-file-upload *ngIf="budget.id > 0" 
+                                        [entityId]="budget.id" 
+                                        [entityTypeCode]="entityTypeCode"
+                                        (uploadFinished)="refreshEntityFiles()">
+                                    </app-entity-file-upload>
+                                    <app-entity-file-download *ngIf="budget.id > 0" 
+                                        [entityFile]="entityFile">
+                                    </app-entity-file-download>
+                                </tab>
+                            </tabset> -->
+
+                            <tabset #staticTabs>
+                                <tab>
+                                  <ng-template tabHeading><i class="icon-list"></i> Operatii &nbsp;<span class="badge badge-success"></span></ng-template>
+                                        <budget-op-detail-list #budgetOpDetailList id="budgetOpDetailList"
+                                        [dataSource]="budgetOpHttpService"
+                                        showSimpleSearch="false"
+                                        listTemplate="BUDGET_OPERATIONS"
+                                        detailType="details"
+                                        sortColumn="modifiedAt"
+                                        sortDirection="asc"
+                                        dynamicQuery="true"
+                                        rowSelection="single"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                        usePaging="true">
+                                    </budget-op-detail-list>
+                                </tab>
+                                <tab>
+                                  <ng-template tabHeading><i class="icon-calculator"></i> Fisiere &nbsp;<span class="badge badge-pill badge-danger"></span></ng-template>
+                                        <app-entity-file-list #entityFileList id="entityFileList"
+                                        [dataSource]="entityFileHttpService"
+                                        showSimpleSearch="false"
+                                        rowSelection="single"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                        [inInvetoryReport] = "false"
+                                        usePaging="false">
+                                       </app-entity-file-list>
+                                      <br>
+                                      <app-entity-file-upload *ngIf="budget.id > 0" 
+                                        [entityId]="budget.id" 
+                                        [entityTypeCode]="entityTypeCode"
+                                        (uploadFinished)="refreshEntityFiles()">
+                                      </app-entity-file-upload>
+                                      <app-entity-file-download *ngIf="budget.id > 0" 
+                                        [entityFile]="entityFile">
+                                    </app-entity-file-download>
+                                </tab>
+                                <!-- <tab>
+                                  <ng-template tabHeading><i class="icon-pie-chart"></i> Charts</ng-template>
+                                  4. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                </tab> -->
+                              </tabset>
+
+
+                        </div>
+                    </div>
+                    <!-- <br>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="ui-toolbar-group-left">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="ui-toolbar-group-left">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="ui-toolbar-group-right">
+                                <div class="text-right">
+                                    <div>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="saveBudget()" [disabled]="!allowSaving || !isSaved"><i class="fa fa-save"></i> Save</button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Inchide</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </form>
+            </div>
+      </div>
+</div>
+<div class="modal fade" bsModal #masterTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">PC</h3>
+       </div>
+       <div class="modal-body">
+           <app-master-type-list #masterTypeList id="masterTypeList"
+               [dataSource]="masterTypeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-master-type-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedMasterType()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="masterTypeListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #typeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Expence Type</h3>
+       </div>
+       <div class="modal-body">
+           <type-list #typeList id="typeList"
+               [dataSource]="typeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </type-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedType()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="typeListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #subTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Details</h3>
+       </div>
+       <div class="modal-body">
+           <sub-type-list #subTypeList id="subTypeList"
+               [dataSource]="subTypeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </sub-type-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedSubType()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="subTypeListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Activity</h3>
+       </div>
+       <div class="modal-body">
+           <app-administration-list #administrationList id="administrationList"
+               [dataSource]="administrationHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-administration-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministration()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="administrationListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+    <div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Owner Project</h3>
+                </div>
+                <div class="modal-body">
+                    <app-employee-list #employeeList id="employeeList"
+                        [dataSource]="employeeHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        usePaging="true">
+                    </app-employee-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployee()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Cost Centers</h3>
+           </div>
+           <div class="modal-body">
+               <app-cost-center-list #costCenterList id="costCenterList"
+                   [dataSource]="costCenterHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-cost-center-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenter()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="costCenterListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+
+    <div class="modal fade" bsModal #partnerListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Supplier</h3>
+                </div>
+                <div class="modal-body">
+                    <app-partner-list #partnerList id="partnerList"
+                        [dataSource]="partnerHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        usePaging="true">
+                    </app-partner-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedPartner()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="partnerListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}" 
+        tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h6 class="modal-title">Confirmare</h6>
+          </div>
+          <div class="modal-body">
+            {{ confirmationMessage }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<div class="modal fade" bsModal #projectListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Project</h3>
+       </div>
+       <div class="modal-body">
+           <project-list #projectList id="projectList"
+               [dataSource]="projectHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </project-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedProject()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="projectListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #companyListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Company</h3>
+       </div>
+       <div class="modal-body">
+           <app-company-list #companyList id="companyList"
+               [dataSource]="companyHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-company-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompany()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="companyListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #interCompanyListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Total life in periods</h3>
+       </div>
+       <div class="modal-body">
+           <app-inter-company-list #interCompanyList id="interCompanyList"
+               [dataSource]="interCompanyHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-inter-company-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInterCompany()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="interCompanyListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div> 
+
+
+<div class="modal fade" bsModal #accMonthListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Year</h3>
+       </div>
+       <div class="modal-body">
+           <app-acc-month-list #accMonthList id="accMonthList"
+               [dataSource]="accMonthHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-acc-month-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAccMonth()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="accMonthListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div> 
+
+<div class="modal fade" bsModal #accountListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">GL accounts</h4>
+      </div>
+      <div class="modal-body">
+          <account-list #accountList id="accountList"
+              [dataSource]="accountHttpService"
+              rowSelection="multiple"
+              notifyOnChange="false"
+              usePaging="true">
+          </account-list>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAccount()">Selecteaza</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="accountListModal.hide()">Inchide</button>
+      </div>
+  </div>
+</div>
+</div>

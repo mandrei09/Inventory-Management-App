@@ -1,0 +1,30 @@
+<div>
+  <div class="confirm-reconciliation">
+    <div class="modal-dialog-header d-flex justify-content-between">
+        <h2 class="modal-title mb-0">Confirmare</h2>
+        <button type="button" class="btn-close" mat-dialog-close></button>
+    </div>
+
+    <mat-dialog-content class="mat-dialog-content">
+      <div class="modal-dialog-body d-flex">
+        <div class="my-auto">
+          <span class="title-confirm-reconciliation">Confirmati operatia de reconciliere</span>
+          <div class="number-reconciliation">
+            <span class="green-field">{{ item?.invNo }}</span>
+            <span class="icon-symbol">
+              <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.98438 0L7.98438 6L1.98438 12L0.578125 10.5938L5.17188 6L0.578125 1.40625L1.98438 0Z"/>
+              </svg>
+            </span>
+            <span class="blue-field">{{ tempAssetItem?.invNo }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close class="btn gray-btn-outline">Anuleaza</button>
+        <button mat-button class="btn blue-btn" (click)="onSave()">Confirma</button>
+    </mat-dialog-actions>
+  </div>
+</div>

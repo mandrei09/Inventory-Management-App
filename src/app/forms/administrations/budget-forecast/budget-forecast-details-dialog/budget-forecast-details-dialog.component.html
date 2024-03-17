@@ -1,0 +1,291 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_asset_add'">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">TRANSFER</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container">
+
+        <div class="row">
+          <form>
+            <div class="row mx-auto">
+              <div class="col-12 mx-auto">
+
+                <div class="budgets-cards-wrapper">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="card">
+                        <div class="p-grid p-fluid">
+
+                          <div class="form-group row">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                SURSA ({{srcValue}})
+
+
+                                <h3 class="p-mb-2">(<span style="color: green;">{{srcResult?.totalRem | number: '1.2-2'}} RON</span>) / {{srcResult?.project?.code}}</h3>
+                                <p><span style="color: green;">{{srcResult?.budgetBase?.info.length < '20' ? srcResult?.budgetBase?.info : srcResult?.budgetBase?.info}}</span></p>
+                                <div class="progress progress-xs">
+                                  <div class="progress-bar bg-info progress-bar-animated" role="progressbar" [ngStyle]="{'width': ((srcResult?.totalRem/srcResult?.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                    <strong>{{(srcResult?.totalRem/srcResult?.total) * 100.0 | number: '1.2-2'}}</strong>
+                                  </div>
+                                </div>
+                                <br>
+                                <p style="text-align: left;"><span style="color: blue;">B.U: </span>{{srcResult?.department?.code}} - {{srcResult?.department?.name}}</p>
+                                <p style="text-align: left;"><span style="color: blue;">Departament : </span>{{srcResult?.division?.code}} - {{srcResult?.division?.name}}</p>
+                                <p style="text-align: left;"><span style="color: blue;">Proiect : </span>{{srcResult?.projectType?.code}} - {{srcResult?.projectType?.name}}</p>
+                                <p style="text-align: left;"><span style="color: blue;">Tip : </span>{{srcResult?.assetType?.code}} - {{srcResult?.assetType?.name}}</p>
+                                <p style="text-align: left;"><span style="color: blue;">Profit center : </span>{{srcResult?.admCenter?.code}}</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="">
+                            <div *ngIf="budget != null" class="col-12 col-md-6">
+                              <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                                <label>
+                                  Valoare inainte de transfer:
+                                  <span class="required-label-symbol">*</span>
+                                </label>
+                                <input matInput class="form-control" [disabled]="true" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.totalRem" mode="decimal" [minFractionDigits]="2" [min]="0" name="totalRem" [ngModelOptions]="{ standalone: true }">
+                              </div>
+                            </div>
+
+                            <div *ngIf="srcResult?.accMonth?.month === 4" class="col-12 col-md-6">
+                              <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                                <label>
+                                  Aprilie:
+                                  <span class="required-label-symbol">*</span>
+                                </label>
+                                <input matInput class="form-control" [size]="1" [disabled]="destinationBudgetForecast == null || budget.aprilForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.aprilForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="aprilForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeApril($event)">
+                              </div>
+                            </div>
+
+                            <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 5" class="col-12 col-md-6">
+                              <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                                <label>
+                                  Mai:
+                                  <span class="required-label-symbol">*</span>
+                                </label>
+                                <input matInput class="form-control" [disabled]="destinationBudgetForecast == null  || budget.mayForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.mayForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="mayForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeMay($event)">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+
+                          <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 5">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Mai
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.mayForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.mayForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="mayForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeMay($event)"></p-inputNumber>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 6">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Iunie
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.juneForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.juneForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="juneForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeJune($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 7">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Iulie
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.julyForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral'}" [(ngModel)]="budget.julyForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="julyForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeJuly($event)"></p-inputNumber>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 8">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                August
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.augustForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.augustForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="augustForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeAugust($event)"></p-inputNumber>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 9">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Septembrie
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.septemberForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.septemberForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="septemberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeSeptember($event)"></p-inputNumber>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 10">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Octombrie
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.octomberForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.octomberForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="octomberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeOctomber($event)"></p-inputNumber>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 11">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Noiembrie
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.novemberForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.novemberForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="novemberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeNovember($event)"></p-inputNumber>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 12">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Decembrie
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.decemberForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.decemberForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="decemberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDecember($event)"></p-inputNumber>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 || srcResult?.accMonth?.month === 1">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Ianuarie
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.januaryForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.januaryForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="januaryForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeJanuary($event)"></p-inputNumber>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 || (srcResult?.accMonth?.month >= 1 && srcResult?.accMonth?.month <= 2)">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Februarie
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.februaryForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.februaryForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="februaryForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeFebruary($event)"></p-inputNumber>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 || (srcResult?.accMonth?.month >= 1 && srcResult?.accMonth?.month <= 3)">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                Martie
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.marchForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.marchForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="marchForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeMarch($event)"></p-inputNumber>
+
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                <div class="row">
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                      <label>
+                        PO:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <orders-item-select class="form-group-select_wrapper" [(ngModel)]="order" displayValue="code" placeholder="Selecteaza PO" [disabled]="assetId > 0" [ngModelOptions]="{standalone: true}">
+                      </orders-item-select>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">Inchide</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            [disabled]="!allowSaving || !isSaved || !sumMaxMaterialCostCenters"
+            (click)="saveAsset()"
+    >Receptioneaza</button>
+  </mat-dialog-actions>
+</div>
+
+
+
+
+<div class="modal fade" bsModal #costCenterReceptionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title pull-left">Cost center</h3>
+      </div>
+      <div class="modal-body">
+        <app-cost-center-list #costCenterReceptionList id="costCenterReceptionList"
+                              [dataSource]="costCenterHttpService"
+                              rowSelection="single"
+                              notifyOnChange="false"
+                              [pageSize]="5"
+                              usePaging="true">
+        </app-cost-center-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenterReception()">Selecteaza</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="costCenterReceptionListModal.hide()">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #employeeReceptionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title pull-left">Utilizatori</h3>
+      </div>
+      <div class="modal-body">
+        <app-employee-list #employeeReceptionList id="employeeReceptionList"
+                           [dataSource]="employeeHttpService"
+                           rowSelection="single"
+                           notifyOnChange="false"
+                           [pageSize]="5"
+                           usePaging="true">
+        </app-employee-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployeeReception()">Selecteaza</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeReceptionListModal.hide()">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>

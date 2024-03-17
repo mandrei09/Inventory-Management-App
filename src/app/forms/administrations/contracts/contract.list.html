@@ -1,0 +1,171 @@
+<div class="animated fadeIn">
+    <div class="card" *ngIf="showSimpleSearch === 'true'">
+            <div class="card-header">
+                <!--<label class="col-sm-1 control-label">Cauta</label>-->
+                <!-- <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)" /> -->
+                <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2" [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)">
+            </div>
+    </div>
+    <div class="table-responsive table w-auto small">
+        <table class="table custom-table" style="background: #FFF;">
+            <thead class="thead">
+            <tr>
+                <!-- <th>
+                        <button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-default btn-sm" type="button"><i class="fa fa-check"></i></button>
+                        <button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+                </th> -->
+                <th>
+                    %
+                </th>
+                <th>
+                    Contract
+                </th>
+                <th *ngFor="let column of columns" class="align-left">
+                    <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+                        <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                        <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                        <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                        <!-- {{ column.headerCode | translate }} -->
+                        {{ column.headerCode }}
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "tableItem.selected ? '#E7EEFF' : 'rgb(255, 255, 255)'">
+                <!-- <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td> -->
+                <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar bg-info" style="color: #FFF;padding: 3px 8px" role="progressbar" [ngStyle]="{'width': ((tableItem.item.contractAmount?.amountRem/tableItem.item.contractAmount?.amount) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        <strong>{{(tableItem.item.contractAmount?.amountRem/tableItem.item.contractAmount?.amount) * 100.0 | number: '1.2-2'}}</strong></div>
+                    </div>
+                    <!-- <div class="card">
+                        <p-progressBar [value]="(tableItem.item.contractAmount?.amountRem/tableItem.item.contractAmount?.amount) * 100.0 | number: '1.2-2'"></p-progressBar>
+                    </div> -->
+                </td>
+                <td>
+                    <div class="progress progress-xs">
+                        <div  role="progressbar" style="width: 100%;"
+                        [ngClass]="{
+                            'progress-bar bg-dark':  tableItem.item.appStateId  === 30,
+                            'progress-bar bg-danger':  tableItem.item.appStateId  === 29,
+                            'progress-bar bg-primary':  tableItem.item.appStateId  === 28,
+                            'progress-bar bg-info':  tableItem.item.appStateId  === 31,
+                            'progress-bar bg-warning':  tableItem.item.appStateId  === 32,
+                            'progress-bar bg-success' : tableItem.item.appStateId === 27
+                        }" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+
+                      </div>
+                      </div>
+                  </td>
+                <td *ngFor="let column of columns" [style.text-align]="column.textAlign" >{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+                <td>
+                  <div class="row-icons">
+                    <div class="badge-position d-flex">
+                      <div class="row-single-icon">
+                        <svg version="1.1" width="14" height="14" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+                          <g><g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)"><path d="M1321.9,3420.7L100,2198.8L1314.6,989.1C1983.1,323,2539-223,2548.8-227.9c9.8-2.5,176.3,154.3,372.2,350.2l355.1,355.1l-599.9,600l-600,600h3031.6h3029.1v514.2v514.2H5112.6c-1662.7,0-3024.2,7.3-3024.2,17.1c0,12.2,264.5,284,587.7,607.3l587.7,587.7l-362.4,362.4l-360,360L1321.9,3420.7z"/><path d="M7083.9,97.8l-355.1-355.1l600-600l599.9-600H4897.2H1868v-514.2v-514.2h3024.2c1662.7,0,3024.2-7.3,3024.2-19.6c0-9.8-264.5-281.6-587.7-604.8l-587.7-587.7l360-360l362.4-362.4l1217,1217.1L9900-1983.7l-1217.1,1217C8012-95.7,7458.6,452.8,7451.2,452.8S7279.8,293.7,7083.9,97.8z"/></g></g>
+                        </svg>
+                      </div>
+
+                      <div class="row-single-icon row-single-icon-success" *ngIf="showViewAction === 'true'" (click)="$event.stopPropagation();selectItem(tableItem.item);itemView.emit(tableItem.item)">
+                        <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.59375 3.59375C6.98958 3.19792 7.45833 3 8 3C8.54167 3 9.01042 3.19792 9.40625 3.59375C9.80208 3.98958 10 4.45833 10 5C10 5.54167 9.80208 6.01042 9.40625 6.40625C9.01042 6.80208 8.54167 7 8 7C7.45833 7 6.98958 6.80208 6.59375 6.40625C6.19792 6.01042 6 5.54167 6 5C6 4.45833 6.19792 3.98958 6.59375 3.59375ZM5.625 7.375C6.29167 8.02083 7.08333 8.34375 8 8.34375C8.91667 8.34375 9.69792 8.02083 10.3438 7.375C11.0104 6.70833 11.3438 5.91667 11.3438 5C11.3438 4.08333 11.0104 3.30208 10.3438 2.65625C9.69792 1.98958 8.91667 1.65625 8 1.65625C7.08333 1.65625 6.29167 1.98958 5.625 2.65625C4.97917 3.30208 4.65625 4.08333 4.65625 5C4.65625 5.91667 4.97917 6.70833 5.625 7.375ZM3.53125 1.375C4.86458 0.458333 6.35417 0 8 0C9.64583 0 11.1354 0.458333 12.4688 1.375C13.8021 2.29167 14.7604 3.5 15.3438 5C14.7604 6.5 13.8021 7.70833 12.4688 8.625C11.1354 9.54167 9.64583 10 8 10C6.35417 10 4.86458 9.54167 3.53125 8.625C2.19792 7.70833 1.23958 6.5 0.65625 5C1.23958 3.5 2.19792 2.29167 3.53125 1.375Z"/>
+                        </svg>
+                      </div>
+
+                      <div class="row-single-icon" *ngIf="showEditAction === 'true'" (click)="$event.stopPropagation();selectItem(tableItem.item);itemView.emit(tableItem.item)">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M11.8125 2.6875L10.5938 3.90625L8.09375 1.40625L9.3125 0.1875C9.4375 0.0625 9.59375 0 9.78125 0C9.96875 0 10.125 0.0625 10.25 0.1875L11.8125 1.75C11.9375 1.875 12 2.03125 12 2.21875C12 2.40625 11.9375 2.5625 11.8125 2.6875ZM0 9.5L7.375 2.125L9.875 4.625L2.5 12H0V9.5Z"/>
+                        </svg>
+                      </div>
+
+                      <div class="row-single-icon row-single-icon-danger" *ngIf="showDeleteAction === 'true'" (click)="$event.stopPropagation();selectItem(tableItem.item);itemView.emit(tableItem.item)">
+                        <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M9.65625 0.65625V2H0.34375V0.65625H2.65625L3.34375 0H6.65625L7.34375 0.65625H9.65625ZM1 10.6562V2.65625H9V10.6562C9 11.0104 8.86458 11.3229 8.59375 11.5938C8.32292 11.8646 8.01042 12 7.65625 12H2.34375C1.98958 12 1.67708 11.8646 1.40625 11.5938C1.13542 11.3229 1 11.0104 1 10.6562Z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+            </tr>
+
+            <tr *ngIf="tableItems.length === 0">
+              <td class="" style="text-align: left;padding:.5rem .5rem !important;width: calc(100vw - 240px);min-width: calc(100vw - 240px);">
+                <div class="table-no_results">No results found!</div>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+    <nav>
+        <!-- <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+          <li class="page-item active">
+            <a class="page-link" href="#">1</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">4</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul> -->
+        <div class="d-flex">
+            <div class="">
+                <pagination
+                [totalItems]="totalItems"
+                [(ngModel)]="currentPage"
+                [maxSize]="maxSize"
+                class="pagination-sm"
+                [itemsPerPage]="pageSize"
+                previousText="&lsaquo;"
+                nextText="&rsaquo;"
+                firstText="&laquo;"
+                lastText="&raquo;"
+                (pageChanged)="pageChanged($event)"
+                [boundaryLinks]="true"
+                [rotate]="false"
+                (numPages)="numPages = $event">
+            </pagination>
+          </div>
+        <!-- <pre class="card card-body card-header">Page: {{currentPage}} / {{numPages}}</pre> -->
+        <div class="">
+            <h6 style="text-align: right;">Total: {{ totalItems }}</h6>
+          </div>
+        </div>
+      </nav>
+</div>
+</div>
+<!-- <div class="row">
+<div class="col-sm-12">
+    <div class="ui-toolbar-group-left">
+        <div class="text-left">
+            <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                        [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+        </div>
+    </div>
+</div>
+</div> -->
+
+<!-- <div class="row" *ngIf="totals != null"> -->
+<!-- <div class="col-sm-3">
+    <h5 class="panel-subtitle">Valoare intrare: {{ totals.valueDepPU | number : '1.2-2' }}</h5>
+</div>
+<div class="col-sm-3">
+    <h5 class="panel-subtitle">Valoare inventar: {{ totals.valueInv | number : '1.2-2' }}</h5>
+</div> -->
+<!-- <div class="col-sm-2">
+    <h5 class="panel-subtitle">{{'ASSET_VALUE_REMAINING' | translate}}: {{ totals.valueRem | number : '1.2-2' }}</h5>
+</div> -->
+<!-- <div class="col-sm-3">
+    <h5 class="panel-subtitle">{{'ASSET_ACCUMULATED_DEPRECATION' | translate}}: {{ (totals.valueDepYTD) | number : '1.2-2' }}</h5>
+</div>
+<div class="col-sm-3">
+    <h5 class="panel-subtitle">{{'ASSET_DEPRECATION_MONTH' | translate}}: {{ totals.valueDep | number : '1.2-2' }}</h5>
+</div> -->
+<!-- <div class="col-sm-2">
+    <h5 class="panel-subtitle">{{'ASSET_DEPRECATION_YEAR' | translate}}: {{ totals.valueDepYTD | number : '1.2-2' }}</h5>
+</div> -->
+<!-- <div class="col-sm-2">
+    <h5 class="panel-subtitle">Total: {{ totals.count }}</h5>
+</div>
+</div> -->

@@ -1,0 +1,96 @@
+.confirm-reconciliation {
+    height: 225px;
+}
+
+.confirm-reconciliation .modal-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #D9D9DF;
+    padding: 16px;
+    font-size: 18px;
+    line-height: 24px;
+    align-items: center;
+
+    h2 {
+        font-size: 18px !important;
+        line-height: 24px;
+        color: #111052;
+    }
+
+    .btn-close {
+        box-shadow: none;
+        padding: 0;
+    }
+}
+
+.confirm-reconciliation .modal-dialog-body {
+    //padding: 16px;
+
+    .title-confirm-reconciliation {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        margin-bottom: 8px;
+    }
+
+    .icon-symbol {
+        svg {
+            fill: #35354A;
+            width: 24px;
+        }
+    }
+
+    .number-reconciliation {
+        .green-field {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 24px;
+            color: #3DCA75;
+        }
+        .blue-field {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 24px;
+            color: #0B4FFF;
+        }
+    }
+}
+
+.confirm-reconciliation mat-dialog-content.mat-mdc-dialog-content {
+    height: calc(100% - 114px) !important;
+
+    .modal-dialog-body {
+        //height: 100%;
+    }
+}
+
+.confirm-reconciliation mat-dialog-actions.mat-mdc-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #D9D9DF;
+    padding: 8px 16px;
+
+    .blue-btn {
+        width: auto;
+        height: 40px;
+        padding: 2px 16px;
+        background: #0B4FFF;
+        border-radius: 8px;
+        color: #FFFFFF;
+        border: none;
+        box-shadow: none;
+        font-weight: 400;
+    }
+
+    .gray-btn-outline {
+        width: auto;
+        height: 40px;
+        padding: 2px 16px;
+        background: transparent;
+        border: 1px solid #D9D9DF;
+        border-radius: 8px;
+        color: #8B8B9D;
+        box-shadow: none;
+        font-weight: 400;
+    }
+}

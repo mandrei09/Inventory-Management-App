@@ -1,0 +1,71 @@
+<div class="upload-dialog">
+  <div class="modal-dialog-header">
+    <h3 class="modal-title">Incarcare fisiere</h3>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-dialog-content">
+    <div class="upload-file__container">
+      <div class="upload--file---form">
+        <div class="large-select mx-auto" style="padding-left: 0;padding-right: 0;margin-bottom:2rem;">
+          <label>
+            Tip document:
+          </label>
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Selecteaza</mat-label>
+            <mat-select [(ngModel)]="entityTypeId">
+              <mat-option *ngFor="let entityType of entityTypes" [value]="entityType.id">{{ entityType.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- <input #fileInput id="fileInput" hidden="true" type="file" multiple (change)="onFileInputChange($event)"/> -->
+        <!-- <button mat-flat-button color="primary" (click)="fileInput.click()">Selectie fisier</button> -->
+
+        <div class="container-wrapper border-dashed" appDnd (fileDropped)="onFileDropped($event)">
+          <!-- <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target)" /> -->
+          <input #fileInput id="fileInput" hidden="true" type="file" multiple (change)="onFileInputChange($event)"/>
+          <img src="assets/img/dnd/ic-upload-file.svg" alt="">
+          <h3>Drag and drop</h3>
+          <h3>sau</h3>
+          <label for="fileInput">Rasfoieste...</label>
+        </div>
+        <div class="files-list">
+          <div class="single-file" *ngFor="let file of files; let i = index">
+            <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
+            <div class="info">
+              <h4 class="name">
+                {{ file?.name }}
+              </h4>
+              <p class="size">
+                {{ formatBytes(file?.size) }}
+              </p>
+              <app-progress [progress]="file?.progress"></app-progress>
+            </div>
+            <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
+          </div>
+        </div>
+        <div class="files--form--info">
+          <label>
+            Cantitate
+          </label>
+          <input type="number" class="form-group" placeholder="" [(ngModel)]="quantity"/>
+        </div>
+        <div class="files--form--info">
+          <label>
+            Info:
+          </label>
+          <textarea rows="4" cols="50" class="form-group" placeholder="" [(ngModel)]="info"></textarea>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <!-- [mat-dialog-close]="onSubmit()"  -->
+  <div class="mx-auto" mat-dialog-actions [align]="'end'">
+    <button class="blue-button" (click)="onSubmit()">
+      Incarca
+    </button>
+  </div>
+
+</div>

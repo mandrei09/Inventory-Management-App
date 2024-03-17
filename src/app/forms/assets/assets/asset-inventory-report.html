@@ -1,0 +1,546 @@
+<div *transloco="let t; read: 'page_assets_in_use_component'">
+  <div id="left-content-page">
+    <div class="d-flex align-items-start">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div hideIfUnauthorized="VIEW_REPORT|S_INVENTORY_REPORT">
+            <div class="report-pill-title d-flex justify-content-between">
+              <span>Filtreaza continut rapoarte:</span>
+            </div>
+            <div class="content-page-header border-bottom-0" style="height: 100vh; padding: 0 30px 30px 20px;">
+              <div class="reports-content-wrapper mt-3">
+                <div class="reports-content-wrapper_item d-grid">
+                  <div class="reports-label" style="display:grid;">
+                    <div class="d-flex">
+                      <div hideIfUnauthorized="DEPARTMENT_FILTER|ASSET">
+                        <inventories-item-select [(ngModel)]="selectedInventory" placeholder="Inventory" showMinimizedPlaceHolder="true" displayValue="description">
+                        </inventories-item-select>
+                      </div>
+
+                      <!-- <div hideIfUnauthorized="DEPARTMENT_FILTER|ASSET">
+                        <departments-item-select [(ngModel)]="selectedDepartments" selectionType="multiple" placeholder="B.U." showMinimizedPlaceHolder="true" displayValue="name">
+                        </departments-item-select>
+                      </div>
+
+                      <div hideIfUnauthorized="DIVISION_FILTER|ASSET">
+                        <divisions-item-select [(ngModel)]="selectedDivisions" selectionType="multiple" placeholder="Departamente" showMinimizedPlaceHolder="true" displayValue="name">
+                        </divisions-item-select>
+                      </div> -->
+                   
+                      <div>
+                        <administrations-item-select [(ngModel)]="selectedAdministrations" selectionType="multiple" placeholder="Locatii" 
+                        showMinimizedPlaceHolder="true" displayValue="name">
+                        </administrations-item-select>
+                      </div>
+
+                      <div hideIfUnauthorized="COSTCENTER_FILTER|S_INVENTORY_REPORT">
+                        <cost-centers-item-select 
+                          [(ngModel)]="selectedCostCenters"  
+                          [params]="costCenterParams" 
+                          selectionType="multiple" 
+                          placeholder="Centre de cost" 
+                          showMinimizedPlaceHolder="true" 
+                          displayValue="name">
+                        </cost-centers-item-select>
+                      </div>
+
+
+                      <!-- <div>
+                        <employee-item-select [(ngModel)]="selectedEmployees" selectionType="multiple" placeholder="Angajati" showMinimizedPlaceHolder="true" displayValue="email">
+                        </employee-item-select>
+                      </div> -->
+                    </div>
+                  </div>
+                 
+                  <div class="d-flex mt-3 mr-15" style="display: grid;">
+                    <!-- <div class="d-flex" style="margin-left: 1px;">
+                      <mat-form-field appearance="fill" class="datepicker-input-custom" style="margin-right: 10px;">
+                        <mat-label>Data inceput:</mat-label>
+                        <input matInput [matDatepicker]="pickerInventoryDateStart" [(ngModel)]="inventoryDateStart" placeholder="Data inceput inventar">
+                        <mat-datepicker-toggle matSuffix [for]="pickerInventoryDateStart"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerInventoryDateStart></mat-datepicker>
+                      </mat-form-field>
+                  
+                      <mat-form-field appearance="fill" class="datepicker-input-custom" style="margin-right: 10px;">
+                        <mat-label>Data sfarsit:</mat-label>
+                        <input matInput [matDatepicker]="pickerInventoryDateEnd" [(ngModel)]="inventoryDateEnd" placeholder="Data sfarsit inventar">
+                        <mat-datepicker-toggle matSuffix [for]="pickerInventoryDateEnd"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerInventoryDateEnd></mat-datepicker>
+                      </mat-form-field>
+                    </div> -->
+                    <button class="selected-filter-remove mr-15" (click)="clearFilters()">
+                      <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 3.34375H9V6.15625L11.3438 7.5625L10.8438 8.375L8 6.65625V3.34375ZM4.40625 1.75C5.59375 0.583333 7.01042 0 8.65625 0C10.3021 0 11.7083 0.583333 12.875 1.75C14.0625 2.91667 14.6562 4.33333 14.6562 6C14.6562 7.66667 14.0625 9.08333 12.875 10.25C11.7083 11.4167 10.3021 12 8.65625 12C7.96875 12 7.20833 11.8333 6.375 11.5C5.5625 11.1458 4.91667 10.7292 4.4375 10.25L5.375 9.28125C6.29167 10.1979 7.38542 10.6562 8.65625 10.6562C9.94792 10.6562 11.0521 10.2083 11.9688 9.3125C12.8854 8.39583 13.3438 7.29167 13.3438 6C13.3438 4.70833 12.8854 3.61458 11.9688 2.71875C11.0521 1.80208 9.94792 1.34375 8.65625 1.34375C7.36458 1.34375 6.26042 1.80208 5.34375 2.71875C4.44792 3.61458 4 4.70833 4 6H6L3.3125 8.6875L3.25 8.59375L0.65625 6H2.65625C2.65625 4.33333 3.23958 2.91667 4.40625 1.75Z" fill="#CC1010"/>
+                      </svg>
+                      Resetare filtre
+                    </button>
+                  </div>
+                  
+
+                  <!-- <div hideIfUnauthorized="PRINT_FILTER|ASSET" class="filter-content-item child-w-200 mr-10 mt-15">
+                    <div class="mt-auto d-flex filter-select-wrapper">
+                      <div class="static-form-select">
+                        <mat-form-field appearance="fill">
+                          <mat-label>{{ t('filter_printed_placeholder') }}:</mat-label>
+                          <mat-select (selectionChange)="onIsPrintedUpdate($event.value)">
+                            <mat-option [value]="'-'">{{ t('option_all') }}</mat-option>
+                            <mat-option [value]="'DA'">{{ t('option_yes') }}</mat-option>
+                            <mat-option [value]="'NU'">{{ t('option_no') }}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div hideIfUnauthorized="SCANNED_FILTER|ASSET" class="filter-content-item child-w-200 mr-10 mt-15">
+                    <div class="mt-auto d-flex filter-select-wrapper">
+                      <div class="static-form-select">
+                        <mat-form-field appearance="fill">
+                          <mat-label>{{ t('filter_scanned_placeholder') }}:</mat-label>
+                          <mat-select (selectionChange)="onIsDuplicateUpdate($event.value)">
+                            <mat-option [value]="'-'">{{ t('option_all') }}</mat-option>
+                            <mat-option [value]="'DA'">{{ t('option_yes') }}</mat-option>
+                            <mat-option [value]="'NU'">{{ t('option_no') }}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div hideIfUnauthorized="SCANNED_FILTER|ASSET" class="filter-content-item child-w-200 mr-10 mt-15">
+                    <div class="mt-auto d-flex filter-select-wrapper">
+                      <div class="static-form-select">
+                        <mat-form-field appearance="fill">
+                          <mat-label>{{ t('filter_temporary_placeholder') }}:</mat-label>
+                          <mat-select (selectionChange)="onIsTempUpdate($event.value)">
+                            <mat-option [value]="'-'">{{ t('option_all') }}</mat-option>
+                            <mat-option [value]="'DA'">{{ t('option_yes') }}</mat-option>
+                            <mat-option [value]="'NU'">{{ t('option_no') }}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <div class="d-flex mt-3" style="flex-wrap: wrap;">
+                    <div *ngFor="let reportType of reportTypes" class="add-asset d-flex mr-15 mt-10" style="width: auto;">
+                      <button [disabled]="waitResponse"  (click)="reportType.action()" type="button" class="btn report-export-btn">
+                        <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M14 0.34375C14.3542 0.34375 14.6667 0.479167 14.9375 0.75C15.2083 1 15.3438 1.30208 15.3438 1.65625V11C15.3438 11.3542 15.2083 11.6667 14.9375 11.9375C14.6667 12.2083 14.3542 12.3438 14 12.3438H2C1.64583 12.3438 1.33333 12.2083 1.0625 11.9375C0.791667 11.6667 0.65625 11.3542 0.65625 11V1.65625C0.65625 1.30208 0.791667 1 1.0625 0.75C1.33333 0.479167 1.64583 0.34375 2 0.34375H6V1.65625H2V11H14V1.65625H10V0.34375H14ZM8 9L5.34375 6.34375H7.34375V0.34375H8.65625V6.34375H10.6562L8 9Z"/>
+                        </svg>
+                        {{reportType.text}}
+                      </button>
+                    </div>
+
+                    <div class="add-asset d-flex mr-15 mt-10" style="width: auto;">
+                      <button [disabled]="waitResponse"  (click)="exportPVFinal()" type="button" class="btn report-export-btn">
+                        <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M14 0.34375C14.3542 0.34375 14.6667 0.479167 14.9375 0.75C15.2083 1 15.3438 1.30208 15.3438 1.65625V11C15.3438 11.3542 15.2083 11.6667 14.9375 11.9375C14.6667 12.2083 14.3542 12.3438 14 12.3438H2C1.64583 12.3438 1.33333 12.2083 1.0625 11.9375C0.791667 11.6667 0.65625 11.3542 0.65625 11V1.65625C0.65625 1.30208 0.791667 1 1.0625 0.75C1.33333 0.479167 1.64583 0.34375 2 0.34375H6V1.65625H2V11H14V1.65625H10V0.34375H14ZM8 9L5.34375 6.34375H7.34375V0.34375H8.65625V6.34375H10.6562L8 9Z"/>
+                        </svg>
+                        Proces verbal final
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="entityFiles">
+                    <!-- <div class="tab-pane active" id="operation">
+                        <div class="col-sm-12">
+                          <div class="jumbotron bg-transparent">
+                                  <request-op-detail-list #requestOpDetailList id="requestOpDetailList"
+                                  [dataSource]="requestOpHttpService"
+                                  showSimpleSearch="false"
+                                  listTemplate="REQUEST_OPERATIONS"
+                                  detailType="details"
+                                  sortColumn="modifiedAt"
+                                  sortDirection="asc"
+                                  dynamicQuery="true"
+                                  rowSelection="single"
+                                  notifyOnChange="true"
+                                  (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                  usePaging="true">
+                              </request-op-detail-list>
+                          </div>
+                        </div>
+                    </div> -->
+                  
+                    <div class="tab-pane active" id="files">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="jumbotron bg-transparent">
+                            <app-entity-file-list #entityFileList id="entityFileList"
+                                  [dataSource]="entityFileHttpService"
+                                  showSimpleSearch="false"
+                                  rowSelection="single"
+                                  notifyOnChange="true"
+                                  (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                  usePaging="true"
+                                  [inInvetoryReport] = "true"
+                                  [selectedCostCenterID]="selectedCostCenterID"
+                                  [selectedInventoryID]="selectedInventory ? selectedInventory.id : null">
+                            </app-entity-file-list>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table custom-table mat-elevation-z0 custom-html-table" id="entityFilesButtons">
+                          <tr>
+                            <th>
+                              <app-entity-file-upload
+                                [entityId]="selectedCostCenterID"
+                                [entityTypeCode]=""
+                                [reportTypes]="reportTypes"
+                                (uploadFinished)="showEntityFiles()"
+                                (uploadButton)="onAssetFileUpload()"
+                                [selectedInventory]="selectedInventory"
+                                [selectedCostCenterID]="selectedCostCenterID">
+                              </app-entity-file-upload>
+                            </th>
+                            <th>
+                              <app-entity-file-validate-asset-download
+                                [entityFile]="entityFile">
+                              </app-entity-file-validate-asset-download>
+                            </th>
+                            <th>
+                              <app-entity-file-inventory-list-delete
+                                (deleteFinished)="showEntityFiles()"
+                                [entityFile]="entityFile">
+                              </app-entity-file-inventory-list-delete>
+                            </th>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<div class="animated fadeIn">-->
+<!--    <br>-->
+<!--    <div class="card">-->
+<!--      <div class="card-header">-->
+<!--            <button hideIfUnauthorized="INVENTORY_FILTER|S_INVENTORY_REPORT" type="button" class="btn btn-outline-secondary btn-sm" (click)="selectInventory()"> {{ selectedInventory != null ? selectedInventory.description : 'Inventar'  }}</button>-->
+<!--           &nbsp;-->
+<!--            &lt;!&ndash; <button hideIfUnauthorized="VIEW_REPORT|S_INVENTORY_REPORT" type="button" class="btn btn-outline-dark btn-sm" (click)="reportInventoryList('ALL')" [disabled]="selectedInventory == null || (selectedLocations.length < 1 && selectedRooms.length < 1)"><i class="fa fa-report"></i> Raport</button>-->
+<!--            &nbsp; &ndash;&gt;-->
+<!--            <div hideIfUnauthorized="DEPARTMENT_FILTER|ASSET" class="btn-group" dropdown>-->
+<!--              <button type="button" class="btn btn-dark btn-sm" (click)="selectDepartments()" [style.color] = "'burlywood'">B.U.</button>-->
+<!--              <button type="button" dropdownToggle class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                <span class="caret"></span>-->
+<!--                <span class="sr-only">Split button!</span>-->
+<!--                <span class="badge badge-light badge-pill" style="position: static;">{{selectedDepartments.length > 0 ? selectedDepartments.length : ''}}</span>-->
+<!--              </button>-->
+<!--              <ul  class="dropdown-menu" role="menu">-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="clearDepartmentSelection()">Sterge toate</a></li>-->
+<!--                  <div class="dropdown-divider"></div>-->
+<!--                  <li role="menuitem" *ngFor="let department of selectedDepartments"><a class="dropdown-item" (click)="removeFromDepartmentSelection(department)"><i class="fa fa-times"></i> &nbsp;{{ department.name }}</a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--            &nbsp;-->
+<!--            <div hideIfUnauthorized="DIVISION_FILTER|ASSET" class="btn-group" dropdown>-->
+<!--              <button type="button" class="btn btn-dark btn-sm" (click)="selectDivisions()" [style.color] = "'burlywood'">Departamente</button>-->
+<!--              <button type="button" dropdownToggle class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                <span class="caret"></span>-->
+<!--                <span class="sr-only">Split button!</span>-->
+<!--                <span class="badge badge-light badge-pill" style="position: static;">{{selectedDivisions.length > 0 ? selectedDivisions.length : ''}}</span>-->
+<!--              </button>-->
+<!--              <ul  class="dropdown-menu" role="menu">-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="clearDivisionSelection()">Sterge toate</a></li>-->
+<!--                  <div class="dropdown-divider"></div>-->
+<!--                  <li role="menuitem" *ngFor="let division of selectedDivisions"><a class="dropdown-item" (click)="removeFromDivisionSelection(division)"><i class="fa fa-times"></i> &nbsp;{{ division.name }}</a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--            &nbsp;-->
+<!--            <div hideIfUnauthorized="COSTCENTER_FILTER|S_INVENTORY_REPORT" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-dark btn-sm" (click)="selectCostCenters()" [style.color] = "'burlywood'">Centre de cost</button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-light badge-pill" style="position: static;">{{selectedCostCenters.length > 0 ? selectedCostCenters.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearLocationSelection()">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let costCenter of selectedCostCenters"><a class="dropdown-item" (click)="removeFromCostCenterSelection(costCenter)"><i class="fa fa-times"></i> &nbsp;{{ costCenter.code }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <button hideIfUnauthorized="CLEAR_FILTER|S_INVENTORY_REPORT"  type="button" class="btn btn-outline-danger btn-sm" (click)="clearFilters()"><i class="fa fa-times" aria-hidden="true"></i></button>-->
+<!--              &nbsp;&nbsp;-->
+<!--            <br>-->
+<!--            <br>-->
+
+<!--&lt;!&ndash;            <button pButton label="Lista inventariere"  [disabled]="waitResponse"  (click)="exportA('A')" icon="pi pi-file-pdf" iconPos="left" type="button">&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--            &nbsp;&nbsp;-->
+<!--&lt;!&ndash;            <button pButton label="Anexa 1 (neinventariate inventar)"  [disabled]="waitResponse"  (click)="exportAMinus('A')" icon="pi pi-file-pdf" iconPos="left" type="button">&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--            &nbsp;&nbsp;-->
+<!--&lt;!&ndash;            <button pButton label="Anexa 2 (plusuri inventar)"  [disabled]="waitResponse"  (click)="exportAPlus('A')" icon="pi pi-file-pdf" iconPos="left" type="button">&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            &nbsp;&nbsp;&ndash;&gt;-->
+<!--&lt;!&ndash;            <button pButton label="Registru neetichetabile"  [disabled]="waitResponse"  (click)="exportAllowLabel()" icon="pi pi-file-pdf" iconPos="left" type="button">&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            &nbsp;&nbsp;&ndash;&gt;-->
+<!--&lt;!&ndash;            <br>&ndash;&gt;-->
+<!--&lt;!&ndash;            <br>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button pButton label="Declaratie inainte"  [disabled]="waitResponse"  (click)="exportBookBefore()" icon="pi pi-file-pdf" iconPos="left" type="button">&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            &nbsp;&nbsp;&ndash;&gt;-->
+<!--&lt;!&ndash;            <button pButton label="Declaratie dupa"  [disabled]="waitResponse"  (click)="exportBookAfter()" icon="pi pi-file-pdf" iconPos="left" type="button">&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            &nbsp;&nbsp;&ndash;&gt;-->
+<!--&lt;!&ndash;            <button pButton label="Proces verbal"  [disabled]="waitResponse"  (click)="exportPV()" icon="pi pi-file-pdf" iconPos="left" type="button">&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!-- <div class="modal fade" bsModal #departmentsModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="departmentSelectionCanceled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">{{'DEPARTMENTS' | translate}}</h4>
+      </div>
+      <div class="modal-body">
+
+        <app-department-list id="departmentList"
+            [dataSource]="departmentDetailHttpService"
+            usePaging="true"
+            showSimpleSearch="true"
+            rowSelection="multiple"
+            notifyOnChange="false"
+            loadOnInit="false"
+            (selectionChanged)="addToDepartmentSelection($event)">
+        </app-department-list>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="updateDepartmentSelection()"><i class="fa fa-check"></i> Select</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="departmentSelectionCanceled()"><i class="fa fa-close"></i> Inchide</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="modal fade" bsModal #inventoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Inventare</h4>
+            </div>
+            <div class="modal-body">
+                <inventory-list #inventoryList id="inventoryList"
+                    [dataSource]="inventoryHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </inventory-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInventory()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="inventoryListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #departmentListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Departament</h4>
+            </div>
+            <div class="modal-body">
+                <app-department-list #departmentList id="departmentList"
+                    [dataSource]="departmentHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-department-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDepartments()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="departmentListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Angajati</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployees()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #admCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Zone</h4>
+            </div>
+            <div class="modal-body">
+                <app-adm-center-list #admCenterList id="admCenterList"
+                    [dataSource]="admCenterHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-adm-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdmCenters()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="admCenterListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #locationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Etaje</h4>
+            </div>
+            <div class="modal-body">
+                <app-location-list #locationList id="locationList"
+                    [dataSource]="locationHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-location-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocations()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="locationListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #roomListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Zone</h4>
+            </div>
+            <div class="modal-body">
+                <app-room-list #roomList id="roomList"
+                    [dataSource]="roomDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-room-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRooms()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="roomListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Centre de cost</h4>
+            </div>
+            <div class="modal-body">
+                <app-cost-center-list #costCenterList id="costCenterList"
+                    [dataSource]="costCenterHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenters()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="costCenterListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #regionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Judete</h4>
+            </div>
+            <div class="modal-body">
+                <app-region-list #regionList id="regionList"
+                    [dataSource]="regionHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-region-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRegions()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="regionListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #divisionListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Gestiuni</h4>
+        </div>
+        <div class="modal-body">
+            <app-division-list #divisionList id="divisionList"
+                [dataSource]="divisionHttpService"
+                rowSelection="multiple"
+                notifyOnChange="false"
+                usePaging="true">
+            </app-division-list>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivisions()">Selecteaza</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="divisionListModal.hide()">Inchide</button>
+        </div>
+    </div>
+  </div>
+</div>

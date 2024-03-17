@@ -1,0 +1,270 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_brand_add_edit'">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">{{ t((item === null || item.id! < 1) ? 'title_add' : 'title_edit') }}</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container">
+
+        <div class="row">
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="row mx-auto">
+              <div class="col-10 mx-auto">
+
+                <div class="row">
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('code_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="code" [placeholder]="t('code_placeholder')">
+                      <small *ngIf="form.controls['code'].hasError('required') && form.controls['code'].touched" class="mat-text-warn">{{ t('code_required') }}</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('description_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="name" [placeholder]="t('description_placeholder')">
+                      <small *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="mat-text-warn">{{ t('description_required') }}</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Tag 1:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="tag1" placeholder="tag 1..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Tag 2:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="tag2" placeholder="tag 2..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Tag 3:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="tag3" placeholder="tag 3..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Tag 4:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="tag4" placeholder="tag 4..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Tag 5:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="tag5" placeholder="tag 5..." maxlength="100">
+                    </div>
+                  </div>
+
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Serie 1:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="serie1" placeholder="Serie 1..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Serie 2:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="serie2" placeholder="Serie 2..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Serie 3:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="serie3" placeholder="Serie 3..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Serie 4:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="serie4" placeholder="Serie 4..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Serie 5:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="serie5" placeholder="Serie 5..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        IMEI 1:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="imei1" placeholder="IMEI 1..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        IMEI 2:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="imei2" placeholder="IMEI 2..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        IMEI 3:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="imei3" placeholder="IMEI 3..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        IMEI 4:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="imei4" placeholder="IMEI 4..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        IMEI 5:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="imei5" placeholder="IMEI 5..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Phone number 1:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="phone1" placeholder="Phone number 1..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Phone number 2:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="phone2" placeholder="Phone number 2..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Phone number 3:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="phone3" placeholder="Phone number 3..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Phone number 4:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="phone4" placeholder="Phone number 4..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Phone number 5:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="phone5" placeholder="Phone number 5..." maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        Denumire:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <dictionary-items-item-select class="form-group-select_wrapper" formControlName="dictionaryItem" placeholder="Selecteaza..">
+                      </dictionary-items-item-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">Cancel</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            [disabled]="!form.valid"
+            (click)="save()"
+    >{{ t('action_save') }}</button>
+  </mat-dialog-actions>
+
+</div>

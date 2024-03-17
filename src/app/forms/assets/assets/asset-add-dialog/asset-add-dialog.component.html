@@ -1,0 +1,302 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_asset_add'">
+  <div class="modal-dialog-header">
+    <div class="d-flex align-items-center">
+      <h2 class="modal-title mb-0">Adauga</h2>
+      <div class="d-flex ml-15">
+        <div *ngIf="!order" class="form-group inputs-modal-nomenclature d-grid mr-15">
+          <orders-item-select class="form-group-select_wrapper" [(ngModel)]="order" displayValue="code" placeholder="Selecteaza PO" [disabled]="assetId > 0" [ngModelOptions]="{standalone: true}">
+          </orders-item-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <div class="vertical-divider mr-10"></div>
+      <button type="button" class="btn-close" mat-dialog-close></button>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container-fluid">
+
+        <div class="row">
+          <form>
+            <div class="row mx-auto">
+              <div class="col-12 mx-auto">
+
+                <div class="mt- mb-5">
+                  <div class="">
+                    <div class="col-12 attributes">
+                      <div class="files-header mb-2">
+                        <span class="mr-15 my-auto">LISTA WBS ({{ requestBudgetForecastList.totalItems }})</span>
+                      </div>
+                      <hr class="mb-3">
+                      <div>
+                        <div class="table-responsive border-1-gray">
+                          <app-request-budget-forecast-material-view-ng-prime-validate #requestBudgetForecastList id="requestBudgetForecastList"
+                                                                                       [dataSource]="requestBudgetForecastHttpService"
+                                                                                       listTemplate="REQUESTBUDGETFORECASTS"
+                                                                                       sortColumn="request.id"
+                                                                                       sortDirection="desc"
+                                                                                       dynamicQuery="true"
+                                                                                       usePaging="true"
+                                                                                       showSimpleSearch="false"
+                                                                                       [pageSize]="100"
+                                                                                       [rowSelection]="assetRowSelection"
+                                                                                       (selectionChanged)="setSelectedItem($event)"
+                                                                                       notifyOnChange="true">
+                          </app-request-budget-forecast-material-view-ng-prime-validate>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-5 mb-5">
+                  <div class="row dash-alerts-wrapper">
+                    <div *ngIf="!sumMaxMaterialCostCenters" class="col-md-12">
+                      <div class="dash-alert-item">
+                        <div class="alert " role="alert">
+                          Cantitatea totala alocata pe centrele de cost pentru anumite produse depaseste cantitatea totala din comanda!
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="col-12 attributes">
+                      <div class="files-header mb-2">
+                        <span class="mr-15 my-auto">LISTA PRODUSE DISPONIBILE ({{ requestBudgetForecastMaterialList.totalItems }})</span>
+                      </div>
+                      <hr class="mb-3">
+                      <div>
+                        <div class="table-responsive border-1-gray">
+                          <app-request-budget-forecast-view-ng-prime-validate #requestBudgetForecastMaterialList id="requestBudgetForecastMaterialList"
+                                                                              [dataSource]="requestBudgetForecastMaterialHttpService"
+                                                                              showSimpleSearch="false"
+                                                                              listTemplate="REQUESTBUDGETFORECASTMATERIALS"
+                                                                              detailType=""
+                                                                              sortColumn="material.code"
+                                                                              sortDirection="asc"
+                                                                              dynamicQuery="true"
+                                                                              rowSelection="single"
+                                                                              notifyOnChange="true"
+                                                                              (selectionChanged)="onRequestBudgetForecastMaterialListSelectionChanged($event)"
+                                                                              [pageSize]="100"
+                                                                              usePaging="true">
+                          </app-request-budget-forecast-view-ng-prime-validate>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-5 mb-5">
+                  <div class="">
+                    <div class="col-12 attributes">
+                      <div class="files-header mb-2">
+                        <div class="d-flex">
+                          <span class="mr-15 my-auto">LISTA CENTRE DE COST MAPATE ({{ requestBFMaterialCostCenterList.totalItems }})</span>
+                        </div>
+                        <div class="d-flex">
+                          <button class="small-blue-btn mb-0 ml-15" (click)="onCostCenterReceptionAdd()" [disabled]="requestBudgetForecastMaterialList.selectedItems.length === 0">
+                            <mat-icon>add</mat-icon>
+                            Centre de cost
+                          </button>
+                          <button class="small-blue-btn mb-0 ml-15" (click)="onEmployeeReceptionAdd()" [disabled]="requestBFMaterialCostCenterList.selectedItems.length === 0">
+                            <mat-icon>add</mat-icon>
+                            Utilizator
+                          </button>
+                          <button class="small-danger-btn mb-0 ml-15" (click)="onDeleteRequestBFMaterialCostCenter()" [disabled]="requestBFMaterialCostCenterList.selectedItems.length === 0">
+                            <mat-icon>delete_outline</mat-icon>
+                            Sterge centru de cost
+                          </button>
+                          <button class="small-danger-btn mb-0 ml-15" (click)="onDeleteRequestBFMaterialEmployee()" [disabled]="requestBFMaterialCostCenterList.selectedItems.length === 0">
+                            <mat-icon>plus</mat-icon>
+                            Sterge utilizator
+                          </button>
+                          <button class="small-green-btn mb-0 ml-15" (click)="saveCostCenterValidated()" [disabled]="requestBFMaterialCostCenterList.selectedItems.length === 0">
+                            <mat-icon>plus</mat-icon>
+                            Actualizare
+                          </button>
+                          <button class="small-green-btn mb-0 ml-15" (click)="updateCostCenterMultiple()" [disabled]="requestBFMaterialCostCenterList.selectedItems.length === 0">
+                            <mat-icon>plus</mat-icon>
+                            Actualizare multiplu
+                          </button>
+                        </div>
+                      </div>
+                      <hr class="mb-3">
+                      <div>
+                        <div class="table-responsive border-1-gray">
+                          <app-request-budget-forecast-validate-list #requestBFMaterialCostCenterList id="requestBFMaterialCostCenterList"
+                                                                     [dataSource]="requestBFMaterialCostCenterHttpService"
+                                                                     showSimpleSearch="false"
+                                                                     listTemplate="REQUESTBFMATERIALCOSTCENTERS"
+                                                                     detailType=""
+                                                                     sortColumn="costCenter.code"
+                                                                     sortDirection="asc"
+                                                                     dynamicQuery="true"
+                                                                     rowSelection="single"
+                                                                     notifyOnChange="true"
+                                                                     usePaging="true">
+                          </app-request-budget-forecast-validate-list>
+                        </div>
+                      </div>
+                      <div class="col-sm-12" style="display: none">
+                        <app-request-budget-forecast-validate-list #requestBFMaterialCostCenterAllList id="requestBFMaterialCostCenterAllList"
+                        [dataSource]="requestBFMaterialCostCenterHttpService"
+                        showSimpleSearch="false"
+                        listTemplate="REQUESTBFMATERIALCOSTCENTERS"
+                        detailType="reception"
+                        sortColumn="costCenter.code"
+                        sortDirection="asc"
+                        dynamicQuery="true"
+                        rowSelection="single"
+                        notifyOnChange="true"
+                        [pageSize]= 100
+                        usePaging="true">
+                        </app-request-budget-forecast-validate-list>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="assetId > 0" class="mb-5" >
+                  <mat-tab-group mat-stretch-tabs="false" color="transparent">
+                    <mat-tab label="Istoric operatii">
+                      <div id="documentsSection1" class="row mt-3">
+                        <div class="col-12 attributes">
+                          <div class="files-header mb-2">
+                            <span class="mr-15 my-auto">Operations history ({{ assetOpDetailList.totalItems }})</span>
+                            <div class="d-flex">
+
+                            </div>
+                          </div>
+                          <hr class="mb-3">
+                          <div>
+                            <div class="table-responsive border-1-gray">
+                              <app-asset-op-detail-list #assetOpDetailList id="assetOpDetailList"
+                                                        [dataSource]="assetOpHttpService"
+                                                        showSimpleSearch="false"
+                                                        listTemplate="ASSET_OPERATIONS"
+                                                        detailType="details"
+                                                        sortColumn="modifiedAt"
+                                                        sortDirection="asc"
+                                                        dynamicQuery="true"
+                                                        rowSelection="single"
+                                                        notifyOnChange="true"
+                                                        (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                                        usePaging="true">
+                              </app-asset-op-detail-list>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Fisiere">
+                      <div id="documentsSection2" class="row mt-3">
+                        <div class="col-12 attributes">
+                          <div class="files-header mb-2">
+                            <span class="mr-15 my-auto">Files ({{ entityFileList?.totalItems }})</span>
+                            <div class="d-flex">
+
+                            </div>
+                          </div>
+                          <hr class="mb-3">
+                          <div>
+                            <div class="table-responsive border-1-gray">
+                              <app-entity-file-list #entityFileList id="entityFileList"
+                                                    [dataSource]="entityFileHttpService"
+                                                    showSimpleSearch="false"
+                                                    rowSelection="single"
+                                                    notifyOnChange="true"
+                                                    (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                                    usePaging="false"
+                                                    [inInvetoryReport] = "false">
+                              </app-entity-file-list>
+                              <br>
+                              <!-- <app-entity-file-upload *ngIf="asset.id > 0"
+                                  [entityId]="asset.id"
+                                  [entityTypeCode]="entityTypeCode"
+                                  (uploadFinished)="refreshEntityFiles()">
+                              </app-entity-file-upload> -->
+                              <app-entity-file-download *ngIf="assetId > 0"
+                                                        [entityFile]="entityFile">
+                              </app-entity-file-download>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">Inchide</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            [disabled]="!allowSaving || !isSaved || !sumMaxMaterialCostCenters"
+            (click)="saveAsset()"
+    >Pre-receptioneaza</button>
+  </mat-dialog-actions>
+</div>
+
+
+
+
+<div class="modal fade" bsModal #costCenterReceptionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title pull-left">Cost center</h3>
+      </div>
+      <div class="modal-body">
+        <app-cost-center-list #costCenterReceptionList id="costCenterReceptionList"
+                              [dataSource]="costCenterHttpService"
+                              rowSelection="single"
+                              notifyOnChange="false"
+                              [pageSize]="5"
+                              usePaging="true">
+        </app-cost-center-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenterReception()">Selecteaza</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="costCenterReceptionListModal.hide()">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #employeeReceptionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title pull-left">Utilizatori</h3>
+      </div>
+      <div class="modal-body">
+        <app-employee-list #employeeReceptionList id="employeeReceptionList"
+                           [dataSource]="employeeHttpService"
+                           rowSelection="single"
+                           notifyOnChange="false"
+                           [pageSize]="5"
+                           usePaging="true">
+        </app-employee-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployeeReception()">Selecteaza</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeReceptionListModal.hide()">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>

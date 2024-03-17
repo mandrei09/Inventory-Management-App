@@ -1,0 +1,185 @@
+<style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 29px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgb(255, 107, 41);
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #5cb85c;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #5cb85c;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    .table-inline-edit-input {
+      border-radius: 8px;
+      border: 1px solid #C6C6D5;
+      padding: 0 16px;
+      height: 35px;
+      color: #8B8B9D;
+      font-size: 14px;
+    }
+    </style>
+
+<div>
+    <div class="row" *ngIf="showSimpleSearch === 'true'">
+        <div class="ui-toolbar-group-left">
+            <!--<label class="col-sm-1 control-label">Cauta</label>-->
+            <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)" />
+        </div>
+    </div>
+
+    <div class="">
+        <div class="card-body table-responsive table w-auto small border-0">
+            <table class="table custom-table table-bordered" style="white-space: nowrap; font-weight: 500" [style.font-size.px]="12">
+                <thead class="thead" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'burlywood'">
+                    <tr>
+                        <!-- <th class="align-left"> -->
+<!--                            <button *ngIf="!isAllCheckedEmp()" (click)="updateCheckStateEmp(true)" class="btn btn-outline-success btn-sm" type="button" style="background: rgb(0, 176, 80); color: white;"></button>-->
+<!--                            <button *ngIf="isAllCheckedEmp()" (click)="updateCheckStateEmp(false)" class="btn btn-outline-warning btn-sm" type="button" style="background: rgb(217, 83, 79); color: white;"> </button>-->
+                            <!-- <div class="d-flex cursor-pointer">
+                              <i *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="material-icons" style="font-size: 22px;color: #C6C6D4;">check_box_outline_blank</i>
+                            </div>
+                            <div class="d-flex cursor-pointer">
+                              <i *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="material-icons" style="font-size: 22px;color: #0d6efd;">check_box</i>
+                            </div> -->
+                        <!-- </th> -->
+                        <!-- <th>
+                            Modifica
+                        </th>
+                        <th>
+                            Motiv minus
+                    </th > -->
+                        <th *ngFor="let column of columns" class="align-left">
+                            <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+                                <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                                <!-- {{ column.headerCode | translate }} -->
+                                {{ column.headerCode }}
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "tableItem.item.isMinus === false && tableItem.item.isPlus === false && (tableItem.item.infoPlus === '' || tableItem.item.infoPlus === null) ? 'rgb(216,191,216)' : tableItem.item.isMinus === true ? '#E7EEFF' : tableItem.item.isMinus === false && tableItem.item.isPlus === true ? 'rgb(255, 228, 130)' : 'rgb(255, 255, 255)'">
+                        <!-- <td><i *ngIf="tableItem.selected" class="material-icons cursor-pointer" style="font-size: 22px;color: #0d6efd;">check_box</i></td> -->
+
+                        <!-- <td><label class="switch"><input type="checkbox" [checked]="tableItem.item.isMinus" [(ngModel)]="tableItem.item.isMinus" [value]="tableItem.item.isMinus" (change)="onAllowLabelUpdate(tableItem)"><span class="slider round"></span></label></td>
+                        <td><input *ngIf="tableItem.item.isMinus" [disabled]="tableItem.item.readOnly" type="text" placeholder="" class="table-inline-edit-input" [(ngModel)]="tableItem.item.infoMinus" (change)="onAllowLabelInfoMinusUpdate(tableItem)" /></td> -->
+                        <td *ngFor="let column of columns" [style.text-align]="column.textAlign"  >
+
+                          <ng-container *ngIf="column.pipe != 'status'">
+                            {{ tableItem.item | fieldByColumnDefinition: column }}
+                          </ng-container>
+
+                          <ng-container *ngIf="column.pipe == 'status'">
+                            <div [innerHTML]="tableItem.item | fieldByColumnDefinition: column">
+                            </div>
+                          </ng-container>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="tableItems.length === 0">
+                      <td class="" style="text-align: left;padding:.5rem .5rem !important;width: calc(100vw - 240px);min-width: calc(100vw - 240px);">
+                        <div class="table-no_results">No results found!</div>
+                      </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+  <div class="d-flex justify-content-between">
+    <div class="">
+          <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                  [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                  previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="totals != null">
+        <!-- <div class="col-sm-3">
+            <h5 class="panel-subtitle">Valoare intrare: {{ totals.valueDepPU | number : '1.2-2' }}</h5>
+        </div>
+        <div class="col-sm-3">
+            <h5 class="panel-subtitle">Valoare inventar: {{ totals.valueInv | number : '1.2-2' }}</h5>
+        </div> -->
+        <!-- <div class="col-sm-2">
+            <h5 class="panel-subtitle">{{'ASSET_VALUE_REMAINING' | translate}}: {{ totals.valueRem | number : '1.2-2' }}</h5>
+        </div> -->
+        <!-- <div class="col-sm-3">
+            <h5 class="panel-subtitle">{{'ASSET_ACCUMULATED_DEPRECATION' | translate}}: {{ (totals.valueDepYTD) | number : '1.2-2' }}</h5>
+        </div>
+        <div class="col-sm-3">
+            <h5 class="panel-subtitle">{{'ASSET_DEPRECATION_MONTH' | translate}}: {{ totals.valueDep | number : '1.2-2' }}</h5>
+        </div> -->
+        <!-- <div class="col-sm-2">
+            <h5 class="panel-subtitle">{{'ASSET_DEPRECATION_YEAR' | translate}}: {{ totals.valueDepYTD | number : '1.2-2' }}</h5>
+        </div> -->
+        <div class="col-sm-2">
+            <h5 class="panel-subtitle">Total: {{ totals.count }}</h5>
+        </div>
+    </div>
+
+    <!-- <div class="col-sm-3">
+        <div class="ui-toolbar-group-left">
+            <div class="text-right">
+                <br>
+                <h4 class="text-success">Total: {{ totalItems }}</h4>
+                <h4 class="text-danger">{{ countFinished > 0 ? ' Total finalizate: ' + countFinished : ''  }}</h4>
+                <h4 class="text-primary">{{ sumValueInv > 0 ? ' Total valoare intrare: ' + sumValueInv : ''  }}</h4>
+                <h4 class="text-primary">{{ sumValueRem > 0 ? ' Total valoare inventar: ' + sumValueRem : ''  }}</h4>
+            </div>
+        </div>
+    </div> -->
+
+</div>

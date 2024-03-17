@@ -1,0 +1,832 @@
+<div *transloco="let t; read: 'page_wfh_component'" style="height: 100%;">
+  <div class="content-page-header">
+    <app-common-header [showAddNewButton]="'false'">
+    </app-common-header>
+  </div>
+
+  <div class="content-page-header-two d-flex" style="padding: 8px 16px 8px 19px;">
+    <div class="last-update">
+      <span>{{ t('last_update_text') }}: {{ todaysDataTime }}</span>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="isAdmin" class="dash-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 dash-column">
+          <div class="dashboard-item-header">
+            <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3125 0.3125L14 3H24.6875C25.3958 3 26 3.27083 26.5 3.8125C27.0417 4.35417 27.3125 4.97917 27.3125 5.6875V19C27.3125 19.7083 27.0417 20.3333 26.5 20.875C26 21.4167 25.3958 21.6875 24.6875 21.6875H3.3125C2.60417 21.6875 1.97917 21.4167 1.4375 20.875C0.9375 20.3333 0.6875 19.7083 0.6875 19V3C0.6875 2.29167 0.9375 1.66667 1.4375 1.125C1.97917 0.583333 2.60417 0.3125 3.3125 0.3125H11.3125Z"></path></svg>
+            <span>{{ t('employee_label') }}</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-blue-color">{{ itemsInventory[0].count | number:'1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="col-md-3 dash-column">
+          <div class="dashboard-item-header">
+            <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3125 0.3125L14 3H24.6875C25.3958 3 26 3.27083 26.5 3.8125C27.0417 4.35417 27.3125 4.97917 27.3125 5.6875V19C27.3125 19.7083 27.0417 20.3333 26.5 20.875C26 21.4167 25.3958 21.6875 24.6875 21.6875H3.3125C2.60417 21.6875 1.97917 21.4167 1.4375 20.875C0.9375 20.3333 0.6875 19.7083 0.6875 19V3C0.6875 2.29167 0.9375 1.66667 1.4375 1.125C1.97917 0.583333 2.60417 0.3125 3.3125 0.3125H11.3125Z"></path></svg>
+            <span>{{ t('email_label') }}</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-blue-color">{{ itemsInventory[0].emailSend  | number:'1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="col-md-3 dash-column">
+          <div class="dashboard-item-header">
+            <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3125 0.3125L14 3H24.6875C25.3958 3 26 3.27083 26.5 3.8125C27.0417 4.35417 27.3125 4.97917 27.3125 5.6875V19C27.3125 19.7083 27.0417 20.3333 26.5 20.875C26 21.4167 25.3958 21.6875 24.6875 21.6875H3.3125C2.60417 21.6875 1.97917 21.4167 1.4375 20.875C0.9375 20.3333 0.6875 19.7083 0.6875 19V3C0.6875 2.29167 0.9375 1.66667 1.4375 1.125C1.97917 0.583333 2.60417 0.3125 3.3125 0.3125H11.3125Z"></path></svg>
+            <span>{{ t('confirmation_label') }}</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-blue-color">{{ itemsInventory[0].isConfirmed | number:'1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="col-md-3 dash-column">
+          <div class="dashboard-item-header">
+            <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3125 0.3125L14 3H24.6875C25.3958 3 26 3.27083 26.5 3.8125C27.0417 4.35417 27.3125 4.97917 27.3125 5.6875V19C27.3125 19.7083 27.0417 20.3333 26.5 20.875C26 21.4167 25.3958 21.6875 24.6875 21.6875H3.3125C2.60417 21.6875 1.97917 21.4167 1.4375 20.875C0.9375 20.3333 0.6875 19.7083 0.6875 19V3C0.6875 2.29167 0.9375 1.66667 1.4375 1.125C1.97917 0.583333 2.60417 0.3125 3.3125 0.3125H11.3125Z"></path></svg>
+            <span>{{ t('percentage_label') }}</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-blue-color">{{ itemsInventory[0].procentage | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="dash-content" style="background: #FFF;padding-top: 18px;border-bottom: 1px solid #D9D9DF;">
+    <div class="container-fluid">
+      <!-- <div class="row dash-alerts-wrapper">
+        <div *ngIf="dictionaryItem === null" class="col-md-12">
+          <div class="dash-alert-item">
+            <div class="alert " role="alert">
+              Va rugam adaugati un echipament! (Click pe butonul <strong style="color: #343a40;">1. Echipament</strong>)
+            </div>
+          </div>
+        </div>
+        <div *ngIf="missingBrand" class="col-md-12">
+          <div class="dash-alert-item">
+            <div class="alert " role="alert">
+              Va rugam adaugati o marca! (Click pe butonul <strong style="color: #343a40;">2. Marca</strong>).In situatia in care <span style="color: red;">marca</span> echipamentului nu se regaseste in lista, selectati din lista de marci <strong style="color: red;">Altele</strong> si completati manual marca.
+            </div>
+          </div>
+        </div>
+        <div *ngIf="missingModel" class="col-md-12">
+          <div class="dash-alert-item">
+            <div class="alert " role="alert">
+              Va rugam adaugati un model! (Click pe butonul <strong style="color: #343a40;">3. Model</strong>).In situatia in care <span style="color: red;">modelul</span> echipamentului nu se regaseste in lista, selectati din lista de modele <strong style="color: red;">Altele</strong> si completati manual modelul.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="dash-alert-item">
+            <div class="alert " role="alert">
+              Pentru <span style="color: #28a745;">modificarea</span> unui echipament, selectati linia respectiva, iar apoi modificati informatiile in campurile in care le-ati introdus si salvati utilizand butonul <button pButton pRipple type="button" label="Salveaza" icon="pi pi-save" styleClass="p-button-sm" class="p-button-success" style="border:1px solid #0B4FFF!important;border-radius: 6px;color: #0B4FFF;padding: 2px 8px;background: transparent;margin: 0 5px;"></button> din subsolul paginii.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="dash-alert-item">
+            <div class="alert " role="alert">
+              Pentru <span style="color: red;">stergerea</span> unui echipament, selectati  linia respectiva, iar apoi stergeti echipamentul utilizand butonul <button pButton label="Sterge" icon="pi pi-trash" styleClass="p-button-sm" class="p-button-danger" style="border: 1px solid rgb(168, 16, 0)!important;border-radius: 6px;color: rgb(168, 16, 0);padding: 2px 8px;background: transparent;margin: 0 5px;"></button> din subsolul paginii.
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="dashboard-form">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+              <label>
+                1. Echipament:
+              </label>
+              <dictionary-items-item-select class="form-group-select_wrapper" [(ngModel)]="dictionaryItem" [params]="dictionaryItemParams" displayValue="name" placeholder="Selecteaza echipament" (ngModelChange)="validateName($event)">
+              </dictionary-items-item-select>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+              <label>
+                2. Marca:
+              </label>
+              <brands-item-select class="form-group-select_wrapper" [(ngModel)]="brand" [params]="brandParams" displayValue="name" (ngModelChange)="validateBrand($event)" placeholder="Selecteaza marca" [disabled]="selectedDictionaryItem == null">
+              </brands-item-select>
+              <div class="input-group" *ngIf="!brandReadOnly">
+                <input [ngStyle]="brandReadOnly ? {'background-color': 'transparent'} : {'background-color': 'powderblue'}" style="font-size: 12px;text-align: center;font-weight: bold; color: black;" type="text" class="form-control" placeholder=""
+                  [(ngModel)]="brandName" name="brandName" (ngModelChange)="validateBrand($event)" [readonly]="brandReadOnly">
+            </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+              <label>
+                3. Model:
+                <!-- {{selectedBrand | json}}
+                {{brandReadOnly}}
+                {{brandName}} -->
+              </label>
+              <models-item-select class="form-group-select_wrapper" [(ngModel)]="model" [params]="modelParams" displayValue="name" placeholder="Selecteaza model" [disabled]="((selectedBrand == null && brandReadOnly) || ((!brandReadOnly) && (brandName.trim().length === 0)))">
+              </models-item-select>
+              <div class="input-group" *ngIf="!modelReadOnly">
+                <input [ngStyle]="modelReadOnly ? {'background-color': 'transparent'} : {'background-color': 'powderblue'}" style="font-size: 12px;text-align: center;font-weight: bold; color: black;" type="text" class="form-control" placeholder=""
+                  [(ngModel)]="modelName" name="modelName" (ngModelChange)="validateModel($event)" [readonly]="modelReadOnly">
+            </div>
+            </div>
+          </div>
+          <div *ngIf="selectedDictionaryItem != null && selectedDictionaryItem.name !== 'Telefon'" class="col-12 col-md-4">
+            <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+              <label>
+                Serie (conform eticheta producator):
+                <!-- {{sapCodePatternValidate}}
+                {{snModelPatternValidate}}
+                {{imeiModelPatternValidate}}
+                {{serialNumber?.trim().length}}
+                {{model?.snLength}} -->
+                <!-- {{modelReadOnly}}
+                {{brandReadOnly}}
+                {{brandName}}
+                {{modelName}}
+                {{isValid}} -->
+                <!-- {{selectedDictionaryItem | json}}
+                {{isValid}} -->
+                <span class="required-label-symbol">*</span>
+              </label>
+              <input matInput class="form-control" [(ngModel)]="serialNumber" name="serialNumber">
+              <small [hidden]="((serialNumber != undefined && serialNumber != '' && ((serialNumber.trim().length === model?.snLength) || (serialNumber === 'N/A')) && snModelPatternValidate))" class="mat-text-warn">Minim {{model?.snLength}} caractere <span style="color: blue">alfanumerice</span> sau N/A format</small>
+            </div>
+          </div>
+          <div *ngIf="selectedDictionaryItem != null && selectedDictionaryItem.name !== 'Telefon'" class="col-12 col-md-4">
+            <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+              <label>
+                Nr inventar:
+                <span class="required-label-symbol">*</span>
+              </label>
+              <input matInput class="form-control" [(ngModel)]="sapCode" name="sapCode">
+              <small [hidden]="((sapCode != undefined && sapCode != '' && ((sapCode.trim().length > 3) || (sapCode === 'N/A')) && sapCodePatternValidate))" class="mat-text-warn">Minim 8 caractere <span style="color: blue">LUNA</span> + <span style="color: darkorange">AN</span> + <span style="color: deepskyblue">COD COMPANIE</span> + <span style="color: black">XXXX</span> (ex: <span style="color: blue">08</span><span style="color: darkorange">15</span><span style="color: deepskyblue">EITR</span><span style="color: black">XXXX</span>)<br><span style="color: blue">*08 (LUNA august)</span><br><span style="color: darkorange">*15 (ANUL 2015)</span><br><span style="color: deepskyblue">*EITR (COD COMPANIE EITR)</span></small>
+            </div>
+          </div>
+          <div *ngIf="selectedDictionaryItem !== null && selectedDictionaryItem.name == 'Telefon' && ((selectedBrand != null && selectedModel != null) || (brandName.trim().length > 2 && modelName.trim().length > 2 ))" class="col-12 col-md-4">
+            <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+              <label>
+                IMEI: {{imeiModelPatternValidate}} / {{brandReadOnly}} /  {{modelReadOnly}}
+                <span class="required-label-symbol">*</span>
+              </label>
+              <input matInput class="form-control" [(ngModel)]="imei" name="imei">
+              <small [hidden]="( ((imei != undefined) && (imei != '') && ((imei.trim().length === model?.imeiLength) || (imei === 'N/A')) && imeiModelPatternValidate))" class="mat-text-warn">Minim {{model?.imeiLength}} caractere <span style="color: blue">numerice</span> sau N/A format</small>
+            </div>
+          </div>
+          <div *ngIf="selectedDictionaryItem != null && selectedDictionaryItem.name == 'Telefon' && ((selectedBrand != null && selectedModel != null) || (brandName.trim().length > 2 && modelName.trim().length > 2 ))" class="col-12 col-md-4">
+            <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+              <label>
+                Nr. telefon:
+                <span class="required-label-symbol">*</span>
+              </label>
+              <input matInput class="form-control" [(ngModel)]="phoneNumber" (paste)="checkUnique($event)" (keydown)="checkUnique($event)" name="phoneNumber">
+              <small [hidden]="((phoneNumber != undefined && phoneNumber != '' && (phoneNumber.trim().length > 3 || phoneNumber === 'N/A') && (checkUniquePhoneNumber || phoneNumber === 'N/A')))" class="mat-text-warn">Obligatoriu 10 caractere sau N/A</small>
+            </div>
+          </div>
+          <div *ngIf="selectedDictionaryItem != null && selectedDictionaryItem.name !== 'Telefon' && selectedBrand != null && selectedModel != null" class="col-12 col-md-4">
+            <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+              <label>
+                Observatii:
+                <span class="required-label-symbol">*</span>
+              </label>
+              <textarea [(ngModel)]="info" name="info" class="form-control" rows="4"></textarea>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <div class="d-flex">
+              <!-- 'Name: ' {{name}}
+              'SN: ' {{serialNumber}}
+              'SAP: ' {{sapCode}}
+              'Telefon: ' {{phoneNumber}}
+              'Imei: ' {{imei}}
+              'Brand: ' {{brand | json}}
+              'Model: ' {{model | json}} -->
+              <div class="refresh">
+                <button
+                    (click)="saveAsset()"
+                    class="small-green-outline-btn mb-0 ml-10"
+                    [disabled]="
+                    (selectedDictionaryItem == null) ||
+                    ((selectedBrand == null) && (!this.brandReadOnly && this.brandName.trim().length < 3)) ||
+                    (selectedBrand == null && brandReadOnly && modelReadOnly) ||
+                    ((selectedModel == null) && (!this.modelReadOnly && this.modelName.trim().length < 3)) ||
+                    (selectedModel == null && brandReadOnly && modelReadOnly) ||
+                    ((selectedDictionaryItem != null) && (selectedDictionaryItem.code !== 'TEL') && (!sapCodePatternValidate)) ||
+                    (!isValid) ||
+                    ((selectedDictionaryItem != null) && (selectedDictionaryItem.code !== 'TEL') && (!snModelPatternValidate)) ||
+                    (((selectedDictionaryItem != null) && (selectedDictionaryItem.code === 'TEL')) && ((!imeiModelPatternValidate) || (imeiModelPatternValidate && imei.trim().length != 15)))
+                    || (wfhStateId == 89)"
+                  >
+                    <mat-icon>save</mat-icon>
+                    <span>
+                      {{selectedAsset != null && selectedAsset.id > 0 ? 'Validare WFH' : 'Adauga'}}
+                    </span>
+              </button>
+              </div>
+
+
+              <!-- <button [disabled]="!isValid" class="btn blue-btn mr-10" (click)="saveAsset()" style="padding: 0px 16px;height: 35px;">{{selectedAsset != null && selectedAsset.id > 0 ? 'Validare WFH' : 'Adauga'}}</button> -->
+
+              <!-- <button [disabled]="!allowDelete" class="btn blue-btn" (click)="onDeleteAssetOp()" style="background: transparent;color: rgb(168, 16, 0);border: 1px solid rgb(168, 16, 0);padding: 0px 16px;height: 35px;">Sterge</button> -->
+
+              <div class="refresh">
+                <button
+                    (click)="onDeleteAssetOp()"
+                    class="small-danger-outline-btn mb-0 ml-10"
+                    [disabled]="!allowDelete"
+                  >
+                    <mat-icon>delete</mat-icon>
+                    <span>
+                      Sterge WFH
+                    </span>
+              </button>
+              </div>
+
+              <div class="refresh">
+                <button
+                    (click)="onStockTransfer()"
+                    class="small-blue-outline-btn mb-0 ml-10"
+                    [disabled]="!allowTransfer"
+                  >
+                    <mat-icon>swap_horiz</mat-icon>
+                    <span>
+                      Transfer catre IT
+                    </span>
+              </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-page-header-two d-flex">
+    <div class="left-actions d-flex">
+      <div class="refresh subheader-actions-wrapper">
+        <a (click)="clearFilters()"
+           #tooltip="matTooltip"
+           matTooltip="Reincarca lista"
+           matTooltipHideDelay="200">
+          <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="mr-15" style="display: flex;">
+        <div class="refresh">
+          <button
+            (click)="getSN()"
+            class="small-blue-btn mb-0 ml-10"
+          >
+            <mat-icon>print</mat-icon>
+            <span>
+              Instructiuni identificare serie/model
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="getIMEI()"
+            class="small-blue-btn mb-0 ml-10"
+          >
+            <mat-icon>print</mat-icon>
+            <span>
+              Instructiuni identificare IMEI
+            </span>
+          </button>
+        </div>
+        <div class="vertical-divider"></div>
+      </div>
+      <div class="results d-flex align-items-center">
+        <div>
+          <span class="blue-color">{{ assetInvFullDetailList._selectedItems ? assetInvFullDetailList._selectedItems.length : '0' }}</span>
+          <span [class.blue-color]="assetInvFullDetailList._selectedItems.length > 0"> {{ t('table_selected_text') }}</span>
+        </div>
+        <div class="vertical-divider mr-15"></div>
+        <div>
+          <span>{{ assetInvFullDetailList.totalItems ? assetInvFullDetailList.totalItems : '0' }} {{ t('table_results_text') }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <app-asset-list #assetList id="assetList"
+                    [dataSource]="assetHttpService"
+                    listTemplate="EMPLOYEENEWASSETS"
+                    (jsonFilterEventEvent)="getJsonFilterEventEvent($event)"
+                    (propertyFilterEvent)="getPropertyFilterEvent($event)"
+                    detailType="inuse"
+                    sortColumn="asset.invNo"
+                    sortDirection="asc"
+                    rowSelection="multiple"
+                    [clearFilters]="resetFilters"
+                    dynamicQuery="true"
+                    usePaging="true"
+                    [pageSize]="pageSize"
+                    showSimpleSearch="false"
+                    [rowSelection]="assetRowSelection"
+                    (selectionChanged)="onAssetSelectionChanged($event)"
+                    notifyOnChange="true">
+    </app-asset-list> -->
+
+
+  <app-asset-wfh-list #assetInvFullDetailList id="assetInvFullDetailList"
+                  [dataSource]="assetHttpService"
+                  listTemplate="EMPLOYEENEWASSETS"
+                  detailType="employeewfh"
+                  sortColumn="asset.invNo"
+                  sortDirection="asc"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  [pageSize]="100"
+                  showSimpleSearch="false"
+                  rowSelection="single"
+                  (selectionChanged)="onAssetInvFullDetailSelectionChanged($event)"
+                  notifyOnChange="true">
+  </app-asset-wfh-list>
+</div>
+
+
+
+
+<!--<div class="animated fadeIn">-->
+<!--    <br>-->
+<!--    <div class="card">-->
+<!--        <div class="row" *ngIf="isAdmin">-->
+<!--            <div class="col-sm-6 col-lg-3">-->
+<!--              <div class="card text-white bg-info">-->
+<!--                <div class="card-body pb-0">-->
+<!--                  <button type="button" class="btn btn-transparent p-0 float-right">-->
+<!--                    <i class="cil-address-book"></i>-->
+<!--                  </button>-->
+<!--                  <div class="text-value">{{itemsInventory[0].count | number:'1.0-0'}}</div>-->
+<!--                  <div>Angajati</div>-->
+<!--                </div>-->
+<!--                <div class="chart-wrapper mt-3 mx-3" style="height:20px;">-->
+<!--                  &lt;!&ndash; <canvas baseChart class="chart"-->
+<!--                  [datasets]="lineChart2Data"-->
+<!--                  [labels]="lineChart2Labels"-->
+<!--                  [options]="lineChart2Options"-->
+<!--                  [colors]="lineChart2Colours"-->
+<!--                  [legend]="lineChart2Legend"-->
+<!--                  [chartType]="lineChart2Type"></canvas> &ndash;&gt;-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-sm-6 col-lg-3">-->
+<!--              <div class="card text-white bg-primary">-->
+<!--                <div class="card-body pb-0">-->
+<!--                  <div class="btn-group float-right" dropdown>-->
+<!--                    <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>-->
+<!--                        <i class="cil-arrow-thick-right"></i>-->
+<!--                    </button>-->
+<!--                    &lt;!&ndash; <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>-->
+<!--                      <a class="dropdown-item" href="#">Action</a>-->
+<!--                      <a class="dropdown-item" href="#">Another action</a>-->
+<!--                      <a class="dropdown-item" href="#">Something else here</a>-->
+<!--                      <a class="dropdown-item" href="#">Something else here</a>-->
+<!--                    </div> &ndash;&gt;-->
+<!--                  </div>-->
+<!--                  <div class="text-value">{{itemsInventory[0].emailSend  | number:'1.0-0'}}</div>-->
+<!--                  <div>Emailuri</div>-->
+<!--                </div>-->
+<!--                <div class="chart-wrapper mt-3 mx-3" style="height:20px;">-->
+<!--                  &lt;!&ndash; <canvas baseChart class="chart"-->
+<!--                          [datasets]="lineChart1Data"-->
+<!--                          [labels]="lineChart1Labels"-->
+<!--                          [options]="lineChart1Options"-->
+<!--                          [colors]="lineChart1Colours"-->
+<!--                          [legend]="lineChart1Legend"-->
+<!--                          [chartType]="lineChart1Type"></canvas> &ndash;&gt;-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-sm-6 col-lg-3">-->
+<!--              <div class="card text-white bg-dark">-->
+<!--                <div class="card-body pb-0">-->
+<!--                  <div class="btn-group float-right" dropdown>-->
+<!--                    <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>-->
+<!--                        <i class="cil-chevron-bottom"></i>-->
+<!--                    </button>-->
+<!--                    &lt;!&ndash; <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>-->
+<!--                      <a class="dropdown-item" href="#">Action</a>-->
+<!--                      <a class="dropdown-item" href="#">Another action</a>-->
+<!--                      <a class="dropdown-item" href="#">Something else here</a>-->
+<!--                    </div> &ndash;&gt;-->
+<!--                  </div>-->
+<!--                  <div class="text-value">{{itemsInventory[0].isConfirmed | number:'1.0-0'}}</div>-->
+<!--                  <div>Confirmari</div>-->
+<!--                </div>-->
+<!--                <div class="chart-wrapper mt-3" style="height:20px;">-->
+<!--                  &lt;!&ndash; <canvas baseChart class="chart"-->
+<!--                  [datasets]="lineChart3Data"-->
+<!--                  [labels]="lineChart3Labels"-->
+<!--                  [options]="lineChart3Options"-->
+<!--                  [colors]="lineChart3Colours"-->
+<!--                  [legend]="lineChart3Legend"-->
+<!--                  [chartType]="lineChart3Type"></canvas> &ndash;&gt;-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-sm-6 col-lg-3">-->
+<!--              <div class="card text-white bg-danger">-->
+<!--                <div class="card-body pb-0">-->
+<!--                  <div class="btn-group float-right" dropdown>-->
+<!--                    <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>-->
+<!--                        <i class="cil-chart"></i>-->
+<!--                    </button>-->
+<!--                    &lt;!&ndash; <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>-->
+<!--                      <a class="dropdown-item" href="#">Action</a>-->
+<!--                      <a class="dropdown-item" href="#">Another action</a>-->
+<!--                      <a class="dropdown-item" href="#">Something else here</a>-->
+<!--                    </div> &ndash;&gt;-->
+<!--                  </div>-->
+<!--                  <div class="text-value">{{itemsInventory[0].procentage | number:'1.2-2'}}</div>-->
+<!--                  <div>Procent</div>-->
+<!--                </div>-->
+<!--                <div class="chart-wrapper mt-3 mx-3" style="height:20px;">-->
+<!--                  &lt;!&ndash; <canvas baseChart class="chart"-->
+<!--                  [datasets]="barChart1Data"-->
+<!--                  [labels]="barChart1Labels"-->
+<!--                  [options]="barChart1Options"-->
+<!--                  [colors]="barChart1Colours"-->
+<!--                  [legend]="barChart1Legend"-->
+<!--                  [chartType]="barChart1Type"></canvas> &ndash;&gt;-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        <div class="card-header">-->
+<!--          <div class="col-md-12">-->
+<!--            <p-messages severity="info"  [enableService]="false" [showTransitionOptions]="'300ms'" [hideTransitionOptions]="'300ms'" *ngIf="missingDictionaryItem">-->
+<!--              <ng-template pTemplate>-->
+<!--                  <div class="p-ml-2">Va rugam adaugati un echipament! (Click pe butonul <strong style="color: #343a40;">1. Echipament</strong>)</div>-->
+<!--              </ng-template>-->
+<!--          </p-messages>-->
+<!--            <p-messages severity="info" [showTransitionOptions]="'300ms'" *ngIf="missingBrand">-->
+<!--              <ng-template pTemplate>-->
+<!--                  <div class="p-ml-2">Va rugam adaugati o marca! (Click pe butonul <strong style="color: #343a40;">2. Marca</strong>).In situatia in care <span style="color: red;">marca</span> echipamentului nu se regaseste in lista, selectati din lista de marci <strong style="color: red;">Altele</strong> si completati manual marca.</div>-->
+<!--              </ng-template>-->
+<!--          </p-messages>-->
+<!--            <p-messages severity="info" [showTransitionOptions]="'300ms'" *ngIf="missingModel">-->
+<!--              <ng-template pTemplate>-->
+<!--                  <div class="p-ml-2">Va rugam adaugati un model! (Click pe butonul <strong style="color: #343a40;">3. Model</strong>).In situatia in care <span style="color: red;">modelul</span> echipamentului nu se regaseste in lista, selectati din lista de modele <strong style="color: red;">Altele</strong> si completati manual modelul.</div>-->
+<!--              </ng-template>-->
+<!--          </p-messages>-->
+<!--          <p-messages severity="info">-->
+<!--            <ng-template pTemplate>-->
+<!--                <div class="p-ml-2">Pentru <span style="color: #28a745;">modificarea</span> unui echipament, selectati linia respectiva, iar apoi modificati informatiile in campurile in care le-ati introdus si salvati utilizand butonul <button pButton pRipple type="button" label="Salveaza" icon="pi pi-save" styleClass="p-button-sm" class="p-button-success"></button> din subsolul paginii.</div>-->
+<!--            </ng-template>-->
+<!--        </p-messages>-->
+<!--        <p-messages severity="info">-->
+<!--          <ng-template pTemplate>-->
+<!--              <div class="p-ml-2">Pentru <span style="color: red;">stergerea</span> unui echipament, selectati  linia respectiva, iar apoi stergeti echipamentul utilizand butonul <button pButton label="Sterge" icon="pi pi-trash" styleClass="p-button-sm" class="p-button-danger"></button> din subsolul paginii.</div>-->
+<!--          </ng-template>-->
+<!--      </p-messages>-->
+<!--    </div>-->
+<!--          &lt;!&ndash; <div class="row" id="loginForm">-->
+<!--            <table border="0">-->
+<!--              <tr>-->
+<!--                <td><p style="font-weight: bold; color: black;font-size: 11px;">&nbsp;&nbsp;In situatia in care <span style="color: red;">marca</span> echipamentului nu se regaseste in lista, selectati din lista de marci <strong style="color: red;">Altele</strong>  si completati manual marca,  in campul de culoare </p></td>-->
+<!--                <td><input style="font-size: 10px;background-color: powderblue;text-align: center;font-weight: bold; margin-top: -10px" type="text" class="form-control" id="usr" readonly></td>-->
+<!--             </tr>-->
+<!--             <tr>-->
+<!--              <td><p style="font-weight: bold; color: black;font-size: 11px;">&nbsp;&nbsp;In situatia in care <span style="color: red;">modelul</span> echipamentului nu se regaseste in lista, selectati din lista de modele <strong style="color: red;">Altele</strong>  si completati modelul,  in campul de culoare </p></td>-->
+<!--              <td><input style="font-size: 10px;background-color: powderblue;text-align: center;font-weight: bold; margin-top: -10px" type="text" class="form-control" id="usr" readonly></td>-->
+<!--           </tr>-->
+<!--           </table>-->
+<!--        </div> &ndash;&gt;-->
+<!--        &lt;!&ndash; <div class="row" id="loginForm">-->
+<!--          <table border="0">-->
+<!--         <tr>-->
+<!--          <td><p style="font-weight: bold; color: black;font-size: 11px;">&nbsp;&nbsp;Pentru <span style="color: #28a745;">modificarea</span> unui echipament, selectati linia respectiva, iar apoi modificati informatiile in campurile in care le-ati introdus si salvati utilizand butonul <button pButton pRipple type="button" label="Salveaza" icon="pi pi-save" styleClass="p-button-sm" class="p-button-success"></button> din subsolul paginii. </p></td>-->
+<!--       </tr>-->
+<!--       <tr>-->
+<!--        <td><p style="font-weight: bold; color: black;font-size: 11px;">&nbsp;&nbsp;Pentru <span style="color: red;">stergerea</span> unui echipament, selectati  linia respectiva, iar apoi stergeti echipamentul utilizand butonul <button pButton label="Sterge" icon="pi pi-trash" styleClass="p-button-sm" class="p-button-danger"></button> din subsolul paginii. </p></td>-->
+<!--     </tr> &ndash;&gt;-->
+<!--      &lt;!&ndash; <tr>-->
+<!--        <td><p style="font-weight: bold; color: black;">&nbsp;&nbsp;Pentru identificarea <span style="color: red;">seriei </span>  unui echipament, puteti descarca fisierul cu instructiuni, de aici <button type="button" class="btn btn-info btn-sm" (click)="getSN()"><i class="fa fa-file-pdf-o"></i> &nbsp;Instructiuni identificare serie</button>. </p></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td><p style="font-weight: bold; color: black;">&nbsp;&nbsp;Pentru identificarea <span style="color: red;">IMEI -ului </span>  unui telefon, puteti descarca fisierul cu instructiuni, de aici <button type="button" class="btn btn-info btn-sm" (click)="getIMEI()"><i class="fa fa-file-pdf-o"></i> &nbsp;Instructiuni identificare IMEI</button>. </p></td>-->
+<!--   </tr> &ndash;&gt;-->
+<!--         &lt;!&ndash; </table>-->
+<!--      </div> &ndash;&gt;-->
+<!--          </div>-->
+<!--      <div class="card-body">-->
+<!--        <form action="" method="post" class="form-horizontal">-->
+<!--           <div class="form-group row">-->
+<!--            <div class="col-md-6">-->
+<!--                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">-->
+<!--                   <button type="button" class="btn btn-dark btn-sm" (click)="selectDictionaryItem()" ><i class="fa fa-search"></i>&nbsp; 1. Echipament</button>-->
+<!--                  </div>-->
+<!--                <div class="input-group">-->
+<!--                    <input  type="text" class="form-control" required placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold; color: black;"-->
+<!--                    [(ngModel)]="name" name="name" (ngModelChange)="validateName($event)" readonly>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; <div [hidden]="name != undefined && name != '' && name.trim().length > 2" class="alert alert-danger">-->
+<!--                    Minim 3 caractere-->
+<!--                </div> &ndash;&gt;-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">-->
+<!--                    <button [disabled]="dictionaryItem == null" type="button" class="btn btn-dark btn-sm" (click)="selectBrand()" readonly><i class="fa fa-search"></i>&nbsp; 2. Marca</button>-->
+<!--                    </div>-->
+<!--                <div class="input-group">-->
+<!--                    <input [ngStyle]="brandReadOnly ? {'background-color': 'transparent'} : {'background-color': 'powderblue'}" style="font-size: 12px;text-align: center;font-weight: bold; color: black;" type="text" class="form-control" placeholder=""-->
+<!--                      [(ngModel)]="brandName" name="brandName" (ngModelChange)="validateBrand($event)" [readonly]="brandReadOnly">-->
+<!--                </div>-->
+<!--                &lt;!&ndash; <div [hidden]="serialNumber != undefined && serialNumber != '' && serialNumber.trim().length > 2" class="alert alert-danger">-->
+<!--                    Minim 3 caractere-->
+<!--                </div> &ndash;&gt;-->
+<!--            </div>-->
+<!--            <div class="col-md-3">-->
+<!--              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">-->
+<!--                  <button [disabled]="((brand == null && brandReadOnly) || ((!brandReadOnly && brandName.trim().length === 0)))" type="button" class="btn btn-dark btn-sm" (click)="selectModel()"><i class="fa fa-search"></i>&nbsp; 3. Model</button>-->
+<!--                  </div>-->
+<!--              <div class="input-group">-->
+<!--                  <input [ngStyle]="modelReadOnly ? {'background-color': 'transparent'} : {'background-color': 'powderblue'}" style="font-size: 12px;text-align: center;font-weight: bold; color: black;" type="text" class="form-control" placeholder=""-->
+<!--                    [(ngModel)]="modelName" name="modelName" (ngModelChange)="validateModel($event)" [readonly]="modelReadOnly">-->
+<!--              </div>-->
+<!--              &lt;!&ndash; <div [hidden]="serialNumber != undefined && serialNumber != '' && serialNumber.trim().length > 2" class="alert alert-danger">-->
+<!--                  Minim 3 caractere-->
+<!--              </div> &ndash;&gt;-->
+<!--          </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; <div class="form-group row">-->
+
+<!--                </div> &ndash;&gt;-->
+<!--                &lt;!&ndash; {{brand | json}}-->
+<!--                {{serialNumber}}-->
+<!--                {{serialNumberPatternValidate}}-->
+<!--                {{tagPatternValidate}}-->
+<!--                {{imeiPatternValidate}}-->
+<!--                {{phoneNumberPatternValidate}} &ndash;&gt;-->
+<!--            <div class="form-group row">-->
+<!--            <div class="col-md-3" *ngIf="dictionaryItem != null && dictionaryItem.name !== 'Telefon'">-->
+<!--                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">-->
+<!--                    Serie (conform eticheta producator)-->
+<!--                    </div>-->
+<!--                <div class="input-group">-->
+<!--                    <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold; color: black;" type="text" class="form-control" placeholder=""-->
+<!--                         [(ngModel)]="serialNumber" name="serialNumber">-->
+<!--                </div>-->
+<!--                <div [hidden]="((brand == null) || (serialNumber != undefined && serialNumber != '' && (serialNumber.trim().length > 3 || serialNumber === 'N/A')))" class="alert alert-danger">-->
+<!--                  Minim 4 caractere sau N/A<br>-->
+<!--                  &lt;!&ndash; Format<br>{{brand?.serial1Pattern}}<br>{{brand?.serial2Pattern}}<br>{{brand?.serial3Pattern}}<br>{{brand?.serial4Pattern}}<br>{{brand?.serial5Pattern}} &ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-3" *ngIf="dictionaryItem != null && dictionaryItem.name !== 'Telefon'">-->
+<!--              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">-->
+<!--                Nr inventar-->
+<!--                  </div>-->
+<!--              <div class="input-group">-->
+<!--                  <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold; color: black;" type="text" class="form-control" placeholder=""-->
+<!--                       [(ngModel)]="sapCode" name="sapCode">-->
+<!--              </div>-->
+<!--              <div [hidden]="((brand == null) || (sapCode != undefined && sapCode != '' && (sapCode.trim().length > 3  || sapCode === 'N/A')))" class="alert alert-danger">-->
+<!--                Minim 4 caractere sau N/A<br>Format<br>-->
+<!--                &lt;!&ndash; {{brand?.tag1Pattern}}<br>{{brand?.tag2Pattern}}<br>{{brand?.tag3Pattern}}<br>{{brand?.tag4Pattern}}<br>{{brand?.tag5Pattern}} &ndash;&gt;-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="col-md-3" *ngIf="dictionaryItem != null && dictionaryItem.name === 'Telefon'">-->
+<!--            <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">-->
+<!--              IMEI-->
+<!--                </div>-->
+<!--            <div class="input-group">-->
+<!--                <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold; color: black;" type="text" class="form-control" placeholder=""-->
+<!--                     [(ngModel)]="imei" name="imei">-->
+<!--            </div>-->
+<!--            <div [hidden]="((brand == null) || (imei != undefined && imei != '' && (imei.trim().length > 3 || imei === 'N/A')))" class="alert alert-danger">-->
+<!--              Minim 4 caractere sau N/A<br>-->
+<!--              &lt;!&ndash; Format<br>{{brand?.imei1Pattern}}<br>{{brand?.imei2Pattern}}<br>{{brand?.imei3Pattern}}<br>{{brand?.imei4Pattern}}<br>{{brand?.imei5Pattern}} &ndash;&gt;-->
+<!--          </div>-->
+<!--        </div>-->
+<!--          <div class="col-md-3" *ngIf="dictionaryItem != null && dictionaryItem.name === 'Telefon'">-->
+<!--            <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">-->
+<!--              Nr telefon-->
+<!--                </div>-->
+<!--            <div class="input-group">-->
+<!--                <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold; color: black;" type="text" class="form-control" placeholder=""-->
+<!--                     [(ngModel)]="phoneNumber" (paste)="checkUnique($event)" (keydown)="checkUnique($event)" name="phoneNumber">-->
+<!--            </div>-->
+<!--            <div [hidden]="((brand == null) || (phoneNumber != undefined && phoneNumber != '' && (phoneNumber.trim().length > 3 || phoneNumber === 'N/A') && (checkUniquePhoneNumber || phoneNumber === 'N/A')))" class="alert alert-danger">-->
+<!--              Obligatoriu 10 caractere sau N/A-->
+<!--          </div>-->
+<!--        </div>-->
+<!--            <div [ngClass]="dictionaryItem == null || dictionaryItem.name === 'Telefon' ? 'col-md-6' : 'col-md-6'">-->
+<!--                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">-->
+<!--                    Observatii-->
+<!--                    </div>-->
+<!--                <div class="input-group">-->
+<!--                    <input style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold; color: black;" type="text" class="form-control" placeholder=""-->
+<!--                     [(ngModel)]="info" name="info">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            </div>-->
+<!--            <div class="form-group row">-->
+<!--                <div class="col-md-12">-->
+<!--                    <button [disabled]="!isValid" pButton pRipple type="button" label="Salveaza" icon="pi pi-save" styleClass="p-button-sm" class="p-button-success" (click)="saveAsset()"></button>-->
+<!--                    &lt;!&ndash; <button [disabled]="!isValid" type="button" class="btn btn-success btn-sm" (click)="saveAsset()"><i class="fa fa-save"></i> &nbsp;Salveaza</button> &ndash;&gt;-->
+<!--                    &nbsp;-->
+<!--                    <button [disabled]="!allowDelete" pButton label="Sterge" icon="pi pi-trash" styleClass="p-button-sm" class="p-button-danger" (click)="onDeleteAssetOp()"></button>-->
+<!--                    &lt;!&ndash; <button type="button" class="btn btn-danger btn-sm" [disabled]="assetInvFullDetailList.selectedItems.length === 0" (click)="onDeleteAssetOp()"><i class="fa fa-trash"></i> &nbsp;Sterge</button> &ndash;&gt;-->
+<!--                    &nbsp;-->
+<!--                    <button pButton label="Reincarca lista" icon="pi pi-refresh" styleClass="p-button-sm" class="p-button-help" (click)="clearFilters()"></button>-->
+<!--                    &lt;!&ndash; <button pButton pRipple type="button" label="Secondary" class="p-button-secondary" (click)="clearFilters()"></button>-->
+<!--                    <button type="button" class="btn btn-secondary btn-sm" (click)="clearFilters()"><i class="fa fa-refresh"></i> &nbsp;Reincarca lista</button> &ndash;&gt;-->
+<!--                    &nbsp;-->
+<!--                    <button pButton label="Instructiuni identificare serie/model" icon="pi pi-file-pdf" styleClass="p-button-sm" class="p-button-info" (click)="getSN()"></button>-->
+<!--                    &lt;!&ndash; <button type="button" class="btn btn-info btn-sm" (click)="getSN()"><i class="fa fa-file-pdf-o"></i> &nbsp;Instructiuni identificare serie/model</button> &ndash;&gt;-->
+<!--                    &nbsp;-->
+<!--                    <button pButton label="Instructiuni identificare IMEI" icon="pi pi-file-pdf" styleClass="p-button-sm" class="p-button-info" (click)="getIMEI()"></button>-->
+<!--                    &lt;!&ndash; <button type="button" class="btn btn-info btn-sm" (click)="getIMEI()"><i class="fa fa-file-pdf-o"></i> &nbsp;Instructiuni identificare IMEI</button> &ndash;&gt;-->
+<!--                </div>-->
+<!--                </div>-->
+<!--        </form>-->
+<!--      </div>-->
+
+
+<!--      <div class="card-footer">-->
+
+<!--              <app-asset-list #assetInvFullDetailList id="assetInvFullDetailList"-->
+<!--              [dataSource]="assetHttpService"-->
+<!--              listTemplate="EMPLOYEENEWASSETS"-->
+<!--              detailType="employeewfh"-->
+<!--              sortColumn="asset.invNo"-->
+<!--              sortDirection="asc"-->
+<!--              dynamicQuery="true"-->
+<!--              usePaging="true"-->
+<!--              [pageSize]="100"-->
+<!--              showSimpleSearch="false"-->
+<!--              rowSelection="single"-->
+<!--              (selectionChanged)="onAssetInvFullDetailSelectionChanged($event)"-->
+<!--              notifyOnChange="true">-->
+<!--          </app-asset-list>-->
+
+<!--            &lt;!&ndash; <asset-employee-add-new-asset-list #assetInvFullDetailList id="assetInvFullDetailList"-->
+<!--                [dataSource]="assetHttpService"-->
+<!--                dynamicQuery="true"-->
+<!--                detailType="employeevalidatenew"-->
+<!--                sortColumn="asset.invNo"-->
+<!--                sortDirection="asc"-->
+<!--                usePaging="true"-->
+<!--                showSimpleSearch="false"-->
+<!--                rowSelection="single"-->
+<!--                [pageSize]="500"-->
+<!--                loadOnInit="true"-->
+<!--                (selectionChanged)="onAssetInvFullDetailSelectionChanged($event)"-->
+<!--                (listAtferViewInit)="onAssetEmployeeValidateListAfterViewInit()"-->
+<!--                notifyOnChange="true">-->
+<!--        </asset-employee-add-new-asset-list> &ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<div class="modal fade" bsModal #dictionaryItemListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h4 class="modal-title pull-left">Echipamente</h4>
+           </div>
+           <div class="modal-body">
+               <app-dictionary-item-list-ng-prime #dictionaryItemList id="dictionaryItemList"
+                   [dataSource]="dictionaryItemHttpService"
+                   dynamicQuery="true"
+                   sortColumn="name"
+                   sortDirection="asc"
+                   usePaging="true"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   [pageSize]="5"
+                   usePaging="true">
+               </app-dictionary-item-list-ng-prime>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success" (click)="setSelectedDictionaryItem($event)" [disabled]="dictionaryItemList.selectedItem == null">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger" (click)="dictionaryItemListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+<div class="modal fade" bsModal #brandListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h4 class="modal-title pull-left">Marca</h4>
+
+               <div hideIfUnauthorized="PAGE_SIZE|ASSET" class="btn-group" dropdown>
+                <button dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle" >
+                 {{ pageBrandSize }}<span class="caret"></span>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu" role="menu" >
+                  <li role="menuitem" (click)="onPageBrandUpdate(5)"><a class="dropdown-item">5</a></li>
+                  <li role="menuitem" (click)="onPageBrandUpdate(10)"><a class="dropdown-item">10</a></li>
+                  <li role="menuitem" (click)="onPageBrandUpdate(15)"><a class="dropdown-item">15</a></li>
+                  <li role="menuitem" (click)="onPageBrandUpdate(20)"><a class="dropdown-item">20</a></li>
+                  <li role="menuitem" (click)="onPageBrandUpdate(30)"><a class="dropdown-item">30</a></li>
+                  <li role="menuitem" (click)="onPageBrandUpdate(50)"><a class="dropdown-item">50</a></li>
+                  <li role="menuitem" (click)="onPageBrandUpdate(70)"><a class="dropdown-item">70</a></li>
+                  <li role="menuitem" (click)="onPageBrandUpdate(100)"><a class="dropdown-item">100</a></li>
+                </ul>
+              </div>
+           </div>
+           <div class="modal-body">
+               <app-brand-list-ng-prime #brandList id="brandList"
+                   [dataSource]="brandHttpService"
+                   dynamicQuery="true"
+                   sortColumn="code"
+                   sortDirection="asc"
+                   usePaging="true"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   [pageSize]=pageBrandSize
+                   usePaging="true">
+               </app-brand-list-ng-prime>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success" (click)="setSelectedBrand($event)">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger" (click)="brandListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+<div class="modal fade" bsModal #modelListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h4 class="modal-title pull-left">Modele</h4>
+
+               <div hideIfUnauthorized="PAGE_SIZE|ASSET" class="btn-group" dropdown>
+                <button dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle" >
+                 {{ pageModelSize }}<span class="caret"></span>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu" role="menu" >
+                  <li role="menuitem" (click)="onPageModelUpdate(5)"><a class="dropdown-item">5</a></li>
+                  <li role="menuitem" (click)="onPageModelUpdate(10)"><a class="dropdown-item">10</a></li>
+                  <li role="menuitem" (click)="onPageModelUpdate(15)"><a class="dropdown-item">15</a></li>
+                  <li role="menuitem" (click)="onPageModelUpdate(20)"><a class="dropdown-item">20</a></li>
+                  <li role="menuitem" (click)="onPageModelUpdate(30)"><a class="dropdown-item">30</a></li>
+                  <li role="menuitem" (click)="onPageModelUpdate(50)"><a class="dropdown-item">50</a></li>
+                  <li role="menuitem" (click)="onPageModelUpdate(70)"><a class="dropdown-item">70</a></li>
+                  <li role="menuitem" (click)="onPageModelUpdate(100)"><a class="dropdown-item">100</a></li>
+                </ul>
+              </div>
+           </div>
+           <div class="modal-body">
+               <app-model-list-ng-prime #modelList id="modelList"
+                   [dataSource]="modelHttpService"
+                   dynamicQuery="true"
+                   sortColumn="code"
+                   sortDirection="asc"
+                   usePaging="true"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   [pageSize]=pageModelSize
+                   usePaging="true">
+               </app-model-list-ng-prime>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success" (click)="setSelectedModel($event)">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger" (click)="modelListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+<div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+  <!-- <div class="modal-header">
+    <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Confirmare</h4>
+  </div> -->
+  <div class="modal-body">
+    {{ confirmationMessage }}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+    <button type="button" class="btn btn-outline-danger" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> Nu</button>
+  </div>
+</div>
+</div>
+</div>
+
+

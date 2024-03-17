@@ -1,0 +1,13 @@
+$main-blue: #0B4FFF;
+$main-gray: #F3F3F6;
+$danger-color: #CC1010;
+$tinger-color: #FD6A02;
+$default-gray: #8B8B9D;
+$turquoise: #2dacd1;
+$dark-gray: #5A5A5A;
+
+$zindex-dropdown: 100;
+$zindex-sticky: 102;
+$zindex-fixed: 103;
+$zindex-modal-backdrop: 104 !important; // fix for ng-bootstrap 3.2.0 todo: remove if fixed
+$zindex-modal: 105;

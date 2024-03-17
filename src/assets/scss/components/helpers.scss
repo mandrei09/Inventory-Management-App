@@ -1,0 +1,25 @@
+.helper-mr-16 {
+  margin-right: 16px !important;
+}
+
+.helper-mr-10 {
+  margin-right: 10px !important;
+}
+
+.cursor-pointer {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.b-t-1-gray {
+  border-top: 1px solid #D9D9DF;
+}
+
+.b-r-1-gray {
+  border-right: 1px solid #D9D9DF;
+}
+
+.b-b-1-gray {
+  border-bottom: 1px solid #D9D9DF;
+}

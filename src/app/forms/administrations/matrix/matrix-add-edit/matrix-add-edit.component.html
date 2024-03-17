@@ -1,0 +1,221 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_matrix_add_edit'">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">{{ (item === null || item.id! < 1) ? 'Adauga' : 'Editeaza' }}</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container">
+
+        <div class="row">
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="row mx-auto">
+              <div class="col-10 mx-auto">
+                <div class="row">
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('company_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <company-item-select class="form-group-select_wrapper" formControlName="company" placeholder="{{ t('company_placeholder') }}">
+                      </company-item-select>
+                      <small *ngIf="form.controls['company'].hasError('required') && form.controls['company'].touched" class="mat-text-warn">{{ t('company_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('division_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <divisions-item-select class="form-group-select_wrapper" formControlName="division" placeholder="{{ t('division_placeholder') }}">
+                      </divisions-item-select>
+                      <small *ngIf="form.controls['division'].hasError('required') && form.controls['division'].touched" class="mat-text-warn">{{ t('division_required') }}</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('employeeB1_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <employee-item-select class="form-group-select_wrapper" formControlName="employeeB1" displayValue="full-name" placeholder="{{ t('employeeB1_placeholder') }}">
+                      </employee-item-select>
+                      <small *ngIf="form.controls['employeeB1'].hasError('required') && form.controls['employeeB1'].touched" class="mat-text-warn">{{ t('employeeB1_required') }}</small>
+                    </div>
+                  </div>
+
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('employeeL1_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <employee-item-select class="form-group-select_wrapper" formControlName="employeeL1" displayValue="full-name" placeholder="{{ t('employeeL1_placeholder') }}">
+                      </employee-item-select>
+                      <small *ngIf="form.controls['employeeL1'].hasError('required') && form.controls['employeeL1'].touched" class="mat-text-warn">{{ t('employeeL1_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('employeeL2_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <employee-item-select class="form-group-select_wrapper" formControlName="employeeL2" displayValue="full-name" placeholder="{{ t('employeeL2_placeholder') }}">
+                      </employee-item-select>
+                      <small *ngIf="form.controls['employeeL2'].hasError('required') && form.controls['employeeL2'].touched" class="mat-text-warn">{{ t('employeeL2_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('employeeL3_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <employee-item-select class="form-group-select_wrapper" formControlName="employeeL3" displayValue="full-name" placeholder="{{ t('employeeL3_placeholder') }}">
+                      </employee-item-select>
+                      <small *ngIf="form.controls['employeeL3'].hasError('required') && form.controls['employeeL3'].touched" class="mat-text-warn">{{ t('employeeL3_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('employeeL4_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <employee-item-select class="form-group-select_wrapper" formControlName="employeeL4" displayValue="full-name" placeholder="{{ t('employeeL4_placeholder') }}">
+                      </employee-item-select>
+                      <small *ngIf="form.controls['employeeL4'].hasError('required') && form.controls['employeeL4'].touched" class="mat-text-warn">{{ t('employeeL4_required') }}</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('employeeS1_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <employee-item-select class="form-group-select_wrapper" formControlName="employeeS1" displayValue="full-name" placeholder="{{ t('employeeS1_placeholder') }}">
+                      </employee-item-select>
+                      <small *ngIf="form.controls['employeeS1'].hasError('required') && form.controls['employeeS1'].touched" class="mat-text-warn">{{ t('employeeS1_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('employeeS2_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <employee-item-select class="form-group-select_wrapper" formControlName="employeeS2" displayValue="full-name" placeholder="{{ t('employeeS2_placeholder') }}">
+                      </employee-item-select>
+                      <small *ngIf="form.controls['employeeS2'].hasError('required') && form.controls['employeeS2'].touched" class="mat-text-warn">{{ t('employeeS2_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('employeeS3_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <employee-item-select class="form-group-select_wrapper" formControlName="employeeS3" displayValue="full-name" placeholder="{{ t('employeeS3_placeholder') }}">
+                      </employee-item-select>
+                      <small *ngIf="form.controls['employeeS3'].hasError('required') && form.controls['employeeS3'].touched" class="mat-text-warn">{{ t('employeeS3_required') }}</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('amountL4_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput type="number" class="form-control" formControlName="amountL4" [placeholder]="t('amountL4_placeholder')">
+                      <small *ngIf="form.controls['amountL4'].hasError('required') && form.controls['amountL4'].touched" class="mat-text-warn">{{ t('amountL4_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('amountL3_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput type="number" class="form-control" formControlName="amountL3" [placeholder]="t('amountL3_placeholder')">
+                      <small *ngIf="form.controls['amountL3'].hasError('required') && form.controls['amountL3'].touched" class="mat-text-warn">{{ t('amountL3_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('amountL2_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput type="number" class="form-control" formControlName="amountL2" [placeholder]="t('amountL2_placeholder')">
+                      <small *ngIf="form.controls['amountL2'].hasError('required') && form.controls['amountL2'].touched" class="mat-text-warn">{{ t('amountL2_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('amountL1_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput type="number" class="form-control" formControlName="amountL1" [placeholder]="t('amountL1_placeholder')">
+                      <small *ngIf="form.controls['amountL1'].hasError('required') && form.controls['amountL1'].touched" class="mat-text-warn">{{ t('amountL1_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('amountS1_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput type="number" class="form-control" formControlName="amountS1" [placeholder]="t('amountS1_placeholder')">
+                      <small *ngIf="form.controls['amountS1'].hasError('required') && form.controls['amountS1'].touched" class="mat-text-warn">{{ t('amountS1_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('amountS2_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput type="number" class="form-control" formControlName="amountS2" [placeholder]="t('amountS2_placeholder')">
+                      <small *ngIf="form.controls['amountS2'].hasError('required') && form.controls['amountS2'].touched" class="mat-text-warn">{{ t('amountS2_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('amountS3_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput type="number" class="form-control" formControlName="amountS3" [placeholder]="t('amountS3_placeholder')">
+                      <small *ngIf="form.controls['amountS3'].hasError('required') && form.controls['amountS3'].touched" class="mat-text-warn">{{ t('amountS3_required') }}</small>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">{{ t('action_cancel') }}</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            [disabled]="!form.valid"
+            (click)="save()"
+    >{{ t('action_save') }}</button>
+  </mat-dialog-actions>
+
+</div>

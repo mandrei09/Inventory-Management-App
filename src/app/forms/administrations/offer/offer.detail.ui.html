@@ -1,0 +1,769 @@
+<div class="animated fadeIn">
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-header-actions">
+                <button type="button" class="btn btn-success btn-sm" (click)="saveOffer()" [disabled]="!allowSaving || !isSaved"><i class="fa fa-save"></i> Save</button>
+                <button type="button" class="btn btn-primary btn-sm" (click)="cancelChanges()"><i class="fa fa-step-backward"></i> Inapoi</button>
+            </div>
+        </div>
+      <div class="card-body">
+        <form action="" method="post" class="form-horizontal">
+            <div class="form-group row">
+              <div class="col-md-3">
+                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                    <button type="button" class="btn btn-dark btn-sm" (click)="selectOfferType()" ><i class="fa fa-search"></i>&nbsp;Tip oferta</button>
+                  </div>
+                <div class="input-group">
+                  <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="offerType != null ? offerType.name : ''" type="text" id="input14-group1" name="input14-group1" class="form-control" placeholder="...">
+                </div>
+              </div>
+              <div class="col-md-3" >
+                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                    <button type="button" class="btn btn-dark btn-sm" (click)="selectOffer()" ><i class="fa fa-search"></i>&nbsp;Oferta Referinta</button>
+                  </div>
+                <div class="input-group">
+                  <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="offerClone != null ? offerClone.code : ''" type="text" id="input14-group1" name="input14-group1" class="form-control" placeholder="...">
+                </div>
+              </div>
+                <div class="col-md-6">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-dark btn-sm" (click)="selectRequest()" ><i class="fa fa-search"></i>&nbsp;Purchase request</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="request != null ? request.code + '-' + request.info : ''" type="text" id="input14-group1" name="input14-group1" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        Solicitant
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold;" [value]="employee != null ?  employee.firstName + ' ' + employee.lastName :''" type="text" id="input14-group1" name="input14-group1" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+              </div>
+        </form>
+      </div>
+      <div class="card-footer">
+            <div class="col-sm-12">
+
+              <div class="col-sm-12" *ngIf="request != null">
+                <app-request-budget-forecast-material-view-ng-prime-validate #requestBudgetForecastList id="requestBudgetForecastList"
+                [dataSource]="requestBudgetForecastHttpService"
+                showSimpleSearch="false"
+                listTemplate="REQUESTBUDGETFORECASTS"
+                detailType=""
+                sortColumn="request.code"
+                sortDirection="asc"
+                dynamicQuery="true"
+                rowSelection="single"
+                notifyOnChange="true"
+                (selectionChanged)="setSelectedItem($event)"
+                usePaging="true">
+                </app-request-budget-forecast-material-view-ng-prime-validate>
+              </div>
+                <ul class="nav nav-pills justify-content-center" *ngIf="request != null">
+                  <!-- <li>
+                    <a class="active" id="home-tab" data-toggle="tab" href="#operation" (click)="changeTab('operatii',$event)">Istoric operatii</a>
+                  </li> -->
+                  <li>
+                    <a  id="messages-tab" data-toggle="tab" href="#files" (click)="changeTab('fisiere',$event)">Fisiere incarcate P.R.</a>
+                  </li>
+                  </ul>
+
+                  <!-- Tab panes -->
+                    <div class="tab-content clearfix" *ngIf="request != null">
+                    <!-- <div class="tab-pane active" id="operation">
+                        <div class="col-sm-12">
+                          <div class="jumbotron bg-transparent">
+                                  <request-op-detail-list #requestOpDetailList id="requestOpDetailList"
+                                  [dataSource]="requestOpHttpService"
+                                  showSimpleSearch="false"
+                                  listTemplate="REQUEST_OPERATIONS"
+                                  detailType="details"
+                                  sortColumn="modifiedAt"
+                                  sortDirection="asc"
+                                  dynamicQuery="true"
+                                  rowSelection="single"
+                                  notifyOnChange="true"
+                                  (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                  usePaging="true">
+                              </request-op-detail-list>
+                          </div>
+                        </div>
+                    </div> -->
+                    <div class="tab-pane active" id="files">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="jumbotron bg-transparent">
+                              <app-entity-file-list #entityFileRequestList id="entityFileRequestList"
+                                  [dataSource]="entityFileHttpService"
+                                  showSimpleSearch="false"
+                                  rowSelection="single"
+                                  notifyOnChange="true"
+                                  (selectionChanged)="onEntityFileRequestListSelectionChanged($event)"
+                                  usePaging="false"
+                                  [inInvetoryReport] = "false">
+                              </app-entity-file-list>
+                              <br>
+                              <button hideIfUnauthorized="UPLOAD|REQUEST" [disabled]="selectedRequestBudgetForecasts.length === 0" type="button" class="btn btn-warning btn-sm" (click)="onAssetDocumentFileUpload()">
+                                <i class="fa fa-upload"></i> Incarca </button>
+                              <!-- <app-entity-file-upload *ngIf="request != null"
+                                  [entityId]="request != null ? request.id : 0"
+                                  [entityTypeCode]="entityTypeRequestCode"
+                                  (uploadFinished)="refreshRequestEntityFiles()">
+                              </app-entity-file-upload> -->
+                              <app-entity-file-validate-asset-download *ngIf="entityFileRequest != null"
+                                  [entityFile]="entityFileRequest">
+                              </app-entity-file-validate-asset-download>
+                              <app-entity-file-request-delete *ngIf="entityFileRequest != null"
+                                   (deleteFinished)="refreshRequestEntityFiles(0)"
+                                  [entityFile]="entityFileRequest">
+                              </app-entity-file-request-delete>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                <p-pickList
+                [source]="availablePartners"
+                [target]="selectedPartners"
+                sourceHeader="Furnizori disponibili"
+                targetHeader="Furnizori selectati"
+                [dragdrop]="true"
+                [showSourceFilter]="true"
+                [showTargetFilter]="true"
+                [showSourceControls]="false"
+                [showTargetControls]="false"
+                [responsive]="true"
+                [sourceStyle]="{'height':'auto', 'background-color': '#FFF', 'margin': '0 -5px'}"
+                [targetStyle]="{'height':'auto', 'background-color': '#FFF'}"
+                filterBy="name"
+                (onMoveToTarget)="moveToTarget($event)"
+                (onMoveToSource)="moveToSource($event)"
+                (onTargetSelect)="onTargetSelect($event)"
+                sourceFilterPlaceholder="cauta dupa denumire"
+                targetFilterPlaceholder="cauta dupa denumire">
+                    <ng-template let-partner pTemplate="item">
+                        <div class="partner-item">
+                            <div class="product-list-detail">
+                                <h5 class="p-mb-2">{{partner.registryNumber}}</h5>
+                                <i class="pi pi-tag product-category-icon"></i>
+                                <span class="product-category">{{partner.name}}</span>
+                                <p *ngIf="!partner.isLeftSide"></p>
+                                <p *ngIf="!partner.isLeftSide"> Date contact</p>
+                                <p *ngIf="!partner.isLeftSide && partner.contactInfo != null && partner.contactInfo != ''"><mat-checkbox (change)="checkContact1($event)" [ngModel]="sendTocontactInfo1"  name="partner.contactInfo"> 1. {{partner.contactInfo}}</mat-checkbox></p>
+                                <p *ngIf="!partner.isLeftSide && partner.bank != null && partner.bank != ''"><mat-checkbox (change)="checkContact2($event)" [ngModel]="sendTocontactInfo2" name="partner.bank"> 2. {{partner.bank}}</mat-checkbox></p>
+                                <p *ngIf="!partner.isLeftSide && partner.bankAccount != null && partner.bankAccount != ''"><mat-checkbox (change)="checkContact3($event)" [ngModel]="sendTocontactInfo3" name="partner.bankAccount"> 3. {{partner.bankAccount}}</mat-checkbox></p>
+                                <p *ngIf="!partner.isLeftSide">
+                                    <!-- <app-entity-file-list #entityFileOfferUIList id="partner.id"
+                                    [dataSource]="entityFileHttpService"
+                                    showSimpleSearch="false"
+                                    rowSelection="single"
+                                    notifyOnChange="true"
+                                    (selectionChanged)="onEntityFileOfferUIListSelectionChanged($event)"
+                                    usePaging="false">
+                                </app-entity-file-list> -->
+
+                                <div class="card-body table-responsive table w-auto small border-0" *ngIf="!partner.isLeftSide">
+                                  <table class="table table-bordered table-striped border-0" style="white-space: nowrap; text-decoration: none !important; font-weight: 500;" [style.font-size.px]="12">
+                                    <thead [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'white'">
+
+                                    <tr class="black-muted-bg">
+
+                                        <th>#</th>
+                                        <th class="align-left">Tip fisier</th>
+                                        <th class="align-left">FIsier incarcat</th>
+                                        <!-- <th class="align-left">Dimensiune</th>
+                                        <th class="align-left">P.R.</th>
+                                        <th class="align-left">P.R. detalii</th>
+                                        <th class="align-left">WBS</th>
+                                        <th class="align-left">WBS detalii</th>
+                                        <th class="align-left">Cantitate</th>
+                                        <th class="align-left">Furnizor</th>
+                                        <th class="align-left">Observatii fisier</th> -->
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr *ngFor="let tableItem of partner.entityFiles">
+                                          <mat-checkbox (change)="updatePartnerEntityFiles($event, tableItem.id)" [(ngModel)]="tableItem.selected"  name="tableItem.selected"></mat-checkbox>
+                                          <!-- <p-checkbox [(ngModel)]="tableItem.selected" [binary]="true"></p-checkbox> -->
+                                            <td>{{ tableItem.entityType?.name }}</td>
+                                            <td>{{ tableItem.name }}</td>
+                                            <!-- <td>{{ tableItem.item.size }}</td>
+                                            <td>{{ tableItem.item.request != null ? tableItem.item.request.code : '' }}</td>
+                                            <td>{{ tableItem.item.request != null ? tableItem.item.request.info : '' }}</td>
+                                            <td>{{ tableItem.item.requestBudgetForecast != null && tableItem.item.requestBudgetForecast.project != null ? tableItem.item.requestBudgetForecast.project.code : '' }}</td>
+                                            <td>{{ tableItem.item.requestBudgetForecast != null ? tableItem.item.requestBudgetForecast.info : '' }}</td>
+                                            <td>{{ tableItem.item.quantity }}</td>
+                                            <td>{{ tableItem.item.partner != null ? tableItem.item.partner.name : '' }}</td>
+                                            <td>{{ tableItem.item.info }}</td> -->
+                                        </tr>
+
+                                    </tbody>
+                                  </table>
+                                </div>
+
+                                <br>
+                                <button  hideIfUnauthorized="UPLOAD|REQUEST" type="button" class="btn btn-warning btn-sm" (click)="onOfferDocumentFileUpload(partner)" *ngIf="!partner.isLeftSide">
+                                  <i class="fa fa-upload"></i> Incarca documente </button>
+                                <!-- <app-entity-file-validate-asset-download
+                                [entityFile]="entityFileOfferUI">
+                                </app-entity-file-validate-asset-download>
+                                <app-entity-file-request-delete
+                                 (deleteFinished)="refreshOfferUIEntityFiles(partner.id)"
+                                [entityFile]="entityFileOfferUI">
+                               </app-entity-file-request-delete> -->
+
+
+                                <!-- <p *ngIf="!partner.isLeftSide">{{partner.bank}}</p>
+                                <p *ngIf="!partner.isLeftSide">{{partner.bankAccount}}</p> -->
+                                <div class="row" *ngIf="!partner.isLeftSide">
+                                    <div class="col-md-6">
+                                         <!-- <button type="button" class="btn btn-info btn-sm" (click)="showTemplate(partner.id)"><i class="fa fa-envelope"></i> Template</button> -->
+                                            <textarea style="font-size: 12px; color: blue;" rows="15" cols="100" [(ngModel)]="partner.headerMsg " name="headerMsg">
+                                            </textarea>
+                                        </div>
+                                        <!-- <br>
+                                        <input #fileInput type="file" multiple="multiple" class="form-control" id="fileInput"  placeholder="Selectie fisier ..." accept=".pdf" required  (change)="selectFile($event, partner.id)"> -->
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-pickList>
+                <!-- <br>
+                <textarea [rows]="10" [cols]="100" pInputTextarea autoResize="autoResize" [(ngModel)]="headerMsg"></textarea> -->
+                        <!-- <div class="row" *ngIf="showMsgArea">
+                                <div class="col-md-6">
+                                        <button type="button" class="btn btn-info btn-sm" (click)="showTemplate(partner.id)"><i class="fa fa-envelope"></i> Template</button>
+                                        <textarea style="font-size: 12px; color: blue;" rows="15" cols="70" [(ngModel)]="partner.headerMsg " name="headerMsg">
+                                        </textarea>
+                                    </div>
+                                    <br>
+                                    <input #fileInput type="file" multiple="multiple" class="form-control" id="fileInput"  placeholder="Selectie fisier ..." accept=".pdf" required  (change)="selectFile($event, partner.id)">
+                            </div> -->
+                <!-- <div class="row">
+                    <div class="col-sm-12"> -->
+                      <!-- <div hideIfUnauthorized="PARTNER_FILTER|S_OFFER_STATUS" class="btn-group" dropdown>
+                          <button type="button" class="btn btn-dark btn-sm" (click)="selectPartners()" >Suppliers</button>
+                          <button type="button" dropdownToggle class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Split button!</span>
+                            <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedPartners.length > 0 ? selectedPartners.length : ''}}</span>
+                          </button>
+                          <ul  class="dropdown-menu" role="menu">
+                              <li role="menuitem"><a class="dropdown-item" (click)="clearPartnerSelection()">Sterge toate</a></li>
+                              <div class="dropdown-divider"></div>
+                              <li role="menuitem" *ngFor="let partner of selectedPartners"><a class="dropdown-item" (click)="removeFromPartnerSelection(partner)"><i class="fa fa-times"></i> &nbsp;{{ partner.name }}</a>
+                              </li>
+                            </ul>
+                        </div> -->
+                      <!-- <div class="jumbotron bg-transparent">
+                        <div id="barcodes"> -->
+                          <!-- <div class="row">
+                              <div class="col-sm-4">
+                                  <div class="ui-toolbar-group-left">
+                                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="sendBookEmail()" style="background-color: darkseagreen; color: black;"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Send Email </button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="sendBookEmailPreview()" style="background-color: darkseagreen; color: black;"><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;Preview </button>
+                                  </div>
+                              </div>
+                              <div class="col-sm-4">
+                                  <div class="ui-toolbar-group-left">
+                                  </div>
+                              </div>
+                              <div class="col-sm-4">
+                                  <div class="ui-toolbar-group-right">
+                                      <div class="text-right">
+                                          <div>
+                                              <button type="button" class="btn btn-primary btn-sm" (click)="saveOffer()" [disabled]="!allowSaving || !isSaved"><i class="fa fa-save"></i> Save</button>
+                                              <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Inchide</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <br> -->
+                          <!-- <div class="example-container">
+                              <h2>Furnizori disponibili</h2>
+                              <div
+                                cdkDropList
+                                #allList="cdkDropList"
+                                [cdkDropListData]="availablePartners"
+                                [cdkDropListConnectedTo]="[selectedList]"
+                                class="example-list"
+                                (cdkDropListDropped)="drop($event)">
+                                <div class="example-box" *ngFor="let item of availablePartners" cdkDrag>{{item.name}}</div>
+                              </div>
+                            </div> -->
+
+                            <!-- <div class="example-container">
+                              <h2>Furnizori selectati</h2>
+                              <div
+                                cdkDropList
+                                #selectedList="cdkDropList"
+                                [cdkDropListData]="selectedPartners"
+                                [cdkDropListConnectedTo]="[allList]"
+                                class="example-list"
+                                (cdkDropListDropped)="drop($event)">
+                                <div class="example-box" *ngFor="let item of selectedPartners" cdkDrag>
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                          {{item.registryNumber + ' - ' + item.name}}
+                                          <br> -->
+                                          <!-- <app-entity-file-upload *ngIf="item.id > 0 || id > 0"
+                                              [entityId]="item.id"
+                                              [entityTypeCode]="entityTypeCode"
+                                              (uploadFinished)="refreshEntityFiles()">
+                                          </app-entity-file-upload> -->
+                                          <!-- <input  type="file" id="fileInputOffer" #fileInputOffer (change)="selectFile($event)" name="fileInputOffer"/> -->
+                                          <!-- <input #fileInputOffer type="file" multiple="multiple" class="form-control" id="fileInputOffer"  placeholder="Selectie fisier ..." accept=".pdf" required  (change)="selectFile($event, item.id)">
+                                          <br>
+                                          <div class="row">
+                                              <div class="col-md-6">
+                                                  <h3 style="color:#ff895e">Mesaj email</h3>
+                                                   <button type="button" class="btn btn-info btn-sm" (click)="showTemplate(item.id)"><i class="fa fa-envelope"></i> Template</button>
+                                                      <textarea style="font-size: 12px; color: blue;" rows="15" cols="70" [(ngModel)]="item.headerMsg " name="headerMsg">
+                                                      </textarea>
+                                                  </div>
+                                          </div> -->
+
+                                          <!-- <div class="row">
+                                              <div class="col-md-12">
+                                                  <h3 style="color:#ff895e">Footer</h3>
+                                                      <textarea style="font-size: 12px; color: darkgreen;" rows="15" cols="100" [(ngModel)]="item.footerMsg" name="footerMsg"></textarea>
+                                                  </div>
+                                          </div> -->
+
+                                          <!-- <app-file-upload></app-file-upload> -->
+                                      <!-- </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                      </div> -->
+                      <!-- <div class="card" *ngIf="message !=''">
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                              <div baCardClass="with-scroll table-panel">
+                            <div class="row">
+                                <div class="col-md-12" [innerHTML]="message | sanitizeHtml">
+                                </div>
+                              </div>
+                          </div>
+                              </div>
+                          </div>
+                        </div> -->
+                      <!-- </div>
+                    </div> -->
+                  <!-- </div>
+                </div> -->
+
+            <!-- <ul class="nav nav-pills justify-content-center" *ngIf="id > 0"> -->
+              <!-- <li>
+                <a class="active" id="home-tab" data-toggle="tab" href="#operation" (click)="changeTab('operatii',$event)">Istoric operatii</a>
+              </li> -->
+              <!-- <li>
+                <a  id="profile-tab" data-toggle="tab" href="#component" (click)="changeTab('componente',$event)">Componente</a>
+              </li> -->
+              <!-- <li>
+                <a  id="messages-tab" data-toggle="tab" href="#files" (click)="changeTab('fisiere',$event)">Fisiere</a>
+              </li>
+              <li >
+                <a  id="settings-tab" data-toggle="tab" href="#partners" (click)="changeTab('furnizori',$event)">Furnizori</a>
+              </li> -->
+              <!-- </ul> -->
+
+              <!-- <div class="tab-content clearfix"> -->
+              <!-- <div class="tab-pane active" id="operation">
+                  <div class="col-sm-12">
+                    <div class="jumbotron bg-transparent">
+                        <offer-op-detail-list #offerOpDetailList id="offerOpDetailList"
+                            [dataSource]="offerOpHttpService"
+                            showSimpleSearch="false"
+                            listTemplate="OFFER_OPERATIONS"
+                            detailType="details"
+                            sortColumn="modifiedAt"
+                            sortDirection="asc"
+                            dynamicQuery="true"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                            usePaging="true">
+                    </offer-op-detail-list>
+                    </div>
+                  </div>
+              </div> -->
+              <!-- <div class="tab-pane" id="component">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="jumbotron bg-transparent">
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="tab-pane" id="files" *ngIf="offer.id > 0 || id > 0">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="jumbotron bg-transparent">
+                        <app-entity-file-list #entityFileList id="entityFileList"
+                        [dataSource]="entityFileHttpService"
+                        showSimpleSearch="false"
+                        rowSelection="single"
+                        notifyOnChange="true"
+                        (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                        usePaging="false">
+                    </app-entity-file-list>
+                    <br>
+                    <app-entity-file-upload *ngIf="offer.id > 0 || id > 0"
+                        [entityId]="offer.id"
+                        [entityTypeCode]="entityTypeCode"
+                        (uploadFinished)="refreshEntityFiles()">
+                    </app-entity-file-upload>
+                    <app-entity-file-download *ngIf="offer.id > 0 || id > 0"
+                        [entityFile]="entityFile">
+                    </app-entity-file-download>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="tab-pane" id="partners" >
+
+              </div> -->
+              <!-- </div> -->
+      </div>
+    </div>
+  </div>
+
+<!-- <div class="animated fadeIn">
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-header-actions">
+                <button type="button" class="btn btn-success btn-sm" (click)="saveOffer()" [disabled]="!allowSaving || !isSaved"><i class="fa fa-save"></i> Save</button>
+                <button type="button" class="btn btn-primary btn-sm" (click)="cancelChanges()"><i class="fa fa-step-backward"></i> Inapoi</button>
+            </div>
+        </div>
+    </div>
+       <div class="row">
+            <div class="col-md-12">
+                <form role="form" #detailForm="ngForm" novalidate>
+                    <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color: #ff895e; font-size: 12px">Company</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px">{{ company != null ? company.name : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button style="font-size: 12px;" type="button" class="btn btn-outline-danger btn-sm" (click)="selectCompany()" [ngClass]="{'btn-icon button': company == null, 'btn-icon': company != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <h6 style="color:#ff895e; font-size: 12px;">Project Owner</h6>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-9">
+                              <h6 style="font-size: 12px">{{ employee != null ? employee.lastName + ', ' + employee.firstName : "" }}</h6>
+                          </div>
+                          <div class="col-sm-3">
+                              <div style="text-align: right;">
+                                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectEmployee()" [ngClass]="{'btn-icon button': employee == null, 'btn-icon': employee != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+                <hr style="height:1px;color:#341E16;background-color:#341E16;">
+        </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 style="color:#ff895e; font-size: 12px;">PC</h6>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h6 style="font-size: 12px">{{ masterType != null ? masterType.name : "" }}</h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <div style="text-align: right;">
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectMasterType()" [ngClass]="{'btn-icon button': masterType == null, 'btn-icon': masterType != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 style="color:#ff895e; font-size: 12px;">Expence Type</h6>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h6 style="font-size: 12px">{{ type != null ? type.name : "" }}</h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <div style="text-align: right;">
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectType()" [ngClass]="{'btn-icon button': type == null, 'btn-icon': type != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 style="color:#ff895e; font-size: 12px;">Detail</h6>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h6 style="font-size: 12px">{{ subType != null ? subType.name : "" }}</h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <div style="text-align: right;">
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectSubType()" [ngClass]="{'btn-icon button': subType == null, 'btn-icon': subType != null}" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                <div class="row">
+                    <hr style="height:1px;color:#341E16;background-color:#341E16;">
+            </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <h6 style="color:#ff895e; font-size: 12px;">Quantity</h6>
+                                <input type="number" class="form-control" placeholder="" min="0" step="1" max="10"
+                                    [(ngModel)]="offer.quantity" name="quantity">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <h6 style="color: #ff895e; font-size: 12px">Comment</h6>
+                                <input type="text" class="form-control" placeholder="" maxlength="30"
+                                    [(ngModel)]="offer.info" name="info">
+                            </div>
+                        </div>
+                </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <tabset #staticTabs>
+                                <tab heading="Operations">
+                                    <offer-op-detail-list #offerOpDetailList id="offerOpDetailList"
+                                        [dataSource]="offerOpHttpService"
+                                        showSimpleSearch="false"
+                                        listTemplate="OFFER_OPERATIONS"
+                                        detailType="details"
+                                        sortColumn="modifiedAt"
+                                        sortDirection="asc"
+                                        dynamicQuery="true"
+                                        rowSelection="single"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                        usePaging="true">
+                                    </offer-op-detail-list>
+                                </tab>
+                                <tab heading="Files">
+                                    <app-entity-file-list #entityFileList id="entityFileList"
+                                        [dataSource]="entityFileHttpService"
+                                        showSimpleSearch="false"
+                                        rowSelection="single"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                        usePaging="false">
+                                    </app-entity-file-list>
+                                    <br>
+                                    <app-entity-file-upload *ngIf="offer.id > 0"
+                                        [entityId]="offer.id"
+                                        [entityTypeCode]="entityTypeCode"
+                                        (uploadFinished)="refreshEntityFiles()">
+                                    </app-entity-file-upload>
+                                    <app-entity-file-download *ngIf="offer.id > 0"
+                                        [entityFile]="entityFile">
+                                    </app-entity-file-download>
+                                </tab>
+                            </tabset>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="ui-toolbar-group-left">
+                              <button type="button" class="btn btn-outline-primary btn-sm" (click)="sendBookEmailPreview()" style="background-color: darkseagreen; color: black;"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Send Email </button>
+                              <button type="button" class="btn btn-outline-primary btn-sm" (click)="sendBookEmailPreview()" style="background-color: darkseagreen; color: black;"><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;Preview </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="ui-toolbar-group-left">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="ui-toolbar-group-right">
+                                <div class="text-right">
+                                    <div>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="saveOffer()" [disabled]="!allowSaving || !isSaved"><i class="fa fa-save"></i> Save</button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Inchide</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+      </div>
+</div> -->
+
+    <div class="modal fade" bsModal #partnerListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Supplier</h3>
+                </div>
+                <div class="modal-body">
+                    <app-partner-list #partnerList id="partnerList"
+                        [dataSource]="partnerHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        usePaging="true">
+                    </app-partner-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedPartner()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="partnerListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+        tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h6 class="modal-title">Confirmare</h6>
+          </div>
+          <div class="modal-body">
+            {{ confirmationMessage }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="modal fade" bsModal #requestListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Tichete</h3>
+       </div>
+       <div class="modal-body">
+           <app-request-list #requestList id="requestList"
+               [dataSource]="requestHttpService"
+               rowSelection="single"
+               detailType="detailui"
+               sortColumn="request.id"
+               sortDirection="des"
+               dynamicQuery="true"
+               showSimpleSearch="true"
+               notifyOnChange="false"
+               listTemplate="REQUESTUI"
+               [pageSize]="5"
+               usePaging="true">
+           </app-request-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRequest()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="requestListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #offerTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">Tip oferta</h4>
+      </div>
+      <div class="modal-body">
+          <app-offer-type-list #offerTypeList id="offerTypeList"
+              [dataSource]="offerTypeHttpService"
+              rowSelection="single"
+              notifyOnChange="false"
+              [pageSize]="5"
+              usePaging="true">
+          </app-offer-type-list>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedOfferType()">Selecteaza</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="offerTypeListModal.hide()">Inchide</button>
+      </div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="modal fade" bsModal #offerListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Oferte existente</h3>
+       </div>
+       <div class="modal-body">
+           <offer-list #offerList id="offerList"
+               [dataSource]="offerHttpService"
+               rowSelection="single"
+               detailType="newofferdetailui"
+               sortColumn="offer.id"
+               sortDirection="asc"
+               dynamicQuery="true"
+               showSimpleSearch="true"
+               notifyOnChange="false"
+               listTemplate="OFFERUI"
+               [pageSize]="5"
+               usePaging="true">
+           </offer-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedOffer()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="offerListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>

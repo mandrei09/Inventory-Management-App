@@ -1,0 +1,42 @@
+import { OrderMaterialUpdate } from "./order-material-update";
+
+export class OrderSave {
+    id: number;
+    code: string;
+    name: string;
+    // companyId: number;
+    offerId: number;
+    // budgetId: number;
+    // budgetBaseId: number;
+    // budgetForecastId: number;
+    // projectId: number;
+    // administrationId: number;
+    // masterTypeId: number;
+    // typeId: number;
+    // subTypeId: number;
+    // employeeId: number;
+    // accMonthId: number;
+    // interCompanyId: number;
+    // partnerId: number;
+    // uomId: number;
+    // accountId: number;
+    // costCenterId: number;
+    valueIni: number;
+    valueFin: number;
+    quantity: number;
+    price: number;
+    info: string;
+    // contractId: number;
+    // rateId: number;
+    sumOfTotalInOtherCurrency: number;
+    validated: boolean;
+    orderMaterialUpdates: OrderMaterialUpdate[];
+    requestBudgetForecasts: number[];
+    multiple : boolean[];
+    stockMaterialUpdates: number[];
+    preAmount: number;
+    orderTypeId: number;
+    // needBudgetAmount: boolean;
+    endDate: Date;
+    startAccMonthId: number;
+}

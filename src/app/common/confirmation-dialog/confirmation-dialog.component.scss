@@ -1,0 +1,97 @@
+::ng-deep mat-mdc-dialog-container {
+  padding: 0 !important;
+}
+.confirmation-dialog {
+  transform: none;
+  //padding: 15px 15px 50px 15px !important;
+
+  svg {
+    fill: #0B4FFF;
+  }
+
+  .modal-dialog-header {
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #D9D9DF !important;
+      align-items: center;
+
+      .modal-title {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 24px;
+      }
+  }
+
+  .mat-mdc-dialog-content {
+      padding: 24px;
+      text-align: left;
+      margin: 0;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 18px;
+      /* or 129% */
+
+      display: flex;
+      align-items: center;
+
+      color: #000000;
+  }
+
+
+    .mat-mdc-dialog-actions {
+        display: flex;
+        border-top: none;
+        padding: 8px 16px;
+        margin-bottom: 0 !important;
+
+        span {
+            color: #111052;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        button:last-child {
+          margin-right: 0 !important;
+        }
+
+        .action-buttons {
+            .blue-btn {
+                width: auto;
+                height: 40px;
+                padding: 2px 16px;
+                background: #0B4FFF;
+                border-radius: 8px;
+                color: #FFFFFF;
+                border: none;
+                box-shadow: none;
+                font-weight: 400;
+                margin-right: 0 !important;
+
+                &:hover {
+                    background-color: #063FD0
+                }
+            }
+
+            .gray-btn-outline {
+                width: auto;
+                height: 40px;
+                padding: 2px 16px;
+                background: transparent;
+                border: 1px solid #D9D9DF;
+                border-radius: 8px;
+                color: #8B8B9D;
+                box-shadow: none;
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+::ng-deep .confirmation-dialog .mat-dialog-container {
+  height: 207px !important;
+}

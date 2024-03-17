@@ -1,0 +1,25 @@
+.modal {
+    text-align: center;
+}
+.modal-dialog {
+    text-align: left; /* you'll likely want this */
+    max-width: 100%;
+    min-width: 40%;
+    width: auto !important;
+    display: inline-block;
+}
+
+:host ::ng-deep .p-rowgroup-footer td {
+    font-weight: 700;
+  }
+  
+  :host ::ng-deep .p-rowgroup-header {
+    span {
+        font-weight: 700;
+    }
+  
+    .p-row-toggler {
+        vertical-align: middle;
+        margin-right: .25rem;
+    }
+  }

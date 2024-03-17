@@ -1,0 +1,252 @@
+<div class="full-width-add-edit-dialog full-screen-details" *transloco="let t; read: 'page_procurement_offer_status_component'">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">{{ t('modal_title_text') }}</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body full-screen-details_body">
+      <div class="container-fluid">
+
+        <div class="">
+            <div class="mx-auto">
+              <div class="row mx-auto">
+                <div class="row">
+                  <div class="col-12 col-md-3">
+                    <div class="form-group inputs-modal-nomenclature mb-4">
+                      <label>
+                        {{ t('offer_type_filter_title') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <offer-type-item-select class="form-group-select_wrapper" [(ngModel)]="offerType" displayValue="name" placeholder="{{ t('offer_type_filter_placeholder') }}" [ngModelOptions]="{standalone: true}">
+                      </offer-type-item-select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-3">
+                    <div class="form-group inputs-modal-nomenclature mb-4">
+                      <label>
+                        {{ t('reference_offer_filter_title') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <offer-item-select class="form-group-select_wrapper" [(ngModel)]="offerClone" displayValue="code" placeholder="{{ t('reference_offer_filter_placeholder') }}" [ngModelOptions]="{standalone: true}" [disabled]="((offerType == null) || (offerType.code !== 'O-E'))">
+                      </offer-item-select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-3">
+                    <div class="form-group inputs-modal-nomenclature mb-4">
+                      <label>
+                        {{ t('purchase_request_filter_title') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <request-item-select class="form-group-select_wrapper" [(ngModel)]="request" [params]="requestParams" displayValue="code" placeholder="{{ t('select_pr_filter_placeholder') }}" [ngModelOptions]="{standalone: true}">
+                      </request-item-select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-3">
+                    <div class="form-group inputs-modal-nomenclature mb-4">
+                      <label>
+                        {{ t('applicant_filter_title') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput readonly type="text" class="form-control" [value]="employee != null ?  employee.firstName + ' ' + employee.lastName :''" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="">
+              <div *ngIf="request != null" class="mt-2 mb-5">
+                <div class="row">
+                  <div class="col-12 attributes">
+                    <div class="files-header mb-2">
+                      <span class="mr-15 my-auto"></span>
+                      <div class="d-flex">
+
+                      </div>
+                    </div>
+                    <div>
+                      <div class="table-responsive border-1-gray">
+                        <app-request-budget-forecast-material-view-ng-prime-validate #requestBudgetForecastList id="requestBudgetForecastList"
+                                                                                     [dataSource]="requestBudgetForecastHttpService"
+                                                                                     showSimpleSearch="false"
+                                                                                     listTemplate="REQUESTBUDGETFORECASTS"
+                                                                                     detailType=""
+                                                                                     sortColumn="request.code"
+                                                                                     sortDirection="asc"
+                                                                                     dynamicQuery="true"
+                                                                                     rowSelection="single"
+                                                                                     notifyOnChange="true"
+                                                                                     (selectionChanged)="setSelectedItem($event)"
+                                                                                     usePaging="true">
+                        </app-request-budget-forecast-material-view-ng-prime-validate>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="request != null" class="mt-2 mb-5">
+                <div class="row">
+                  <div class="col-12 attributes">
+                    <div class="files-header mb-2">
+                      <span class="mr-15 my-auto">Files</span>
+                      <div class="d-flex">
+                        <button hideIfUnauthorized="UPLOAD|REQUEST" class="small-blue-btn mb-0 ml-15" (click)="onAssetDocumentFileUpload()" [disabled]="selectedRequestBudgetForecasts.length === 0">
+                          <svg class="d-flex my-auto" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                          </svg>
+                          {{ t('upload_button') }}
+                        </button>
+                      </div>
+                    </div>
+                    <hr class="mb-3">
+                    <div *ngIf ="selectedRequestBudgetForecasts.length !== 0">
+                      <div>
+                        <div class="table-responsive border-1-gray">
+                          <app-entity-file-list #entityFileRequestList id="entityFileRequestList"
+                                                [dataSource]="entityFileHttpService"
+                                                showSimpleSearch="false"
+                                                rowSelection="single"
+                                                notifyOnChange="true"
+                                                (selectionChanged)="onEntityFileRequestListSelectionChanged($event)"
+                                                usePaging="false"
+                                                [inInvetoryReport] = "false">
+                          </app-entity-file-list>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table custom-table mat-elevation-z0 custom-html-table" id="entityFilesButtons">
+                          <tr>
+                            <th>
+                              <app-entity-file-validate-asset-download
+                                [entityFile]="entityFileRequest">
+                              </app-entity-file-validate-asset-download>
+                            </th>
+                            <th>
+                              <app-entity-file-inventory-list-delete
+                                (deleteFinished)="showEntityFiles(selectedRequestBudgetForecasts[0].id)"
+                                [entityFile]="entityFileRequest">
+                              </app-entity-file-inventory-list-delete>
+                            </th>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-2 mb-5" style="border-top: 1px solid #d6d6d6;padding-top: 15px;">
+                <p-pickList
+                  [source]="availablePartners"
+                  [target]="selectedPartners"
+                  sourceHeader="{{ t('suppliers_available_pick_list') }}"
+                  targetHeader="{{ t('suppliers_selected_pick_list') }}"
+                  [dragdrop]="true"
+                  [showSourceFilter]="true"
+                  [showTargetFilter]="true"
+                  [showSourceControls]="false"
+                  [showTargetControls]="false"
+                  [responsive]="true"
+                  filterBy="name"
+                  (onMoveToTarget)="moveToTarget($event)"
+                  (onMoveToSource)="moveToSource($event)"
+                  (onTargetSelect)="onTargetSelect($event)"
+                  sourceFilterPlaceholder="{{ t('search_source_pick_list') }}"
+                  targetFilterPlaceholder="{{ t('search_target_pick_list') }}">
+                  <ng-template let-partner pTemplate="item">
+                    <div class="partner-item">
+                      <div class="product-list-detail" style="padding: 8px;">
+                        <h5 class="p-mb-2">{{partner.registryNumber}}</h5>
+                        <i class="pi pi-tag product-category-icon"></i>
+                        <span class="product-category">{{partner.name}}</span>
+                        <p *ngIf="!partner.isLeftSide"></p>
+                        <p *ngIf="!partner.isLeftSide" style="color: #000"> {{ t('contract_data') }}</p>
+                        <p *ngIf="!partner.isLeftSide && partner.contactInfo != null && partner.contactInfo != ''"><mat-checkbox (change)="checkContact1($event)" [ngModel]="sendTocontactInfo1"  name="partner.contactInfo"> 1. {{partner.contactInfo}}</mat-checkbox></p>
+                        <p *ngIf="!partner.isLeftSide && partner.bank != null && partner.bank != ''"><mat-checkbox (change)="checkContact2($event)" [ngModel]="sendTocontactInfo2" name="partner.bank"> 2. {{partner.bank}}</mat-checkbox></p>
+                        <p *ngIf="!partner.isLeftSide && partner.bankAccount != null && partner.bankAccount != ''"><mat-checkbox (change)="checkContact3($event)" [ngModel]="sendTocontactInfo3" name="partner.bankAccount"> 3. {{partner.bankAccount}}</mat-checkbox></p>
+                        <p *ngIf="!partner.isLeftSide">
+
+                        <div *ngIf="!partner.isLeftSide" id="documentsSection2" class="row">
+                          <div class="col-12 attributes">
+                            <!-- <div class="files-header mb-2">
+                              <span class="mr-15 my-auto">Files ({{ partner.entityFiles?.length }}):</span>
+                              <div class="d-flex">
+                                <button (click)="onOfferDocumentFileUpload(partner)" *ngIf="!partner.isLeftSide" class="medium-blue-btn mb-0 ml-15" (click)="onClassAdd('dispatcher')">
+                                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                                  </svg>
+                                  {{ t('upload_documents') }}
+                                </button>
+                              </div>
+                            </div> -->
+                            <hr class="mb-3">
+                            <div >
+                              <div class="table-responsive">
+                                <table class="table custom-table mat-elevation-z0 custom-html-table">
+                                  <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>{{ t('file_type') }}</th>
+                                    <th>{{ t('file_name') }}</th>
+                                    <th></th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let tableItem of partner.entityFiles">
+                                    <td><mat-checkbox (change)="updatePartnerEntityFiles($event, tableItem.id)" [(ngModel)]="tableItem.selected"  name="tableItem.selected"></mat-checkbox></td>
+                                    <td>{{ tableItem.entityType?.name }}</td>
+                                    <td>{{ tableItem.name }}</td>
+                                    <td>
+                                      <button mat-icon-button color="warn" (click)="deleteEntityFile(partner.entityFiles, tableItem.id)"><mat-icon>delete</mat-icon></button>
+                                    </td>
+                                  </tr>
+                                  <tr *ngIf="partner.entityFiles.length == 0">
+                                    <td class="" colspan="12" style="text-align: left;padding:.5rem .5rem !important;">
+                                      <div class="table-no_results">{{ t('no_results_found') }}</div>
+                                    </td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row" *ngIf="!partner.isLeftSide && (offerType != null && offerType.code === 'O')">
+                          <div class="col-md-12">
+                            <div class="form-group asset-form">
+                              <label>
+                                Header:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <textarea [(ngModel)]="partner.headerMsg" name="headerMsg" placeholder="..." class="form-control" rows="12"></textarea>
+                            </div>
+                          </div>
+                          <!-- <br>
+                          <input #fileInput type="file" multiple="multiple" class="form-control" id="fileInput"  placeholder="Selectie fisier ..." accept=".pdf" required  (change)="selectFile($event, partner.id)"> -->
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-pickList>
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">{{ t('action_cancel') }}</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            (click)="saveOffer()" [disabled]="!allowSaving || !isSaved"
+    >{{ t('action_save') }}</button>
+  </mat-dialog-actions>
+</div>

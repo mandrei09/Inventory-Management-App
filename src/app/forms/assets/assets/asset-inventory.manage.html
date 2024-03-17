@@ -1,0 +1,2192 @@
+<div *transloco="let t; read: 'page_inventory_status_component'">
+  <div class="content-page-header">
+    <app-common-header
+      (filterChanged)="doSimpleSearch($event)"
+      (addNew)="addNewItem()"
+      [showAddNewButton]="'false'"
+    >
+    </app-common-header>
+
+    <div class="modal-filters d-grid">
+      <div class="d-flex" style="display: flex;flex-wrap: wrap;">
+        <div hideIfUnauthorized="DIVISION_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
+          <inventories-item-select [(ngModel)]="inventories" selectionType="single" placeholder="{{ t('inventory_filter_placeholder') }}" displayValue="description" showMinimizedPlaceHolder="true">
+          </inventories-item-select>
+        </div>
+
+        <div hideIfUnauthorized="PHOTO_FILTER|S_INVENTORY_STATUS" class="filter-content-item child-w-200 mt-15 mr-10">
+          <div class="mt-auto d-flex filter-select-wrapper">
+            <div class="static-form-select">
+              <mat-form-field appearance="fill">
+                <mat-label>{{ t('photo_filter_placeholder') }}:</mat-label>
+                <mat-select (selectionChange)="onCustodyUpdate($event.value)">
+                  <mat-option [value]="null">-</mat-option>
+                  <mat-option [value]="'DA'">{{ t('option_yes') }}</mat-option>
+                  <mat-option [value]="'NU'">{{ t('option_no') }}</mat-option>
+                  <mat-option [value]="'-'">{{ t('option_all') }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div hideIfUnauthorized="INVENTORY_STATUS|S_INVENTORY_STATUS" class="filter-content-item mt-15 mr-10">
+          <div class="mt-auto d-flex filter-select-wrapper">
+            <div class="static-form-select">
+              <mat-form-field appearance="fill">
+                <mat-label>{{ reportTypeName }}:</mat-label>
+                <mat-select  (selectionChange)="onReportTypeUpdate($event.value)">
+                  <mat-option [value]="null">-</mat-option>
+                  <mat-option [value]="'ALL'">{{ t('option_all') }}</mat-option>
+                  <mat-option [value]="'SCANNED'">{{ t('option_scanned') }}</mat-option>
+                  <mat-option [value]="'NOT_SCANNED'">{{ t('option_unscanned') }}</mat-option>
+                  <mat-option [value]="'TRANSFER_COSTCENTER'">{{ t('option_transfer_cost_center') }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div hideIfUnauthorized="DIVISION_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
+          <users-item-select [(ngModel)]="users" selectionType="single" placeholder="{{ t('user_filter_placeholder') }}" displayValue="full-name" showMinimizedPlaceHolder="true">
+          </users-item-select>
+        </div>
+
+        <button class="selected-filter-remove mt-15" (click)="clearFilters()">
+          <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 3.34375H9V6.15625L11.3438 7.5625L10.8438 8.375L8 6.65625V3.34375ZM4.40625 1.75C5.59375 0.583333 7.01042 0 8.65625 0C10.3021 0 11.7083 0.583333 12.875 1.75C14.0625 2.91667 14.6562 4.33333 14.6562 6C14.6562 7.66667 14.0625 9.08333 12.875 10.25C11.7083 11.4167 10.3021 12 8.65625 12C7.96875 12 7.20833 11.8333 6.375 11.5C5.5625 11.1458 4.91667 10.7292 4.4375 10.25L5.375 9.28125C6.29167 10.1979 7.38542 10.6562 8.65625 10.6562C9.94792 10.6562 11.0521 10.2083 11.9688 9.3125C12.8854 8.39583 13.3438 7.29167 13.3438 6C13.3438 4.70833 12.8854 3.61458 11.9688 2.71875C11.0521 1.80208 9.94792 1.34375 8.65625 1.34375C7.36458 1.34375 6.26042 1.80208 5.34375 2.71875C4.44792 3.61458 4 4.70833 4 6H6L3.3125 8.6875L3.25 8.59375L0.65625 6H2.65625C2.65625 4.33333 3.23958 2.91667 4.40625 1.75Z" fill="#CC1010"/>
+          </svg>
+          {{ t('reset_filters') }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="filter-row-selector_wrapper d-flex" style="padding-bottom: 10px;">
+      <section class="d-grid">
+        <h4>{{ t('filters_selection') }}:</h4>
+        <div class="d-flex">
+          <p><mat-checkbox (change)="onInitialSelectionChanged($event.checked)">Scriptic</mat-checkbox></p>
+          <p><mat-checkbox (change)="onFinalSelectionChanged($event.checked)">Inventar</mat-checkbox></p>
+          <p><mat-checkbox (change)="onAllSelectionChanged($event.checked)">Initial + Inventar</mat-checkbox></p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="multi-row-filters d-grid">
+    <div *ngIf="showInitialFiltersContent" class="group-filters mr-3">
+      <div class="filter-title">
+        <span>Scriptic:</span>
+      </div>
+      <div class="filter-content d-flex">
+        <div class="filter-content-item">
+          <cost-centers-item-select [(ngModel)]="selectedCostCentersIni" selectionType="multiple" placeholder="{{ t('cost_center_filter_placeholder') }}" displayValue="name" showMinimizedPlaceHolder="true">
+          </cost-centers-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <divisions-item-select [(ngModel)]="selectedDivisionsIni" selectionType="multiple" placeholder="{{ t('division_filter_placeholder') }}" displayValue="name" showMinimizedPlaceHolder="true">
+          </divisions-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <departments-item-select [(ngModel)]="selectedDepartmentsIni" selectionType="multiple" placeholder="B.U" displayValue="name" showMinimizedPlaceHolder="true">
+          </departments-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <administrations-item-select [(ngModel)]="selectedAdministrationsIni" selectionType="multiple" placeholder="Locatie" displayValue="name" showMinimizedPlaceHolder="true">
+          </administrations-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <adm-centers-item-select [(ngModel)]="selectedAdmCentersIni" selectionType="multiple" placeholder="PC" displayValue="code-name" showMinimizedPlaceHolder="true">
+          </adm-centers-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <inv-states-item-select [(ngModel)]="selectedInvStatesIni" selectionType="multiple" placeholder="Stari" displayValue="name" showMinimizedPlaceHolder="true">
+          </inv-states-item-select>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showFinalFiltersContent" class="group-filters mr-3">
+      <div class="filter-title">
+        <span>Inventar:</span>
+      </div>
+      <div class="filter-content d-flex">
+        <div class="filter-content-item">
+          <cost-centers-item-select [(ngModel)]="selectedCostCentersFin" selectionType="multiple" placeholder="{{ t('cost_center_filter_placeholder') }}" displayValue="name" showMinimizedPlaceHolder="true">
+          </cost-centers-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <divisions-item-select [(ngModel)]="selectedDivisionsFin" selectionType="multiple" placeholder="{{ t('division_filter_placeholder') }}" displayValue="name" showMinimizedPlaceHolder="true">
+          </divisions-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <departments-item-select [(ngModel)]="selectedDepartmentsFin" selectionType="multiple" placeholder="B.U" displayValue="name" showMinimizedPlaceHolder="true">
+          </departments-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <administrations-item-select [(ngModel)]="selectedAdministrationsFin" selectionType="multiple" placeholder="Locatie" displayValue="name" showMinimizedPlaceHolder="true">
+          </administrations-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <adm-centers-item-select [(ngModel)]="selectedAdmCentersFin" selectionType="multiple" placeholder="PC" displayValue="code-name" showMinimizedPlaceHolder="true">
+          </adm-centers-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <inv-states-item-select [(ngModel)]="selectedInvStatesFin" selectionType="multiple" placeholder="Stari" displayValue="name" showMinimizedPlaceHolder="true">
+          </inv-states-item-select>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showAllFiltersContent" class="group-filters mr-3">
+      <div class="filter-title">
+        <span>Initial + Inventar:</span>
+      </div>
+      <div class="filter-content d-flex">
+        <div class="filter-content-item">
+          <cost-centers-item-select [(ngModel)]="selectedCostCentersAll" selectionType="multiple" placeholder="{{ t('cost_center_filter_placeholder') }}" displayValue="name" showMinimizedPlaceHolder="true">
+          </cost-centers-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <divisions-item-select [(ngModel)]="selectedDivisionsAll" selectionType="multiple" placeholder="{{ t('division_filter_placeholder') }}" displayValue="name" showMinimizedPlaceHolder="true">
+          </divisions-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <departments-item-select [(ngModel)]="selectedDepartmentsAll" selectionType="multiple" placeholder="B.U" displayValue="name" showMinimizedPlaceHolder="true">
+          </departments-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <administrations-item-select [(ngModel)]="selectedAdministrationsAll" selectionType="multiple" placeholder="Locatie" displayValue="name" showMinimizedPlaceHolder="true">
+          </administrations-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <adm-centers-item-select [(ngModel)]="selectedAdmCentersAll" selectionType="multiple" placeholder="PC" displayValue="code-name" showMinimizedPlaceHolder="true">
+          </adm-centers-item-select>
+        </div>
+
+        <div class="filter-content-item">
+          <inv-states-item-select [(ngModel)]="selectedInvStatesAll" selectionType="multiple" placeholder="Stari" displayValue="name" showMinimizedPlaceHolder="true">
+          </inv-states-item-select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-page-header-two d-flex">
+    <div class="left-actions d-flex align-items-center">
+      <div class="refresh subheader-actions-wrapper">
+        <a>
+          <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="refresh subheader-actions-wrapper subheader-action-text_inline" style="min-width: auto;">
+        <a (click)="exportEmag()" class="d-flex" style="color: inherit;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/> </g> </svg>
+          Export
+        </a>
+      </div>
+
+      <!-- <div class="refresh subheader-actions-wrapper subheader-action-text_inline" style="min-width: auto;">
+        <a (click)="exportAllEmag()" class="d-flex" style="color: inherit;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/> </g> </svg>
+          Export - toate
+        </a>
+      </div> -->
+
+      <div class="refresh subheader-actions-wrapper">
+        <button (click)="showPhoto('ASSET')" class="small-blue-btn mb-0 d-flex" [disabled]="assetInvFullDetailList.selectedItems.length === 0">
+          {{ t('photo_button') }}
+        </button>
+      </div>
+      <div class="refresh subheader-actions-wrapper" style="width: auto !important;min-width: 100%;">
+        <button (click)="onMinus()" [disabled]="!allowMinusSaving && isSaved" class="small-blue-btn mb-0 d-flex" >
+          {{ t('sap_minus_button') }}
+        </button>
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <div class="mr-15" style="display: flex;">
+        <div class="refresh">
+          <button
+            (click)="onReconciliation()"
+            class="small-blue-btn mb-0 ml-10 opacity-09"
+            [disabled]="this.assetInvFullDetailList.selectedItems.length === 0"
+          >
+            <mat-icon>keyboard_command</mat-icon>
+            <span>
+              {{ t('reconciliation_button') }}
+            </span>
+          </button>
+        </div>
+        <div class="vertical-divider"></div>
+      </div>
+
+      <div class="results d-flex align-items-center">
+        <div>
+          <span class="blue-color">{{ assetInvFullDetailList._selectedItems ? assetInvFullDetailList._selectedItems.length : '0' }}</span>
+          <span [class.blue-color]="assetInvFullDetailList._selectedItems.length > 0"> {{ t('table_selected_text') }}</span>
+        </div>
+        <div class="vertical-divider mr-15"></div>
+        <div>
+          <span>{{ assetInvFullDetailList.totalItems ? assetInvFullDetailList.totalItems : '0' }} {{ t('table_results_text') }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-asset-inv-full-detail-list hideIfUnauthorized="VIEW|S_INVENTORY_STATUS" #assetInvFullDetailList id="assetInvFullDetailList"
+                                  [dataSource]="assetHttpService"
+                                  dynamicQuery="true"
+                                  detailType="inventory"
+                                  sortColumn="asset.invNo"
+                                  sortDirection="asc"
+                                  usePaging="true"
+                                  showSimpleSearch="false"
+                                  rowSelection="multiple"
+                                  [pageSize]="10"
+                                  (selectionChanged)="onAssetInvFullDetailSelectionChanged($event)"
+                                  notifyOnChange="true">
+  </app-asset-inv-full-detail-list>
+</div>
+
+
+
+
+
+
+<!--<div class="animated fadeIn">-->
+<!--    <br>-->
+<!--    <div class="card">-->
+<!--      <div class="card-header">-->
+<!--            <button type="button" class="btn btn-outline-secondary btn-sm" (click)="isCollapsed = !isCollapsed">Filtre </button>-->
+<!--            <button hideIfUnauthorized="INVENTORY_FILTER|S_INVENTORY_STATUS" type="button" class="btn btn-outline-secondary btn-sm" (click)="selectInventory()">{{ selectedInventory != null ? selectedInventory.description : 'Inventar' }}</button>-->
+
+<!--            <div hideIfUnauthorized="PHOTO_FILTER|S_INVENTORY_STATUS"  class="btn-group" dropdown>-->
+<!--                <button dropdownToggle type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle">-->
+<!--                    Foto {{ (custody === '-' ? '-' : (custody === 'DA' ? 'DA' : 'NU')) }}<span class="caret"></span>-->
+<!--                </button>-->
+<!--                <ul *dropdownMenu class="dropdown-menu" role="menu"  >-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="onCustodyUpdate('DA')">Da</a></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="onCustodyUpdate('NU')">Nu</a></li>-->
+<!--                  <li class="divider dropdown-divider"></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="onCustodyUpdate('-')">Toate</a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+
+
+<!--              <div hideIfUnauthorized="INVENTORY_STATUS|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button dropdownToggle type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle">-->
+<!--                     {{ reportTypeName }}<span class="caret"></span>-->
+<!--                </button>-->
+<!--                <ul *dropdownMenu class="dropdown-menu" role="menu"  >-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="onReportTypeUpdate('ALL')">Toate</a></li>-->
+<!--                  <li class="divider dropdown-divider"></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="onReportTypeUpdate('SCANNED')">Scanate</a></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="onReportTypeUpdate('NOT_SCANNED')">Nescanate</a>-->
+<!--                  </li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="onReportTypeUpdate('TRANSFER_COSTCENTER')">Transferuri centru de cost</a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="USER_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectUsers()" >Utilizatori</button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedUsers.length > 0 ? selectedUsers.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearUserSelection()">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let user of selectedUsers"><a class="dropdown-item" (click)="removeFromUserSelection(user)"><i class="fa fa-times"></i> &nbsp;{{ user.userName }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+
+<!--          <button hideIfUnauthorized="VIEW_PHOTO|S_INVENTORY_STATUS" *ngIf="assetInvFullDetailList.selectedItems.length > 0" type="button" class="btn btn-info btn-sm" (click)="showPhoto('ASSET')" ><i class="fa fa-picture-o"></i>  &nbsp;Foto</button>-->
+<!--          &nbsp;-->
+<!--          <button hideIfUnauthorized="CLEAR_SELECTION|S_INVENTORY_STATUS" type="button" class="btn btn-danger btn-sm" (click)="clearSelection()" [style.backgroundColor] = "'rgb(168, 16, 0)'"><i class="fa fa-check"></i></button>-->
+<!--          &nbsp;-->
+<!--          <button hideIfUnauthorized="CLEAR_FILTER|S_INVENTORY_STATUS" type="button" class="btn btn-danger btn-sm" (click)="clearFilters()" [style.backgroundColor] = "'rgb(168, 16, 0)'" ><i class="fa fa-close"></i></button>-->
+<!--          &nbsp;-->
+<!--          <button type="button" class="btn btn-success btn-sm" (click)="exportEmag()" style="background-color: rgb(0, 130, 19);color: white;" [disabled]="hideExportBtn" ><i class="fa fa-download"></i> &nbsp; Export </button>-->
+<!--          &nbsp;-->
+<!--         <button type="button" class="btn btn-warning btn-sm" (click)="onMinus()" [disabled]="!allowMinusSaving && isSaved"><i class="fa fa-save"></i> SAP Minus</button>-->
+<!--          <div class="card-header-actions">-->
+
+<!--              <div class="input-group">-->
+<!--                <input type="text" class="form-control" placeholder="Cauta..." aria-label="Cauta..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="checkForRefresh()">-->
+
+<!--              </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="card-body"-->
+<!--           (collapsed)="collapsed($event)"-->
+<!--           (expanded)="expanded($event)"-->
+<!--           [collapse]="isCollapsed">-->
+<!--           <div class="collapse" id="collapseInitial" style="display: inline;">-->
+<!--            <span class="badge badge-dark badge-pill">Scriptic</span>-->
+
+
+<!--              <div hideIfUnauthorized="COSTCENTER_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCostCenters('INI')" >Centre de cost-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedCostCentersIni.length > 0 ? selectedCostCentersIni.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearCostCenterSelection('INI')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let costCenter of selectedCostCentersIni"><a class="dropdown-item" (click)="removeFromCostCenterSelection('INI', costCenter)"><i class="fa fa-times"></i> &nbsp;{{ costCenter.code }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="DIVISION_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDivisions('INI')" >Departamente-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedDivisionsIni.length > 0 ? selectedDivisionsIni.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearDivisionSelection('INI')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let division of selectedDivisionsIni"><a class="dropdown-item" (click)="removeFromDivisionSelection('INI', division)"><i class="fa fa-times"></i> &nbsp;{{ division.name }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="DEPARTMENT_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDepartments('INI')" >B.U.-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedDepartmentsIni.length > 0 ? selectedDepartmentsIni.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearDepartmentSelection('INI')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let department of selectedDepartmentsIni"><a class="dropdown-item" (click)="removeFromDepartmentSelection('INI', department)"><i class="fa fa-times"></i> &nbsp;{{ department.name }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="ADMINISTRATION_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdministrations('INI')" >Locatie-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedAdministrationsIni.length > 0 ? selectedAdministrationsIni.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearAdministrationSelection('INI')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let administration of selectedAdministrationsIni"><a class="dropdown-item" (click)="removeFromAdministrationSelection('INI', administration)"><i class="fa fa-times"></i> &nbsp;{{ administration.name }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="ADMCENTER_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenters('INI')" >PC-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedAdmCentersIni.length > 0 ? selectedAdmCentersIni.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearAdmCenterSelection('INI')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let admCenter of selectedAdmCentersIni"><a class="dropdown-item" (click)="removeFromAdmCenterSelection('INI', admCenter)"><i class="fa fa-times"></i> &nbsp;{{ admCenter.code }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="INVSTATE_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectInvStates('INI')" >Stari-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedInvStatesIni.length > 0 ? selectedInvStatesIni.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearInvStateSelection('INI')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let invState of selectedInvStatesIni"><a class="dropdown-item" (click)="removeFromInvStateSelection('INI', invState)"><i class="fa fa-times"></i> &nbsp;{{ invState.name }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--          </div>-->
+<!--            <br>-->
+<!--            <br>-->
+<!--            <div class="collapse" id="collapseFinal" style="display: inline;">-->
+<!--            <span class="badge badge-dark badge-pill">&nbsp;Inventar</span>-->
+<!--            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+<!--                <div hideIfUnauthorized="COSTCENTER_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCostCenters('FIN')" >Centre de cost-->
+
+<!--                    </button>-->
+<!--                    <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                      <span class="caret"></span>-->
+<!--                      <span class="sr-only">Split button!</span>-->
+<!--                      <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedCostCentersFin.length > 0 ? selectedCostCentersFin.length : ''}}</span>-->
+<!--                    </button>-->
+<!--                    <ul  class="dropdown-menu" role="menu">-->
+<!--                        <li role="menuitem"><a class="dropdown-item" (click)="clearCostCenterSelection('FIN')">Sterge toate</a></li>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <li role="menuitem" *ngFor="let costCenter of selectedCostCentersFin"><a class="dropdown-item" (click)="removeFromCostCenterSelection('FIN', costCenter)"><i class="fa fa-times"></i> &nbsp;{{ costCenter.code }}</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                  </div>-->
+<!--                  &nbsp;-->
+<!--                  <div hideIfUnauthorized="DIVISION_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDivisions('FIN')" >Departamente-->
+
+<!--                    </button>-->
+<!--                    <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                      <span class="caret"></span>-->
+<!--                      <span class="sr-only">Split button!</span>-->
+<!--                      <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedDivisionsFin.length > 0 ? selectedDivisionsFin.length : ''}}</span>-->
+<!--                    </button>-->
+<!--                    <ul  class="dropdown-menu" role="menu">-->
+<!--                        <li role="menuitem"><a class="dropdown-item" (click)="clearDivisionSelection('FIN')">Sterge toate</a></li>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <li role="menuitem" *ngFor="let division of selectedDivisionsFin"><a class="dropdown-item" (click)="removeFromDivisionSelection('FIN', division)"><i class="fa fa-times"></i> &nbsp;{{ division.name }}</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                  </div>-->
+<!--                  &nbsp;-->
+<!--                  <div hideIfUnauthorized="DEPARTMENT_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDepartments('FIN')" >B.U.-->
+
+<!--                    </button>-->
+<!--                    <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                      <span class="caret"></span>-->
+<!--                      <span class="sr-only">Split button!</span>-->
+<!--                      <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedDepartmentsFin.length > 0 ? selectedDepartmentsFin.length : ''}}</span>-->
+<!--                    </button>-->
+<!--                    <ul  class="dropdown-menu" role="menu">-->
+<!--                        <li role="menuitem"><a class="dropdown-item" (click)="clearDepartmentSelection('FIN')">Sterge toate</a></li>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <li role="menuitem" *ngFor="let department of selectedDepartmentsFin"><a class="dropdown-item" (click)="removeFromDepartmentSelection('FIN', department)"><i class="fa fa-times"></i> &nbsp;{{ department.name }}</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                  </div>-->
+<!--                  &nbsp;-->
+<!--                  <div hideIfUnauthorized="ADMINISTRATION_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdministrations('FIN')" >Locatie-->
+
+<!--                    </button>-->
+<!--                    <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                      <span class="caret"></span>-->
+<!--                      <span class="sr-only">Split button!</span>-->
+<!--                      <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedAdministrationsFin.length > 0 ? selectedAdministrationsFin.length : ''}}</span>-->
+<!--                    </button>-->
+<!--                    <ul  class="dropdown-menu" role="menu">-->
+<!--                        <li role="menuitem"><a class="dropdown-item" (click)="clearAdministrationSelection('FIN')">Sterge toate</a></li>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <li role="menuitem" *ngFor="let administration of selectedAdministrationsFin"><a class="dropdown-item" (click)="removeFromAdministrationSelection('FIN', administration)"><i class="fa fa-times"></i> &nbsp;{{ administration.name }}</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                  </div>-->
+<!--                  &nbsp;-->
+<!--                  <div hideIfUnauthorized="ADMCENTER_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenters('FIN')" >PC-->
+
+<!--                    </button>-->
+<!--                    <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                      <span class="caret"></span>-->
+<!--                      <span class="sr-only">Split button!</span>-->
+<!--                      <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedAdmCentersFin.length > 0 ? selectedAdmCentersFin.length : ''}}</span>-->
+<!--                    </button>-->
+<!--                    <ul  class="dropdown-menu" role="menu">-->
+<!--                        <li role="menuitem"><a class="dropdown-item" (click)="clearAdmCenterSelection('FIN')">Sterge toate</a></li>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <li role="menuitem" *ngFor="let admCenter of selectedAdmCentersFin"><a class="dropdown-item" (click)="removeFromAdmCenterSelection('FIN', admCenter)"><i class="fa fa-times"></i> &nbsp;{{ admCenter.code }}</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                  </div>-->
+<!--                  &nbsp;-->
+<!--                <div hideIfUnauthorized="INVSTATE_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectInvStates('FIN')" >Stari-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                    <span class="caret"></span>-->
+<!--                    <span class="sr-only">Split button!</span>-->
+<!--                    <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedInvStatesFin.length > 0 ? selectedInvStatesFin.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearInvStateSelection('FIN')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let invState of selectedInvStatesFin"><a class="dropdown-item" (click)="removeFromInvStateSelection('FIN', invState)"><i class="fa fa-times"></i> &nbsp;{{ invState.name }}</a>-->
+<!--                    </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <br>-->
+<!--            <br>-->
+<!--            <div class="collapse" id="collapseAll" style="display: inline;">-->
+<!--            <span class="badge badge-dark badge-pill">Initial + inventar</span>-->
+
+<!--                <div hideIfUnauthorized="COSTCENTER_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCostCenters('ALL')" >Centre de cost-->
+
+<!--                    </button>-->
+<!--                    <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                      <span class="caret"></span>-->
+<!--                      <span class="sr-only">Split button!</span>-->
+<!--                      <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedCostCentersAll.length > 0 ? selectedCostCentersAll.length : ''}}</span>-->
+<!--                    </button>-->
+<!--                    <ul  class="dropdown-menu" role="menu">-->
+<!--                        <li role="menuitem"><a class="dropdown-item" (click)="clearCostCenterSelection('ALL')">Sterge toate</a></li>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <li role="menuitem" *ngFor="let costCenter of selectedCostCentersAll"><a class="dropdown-item" (click)="removeFromCostCenterSelection('ALL', costCenter)"><i class="fa fa-times"></i> &nbsp;{{ costCenter.code }}</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                  </div>-->
+<!--                  &nbsp;-->
+<!--                  <div hideIfUnauthorized="DIVISION_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDivisions('ALL')" >Departamente-->
+
+<!--                    </button>-->
+<!--                    <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                      <span class="caret"></span>-->
+<!--                      <span class="sr-only">Split button!</span>-->
+<!--                      <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedDivisionsAll.length > 0 ? selectedDivisionsAll.length : ''}}</span>-->
+<!--                    </button>-->
+<!--                    <ul  class="dropdown-menu" role="menu">-->
+<!--                        <li role="menuitem"><a class="dropdown-item" (click)="clearDivisionSelection('ALL')">Sterge toate</a></li>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <li role="menuitem" *ngFor="let division of selectedDivisionsAll"><a class="dropdown-item" (click)="removeFromDivisionSelection('ALL', division)"><i class="fa fa-times"></i> &nbsp;{{ division.name }}</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                  </div>-->
+<!--                  &nbsp;-->
+<!--                  <div hideIfUnauthorized="DEPARTMENT_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDepartments('ALL')" >B.U.-->
+
+<!--                    </button>-->
+<!--                    <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                      <span class="caret"></span>-->
+<!--                      <span class="sr-only">Split button!</span>-->
+<!--                      <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedDepartmentsAll.length > 0 ? selectedDepartmentsAll.length : ''}}</span>-->
+<!--                    </button>-->
+<!--                    <ul  class="dropdown-menu" role="menu">-->
+<!--                        <li role="menuitem"><a class="dropdown-item" (click)="clearDepartmentSelection('ALL')">Sterge toate</a></li>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <li role="menuitem" *ngFor="let department of selectedDepartmentsAll"><a class="dropdown-item" (click)="removeFromDepartmentSelection('ALL', department)"><i class="fa fa-times"></i> &nbsp;{{ department.name }}</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                  </div>-->
+<!--                  &nbsp;-->
+<!--                  <div hideIfUnauthorized="ADMINISTRATION_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdministrations('INI')" >Locatie-->
+
+<!--                    </button>-->
+<!--                    <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                      <span class="caret"></span>-->
+<!--                      <span class="sr-only">Split button!</span>-->
+<!--                      <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedAdministrationsIni.length > 0 ? selectedAdministrationsIni.length : ''}}</span>-->
+<!--                    </button>-->
+<!--                    <ul  class="dropdown-menu" role="menu">-->
+<!--                        <li role="menuitem"><a class="dropdown-item" (click)="clearAdministrationSelection('INI')">Sterge toate</a></li>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <li role="menuitem" *ngFor="let administration of selectedAdministrationsIni"><a class="dropdown-item" (click)="removeFromAdministrationSelection('INI', administration)"><i class="fa fa-times"></i> &nbsp;{{ administration.name }}</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                  </div>-->
+<!--                  &nbsp;-->
+<!--                  <div hideIfUnauthorized="ADMCENTER_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenters('ALL')" >PC-->
+
+<!--                    </button>-->
+<!--                    <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                      <span class="caret"></span>-->
+<!--                      <span class="sr-only">Split button!</span>-->
+<!--                      <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedAdmCentersAll.length > 0 ? selectedAdmCentersAll.length : ''}}</span>-->
+<!--                    </button>-->
+<!--                    <ul  class="dropdown-menu" role="menu">-->
+<!--                        <li role="menuitem"><a class="dropdown-item" (click)="clearAdmCenterSelection('ALL')">Sterge toate</a></li>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <li role="menuitem" *ngFor="let admCenter of selectedAdmCentersAll"><a class="dropdown-item" (click)="removeFromAdmCenterSelection('ALL', admCenter)"><i class="fa fa-times"></i> &nbsp;{{ admCenter.code }}</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                  </div>-->
+<!--                  &nbsp;-->
+<!--                <div hideIfUnauthorized="INVSTATE_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectInvStates('ALL')" >Stari-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                    <span class="caret"></span>-->
+<!--                    <span class="sr-only">Split button!</span>-->
+<!--                    <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedInvStatesAll.length > 0 ? selectedInvStatesAll.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearInvStateSelection('ALL')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let invState of selectedInvStatesAll"><a class="dropdown-item" (click)="removeFromInvStateSelection('ALL', invState)"><i class="fa fa-times"></i> &nbsp;{{ invState.name }}</a>-->
+<!--                    </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--    </div>-->
+<!--    <div hideIfUnauthorized="VIEW|S_INVENTORY_STATUS" class="card-footer" style="background-color: white;">-->
+<!--        <app-asset-inv-full-detail-list #assetInvFullDetailList id="assetInvFullDetailList"-->
+<!--        [dataSource]="assetHttpService"-->
+<!--        dynamicQuery="true"-->
+<!--        detailType="inventory"-->
+<!--        sortColumn="asset.invNo"-->
+<!--        sortDirection="asc"-->
+<!--        usePaging="true"-->
+<!--        showSimpleSearch="false"-->
+<!--        rowSelection="single"-->
+<!--        [pageSize]="5"-->
+<!--        (selectionChanged)="onAssetInvFullDetailSelectionChanged($event)"-->
+<!--        notifyOnChange="true">-->
+<!--    </app-asset-inv-full-detail-list>-->
+<!--      </div>-->
+<!--  </div>-->
+
+<!--  <div class="card" *ngIf="notScannedViewMode">-->
+<!--    <div class="card-header">-->
+<!--        <button type="button" class="btn btn-outline-secondary btn-sm" (click)="isCollapsedTemp = !isCollapsedTemp">Filtre </button>-->
+<!--        &nbsp;-->
+<!--        <div hideIfUnauthorized="PHOTO_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--              <button dropdownToggle type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle">-->
+<!--                  Foto {{ (custody === '-' ? '-' : (custody === 'YES' ? 'DA' : 'NU')) }}<span class="caret"></span>-->
+<!--              </button>-->
+<!--              <ul *dropdownMenu class="dropdown-menu" role="menu"  >-->
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="onCustodyUpdate('YES')">Da</a></li>-->
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="onCustodyUpdate('NO')">Nu</a></li>-->
+<!--                <li class="divider dropdown-divider"></li>-->
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="onCustodyUpdate('-')">Toate</a>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </div>-->
+
+
+<!--            &lt;!&ndash; <div hideIfUnauthorized="PRINT_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--              <button dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle">-->
+<!--                  Printed {{ (isPrinted === '-' ? '-' : (isPrinted === 'YES' ? 'YES' : 'NO')) }}<span class="caret"></span>-->
+<!--              </button>-->
+<!--              <ul *dropdownMenu class="dropdown-menu" role="menu">-->
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="onIsPrintedUpdate('YES')">Da</a></li>-->
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="onIsPrintedUpdate('NO')">Nu</a></li>-->
+<!--                <li class="divider dropdown-divider"></li>-->
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="onIsPrintedUpdate('-')">Toate</a>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </div> &ndash;&gt;-->
+
+
+<!--            &nbsp;-->
+<!--            <div hideIfUnauthorized="WORD_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--              <button dropdownToggle type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle">-->
+<!--                {{ 'Cuvinte: ' + (wordCount === 0 ? 'toate' : wordCount.toString()) }}<span class="caret"></span>-->
+<!--              </button>-->
+<!--              <ul *dropdownMenu class="dropdown-menu" role="menu"  >-->
+<!--                <li role="menuitem" (click)="updateWordCount(0)"><a class="dropdown-item">toate</a></li>-->
+<!--                <li role="menuitem" (click)="updateWordCount(1)"><a class="dropdown-item">1</a></li>-->
+<!--                <li role="menuitem" (click)="updateWordCount(2)"><a class="dropdown-item">2</a></li>-->
+<!--                <li role="menuitem" (click)="updateWordCount(3)"><a class="dropdown-item">3</a></li>-->
+<!--                <li role="menuitem" (click)="updateWordCount(4)"><a class="dropdown-item">4</a></li>-->
+<!--                <li role="menuitem" (click)="updateWordCount(5)"><a class="dropdown-item">5</a></li>-->
+<!--                <li role="menuitem" (click)="updateWordCount(6)"><a class="dropdown-item">6</a></li>-->
+<!--                <li role="menuitem" (click)="updateWordCount(7)"><a class="dropdown-item">7</a></li>-->
+<!--                <li role="menuitem" (click)="updateWordCount(8)"><a class="dropdown-item">8</a></li>-->
+<!--                <li role="menuitem" (click)="updateWordCount(9)"><a class="dropdown-item">9</a></li>-->
+<!--                <li role="menuitem" (click)="updateWordCount(10)"><a class="dropdown-item">10</a></li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--            &nbsp;-->
+<!--            <div hideIfUnauthorized="LETTER_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button dropdownToggle type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle">-->
+<!--                    {{ 'Litere: ' + (letterCount === 0 ? 'toate' : letterCount.toString()) }}<span class="caret"></span>-->
+<!--                </button>-->
+<!--                <ul *dropdownMenu class="dropdown-menu" role="menu"  >-->
+<!--                  <li role="menuitem" (click)="updateLetterCount(0)"><a class="dropdown-item">toate</a></li>-->
+<!--                  <li role="menuitem" (click)="updateLetterCount(1)"><a class="dropdown-item">1</a></li>-->
+<!--                  <li role="menuitem" (click)="updateLetterCount(2)"><a class="dropdown-item">2</a></li>-->
+<!--                  <li role="menuitem" (click)="updateLetterCount(3)"><a class="dropdown-item">3</a></li>-->
+<!--                  <li role="menuitem" (click)="updateLetterCount(4)"><a class="dropdown-item">4</a></li>-->
+<!--                  <li role="menuitem" (click)="updateLetterCount(5)"><a class="dropdown-item">5</a></li>-->
+<!--                  <li role="menuitem" (click)="updateLetterCount(6)"><a class="dropdown-item">6</a></li>-->
+<!--                  <li role="menuitem" (click)="updateLetterCount(7)"><a class="dropdown-item">7</a></li>-->
+<!--                  <li role="menuitem" (click)="updateLetterCount(8)"><a class="dropdown-item">8</a></li>-->
+<!--                  <li role="menuitem" (click)="updateLetterCount(9)"><a class="dropdown-item">9</a></li>-->
+<!--                  <li role="menuitem" (click)="updateLetterCount(10)"><a class="dropdown-item">10</a></li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="MIN_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button dropdownToggle type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle">-->
+<!--                    {{ 'Minim : ' + (wordMinLength === 0 ? 'toate' : wordMinLength.toString()) }}<span class="caret"></span>-->
+<!--                </button>-->
+<!--                <ul *dropdownMenu class="dropdown-menu" role="menu"  >-->
+<!--                  <li role="menuitem" (click)="updateWordMinLength(0)"><a class="dropdown-item">toate</a></li>-->
+<!--                  <li role="menuitem" (click)="updateWordMinLength(1)"><a class="dropdown-item">1</a></li>-->
+<!--                  <li role="menuitem" (click)="updateWordMinLength(2)"><a class="dropdown-item">2</a></li>-->
+<!--                  <li role="menuitem" (click)="updateWordMinLength(3)"><a class="dropdown-item">3</a></li>-->
+<!--                  <li role="menuitem" (click)="updateWordMinLength(4)"><a class="dropdown-item">4</a></li>-->
+<!--                  <li role="menuitem" (click)="updateWordMinLength(5)"><a class="dropdown-item">5</a></li>-->
+<!--                  <li role="menuitem" (click)="updateWordMinLength(6)"><a class="dropdown-item">6</a></li>-->
+<!--                  <li role="menuitem" (click)="updateWordMinLength(7)"><a class="dropdown-item">7</a></li>-->
+<!--                  <li role="menuitem" (click)="updateWordMinLength(8)"><a class="dropdown-item">8</a></li>-->
+<!--                  <li role="menuitem" (click)="updateWordMinLength(9)"><a class="dropdown-item">9</a></li>-->
+<!--                  <li role="menuitem" (click)="updateWordMinLength(10)"><a class="dropdown-item">10</a></li>-->
+<!--                </ul>-->
+<!--              </div>-->
+
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="CONDITION_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button dropdownToggle type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle">-->
+<!--                    {{ 'Conditie: ' + (conditionType === 'AND' ? 'SI' : 'SAU') }}<span class="caret"></span>-->
+<!--                </button>-->
+<!--                <ul *dropdownMenu class="dropdown-menu" role="menu"  >-->
+<!--                  <li role="menuitem" (click)="updateConditionType('AND')"><a class="dropdown-item">SI</a></li>-->
+<!--                  <li role="menuitem" (click)="updateConditionType('OR')"><a class="dropdown-item">SAU</a></li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--         &nbsp;-->
+<!--        <button *ngIf="assetInvFullDetailListTemp.selectedItems.length > 0" hideIfUnauthorized="VIEW_PHOTO|S_INVENTORY_STATUS" type="button" class="btn btn-outline-dark btn-sm" (click)="showPhoto('ASSETTEMP')" ><i class="fa fa-picture-o"></i>&nbsp;Foto</button>-->
+<!--        &nbsp;-->
+<!--        <button type="button" class="btn btn-primary" (click)="onReconcile()" [disabled]="!allowReconciliation"><i class="fa fa-handshake-o"></i> Reconciliere</button>-->
+<!--        &nbsp;-->
+<!--        <button type="button" class="btn btn-warning btn-sm" (click)="onPlus()" [disabled]="!allowPlusSaving && isSaved"><i class="fa fa-save"></i> SAP Plus</button>-->
+<!--        &nbsp;-->
+<!--        <button hideIfUnauthorized="CLEAR_FILTER|S_INVENTORY_STATUS" type="button" class="btn btn-danger btn-sm" (click)="clearTempFilters()" [style.backgroundColor] = "'rgb(168, 16, 0)'"><i class="fa fa-times" aria-hidden="true"></i></button>-->
+
+<!--        &nbsp;-->
+<!--      <div class="card-header-actions">-->
+<!--            <div class="input-group">-->
+<!--              <input type="text" class="form-control" placeholder="Cauta..." aria-label="Search..." aria-describedby="basic-addon2" [(ngModel)]="notIdentifiedFilter" (change)="refreshNotIdentified()" style="width: 400px;">-->
+<!--              <div class="input-group-append">-->
+<!--                &lt;!&ndash; <button type="button" class="btn btn-outline-secondary">Action</button> &ndash;&gt;-->
+<!--                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                  <span class="sr-only">Toggle Dropdown</span>-->
+<!--                </button>-->
+<!--                <div class="dropdown-menu">-->
+<!--                  &lt;!&ndash; <a class="dropdown-item" *ngIf="assetInvFullDetailList.selectedItems.length === 1"  (click)="accept()"><i class="fa fa-plus" style="color: blue;"></i>&nbsp;Accept</a>-->
+<!--                  <a class="dropdown-item" *ngIf="assetInvFullDetailList.selectedItems.length === 1"  (click)="decline()"><i class="fa fa-trash-o" style="color: red;"></i> &nbsp;Delete</a> &ndash;&gt;-->
+<!--                  <a hideIfUnauthorized="EXPORT|S_INVENTORY_STATUS" class="dropdown-item" (click)="exportTemp()"><i class="fa fa-file-excel-o" style="color: green;"></i>&nbsp;Export</a>-->
+<!--                  &lt;!&ndash; <div role="separator" class="dropdown-divider"></div>-->
+<!--                  <a class="dropdown-item" href="#">Separated item</a> &ndash;&gt;-->
+
+<!--                  &lt;!&ndash; <a class="btn" *ngIf="selectedBudgets.length === 1" (click)="editBudget()" ><i class="fa fa-edit"></i>&nbsp;Detalii</a>-->
+<!--                  <a class="btn" [routerLink]="['/budget/newbudget']" (click)="addNewBudget()"><i class="fa fa-plus"></i> &nbsp;New</a>-->
+<!--                  <a class="btn" *ngIf="selectedBudgets.length === 1" (click)="deleteBudget()"><i class="fa fa-trash-o"></i> &nbsp;Delete</a>-->
+<!--                  <a class="btn" (click)="exportSocgen()"><i class="fa fa-file-excel-o"></i> &nbsp;Export</a> &ndash;&gt;-->
+<!--                   &lt;!&ndash; <input #fileInput type="file" class="custom-file-input" (change)="loadFile($event)" placeholder="Select..."/>-->
+<!--                      <button type="button" class="btn btn-outline-success btn-sm" (click)="importData()" [disabled]="((fileEvent === null) || (fileEvent === undefined))"><i class="fa fa-file-excel-o"></i> Import</button> &ndash;&gt;-->
+<!--                  &lt;!&ndash; <button type="button" class="btn btn-outline-danger btn-sm" (click)="addNewOperation()" [disabled]="selectedBudgets.length === 0" ><i class="fa fa-list-alt"></i> <span style="font-family: 'Roboto'">Operations</span></button> &ndash;&gt;-->
+<!--      &lt;!&ndash; <button type="button" class="btn btn-outline-primary btn-sm" (click)="editBudget()"  [disabled]="selectedBudgets.length !== 1" ><i class="fa fa-edit"></i> <span style="font-family: 'Roboto'">Details</span></button> &ndash;&gt;-->
+<!--      &lt;!&ndash; <button type="button" class="btn btn-outline-primary btn-sm" (click)="addNewBudget()" ><i class="fa fa-plus"></i> <span style="font-family: 'Roboto'">New Budget</span></button> &ndash;&gt;-->
+<!--      &lt;!&ndash; <button type="button" class="btn btn-outline-danger btn-sm"  (click)="deleteBudget()" ><i class="fa fa-trash-o"></i>&nbsp; <span style="font-family: 'Roboto'">Delete Budget</span></button>-->
+<!--      <button hideIfUnauthorized="ASSET_EXPORT" type="button" class="btn btn-outline-success btn-sm" (click)="exportSocgen()" ><i class="fa fa-file-excel-o"></i> &nbsp; <span style="font-family: 'Roboto'">Export</span> </button>     &ndash;&gt;-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="card-body"-->
+<!--         (collapsed)="collapsedTemp($event)"-->
+<!--         (expanded)="expandedTemp($event)"-->
+<!--         [collapse]="isCollapsedTemp">-->
+
+<!--         &lt;!&ndash; <div hideIfUnauthorized="COUNTY_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--            <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCounties('NI')" >Judete-->
+
+<!--            </button>-->
+<!--            <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--              <span class="caret"></span>-->
+<!--              <span class="sr-only">Split button!</span>-->
+<!--              <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedCountiesNi.length > 0 ? selectedCountiesNi.length : ''}}</span>-->
+<!--            </button>-->
+<!--            <ul  class="dropdown-menu" role="menu">-->
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="clearCountySelection('NI')">Sterge toate</a></li>-->
+<!--                <div class="dropdown-divider"></div>-->
+<!--                <li role="menuitem" *ngFor="let county of selectedCountiesNi"><a class="dropdown-item" (click)="removeFromCountySelection('NI', county)"><i class="fa fa-times"></i> &nbsp;{{ county.name }}</a>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--          </div>-->
+<!--          &nbsp;  &ndash;&gt;-->
+<!--          &lt;!&ndash; <div hideIfUnauthorized="CITY_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--            <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCities('NI')" >Orase-->
+
+<!--            </button>-->
+<!--            <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--              <span class="caret"></span>-->
+<!--              <span class="sr-only">Split button!</span>-->
+<!--              <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedCitiesNi.length > 0 ? selectedCitiesNi.length : ''}}</span>-->
+<!--            </button>-->
+<!--            <ul  class="dropdown-menu" role="menu">-->
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="clearCitySelection('NI')">Sterge toate</a></li>-->
+<!--                <div class="dropdown-divider"></div>-->
+<!--                <li role="menuitem" *ngFor="let city of selectedCitiesNi"><a class="dropdown-item" (click)="removeFromCitySelection('NI', city)"><i class="fa fa-times"></i> &nbsp;{{ city.name }}</a>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--          </div>-->
+<!--          &nbsp;  &ndash;&gt;-->
+<!--          &lt;!&ndash; <div hideIfUnauthorized="LOCATION_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--            <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectLocations('NI')" >Etaje-->
+
+<!--            </button>-->
+<!--            <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--              <span class="caret"></span>-->
+<!--              <span class="sr-only">Split button!</span>-->
+<!--              <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedLocationsNi.length > 0 ? selectedLocationsNi.length : ''}}</span>-->
+<!--            </button>-->
+<!--            <ul  class="dropdown-menu" role="menu">-->
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="clearLocationSelection('NI')">Sterge toate</a></li>-->
+<!--                <div class="dropdown-divider"></div>-->
+<!--                <li role="menuitem" *ngFor="let location of selectedLocationsNi"><a class="dropdown-item" (click)="removeFromLocationSelection('NI', location)"><i class="fa fa-times"></i> &nbsp;{{ location.name }}</a>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--          </div>-->
+<!--          &nbsp;  &ndash;&gt;-->
+<!--          &lt;!&ndash; <div hideIfUnauthorized="ROOM_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--            <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRooms('NI')" >Zone-->
+
+<!--            </button>-->
+<!--            <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--              <span class="caret"></span>-->
+<!--              <span class="sr-only">Split button!</span>-->
+<!--              <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedRoomsNi.length > 0 ? selectedRoomsNi.length : ''}}</span>-->
+<!--            </button>-->
+<!--            <ul  class="dropdown-menu" role="menu">-->
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="clearRoomSelection('NI')">Sterge toate</a></li>-->
+<!--                <div class="dropdown-divider"></div>-->
+<!--                <li role="menuitem" *ngFor="let room of selectedRoomsNi"><a class="dropdown-item" (click)="removeFromRoomSelection('NI', room)"><i class="fa fa-times"></i> &nbsp;{{ room.name }}</a>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--          </div> &ndash;&gt;-->
+<!--          &lt;!&ndash; &nbsp;-->
+<!--              <div hideIfUnauthorized="COMPANY_FILTER|ASSET" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectTempCompanies()" >Categorii</button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedTempCompanies.length > 0 ? selectedTempCompanies.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearTempCompanySelection()">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let tempCompany of selectedTempCompanies"><a class="dropdown-item" (click)="removeFromTempCompanySelection(tempCompany)"><i class="fa fa-times"></i> &nbsp;{{ tempCompany.name }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div> &ndash;&gt;-->
+<!--              &lt;!&ndash; &nbsp;-->
+<!--              <div hideIfUnauthorized="INTERCOMPANY_FILTER|ASSET" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectTempInterCompanies()" >Lungimi</button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedTempInterCompanies.length > 0 ? selectedTempInterCompanies.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearTempInterCompanySelection()">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let tempInterCompany of selectedTempInterCompanies"><a class="dropdown-item" (click)="removeFromTempInterCompanySelection(tempInterCompany)"><i class="fa fa-times"></i> &nbsp;{{ tempInterCompany.name }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div> &ndash;&gt;-->
+<!--              &lt;!&ndash; &nbsp;-->
+
+<!--              <div hideIfUnauthorized="DIMENSION_FILTER|ASSET" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectTempDimensions()">Latimi</button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedTempDimensions.length > 0 ? selectedTempDimensions.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearTempDimensionSelection()">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let tempDimension of selectedTempDimensions"><a class="dropdown-item" (click)="removeFromTempDimensionSelection(tempDimension)"><i class="fa fa-times"></i> &nbsp;{{ tempDimension.width }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp; &ndash;&gt;-->
+
+<!--              &lt;!&ndash; <div hideIfUnauthorized="INSURANCECATEGORY_FILTER|ASSET" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectTempInsuranceCategories()" >Inaltimi</button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedTempInsuranceCategories.length > 0 ? selectedTempInsuranceCategories.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearTempInsuranceCategorySelection()">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let tempInsuranceCategory of selectedTempInsuranceCategories"><a class="dropdown-item" (click)="removeFromTempInsuranceCategorySelection(tempInsuranceCategory)"><i class="fa fa-times"></i> &nbsp;{{ tempInsuranceCategory.name }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div> &ndash;&gt;-->
+<!--              &lt;!&ndash; &nbsp;-->
+<!--                 <div hideIfUnauthorized="ASSETNATURE_FILTER|ASSET" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectTempAssetNatures()" >Culori</button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedTempAssetNatures.length > 0 ? selectedTempAssetNatures.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearTempAssetNatureSelection()">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let tempAssetNature of selectedTempAssetNatures"><a class="dropdown-item" (click)="removeFromTempAssetNatureSelection(tempAssetNature)"><i class="fa fa-times"></i> &nbsp;{{ tempAssetNature.name }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div> &ndash;&gt;-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="COSTCENTER_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCostCenters('NI')" >Centre de cost-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedCostCentersNi.length > 0 ? selectedCostCentersNi.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearCostCenterSelection('NI')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let costCenter of selectedCostCentersNi"><a class="dropdown-item" (click)="removeFromCostCenterSelection('NI', costCenter)"><i class="fa fa-times"></i> &nbsp;{{ costCenter.code }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="DIVISION_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDivisions('NI')" >Departamente-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedDivisionsNi.length > 0 ? selectedDivisionsNi.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearDivisionSelection('NI')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let division of selectedDivisionsNi"><a class="dropdown-item" (click)="removeFromDivisionSelection('NI', division)"><i class="fa fa-times"></i> &nbsp;{{ division.name }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="DEPARTMENT_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDepartments('NI')" >B.U.-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedDepartmentsNi.length > 0 ? selectedDepartmentsNi.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearDepartmentSelection('NI')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let department of selectedDepartmentsNi"><a class="dropdown-item" (click)="removeFromDepartmentSelection('NI', department)"><i class="fa fa-times"></i> &nbsp;{{ department.name }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="INVSTATE_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectInvStates('NI')" >Stari-->
+
+<!--                </button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedInvStatesNi.length > 0 ? selectedInvStatesNi.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearInvStateSelection('NI')">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let invState of selectedInvStatesNi"><a class="dropdown-item" (click)="removeFromInvStateSelection('NI', invState)"><i class="fa fa-times"></i> &nbsp;{{ invState.name }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <div hideIfUnauthorized="USER_FILTER|S_INVENTORY_STATUS" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectUserTemps()" >Utilizatori</button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedUserTemps.length > 0 ? selectedUserTemps.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearUserTempSelection()">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let user of selectedUserTemps"><a class="dropdown-item" (click)="removeFromUserTempSelection(user)"><i class="fa fa-times"></i> &nbsp;{{ user.userName }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--  </div>-->
+<!--  <div hideIfUnauthorized="VIEW|S_INVENTORY_STATUS" class="card-footer" style="background-color: white;">-->
+<!--    <app-asset-inv-temp-detail-list #assetInvFullDetailListTemp id="assetInvFullDetailListTemp"-->
+<!--    [dataSource]="assetHttpService"-->
+<!--    dynamicQuery="true"-->
+<!--    detailType="temp"-->
+<!--    sortColumn="asset.invNo"-->
+<!--    sortDirection="asc"-->
+<!--    usePaging="true"-->
+<!--    showSimpleSearch="false"-->
+<!--    rowSelection="single"-->
+<!--    [pageSize]="5"-->
+<!--    (selectionChanged)="onAssetInvTempDetailTempSelectionChanged($event)"-->
+<!--    notifyOnChange="true">-->
+<!--</app-asset-inv-temp-detail-list>-->
+<!--    </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+<div class="modal fade" bsModal #inventoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Inventare</h4>
+            </div>
+            <div class="modal-body">
+                <inventory-list #inventoryList id="inventoryList"
+                    [dataSource]="inventoryHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </inventory-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInventory()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="inventoryListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Confirmare</h4>
+      </div>
+      <div class="modal-body">
+            {{ confirmationMessage }}
+            <br>
+            <ul *ngFor="let assetInvNo of assetInvNos" >
+                <li >
+                    {{ assetInvNo }}
+                </li>
+            </ul>
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+        <button type="button" class="btn btn-primary" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> Nu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #confirmationMinusModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="onConfirmationMinusCanceled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Confirmare minus inventar</h4>
+      </div>
+      <div class="modal-body">
+            <p style="text-align: center;">{{ confirmationMinusMessage }}</p>
+            <br>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Item Text
+                        </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                            [(ngModel)]="itemText" name="itemText">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                        Numar proces verbal
+                        </div>
+                    <div class="input-group">
+                        <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                            [(ngModel)]="refDocNo" name="refDocNo">
+                    </div>
+                </div>
+                </div>
+          </div>
+      <div class="modal-footer">
+        <button [disabled]="!ItemText || !RefDocNo" type="button" class="btn btn-outline-success btn-sm" (click)="saveMinusAsset()"><i class="fa fa-check"></i> Da</button>
+        <button type="button" class="btn btn-primary" (click)="onConfirmationMinusCanceled()"><i class="fa fa-close"></i> Nu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #confirmationPlusModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="onConfirmationMinusCanceled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Confirmare plus inventar</h4>
+      </div>
+      <div class="modal-body">
+            <p style="text-align: center;">{{ confirmationPlusMessage }}</p>
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="savePlusAsset()"><i class="fa fa-check"></i> Da</button>
+        <button type="button" class="btn btn-primary" (click)="onConfirmationPlusCanceled()"><i class="fa fa-close"></i> Nu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #departmentListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">B.U.</h4>
+            </div>
+            <div class="modal-body">
+                <app-department-list #departmentList id="departmentList"
+                    [dataSource]="departmentHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-department-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDepartments()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="departmentListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #departmentListNiModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Departamente</h4>
+            </div>
+            <div class="modal-body">
+                <app-department-list #departmentListNi id="departmentListNi"
+                    [dataSource]="departmentHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-department-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDepartments()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="departmentListNiModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Gestionari</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployees('')">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeListNiModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Gestionari</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeListNi id="employeeListNi"
+                    [dataSource]="employeeHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployees('NI')">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeListNiModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #admCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Regiuni</h4>
+            </div>
+            <div class="modal-body">
+                <app-adm-center-list #admCenterList id="admCenterList"
+                    [dataSource]="admCenterHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-adm-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdmCenters()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="admCenterListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #admCenterListNiModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Regiuni</h4>
+            </div>
+            <div class="modal-body">
+                <app-adm-center-list #admCenterListNi id="admCenterListNi"
+                    [dataSource]="admCenterHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-adm-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdmCenters()">Selecteaza</button>
+                <button type="button" class="btn btn-primary" (click)="admCenterListNiModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #locationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Etaje</h4>
+            </div>
+            <div class="modal-body">
+                <app-location-list #locationList id="locationList"
+                    [dataSource]="locationHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-location-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocations()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="locationListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #divisionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Departamente</h4>
+            </div>
+            <div class="modal-body">
+                <app-division-list #divisionList id="divisionList"
+                    [dataSource]="divisionHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-division-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivisions()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="divisionListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #divisionListNiModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Departamente</h4>
+            </div>
+            <div class="modal-body">
+                <app-division-list #divisionListNi id="divisionListNi"
+                    [dataSource]="divisionHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-division-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivisions()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="divisionListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #roomListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Zone</h4>
+            </div>
+            <div class="modal-body">
+                <app-room-list #roomList id="roomList"
+                    [dataSource]="roomDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-room-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRooms()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="roomListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Centre de cost</h4>
+            </div>
+            <div class="modal-body">
+                <app-administration-list #administrationList id="administrationList"
+                    [dataSource]="administrationDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-administration-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministrations()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="administrationListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #assetTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Producatori</h4>
+            </div>
+            <div class="modal-body">
+                <app-asset-type-list #assetTypeList id="assetTypeList"
+                    [dataSource]="assetTypeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    [pageSize]="5"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-asset-type-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetTypes()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="assetTypeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #assetCategoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Categorii</h4>
+            </div>
+            <div class="modal-body">
+                <app-asset-category-list #assetCategoryList id="assetCategoryList"
+                    [dataSource]="assetCategoryHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    [pageSize]="5"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-asset-category-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetCategories()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="assetCategoryListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Centre de cost</h4>
+            </div>
+            <div class="modal-body">
+                <app-cost-center-list #costCenterList id="costCenterList"
+                    [dataSource]="costCenterHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenters()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="costCenterListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #costCenterListNiModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Centre de cost</h4>
+            </div>
+            <div class="modal-body">
+                <app-cost-center-list #costCenterListNi id="costCenterListNi"
+                    [dataSource]="costCenterHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenters()">Selecteaza</button>
+                <button type="button" class="btn btn-primary" (click)="costCenterListNiModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #regionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Counties</h4>
+            </div>
+            <div class="modal-body">
+                <app-region-list #regionList id="regionList"
+                    [dataSource]="regionHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-region-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRegions()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="regionListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+ <!-- <div id="barcodes" style="border: 0px solid red;margin:0px; padding:0px; display: none;">
+         <table *ngFor="let asset of selectedAssets"  style="border-collapse: collapse; text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:5px" >
+            <tr style="border: 0px solid red"><td style="font-size:10px;margin:0px; padding:0px" >{{ companyName }}</td></tr>
+            <tr><td style="font-size:8px; margin:0px; padding:0px">{{ asset.costCenterCodeFin  }} - {{asset.roomCodeFin}}</td></tr>
+            <tr><td style="font-size:7px; margin:0px; padding:0px;">{{ asset.name }}</td></tr>
+            <tr><td style="font-size:8px; margin:0px; padding:0px">SN: {{ asset.serialNumber }}</td></tr>
+            <tr style="border: 0px solid red"><td><div><img class="barcode" style="border: none"/></div></td></tr>
+            <tr><td style="font-size:8px; margin:0px; padding:0px">{{ asset.invNo }}</td></tr>
+        </table>
+</div> -->
+
+<div class="modal fade" bsModal #imageListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Poze</h4>
+       </div>
+       <div class="modal-body">
+        <div class="form-group"  *ngFor="let assetImage of assetImages">
+            <div class="pull-left control-label">
+                <img *ngIf="assetImage.fileContent !== null" [src]="assetImage.fileContent" height="400px" width="400px"/>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deletePhoto(assetImage.entityFile.id)">Sterge</button>
+            </div>
+        </div>
+          <div class="clearfix"></div>
+       </div>
+       <div class="modal-footer">
+           <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="setSelectedRegions()">Download</button> -->
+           <button type="button" class="btn btn-outline-primary btn-sm" (click)="imageListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+<div class="modal fade" bsModal #uomListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">SMDC</h4>
+            </div>
+            <div class="modal-body">
+                <app-uom-list #uomList id="uomList"
+                    [dataSource]="uomHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-uom-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUoms()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="uomListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #uomListTempModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">SDMC</h4>
+            </div>
+            <div class="modal-body">
+                <app-uom-list #uomListTemp id="uomListTemp"
+                    [dataSource]="uomHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-uom-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUomTemps()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="uomListTempModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #uploadModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Incarca fisier</h4>
+            </div>
+            <div class="modal-body">
+            <!-- <asset-inventory-upload [files]="fileInput?.nativeElement"></asset-inventory-upload> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="uploadModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #locationListNiModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Shops</h4>
+            </div>
+            <div class="modal-body">
+                <app-location-list #locationListNi id="locationListNi"
+                    [dataSource]="locationHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-location-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocations()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="locationListNiModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #regionListNiModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Localitati / Counties</h4>
+            </div>
+            <div class="modal-body">
+                <app-region-list #regionListNi id="regionListNi"
+                    [dataSource]="regionHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-region-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRegions()">Selecteaza</button>
+                <button type="button" class="btn btn-primary" (click)="regionListNiModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #roomListNiModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Zone</h4>
+            </div>
+            <div class="modal-body">
+                <app-room-list #roomListNi id="roomListNi"
+                    [dataSource]="roomDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-room-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRooms()">Selecteaza</button>
+                <button type="button" class="btn btn-primary" (click)="roomListNiModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #companyListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Categorii</h4>
+            </div>
+            <div class="modal-body">
+                <app-company-list #companyList id="companyList"
+                    [dataSource]="companyHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-company-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompanies()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="companyListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #companyListNiModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Categorii</h4>
+            </div>
+            <div class="modal-body">
+                <app-company-list #companyListNi id="companyListNi"
+                    [dataSource]="companyHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-company-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompaniesNi()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="companyListNiModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #countyListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Judete</h4>
+            </div>
+            <div class="modal-body">
+                <app-county-list #countyList id="countyList"
+                    [dataSource]="countyHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-county-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCounties()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="countyListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #cityListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Orase</h4>
+            </div>
+            <div class="modal-body">
+                <app-city-list #cityList id="cityList"
+                    [dataSource]="cityHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-city-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCities()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="cityListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #dimensionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Latimi</h4>
+            </div>
+            <div class="modal-body">
+                <app-dimension-list #dimensionList id="dimensionList"
+                    [dataSource]="dimensionHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-dimension-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDimensions()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="dimensionListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #dimensionListTempModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Latimi</h4>
+            </div>
+            <div class="modal-body">
+                <app-dimension-list #dimensionListTemp id="dimensionListTemp"
+                    [dataSource]="dimensionHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-dimension-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDimensionTemps()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="dimensionListTempModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #invStateListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Stari</h4>
+            </div>
+            <div class="modal-body">
+                <inv-state-list #invStateList id="invStateList"
+                    [dataSource]="invStateHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </inv-state-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="setSelectedInvStates()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="invStateListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #invStateListNiModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Stari</h4>
+            </div>
+            <div class="modal-body">
+                <inv-state-list #invStateListNi id="invStateListNi"
+                    [dataSource]="invStateHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </inv-state-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="setSelectedInvStates()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="invStateListNiModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #userListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Useri</h4>
+            </div>
+            <div class="modal-body">
+                <app-user-list #userList id="userList"
+                      [dataSource]="identityHttpService"
+                      detailType="users"
+                      sortColumn="username"
+                      sortDirection="asc"
+                      usePaging="true"
+                      rowSelection="multiple"
+                      showSimpleSearch="true"
+                      notifyOnChange="true">
+                  </app-user-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="setSelectedUsers()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="userListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #userTempListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Useri</h4>
+            </div>
+            <div class="modal-body">
+                <app-user-list #userTempList id="userTempList"
+                      [dataSource]="identityHttpService"
+                      detailType="users"
+                      sortColumn="username"
+                      sortDirection="asc"
+                      usePaging="true"
+                      rowSelection="multiple"
+                      showSimpleSearch="true"
+                      notifyOnChange="true">
+                  </app-user-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="setSelectedUserTemps()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="userTempListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #interCompanyListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Lungimi</h4>
+            </div>
+            <div class="modal-body">
+                <app-inter-company-list #interCompanyList id="interCompanyList"
+                    [dataSource]="interCompanyHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-inter-company-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInterCompanies()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="interCompanyListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #insuranceCategoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Inaltimi</h4>
+            </div>
+            <div class="modal-body">
+                <insurance-category-list #insuranceCategoryList id="insuranceCategoryList"
+                    [dataSource]="insuranceCategoryHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </insurance-category-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInsuranceCategories()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="insuranceCategoryListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #assetNatureListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Culori</h4>
+            </div>
+            <div class="modal-body">
+                <app-asset-nature-list #assetNatureList id="assetNatureList"
+                    [dataSource]="assetNatureHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-asset-nature-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetNatures()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="assetNatureListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #tempInterCompanyListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Lungimi</h4>
+            </div>
+            <div class="modal-body">
+                <app-inter-company-list #tempInterCompanyList id="tempInterCompanyList"
+                    [dataSource]="interCompanyHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-inter-company-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedTempInterCompanies()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="tempInterCompanyListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #tempInsuranceCategoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Inaltimi</h4>
+            </div>
+            <div class="modal-body">
+                <insurance-category-list #tempInsuranceCategoryList id="tempInsuranceCategoryList"
+                    [dataSource]="insuranceCategoryHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </insurance-category-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedTempInsuranceCategories()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="tempInsuranceCategoryListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #tempAssetNatureListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Culori</h4>
+            </div>
+            <div class="modal-body">
+                <app-asset-nature-list #tempAssetNatureList id="tempAssetNatureList"
+                    [dataSource]="assetNatureHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-asset-nature-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedTempAssetNatures()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="tempAssetNatureListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #tempCompanyListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Categorii</h4>
+            </div>
+            <div class="modal-body">
+                <app-company-list #tempCompanyList id="tempCompanyList"
+                    [dataSource]="companyHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-company-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedTempCompanies()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="tempCompanyListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #tempDimensionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Latimi</h4>
+            </div>
+            <div class="modal-body">
+                <app-dimension-list #tempDimensionList id="tempDimensionList"
+                    [dataSource]="dimensionHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-dimension-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedTempDimensions()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="tempDimensionListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>

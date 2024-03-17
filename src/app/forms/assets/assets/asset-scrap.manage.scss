@@ -1,0 +1,110 @@
+
+.filter-select-wrapper {
+  border-radius: 8px;
+
+  .static-form-select {
+    height: 40px;
+  }
+
+  &_danger {
+    ::ng-deep .mat-mdc-form-field-flex {
+      border: 1px solid #d9534f !important;
+      border-radius: 8px;
+
+      .mat-mdc-form-field-infix {
+        .mdc-floating-label {
+          color: #d9534f !important;
+        }
+      }
+    }
+  }
+
+  mat-form-field {
+    font-size: inherit;
+    font-weight: 400;
+    line-height: 1.125;
+    font-family: Roboto,Helvetica Neue,sans-serif;
+    letter-spacing: normal;
+  }
+
+  ::ng-deep .mat-mdc-form-field {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    height: 40px;
+    overflow: hidden;
+
+    .mat-mdc-text-field-wrapper {
+      padding-bottom: 0!important;
+      position: relative;
+      background: transparent;
+      padding: 0;
+
+      .mat-mdc-form-field-flex {
+        background-color: transparent;
+        padding: 6px 12px 3px !important;
+        border-radius: 8px!important;
+        font-size: 14px;
+        line-height: 18px;
+        height: 40px;
+        border: 1px solid #D9D9DF;
+
+        .mat-mdc-select-trigger {
+          MARGIN-TOP: 5PX;
+        }
+
+        .mat-mdc-select-value-text {
+          color: #000000de;
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        .mdc-floating-label--float-above {
+          top: 20px !important;
+        }
+
+        .mat-mdc-form-field-infix {
+          padding: 0.25em 0 0.75em;
+
+          .mat-select {
+            display: inline-block;
+            width: 100%;
+            outline: none;
+          }
+
+          .mdc-floating-label {
+            font-family: 'Roboto';
+            top: 5px;
+            padding-top: 15px;
+            font-size: 14px;
+            color: #8B8B9D;
+            font-weight: 400;
+            animation: fadeIn 1s;
+            width: 90%;
+            font-style: normal;
+            line-height: 18px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-decoration: none;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .mdc-line-ripple {
+        display: none !important;
+      }
+
+      .mat-mdc-form-field-label-wrapper {
+        top: -0.84375em;
+        padding-top: 0.84375em;
+
+        .mat-mdc-form-field-label {
+          width: calc(100% - 18px);
+          color: #8B8B9D!important;
+        }
+      }
+    }
+  }
+}

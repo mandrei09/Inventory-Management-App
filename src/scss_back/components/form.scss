@@ -1,0 +1,11 @@
+.large-select {
+  mat-form-field {
+    ::ng-deep .mat-form-field-flex {
+      background-color: transparent;
+      border-radius: 8px;
+      border: 1px solid #C6C6D5;
+      width: 110px;
+      height: 48px;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+.helper-mr-16 {
+  margin-right: 16px !important;
+}
+
+.cursor-pointer {
+  &:hover {
+    cursor: pointer;
+  }
+}

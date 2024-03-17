@@ -1,0 +1,346 @@
+<div *transloco="let t; read: 'page_wfh_personal_component'" style="height: 100%;">
+  <div class="content-page-header">
+    <app-common-header [showAddNewButton]="'false'">
+    </app-common-header>
+  </div>
+
+  <div class="content-page-header-two d-flex" style="padding: 8px 16px 8px 19px;">
+    <div class="last-update">
+      <span>{{ t('last_update_text') }}: {{ todaysDataTime }}</span>
+    </div>
+  </div>
+
+  <div class="dash-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 dash-column">
+          <div class="dashboard-item-header">
+            <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3125 0.3125L14 3H24.6875C25.3958 3 26 3.27083 26.5 3.8125C27.0417 4.35417 27.3125 4.97917 27.3125 5.6875V19C27.3125 19.7083 27.0417 20.3333 26.5 20.875C26 21.4167 25.3958 21.6875 24.6875 21.6875H3.3125C2.60417 21.6875 1.97917 21.4167 1.4375 20.875C0.9375 20.3333 0.6875 19.7083 0.6875 19V3C0.6875 2.29167 0.9375 1.66667 1.4375 1.125C1.97917 0.583333 2.60417 0.3125 3.3125 0.3125H11.3125Z"></path></svg>
+            <span>{{ t('employee_label') }}</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-blue-color">{{ itemsInventory[0].count | number:'1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="col-md-3 dash-column">
+          <div class="dashboard-item-header">
+            <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3125 0.3125L14 3H24.6875C25.3958 3 26 3.27083 26.5 3.8125C27.0417 4.35417 27.3125 4.97917 27.3125 5.6875V19C27.3125 19.7083 27.0417 20.3333 26.5 20.875C26 21.4167 25.3958 21.6875 24.6875 21.6875H3.3125C2.60417 21.6875 1.97917 21.4167 1.4375 20.875C0.9375 20.3333 0.6875 19.7083 0.6875 19V3C0.6875 2.29167 0.9375 1.66667 1.4375 1.125C1.97917 0.583333 2.60417 0.3125 3.3125 0.3125H11.3125Z"></path></svg>
+            <span>{{ t('email_label') }}</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-blue-color">{{ itemsInventory[0].emailSend  | number:'1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="col-md-3 dash-column">
+          <div class="dashboard-item-header">
+            <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3125 0.3125L14 3H24.6875C25.3958 3 26 3.27083 26.5 3.8125C27.0417 4.35417 27.3125 4.97917 27.3125 5.6875V19C27.3125 19.7083 27.0417 20.3333 26.5 20.875C26 21.4167 25.3958 21.6875 24.6875 21.6875H3.3125C2.60417 21.6875 1.97917 21.4167 1.4375 20.875C0.9375 20.3333 0.6875 19.7083 0.6875 19V3C0.6875 2.29167 0.9375 1.66667 1.4375 1.125C1.97917 0.583333 2.60417 0.3125 3.3125 0.3125H11.3125Z"></path></svg>
+            <span>{{ t('confirmation_label') }}</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-blue-color">{{ itemsInventory[0].isConfirmed | number:'1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="col-md-3 dash-column">
+          <div class="dashboard-item-header">
+            <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3125 0.3125L14 3H24.6875C25.3958 3 26 3.27083 26.5 3.8125C27.0417 4.35417 27.3125 4.97917 27.3125 5.6875V19C27.3125 19.7083 27.0417 20.3333 26.5 20.875C26 21.4167 25.3958 21.6875 24.6875 21.6875H3.3125C2.60417 21.6875 1.97917 21.4167 1.4375 20.875C0.9375 20.3333 0.6875 19.7083 0.6875 19V3C0.6875 2.29167 0.9375 1.66667 1.4375 1.125C1.97917 0.583333 2.60417 0.3125 3.3125 0.3125H11.3125Z"></path></svg>
+            <span>{{ t('percentage_label') }}</span>
+          </div>
+          <div class="dashboard-item">
+            <span>{{ t('total_value_text') }}:</span>
+            <span class="span-number span-blue-color">{{ itemsInventory[0].procentage | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-page-header-two d-flex">
+    <div class="left-actions d-flex">
+      <div class="refresh subheader-actions-wrapper">
+        <a>
+          <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="refresh subheader-actions-wrapper subheader-action-text_inline" style="min-width: auto;">
+        <a (click)="exportToExcel()" class="d-flex" style="color: inherit;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/> </g> </svg>
+          Export
+        </a>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="mr-15" style="display: flex;">
+        <div class="refresh">
+          <button
+            (click)="onSaveDocumentAction()"
+            class="small-blue-btn mb-0 ml-10"
+            [disabled]="!allowTransfer"
+          >
+            <mat-icon>drive_file_move_outline</mat-icon>
+            <span>
+              {{ t('equipment_delivery_button') }}
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="addNewOperation()"
+            class="small-blue-btn mb-0 ml-10"
+            matTooltipHideDelay="200"
+            [disabled]="selectedAssets.length === 0 || !allowTransfer"
+          >
+            <mat-icon>swap_horiz</mat-icon>
+            <span>
+              {{ t('transfer_to_another_user_button') }}
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="clearSelection()"
+            class="small-blue-btn mb-0 ml-10"
+            matTooltipHideDelay="200"
+            [style.backgroundColor] = "'rgb(168, 16, 0)'"
+          >
+            <mat-icon>delete</mat-icon>
+            <span>
+              {{ t('delete_selections_button') }}
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="clearFilters()"
+            class="small-blue-btn mb-0 ml-10"
+            matTooltipHideDelay="200"
+            [style.backgroundColor] = "'rgb(168, 16, 0)'"
+          >
+            <mat-icon>refresh</mat-icon>
+            <span>
+              {{ t('reload_list_button') }}
+            </span>
+          </button>
+        </div>
+        <div class="vertical-divider"></div>
+      </div>
+      <div class="results d-flex align-items-center">
+        <div>
+          <span class="blue-color">{{ assetInvFullDetailList._selectedItems ? assetInvFullDetailList._selectedItems.length : '0' }}</span>
+          <span [class.blue-color]="assetInvFullDetailList._selectedItems.length > 0"> {{ t('table_selected_text') }}</span>
+        </div>
+        <div class="vertical-divider mr-15"></div>
+        <div>
+          <span>{{ assetInvFullDetailList.totalItems ? assetInvFullDetailList.totalItems : '0' }} {{ t('table_results_text') }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-asset-employee-personal-validate-list #assetInvFullDetailList id="assetInvFullDetailList"
+                                             [dataSource]="assetHttpService"
+                                             dynamicQuery="true"
+                                             detailType="employeepersonel"
+                                             sortColumn="asset.isInTransfer"
+                                             sortDirection="desc"
+                                             usePaging="true"
+                                             showSimpleSearch="false"
+                                             rowSelection="multiple"
+                                             [pageSize]="10"
+                                             loadOnInit="true"
+                                             (selectionChanged)="onAssetInvFullDetailSelectionChanged($event)"
+                                             (listAtferViewInit)="onAssetEmployeeValidateListAfterViewInit()"
+                                             notifyOnChange="true">
+  </app-asset-employee-personal-validate-list>
+</div>
+
+<!--<div class="animated fadeIn">-->
+<!--    <br>-->
+<!--    <div class="card">-->
+<!--&lt;!&ndash;        <div class="row" *ngIf="isAdmin">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-sm-6 col-lg-3">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="card text-white bg-info">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="card-body pb-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <button type="button" class="btn btn-transparent p-0 float-right">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <i class="cil-address-book"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="text-value">{{itemsInventory[0].count | number:'1.0-0'}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div>Angajati</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="chart-wrapper mt-3 mx-3" style="height:20px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                  &lt;!&ndash; <canvas baseChart class="chart"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [datasets]="lineChart2Data"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [labels]="lineChart2Labels"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [options]="lineChart2Options"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [colors]="lineChart2Colours"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [legend]="lineChart2Legend"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [chartType]="lineChart2Type"></canvas> &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-sm-6 col-lg-3">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="card text-white bg-primary">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="card-body pb-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="btn-group float-right" dropdown>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <i class="cil-arrow-thick-right"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    &lt;!&ndash; <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <a class="dropdown-item" href="#">Action</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <a class="dropdown-item" href="#">Another action</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <a class="dropdown-item" href="#">Something else here</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <a class="dropdown-item" href="#">Something else here</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div> &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="text-value">{{itemsInventory[0].emailSend  | number:'1.0-0'}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div>Emailuri</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="chart-wrapper mt-3 mx-3" style="height:20px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                  &lt;!&ndash; <canvas baseChart class="chart"&ndash;&gt;-->
+<!--&lt;!&ndash;                          [datasets]="lineChart1Data"&ndash;&gt;-->
+<!--&lt;!&ndash;                          [labels]="lineChart1Labels"&ndash;&gt;-->
+<!--&lt;!&ndash;                          [options]="lineChart1Options"&ndash;&gt;-->
+<!--&lt;!&ndash;                          [colors]="lineChart1Colours"&ndash;&gt;-->
+<!--&lt;!&ndash;                          [legend]="lineChart1Legend"&ndash;&gt;-->
+<!--&lt;!&ndash;                          [chartType]="lineChart1Type"></canvas> &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-sm-6 col-lg-3">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="card text-white bg-dark">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="card-body pb-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="btn-group float-right" dropdown>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <i class="cil-chevron-bottom"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    &lt;!&ndash; <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <a class="dropdown-item" href="#">Action</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <a class="dropdown-item" href="#">Another action</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <a class="dropdown-item" href="#">Something else here</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div> &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="text-value">{{itemsInventory[0].isConfirmed | number:'1.0-0'}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div>Confirmari</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="chart-wrapper mt-3" style="height:20px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                  &lt;!&ndash; <canvas baseChart class="chart"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [datasets]="lineChart3Data"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [labels]="lineChart3Labels"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [options]="lineChart3Options"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [colors]="lineChart3Colours"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [legend]="lineChart3Legend"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [chartType]="lineChart3Type"></canvas> &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-sm-6 col-lg-3">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="card text-white bg-danger">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="card-body pb-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="btn-group float-right" dropdown>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <i class="cil-chart"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    &lt;!&ndash; <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <a class="dropdown-item" href="#">Action</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <a class="dropdown-item" href="#">Another action</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <a class="dropdown-item" href="#">Something else here</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div> &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="text-value">{{itemsInventory[0].procentage | number:'1.2-2'}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div>Procent</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="chart-wrapper mt-3 mx-3" style="height:20px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                  &lt;!&ndash; <canvas baseChart class="chart"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [datasets]="barChart1Data"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [labels]="barChart1Labels"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [options]="barChart1Options"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [colors]="barChart1Colours"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [legend]="barChart1Legend"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [chartType]="barChart1Type"></canvas> &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--        &lt;!&ndash; <div class="card-header">-->
+<!--        <div class="row" id="loginForm">-->
+<!--          <table border="0">-->
+<!--         <tr>-->
+<!--          <td><p style="font-weight: bold; color: black;">&nbsp;&nbsp;Pentru <span style="color: #28a745;">validarea</span> unui transfer selectati linia respectiva, iar apoi finalizati transferul utilizand butonul <button type="button" class="btn btn-success btn-sm">&nbsp;Acceptare transfer</button>.</p></td>-->
+<!--       </tr>-->
+<!--       <tr>-->
+<!--        <td><p style="font-weight: bold; color: black;">&nbsp;&nbsp;Pentru <span style="color: red;">refuzarea</span> unui transfer, selectati linia respectiva, iar apoi refuzati transferul utilizand butonul <button type="button" class="btn btn-danger btn-sm">Refuz transfer</button>.</p></td>-->
+<!--     </tr>-->
+<!--     <tr>-->
+<!--      <td><p style="font-weight: bold; color: black;">&nbsp;&nbsp;Pentru <span style="color: #007bff;">predarea</span> unui echipament, selectati linia respectiva, iar apoi finalizati transferul utilizand butonul <button type="button" class="btn btn-info btn-sm">Predare echipament</button>.</p></td>-->
+<!--   </tr>-->
+<!--         </table>-->
+<!--      </div>-->
+<!--          </div> &ndash;&gt;-->
+<!--      <div class="card-body">-->
+<!--        <form action="" method="post" class="form-horizontal">-->
+<!--            <div class="form-group row">-->
+<!--                <div class="col-md-12">-->
+<!--                    &lt;!&ndash; <button [disabled]="!isSaved || !allowValidate" type="button" class="btn btn-success btn-sm" (click)="onTransferValidate()"><i class="fa fa-check"></i> &nbsp;Acceptare transfer</button>-->
+<!--                    &nbsp;&nbsp; &ndash;&gt;-->
+<!--                    &lt;!&ndash; <button type="button" class="btn btn-danger btn-sm" [disabled]="!isSaved || !allowValidate" (click)="onDeleteAssetOp()"><i class="fa fa-ban"></i> &nbsp;Refuz transfer</button>-->
+<!--                    &nbsp;&nbsp; &ndash;&gt;-->
+<!--                    <button [disabled]="!allowTransfer" type="button" class="btn btn-info btn-sm" (click)="saveDocument()"><i class="fa fa-exchange"></i>&nbsp;Predare echipament catre IT</button>-->
+<!--                    &nbsp; &nbsp;-->
+<!--                    <button [disabled]="selectedAssets.length === 0 || !allowTransfer" type="button" class="btn btn-info btn-sm" (click)="addNewOperation()"><i class="fa fa-exchange"></i>&nbsp;Transfer catre alt utilizator</button>-->
+<!--                    &nbsp;&nbsp;-->
+<!--                    <button type="button" class="btn btn-danger btn-sm" (click)="clearSelection()" [style.backgroundColor] = "'rgb(168, 16, 0)'"><i class="fa fa-check"></i>&nbsp;Sterge selectii</button>-->
+<!--                    &nbsp;&nbsp;-->
+<!--                    <button type="button" class="btn btn-secondary btn-sm" (click)="clearFilters()"><i class="fa fa-refresh"></i> &nbsp;Reincarca lista</button>-->
+
+<!--                    &lt;!&ndash; &nbsp;-->
+<!--                    <button type="button" class="btn btn-info btn-sm" (click)="getSN()"><i class="fa fa-file-pdf-o"></i> &nbsp;Instructiuni identificare serie/model</button>-->
+<!--                    &nbsp;-->
+<!--                    <button type="button" class="btn btn-info btn-sm" (click)="getIMEI()"><i class="fa fa-file-pdf-o"></i> &nbsp;Instructiuni identificare IMEI</button> &ndash;&gt;-->
+<!--                </div>-->
+<!--                </div>-->
+<!--        </form>-->
+<!--      </div>-->
+
+
+<!--      <div class="card-footer">-->
+
+<!--            <app-asset-employee-personal-validate-list #assetInvFullDetailList id="assetInvFullDetailList"-->
+<!--                [dataSource]="assetHttpService"-->
+<!--                dynamicQuery="true"-->
+<!--                detailType="employeepersonel"-->
+<!--                sortColumn="asset.isInTransfer"-->
+<!--                sortDirection="desc"-->
+<!--                usePaging="true"-->
+<!--                showSimpleSearch="false"-->
+<!--                rowSelection="multiple"-->
+<!--                [pageSize]="10"-->
+<!--                loadOnInit="true"-->
+<!--                (selectionChanged)="onAssetInvFullDetailSelectionChanged($event)"-->
+<!--                (listAtferViewInit)="onAssetEmployeeValidateListAfterViewInit()"-->
+<!--                notifyOnChange="true">-->
+<!--        </app-asset-employee-personal-validate-list>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+
+<div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+  <div class="modal-body">
+    {{ confirmationMessage }}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+    <button type="button" class="btn btn-outline-danger" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> Nu</button>
+  </div>
+</div>
+</div>
+</div>

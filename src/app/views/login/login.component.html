@@ -1,0 +1,132 @@
+<!--<div class="app-body">-->
+<!--  <main class="main d-flex align-items-center">-->
+<!--    <div class="container">-->
+<!--      <div class="row">-->
+<!--        <div class="col-md-6 mx-auto">-->
+<!--          <div class="card-group">-->
+<!--            <div class="card p-4" style="background-color: rgb(52,30,22); color: wheat;">-->
+<!--              <div class="card-body">-->
+<!--                <form  #form="ngForm"  (ngSubmit)="handleSubmit($event)">-->
+<!--                  <h1 style="color: white;">Autentificare</h1>-->
+<!--                  &lt;!&ndash; <p class="text-muted">Sign In to your account</p> &ndash;&gt;-->
+<!--                  <div class="input-group mb-3" *ngIf="!showPasswordBtn">-->
+<!--                    <div class="input-group-prepend">-->
+<!--                      <span class="input-group-text"><i class="icon-user"></i></span>-->
+<!--                    </div>-->
+<!--                    <input [formControl]="email" type="text" class="form-control" placeholder="ex: john.doe" autocomplete="email" required>-->
+<!--                  </div>-->
+<!--                  <div class="input-group mb-4" *ngIf="!showPasswordBtn">-->
+<!--                    <div class="input-group-prepend">-->
+<!--                      <span class="input-group-text"><i class="icon-lock"></i></span>-->
+<!--                    </div>-->
+<!--                    <input (keyup)="handleKeyUp($event)" [formControl]="password" type="password" class="form-control" placeholder="parola windows" autocomplete="current-password" required>-->
+<!--                  </div>-->
+<!--                  <div class="row">-->
+<!--                    <div class="col-6" *ngIf="!showPasswordBtn">-->
+<!--                      <button (click)="onSubmit('')" type="button" class="btn btn-primary px-4" style="background-color: #FF5719; color: white; border-color: black;">Login</button>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; <div *ngIf="!showPasswordBtn" class="col-6 text-right">-->
+<!--                      <button type="button" class="btn btn-link px-0" (click)="showResetPassword()" style="color: wheat;">Ai uitat parola?</button>-->
+<!--                    </div> &ndash;&gt;-->
+<!--                    <div class="col-6 text-right">-->
+<!--                      <button type="button" class="btn btn-info btn-sm" (click)="getBook()"><i class="fa fa-file-pdf-o"></i> &nbsp;Manual</button>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <br>-->
+<!--                  <div class="row" *ngIf="showPasswordBtn">-->
+<!--                    <div class="input-group mb-3">-->
+<!--                      <div class="input-group-prepend">-->
+<!--                        <span class="input-group-text"><i class="icon-user"></i></span>-->
+<!--                      </div>-->
+<!--                      <input [formControl]="emailreset" type="text" class="form-control" placeholder="Username" autocomplete="email" required>-->
+<!--                    </div>-->
+<!--                    <div *ngIf="showPasswordBtn" class="col-6 text-left">-->
+<!--                      <button type="button" class="btn btn-link px-0" (click)="back()" style="color: wheat;">Inapoi</button>-->
+<!--                    </div>-->
+<!--                    <div *ngIf="showPasswordBtn && emailreset.valid" class="col-6 text-right">-->
+<!--                      <button type="button" class="btn btn-link px-0" (click)="resetPassword()" style="color: wheat;">Trimitere email</button>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </form>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; <div class="card text-white py-5 d-md-down-none" style="background-color: rgb(52,30,22); color: wheat;width:44%">-->
+<!--              <div class="card-body text-center">-->
+<!--                <div>-->
+<!--                  <h2>Inregistreaza-te</h2>-->
+<!--                  <button type="button" class="btn btn-link px-0" (click)="register()" style="color: wheat;">Cont nou!</button>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div> &ndash;&gt;-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </main>-->
+<!--</div>-->
+
+<div id="app">
+  <div class="auth-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6 mx-auto">
+          <div class="auth-wrapper mx-auto">
+            <div class="logo text-center">
+              <img src="./assets/img/Logo.png">
+            </div>
+            <div class="card">
+              <div class="login-card">
+                <h4 class="login-text">Sign In to your account</h4>
+                <hr class="atom-divider">
+                <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+                  {{ errorMessage }}
+                </div>
+                <form class="login-form-group was-validated" #form="ngForm" (ngSubmit)="handleSubmit($event)">
+                  <div *ngIf="!showPasswordBtn" class="form-group position-relative">
+                    <label>Email:</label>
+                    <input type="email" [formControl]="email" class="input-field" placeholder="ex: john.doe" autocomplete="email" required>
+                    <div class="valid-feedback feedback-icon">
+                    </div>
+                  </div>
+                  <div *ngIf="!showPasswordBtn" class="form-group">
+                    <label>Parola:</label>
+                    <input type="password" (keyup)="handleKeyUp($event)" [formControl]="password"  placeholder="Parola windows" autocomplete="current-password" class="input-field" required>
+                  </div>
+<!--                  <div class="row">-->
+<!--                    <div class="form-group position-relative">-->
+<!--                      <label>Email:</label>-->
+<!--                      <input [formControl]="emailreset" type="text" class="form-control" placeholder="Username" autocomplete="email" required>-->
+<!--                    </div>-->
+<!--                  </div>-->
+                  <div *ngIf="!showPasswordBtn" class="login-button">
+                    <div style="width: 100%;margin-right: 10px;">
+                      <button type="submit" (click)="onSubmit('')" class="btn blue-btn">
+                        <svg width="16" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M7.84375 4.65625L6.90625 5.59375L8.625 7.34375H1.84375V8.65625H8.625L6.90625 10.4062L7.84375 11.3438L11.1562 8L7.84375 4.65625ZM13.8438 12.6562H8.5V14H13.8438C14.1979 14 14.5 13.875 14.75 13.625C15.0208 13.3542 15.1562 13.0312 15.1562 12.6562V3.34375C15.1562 2.96875 15.0208 2.65625 14.75 2.40625C14.5 2.13542 14.1979 2 13.8438 2H8.5V3.34375H13.8438V12.6562Z"/>
+                        </svg>
+                        Login
+                      </button>
+                    </div>
+                    <div class="">
+                      <button type="button" class="btn outline-btn" (click)="getBook()">
+                        <mat-icon>picture_as_pdf</mat-icon>
+                        Manual
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="card-information">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.34375 5V3.65625H7.65625V5H6.34375ZM3.21875 10.7812C4.28125 11.8229 5.54167 12.3438 7 12.3438C8.45833 12.3438 9.70833 11.8229 10.75 10.7812C11.8125 9.71875 12.3438 8.45833 12.3438 7C12.3438 5.54167 11.8125 4.29167 10.75 3.25C9.70833 2.1875 8.45833 1.65625 7 1.65625C5.54167 1.65625 4.28125 2.1875 3.21875 3.25C2.17708 4.29167 1.65625 5.54167 1.65625 7C1.65625 8.45833 2.17708 9.71875 3.21875 10.7812ZM2.28125 2.3125C3.59375 1 5.16667 0.34375 7 0.34375C8.83333 0.34375 10.3958 1 11.6875 2.3125C13 3.60417 13.6562 5.16667 13.6562 7C13.6562 8.83333 13 10.4062 11.6875 11.7188C10.3958 13.0104 8.83333 13.6562 7 13.6562C5.16667 13.6562 3.59375 13.0104 2.28125 11.7188C0.989583 10.4062 0.34375 8.83333 0.34375 7C0.34375 5.16667 0.989583 3.60417 2.28125 2.3125ZM6.34375 10.3438V6.34375H7.65625V10.3438H6.34375Z" fill="#063FD0"/>
+              </svg>
+              <p>Pentru sesizari sau informatii suplimentare va rugam sa <br> transmiteti mesaj la <a href="#" class="email-information">asset.manager@optima.ro</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

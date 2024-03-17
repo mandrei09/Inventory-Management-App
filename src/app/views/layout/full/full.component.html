@@ -1,0 +1,129 @@
+<div id="app" class="main-wrapper">
+  <div class="navbar">
+    <div class="navbar-logo mx-auto">
+      <div class="light-mode-logo d-flex">
+        <img src="./assets/img/inventory-management-app-logo.svg" *ngIf="isExpanded" class="mx-auto">
+      </div>
+      <img class="minimized-logo" src="./assets/img/inventory-management-app-logo.svg" *ngIf="!isExpanded">
+    </div>
+    <div class="navbar-content" [style.width]="!isExpanded ? 'calc(100% - 95px)' : 'calc(100% - 260px)'">
+      <div class="navbar-toggle d-flex position-relative" style="z-index:999;">
+        <div class="toggler-action" (click)="isExpanded = !isExpanded">
+          <i class="material-icons">menu</i>
+        </div>
+        <div class="navbar-page-title d-flex align-items-center">
+          <h4>{{ pageInfo['title'] }}</h4>
+        </div>
+      </div>
+
+      <div class="navbar-right-content d-flex align-items-center">
+
+        <div class="language-picker js-language-picker mr-15">
+          <mat-form-field class="mat-select-hide-underline">
+            <mat-select [value]="language.value" (valueChange)="selectLanguage($event)">
+              <mat-select-trigger>
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" style="padding: 0 16px">
+                  <img [src]="language.img" class="flag"/>
+                  <span>{{ language.label }}</span>
+                </div>
+              </mat-select-trigger>
+              <mat-option *ngFor="let opt of languages" [value]="opt.value">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                  <img [src]="opt.img" class="flag" />
+                  <span>{{ opt.label }}</span>
+                </div>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="topbar-item user-profile-dropdown" style="height: 45px;padding-right:0;">
+          <div class="dropdown">
+            <button [matMenuTriggerFor]="data" class="btn dropdown-toggle" style="display: flex;align-items: center;height: 55px;margin-top: -5px;">
+              <div class="d-flex">
+                <div class="d-grid mr-15 text-right">
+                  <span class="navbar-dropdown-username">{{ userName }}</span>
+                  <span class="navbar-dropdown-email">{{ userEmail }}</span>
+                </div>
+                <div class="d-flex align-items-center">
+                  <ngx-avatar size="30" [round]="true" name="{{ userName + ' ' + userEmail }}"></ngx-avatar>
+                </div>
+
+              </div>
+            </button>
+            <mat-menu #data="matMenu" class="hamburger">
+              <ul class="custom-dropdown-open">
+                <li><a class="dropdown-item cursor-pointer" (click)="signout()">Logout</a></li>
+              </ul>
+            </mat-menu>
+          </div>
+        </div>
+
+        <!-- <app-dark-mode-toggle></app-dark-mode-toggle> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Sidebar -->
+  <mat-sidenav-container class="sidebar-container" autosize>
+    <mat-sidenav #sidenav class="sidebar mt-3" mode="side" opened fixedTopGap="true" fixedBottomGap="true" [style.width.px]="!isExpanded ? 80 : 260">
+      <!-- Main menu items -->
+      <mat-nav-list class="sidebar-group" dense="true" style="margin: 0;">
+        <ng-container *ngFor="let sidebarnavItem of customNavItems">
+          <li *ngIf="!sidebarnavItem.children"
+              class="sidebar-link-item"
+              routerLinkActive="sidebar-link-item__active">
+            <a [routerLink]="sidebarnavItem.url ? [sidebarnavItem.url] : null" class="d-flex">
+              <mat-icon>{{ sidebarnavItem.icon }}</mat-icon>
+
+              <span *ngIf="isExpanded">{{ sidebarnavItem.name }}</span>
+            </a>
+          </li>
+
+          <mat-accordion *ngIf="sidebarnavItem.children" class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <li class="sidebar-link-item" routerLinkActive="sidebar-link-item__active">
+                  <a data-toggle="collapse" class="d-flex align-items-center" data-target="#navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarTogglerDemo02" style="color: inherit;">
+                    <mat-icon>{{ sidebarnavItem.icon }}</mat-icon>
+                    <span matLine *ngIf="isExpanded">{{ sidebarnavItem.name }}</span>
+                  </a>
+                </li>
+              </mat-expansion-panel-header>
+
+              <ul>
+                <li *ngFor="let item of sidebarnavItem.children" class="sidebar-link__subitem" routerLinkActive="sidebar-link-item__active">
+                  <a [routerLink]="item.url ? [item.url] : null">
+                    <span matLine *ngIf="isExpanded">{{ item.name }}</span>
+                  </a>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </ng-container>
+      </mat-nav-list>
+      <mat-nav-list class="sidebar-group mt-3" dense="true" style="height: auto;margin-bottom: 45px;" *ngIf="roleCheck === 'administrator'">
+        <div class="sidebar-title" *ngIf="isExpanded">
+          <h3>Settings</h3>
+        </div>
+        <li routerLink="/admin" class="sidebar-link-item" routerLinkActive="sidebar-link-item__active">
+          <a class="d-flex align-items-center">
+            <mat-icon>settings</mat-icon>
+
+            <span matLine *ngIf="isExpanded">Admin panel</span>
+          </a>
+        </li>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- Main Sidebar content -->
+    <mat-sidenav-content>
+      <!-- Content -->
+      <div class="content">
+        <div class="content-wrapper">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

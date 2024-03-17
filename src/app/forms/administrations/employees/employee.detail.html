@@ -1,0 +1,129 @@
+<div class="widgets">
+
+    <div class="row">
+      <div class="col-md-12">
+  
+              <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem()" *ngIf="item != null">
+                  <div class="form-group">
+                      <label for="internalCode">Marca</label>
+                      <input type="text" class="form-control" placeholder="Marca..." required maxlength="30" 
+                          [(ngModel)]="item.internalCode" name="internalCode" #internalCode="ngModel">
+                      <div [hidden]="internalCode.valid || internalCode.pristine" class="alert alert-danger">
+                          <!-- {{'VALIDATE_MESSAGE_EMPLOYEES_COD'  | translate}} -->
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="firstName">Nume</label>
+                      <input type="text" class="form-control" placeholder="Nume..." required maxlength="100"
+                          [(ngModel)]="item.firstName" name="firstName" #firstName="ngModel">
+                      <!-- <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">
+                          {{'VALIDATE_MESSAGE_EMPLOYEES_LAST_NAME' | translate}}
+                      </div> -->
+                  </div>
+                  <div class="form-group">
+                      <label for="lastName">Prenume</label>
+                      <input type="text" class="form-control" placeholder="Prenume..." required maxlength="100"
+                          [(ngModel)]="item.lastName" name="lastName" #lastName="ngModel">
+                      <!-- <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">
+                          {{'VALIDATE_MESSAGE_EMPLOYEES_FIRST_NAME' | translate}}
+                      </div> -->
+                  </div>
+                  <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" placeholder="Email..."  maxlength="100"
+                          [(ngModel)]="item.email" name="email" #email="ngModel">
+                  </div>
+                  <div class="form-group">
+                    <label for="email">MAC imprimanta</label>
+                    <input type="erpCode" class="form-control" placeholder="mac..."  maxlength="100"
+                        [(ngModel)]="item.erpCode" name="erpCode" #erpCode="ngModel">
+                </div>
+                  <div class="btn-group" dropdown>
+                      <button dropdownToggle type="button" class="btn btn-dark btn-sm dropdown-toggle">
+                          Status {{ state }}<span class="caret"></span>
+                      </button>
+                      <ul *dropdownMenu class="dropdown-menu" role="menu">
+                        <li role="menuitem" (click)="setSelectedState(false)"><a class="dropdown-item">ACTIV</a></li>
+                        <li role="menuitem" (click)="setSelectedState(true)"><a class="dropdown-item">INACTIV</a></li>
+                      </ul>
+                    </div>
+  
+                    
+  
+                  <div>
+                      <br>
+                  </div>
+                  <div class="form-group">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <label for="location">Manager</label>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="input-group">
+                                  <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedDepartment != null ? selectedDepartment.name : ''" disabled>
+                                  <span class="input-group-append">
+                                      <button type="button"  class="btn btn-success"  (click)="askForDepartment()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                                      <button type="button"  class="btn btn-danger"  (click)="setDepartment(null)"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+                                  </span>
+                                </div>
+                          </div>
+      
+                      </div>
+                  </div>
+
+                  <div>
+                    <br>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="location">Centre de cost inventar</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <!-- <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedCostCenter != null ? selectedCostCenter.name : ''" disabled> -->
+                                <span class="input-group-append">
+                                    <button type="button"  class="btn btn-success"  (click)="askForCostCenter()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                                    <button type="button"  class="btn btn-danger"  (click)="setCostCenter(null)"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+                                </span>
+                              </div>
+                        </div>
+    
+                    </div>
+                </div>
+      
+  
+                  <div class="row">
+                      <div class="col-sm-6">
+                          <div class="ui-toolbar-group-left">
+                              <div *ngIf="!deleteConfirmationMode">
+                                  <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Sterge</button>
+                              </div>
+                              <div *ngIf="deleteConfirmationMode">
+                                  <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-check"></i> Da</button>
+                                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> Nu</button>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-6">
+                          <div class="ui-toolbar-group-right">
+                              <div class="text-right">
+                                  <div *ngIf="!deleteConfirmationMode">
+                                      <button type="button" class="btn btn-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Salveaza</button>
+                                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Inchide</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+  
+              </form>
+  
+      </div>
+    </div>
+  
+  </div>

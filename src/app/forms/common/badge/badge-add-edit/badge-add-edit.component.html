@@ -1,0 +1,56 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_badge_add_edit'">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">{{ t((item === null || item.id! < 1) ? 'title_add' : 'title_edit') }}</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container">
+
+        <div class="row">
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="row mx-auto">
+              <div class="col-10 mx-auto">
+
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('text_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="text" [placeholder]="t('text_placeholder')">
+                      <small *ngIf="form.controls['text'].hasError('required') && form.controls['text'].touched" class="mat-text-warn">{{ t('text_required') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('variant_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" formControlName="variant" [placeholder]="t('variant_placeholder')">
+                      <small *ngIf="form.controls['variant'].hasError('required') && form.controls['variant'].touched" class="mat-text-warn">{{ t('variant_required') }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">Cancel</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            [disabled]="!form.valid"
+            (click)="save()"
+    >{{ t('action_save') }}</button>
+  </mat-dialog-actions>
+
+</div>

@@ -1,0 +1,163 @@
+<div class="card-body table-responsive table w-auto small">
+    <table class="table table-bordered table-striped table-sm" style="white-space: nowrap" [style.font-size.px]="12">
+        <thead class="thead" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'white'">
+    <tr>
+        <th>
+            <button *ngIf="!isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(true)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+            <button *ngIf="isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-minus"></i></button>
+        </th>
+        <th>
+            <a (click)="applySort('userName')">
+                <i *ngIf="sortColumn !== 'userName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'userName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'userName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                User
+            </a>
+        </th>
+        <th>
+            <a (click)="applySort('employee.internalCode')">
+                <i *ngIf="sortColumn !== 'employee.internalCode'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'employee.internalCode') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'employee.internalCode') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Employee
+            </a>
+        </th>
+         <th>
+            <a (click)="applySort('room.code')">
+                <i *ngIf="sortColumn !== 'room.code'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'room.code') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'room.code') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Shop
+            </a>
+        </th>
+        <!-- <th class="align-left">
+            <a (click)="applySort('employee.lastName')">
+                <i *ngIf="sortColumn !== 'employee.lastName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'employee.lastName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'employee.lastName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Prenume
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('employee.firstName')">
+                <i *ngIf="sortColumn !== 'employee.firstName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'employee.firstName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'employee.firstName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Nume
+            </a>
+        </th> -->
+        <!-- <th class="align-left">
+            <a (click)="applySort('employee.firstName')">
+                <i *ngIf="sortColumn !== 'employee.firstName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'employee.firstName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'employee.firstName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Angajat
+            </a>
+        </th> -->
+        <!-- <th class="align-left">
+            <a (click)="applySort('admCenter')">
+                <i *ngIf="sortColumn !== 'admCenter'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'admCenter') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'admCenter') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Regiune
+            </a>
+        </th> -->
+        <th>
+            <a (click)="applySort('admCenters')">
+                <i *ngIf="sortColumn !== 'admCenters'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'admCenters') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'admCenters') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Areas
+            </a>
+        </th>
+
+        <th>
+            <a (click)="applySort('employee.department.code')">
+                <i *ngIf="sortColumn !== 'employee.department.code'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'employee.department.code') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'employee.department.code') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Role
+            </a>
+        </th>
+
+        <!-- <th class="align-left">
+            Actiuni
+        </th> -->
+        <!-- <th class="align-left">
+            Centru de cost
+        </th> -->
+        <!--<th class="align-left">
+            <a (click)="applySort('roles')">
+                <i *ngIf="sortColumn !== 'roles'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'roles') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'roles') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Rol
+            </a>
+        </th>-->
+
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+            <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+            <td>{{ tableItem.item.userName }}</td>
+            <td>{{ tableItem.item.employee != null ? tableItem.item.employee.internalCode : '' }}</td>
+            <td>{{ tableItem.item.room != null ? tableItem.item.room.code : '' }}</td>
+            <!-- <td>{{ tableItem.item.employee != null ? tableItem.item.employee.lastName : '' }}</td>
+            <td>{{ tableItem.item.employee != null ? tableItem.item.employee.firstName : '' }}</td> -->
+            <!-- <td>{{ tableItem.item.employee != null  ? tableItem.item.employee.firstName + ' - ' + tableItem.item.employee.lastName : '' }}</td> -->
+            <!-- <td>{{ tableItem.item.admCenter != null ? tableItem.item.admCenter.name : '' }}</td> -->
+            <td>{{ tableItem.item.admCenters  | highlight : '|' }}</td>
+             <td>{{ tableItem.item.department != null ? tableItem.item.department.name : '' }}</td>
+            <!--<td>{{ tableItem.item.roles }}</td>-->
+            <!-- <td>
+                <button (click)="changePassword(tableItem.item.userName)" class="btn btn-warning"><i class="fa fa-key"></i></button>
+                <button (click)="deleteUser(tableItem.item.userName)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+            </td> -->
+            <!-- <td><button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAdmCenters(tableItem.item.userName, tableItem.item.admCenter)">{{'ADMCENTERS' | translate}}</button></td> -->
+             <!-- <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAdmCenters(tableItem.item.userName)">{{'ADMCENTERS' | translate}}</button>
+                      <button type="button" class="btn btn-default" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearAdmCenterSelection()">Clear All<i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let admCenter of selectedAdmCenters" class="dropdown-item"><a (click)="removeFromAdmCenterSelection(admCenter)">{{ admCenter.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+        </tr>
+
+    </tbody>
+  </table>
+
+  
+
+  <nav> 
+    <!-- <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+      <li class="page-item active">
+        <a class="page-link" href="#">1</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">4</a></li>
+      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul> -->
+    <div class="row">
+        <div class="col-xs-12 col-12 col-md-6">
+        <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-sm"
+                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"
+                    [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
+      </div>
+    <!-- <pre class="card card-body card-header">Page: {{currentPage}} / {{numPages}}</pre> -->
+    <div class="col-xs-12 col-12 col-md-6">
+        <h6 style="text-align: right;">Total: {{ totalItems }}</h6>
+      </div>
+    </div>
+  </nav>
+</div>
+
+
+
+

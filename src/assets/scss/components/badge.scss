@@ -1,0 +1,55 @@
+.priority-badge {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+
+  svg {
+    font-size: 10px;
+    width: 12px;
+    margin-right: 5px;
+  }
+}
+
+.priority-badge-green {
+  color: #33B548 !important;
+
+  svg {
+    fill: #33B548 !important;
+  }
+}
+
+.priority-badge-red {
+  color: #D65C57 !important;
+
+  svg {
+    fill: #D65C57 !important;
+  }
+}
+
+.priority-badge-blue {
+  color: #17a2b8 !important;
+
+  svg {
+    fill: #17a2b8 !important;
+  }
+}
+
+.priority-badge-orange {
+  color: #E79F48 !important;
+
+  svg {
+    fill: #E79F48 !important;
+  }
+}
+
+.modal-filters .companies-filter {
+  border: 1px solid #D9D9DF;
+  border-radius: 4px;
+  color: #8B8B9D;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 7px 8px;
+  margin-right: 16px;
+  box-shadow: none !important;
+}

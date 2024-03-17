@@ -1,0 +1,27 @@
+<div class="grid-wrapper" id="myGrid" class="ag-theme-alpine-dark" style="width: 100%; height: 600px;">
+    <ag-grid-angular #agGrid style="width: 100%; height: 600px;"
+                 [gridOptions]="gridOptions"
+                 [columnDefs]="columnDefs"
+                 [paginationAutoPageSize]=true
+                 cellStyle="{'white-space': 'nowrap'}"
+                 showToolPanel="showToolPanel"
+                 domLayout='autoHeight'
+                 [rowData]="items"
+                 enableColResize
+                 enableSorting
+                 enableFilter
+                 groupHeaders
+                 suppressRowClickSelection
+                 toolPanelSuppressGroups
+                 toolPanelSuppressValues
+                 [rowHeight]="22"
+                 [rowSelection]="rowSelection"
+                 (selectionChanged)="onSelectionChanged($event)"
+                 [cacheBlockSize]=10
+                 [paginationPageSize]="pageSize"
+                 [pagination]="true">
+    </ag-grid-angular>
+
+    <!--<pagination *ngIf="usePaging" [totalItems]="pagingInfo.totalItems" [(ngModel)]="pagingInfo.currentPage" [itemsPerPage]="pagingInfo.pageSize" [maxSize]="maxSize" class="pagination-sm"
+                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"></pagination>-->
+</div>

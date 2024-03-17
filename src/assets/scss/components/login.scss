@@ -1,0 +1,198 @@
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+
+  .auth-wrapper {
+    width: 400px;
+    z-index: 999;
+    position: relative;
+
+    .card {
+      margin-right: auto;
+      margin-left: auto;
+      border: none;
+
+      .login-card {
+        background: #FFFFFF;
+        mix-blend-mode: multiply;
+        box-shadow: 0px 4px 16px rgba(17, 16, 82, 0.15);
+        border-radius: 8px;
+        padding: 0;
+
+        h4 {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: #35354A;
+          padding: 16px 24px;
+          margin: 0;
+          text-align: left;
+        }
+
+        hr {
+          margin: 0;
+        }
+
+        .login-form-group {
+          padding: 24px;
+
+          .form-group {
+            margin-bottom: 24px;
+            text-align: left;
+
+            .valid-feedback {
+              position: absolute;
+              right: 0;
+              top: 48%;
+              left: 92%;
+
+              svg {
+                width: 16px;
+                height: 16px;
+              }
+            }
+
+            label {
+              font-weight: 500;
+              font-size: 14px;
+              line-height: 18px;
+              color: #35354A;
+              margin-bottom: 8px;
+            }
+
+            input {
+              width: 100%;
+              font-size: 14px;
+              line-height: 18px;
+              color: #35354A;
+              padding: 11px 16px;
+              border: 1px solid #C6C6D5;
+              box-sizing: border-box;
+              border-radius: 8px;
+              font-weight: 500;
+
+              &::placeholder {
+                color: #8B8B9D;
+                font-weight: 400;
+              }
+            }
+          }
+          .login-button {
+            margin-bottom: 25px;
+
+            button {
+              padding: 11px 16px;
+              width: 100%;
+              background: #0B4FFF;
+              background-blend-mode: multiply;
+              border-radius: 8px;
+              color: #fff;
+              font-size: 14px;
+              line-height: 18px;
+
+              svg {
+                margin: 0px 8px;
+                fill: #fff;
+              }
+
+              &:hover {
+                background-color: #0B4FFF;
+                color: #FFF;
+
+                svg {
+                  color: #FFF;
+                  fill: #FFF;
+                }
+              }
+            }
+          }
+
+          .keep-signedin-zone {
+            label {
+              display: inline-flex;
+              width: 100%;
+              color: #35354A;
+              font-size: 12px;
+              line-height: 16px;
+              align-items: center;
+              margin: 0;
+
+              input {
+                width: 16px;
+                height: 16px;
+                margin-right: 8px;
+                border: 1px solid #0B4FFF;
+                box-sizing: border-box;
+                border-radius: 4px;
+
+              }
+
+              &:hover {
+                cursor: pointer;
+              }
+            }
+          }
+
+          .forgot {
+            justify-content: space-between;
+
+            .forgot-password {
+              margin: 24px 0 0;
+              color: #35354A;
+              font-size: 14px;
+              line-height: 18px;
+            }
+
+            .recover-password {
+              margin: 24px 0 0;
+              font-weight: 500;
+              font-size: 14px;
+              line-height: 18px;
+              color: #0B4FFF;
+              //margin: 8px 0 0;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+
+    .logo {
+      margin-bottom: 40px;
+      margin-top: 40px;
+
+      img {
+        width: 25%;
+      }
+    }
+  }
+
+  &::before {
+    content: "";
+    /* background: red; */
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    z-index: 999;
+    background: conic-gradient(from
+    207deg
+    at 50% 50%, #55BFED
+-44.1deg
+    , #0B7BFF
+      11.13deg
+    , rgba(255, 255, 255, 0)
+      27.49deg
+    , #55BFED
+      315.9deg
+    , #0B7BFF
+      371.13deg
+    );
+    filter: blur(120px);
+    right: calc(50% - 900px/2);
+    bottom: -500px !important;
+  }
+}

@@ -1,0 +1,9 @@
+.color-picker-input {
+  color: #FFF !important;
+
+  &.white-placeholder {
+    &::placeholder {
+      color: #FFF !important;
+    }
+  }
+}

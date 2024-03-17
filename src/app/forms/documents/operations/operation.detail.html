@@ -1,0 +1,345 @@
+<div class="animated fadeIn">
+    <br>
+    <div class="card">
+      <div class="card-header">
+                <app-document-type-drop-down-list #documentTypeDropDownList
+                    [dataSource]="documentTypeHttpService"
+                    selectionRequired="false"
+                    notifyOnChange="true"
+                    (selectionChanged)="setSelectedDocumentType($event)">
+                </app-document-type-drop-down-list>
+        <div class="card-header-actions">
+            <button type="button" class="btn btn-outline-success btn-sm" (click)="saveDocument()" [disabled]="!isSaved || !allowSaving"><i class="fa fa-save"></i> Save</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+      <div class="card-body"
+           (collapsed)="collapsed($event)"
+           (expanded)="expanded($event)"
+           [collapse]="isCollapsed">
+           <div class="card-body-actions">
+
+            <div class="form-group row">
+                <!-- <div class="col-md-6" *ngIf="enableCostCenter">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: #341E16; color: white;">
+                        <button type="button" class="btn btn-dark btn-sm" (click)="selectCostCenter()" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'"><i class="fa fa-search"></i>&nbsp; Centru de cost</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;font-weight: bold;background-color: transparent;" [value]="selectedCostCenter != null  ? selectedCostCenter.code + ' | ' + selectedCostCenter.name :  ''" type="text" id="input1-group4" name="input1-group4" class="form-control" placeholder="...">
+                    </div>
+                  </div> -->
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button type="button" class="btn btn-dark btn-sm" (click)="selectDivision()" ><i class="fa fa-search"></i>&nbsp; Departament</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="selectedDivision != null ? selectedDivision.code + ' | ' + selectedDivision.name : ''" type="text" id="input51-group3" name="input51-group3" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button [disabled]="selectedDivision == null" type="button" class="btn btn-dark btn-sm" (click)="selectCostCenter()" ><i class="fa fa-search"></i>&nbsp; Centru de cost</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="selectedCostCenter != null ? selectedCostCenter.code + ' | ' + selectedCostCenter.name : ''" type="text" id="input51-group3" name="input51-group3" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-md-3" *ngIf="enableEmployee">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+                        <button [disabled]="selectedDivision == null || selectedCostCenter == null" type="button" class="btn btn-dark btn-sm" (click)="selectEmployee()" ><i class="fa fa-search"></i>&nbsp; Angajat</button>
+                      </div>
+                    <div class="input-group">
+                      <input readonly style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" [value]="selectedEmployee != null ? selectedEmployee.internalCode + ' | ' + selectedEmployee.firstName + ' ' + selectedEmployee.lastName  :  ''" type="text" id="input51-group3" name="input51-group3" class="form-control" placeholder="...">
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group row" *ngIf="enableInvState">
+                <div class="col-md-4">
+                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: #341E16; color: white;">
+                        <button type="button" class="btn btn-dark btn-sm" (click)="selectInvState()" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'"><i class="fa fa-search"></i>&nbsp; Stare</button>
+                      </div>
+                    <div class="input-group">
+                      <span class="input-group-prepend">
+
+                      </span>
+                      <input readonly style="font-size: 12px;font-weight: bold;background-color: transparent;" [value]="selectedInvState != null  ? selectedInvState.name :  ''" type="text" id="input1-group4" name="input1-group4" class="form-control" placeholder="...">
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <h6 style="text-align: center;font-size: 12px;font-weight: bold; background-color: #341E16; color: white;">Numar document</h6>
+                            <input type="text" class="form-control" [(ngModel)]="documentInfo" placeholder="" maxlength="200" name="documentInfo">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <h6 style="text-align: center;font-size: 12px;font-weight: bold; background-color: #341E16; color: white;">Data document</h6>
+                            <!-- <input type="date" class="form-control" required maxlength="100" [value]="documentDate | date:'yyyy-MM-dd'" (input)="documentDate=parseDate($event.target.value)" /> -->
+                            <input style="font-size: 12px;font-weight: bold;" type="date" onkeydown="return false" class="form-control" required [value]="documentDate | date: 'yyyy-MM-dd'" name="documentDate">
+                        </div>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="form-group row" *ngIf="selectedRoom != null || selectedEmployee != null">
+                <div class="col-md-2">
+                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: #341E16; color: white;">
+                      Detalii transport
+                    </div>
+                    <div class="card-body" style="margin-top: -15px; margin-left: 10px">
+                      <div class="btn-group" dropdown>
+                        <button dropdownToggle type="button" class="btn btn-dark btn-sm dropdown-toggle" style="font-size: 12px;">
+                          {{ transportType }} <span class="caret"></span>
+                        </button>
+                        <ul *dropdownMenu class="dropdown-menu" role="menu" style="text-align: center;font-size: 12px;font-weight: bold; background-color: #341E16; color: white;">
+                          <li role="menuitem"><a class="dropdown-item" (click)="onTransportTypeUpdate('CURIER')">CURIER</a></li>
+                          <li role="menuitem"><a class="dropdown-item" (click)="onTransportTypeUpdate('LOGISTICA')">LOGISTICA</a></li>
+                          <li role="menuitem"><a class="dropdown-item" (click)="onTransportTypeUpdate('SBMT')">SBMT</a></li>
+                          <li role="menuitem"><a class="dropdown-item" (click)="onTransportTypeUpdate('TEHNICIAN IT')">TEHNICIAN IT</a></li>
+                          <li role="menuitem"><a class="dropdown-item" (click)="onTransportTypeUpdate('ELFUN')">ELFUN</a></li>
+                          <li role="menuitem"><a class="dropdown-item" (click)="onTransportTypeUpdate('FRACTAL')">FRACTAL</a></li>
+                          <li role="menuitem"><a class="dropdown-item" (click)="onTransportTypeUpdate('CINEMAGRAPH MARK SRL')">CINEMAGRAPH MARK SRL</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: #341E16; color: white;">
+                      Numar document
+                    </div>
+                  <div class="input-group">
+                      <input style="font-size: 12px;font-weight: bold;text-align: center;" type="text" class="form-control" placeholder=""  [(ngModel)]="transportDoc" name="transportDoc">
+                  </div>
+              </div>
+
+              <div class="col-md-4">
+                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: #341E16; color: white;">
+                      Persoana
+                    </div>
+                  <div class="input-group">
+                      <input style="font-size: 12px;font-weight: bold;text-align: center;" type="text" class="form-control" placeholder=""  [(ngModel)]="transportPerson" name="transportPerson">
+                  </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <app-asset-list #assetList id="assetList"
+            [dataSource]="assetMemoryService"
+            listTemplate="ASSETS"
+            detailType="inuse"
+            sortColumn="asset.invNo"
+            sortDirection="asc"
+            dynamicQuery="true"
+            usePaging="true"
+            [pageSize]="5"
+            showSimpleSearch="false"
+            rowSelection="single"
+            notifyOnChange="true"
+            usePaging="false">
+        </app-asset-list>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Centre de cost</h4>
+            </div>
+            <div class="modal-body">
+                <app-cost-center-list #costCenterList
+                    [dataSource]="costCenterHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setCostCenterListSelectedItem($event)">
+                </app-cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenter()" [disabled]="this.costCenterListSelectedItem == null">Selecteaza</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="costCenterListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #divisionListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title pull-left">Departamente</h4>
+          </div>
+          <div class="modal-body">
+              <app-division-list #divisionList
+                  [dataSource]="divisionHttpService"
+                  dynamicQuery="true"
+                  rowSelection="single"
+                  notifyOnChange="true"
+                  usePaging="true"
+                  (selectionChanged)="setDivisionListSelectedItem($event)">
+              </app-division-list>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivision()" [disabled]="this.divisionListSelectedItem == null">Selecteaza</button>
+              <button type="button" class="btn btn-outline-danger btn-sm" (click)="divisionListModal.hide()">Inchide</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Angajati</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setEmployeeListSelectedItem($event)">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployee()" [disabled]="this.employeeListSelectedItem == null">Selecteaza</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #invStateListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">State</h4>
+            </div>
+            <div class="modal-body">
+                <inv-state-list #invStateList
+                    [dataSource]="invStateHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setInvStateListSelectedItem($event)">
+                </inv-state-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInvState()" [disabled]="this.invStateListSelectedItem == null">Selecteaza</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="invStateListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #roomListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Etaj</h4>
+            </div>
+            <div class="modal-body">
+                <app-room-list #roomList
+                    id="roomList"
+                    [dataSource]="roomDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setRoomListSelectedItem($event)">
+                </app-room-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRoom()" [disabled]="this.roomListSelectedItem == null">Selecteaza</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="roomListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="modal fade" bsModal #zoneStateListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Status</h4>
+            </div>
+            <div class="modal-body">
+                <app-zone-state-list #zoneStateList
+                    id="roomList"
+                    [dataSource]="zoneStateHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setZoneStateListSelectedItem($event)">
+                </app-zone-state-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedZoneState()" [disabled]="this.zoneStateListSelectedItem == null">Selecteaza</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="zoneStateListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="modal fade" bsModal #departmentListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Departamente</h4>
+            </div>
+            <div class="modal-body">
+                <app-department-list #departmentList
+                    id="departmentList"
+                    [dataSource]="departmentDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setDepartmentListSelectedItem($event)">
+                </app-department-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDepartment()" [disabled]="this.departmentListSelectedItem == null">Selecteaza</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="departmentListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #orderListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Comanda</h4>
+            </div>
+            <div class="modal-body">
+                <order-list #orderList id="orderList"
+                    [dataSource]="orderHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    detailType="detailui"
+                    sortColumn="order.id"
+                    sortDirection="asc"
+                    dynamicQuery="true"
+                    showSimpleSearch="true"
+                    listTemplate="ORDERUI"
+                    usePaging="true">
+                </order-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedOrder()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="orderListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>

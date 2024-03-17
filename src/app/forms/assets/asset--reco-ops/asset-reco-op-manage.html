@@ -1,0 +1,421 @@
+<div *transloco="let t; read: 'page_asset_reco_component'" style="height: 100%;">
+  <div class="content-page-header">
+    <app-common-header
+      (filterChanged)="doSimpleSearch($event)"
+      [showAddNewButton]="'false'">
+    </app-common-header>
+
+    <div class="modal-filters d-grid">
+      <div class="d-flex">
+        <div hideIfUnauthorized="PHOTO_FILTER|S_INVENTORY_STATUS" class="filter-content-item child-w-200 mt-15 mr-10">
+          <div class="mt-auto d-flex filter-select-wrapper">
+            <div class="static-form-select">
+              <mat-form-field appearance="fill">
+                <mat-label>{{ t('filter_all_placeholder') }}:</mat-label>
+                <mat-select (selectionChange)="onStateUpdate($event.value)">
+                  <mat-option [value]="'Toate'">{{ t('option_all') }}</mat-option>
+                  <mat-option [value]="'Propunere reconciliere'">{{ t('option_reco_proposal') }}</mat-option>
+                  <mat-option [value]="'Validate'">{{ t('option_validated') }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-page-header-two d-flex">
+    <div class="left-actions d-flex">
+      <div class="refresh subheader-actions-wrapper align-items-center">
+        <a (click)="checkForRefresh()">
+          <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="refresh subheader-actions-wrapper subheader-action-text_inline" style="min-width: auto;">
+        <a (click)="exportToExcelBM()" class="d-flex" style="color: inherit;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/> </g> </svg>
+          Export
+        </a>
+      </div>
+
+    </div>
+
+    <div class="d-flex">
+      <div class="mr-15" style="display: flex;">
+        <div class="refresh">
+          <!--          [disabled]="(itemList == null || itemList?.selectedItems?.length === 0) || (itemList != null && this.itemList?.selectedItems[0].state! != null && this.itemList?.selectedItems[0].state?.id! === 7)"-->
+          <button
+            class="small-blue-btn mb-0 ml-10 opacity-09"
+            (click)="onProcessManager1AssetOp()"
+            [disabled]="selectedAssetOp == null || (selectedAssetOp != null && selectedAssetOp.assetOpState != null && selectedAssetOp.assetOpState.id === 7)"
+          >
+            <mat-icon>check_circle_outline</mat-icon>
+            <span>
+              {{ t('reco_approval') }}
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="deleteOperation()"
+            class="small-blue-btn mb-0 ml-10 opacity-09"
+            [disabled]="selectedAssetOp == null || (selectedAssetOp != null && selectedAssetOp.assetOpState != null && selectedAssetOp.assetOpState.id === 7)"
+          >
+            <mat-icon>highlight_remove</mat-icon>
+            <span>
+              {{ t('cancel_reco_proposal') }}
+            </span>
+          </button>
+        </div>
+        <div class="vertical-divider"></div>
+      </div>
+
+      <div class="results d-flex align-items-center">
+        <div>
+          <span class="blue-color">{{ assetOpDetailList._selectedItems ? assetOpDetailList._selectedItems.length : '0' }}</span>
+          <span [class.blue-color]="assetOpDetailList._selectedItems.length > 0"> {{ t('table_selected_text') }}</span>
+        </div>
+        <div class="vertical-divider mr-15"></div>
+        <div>
+          <span>{{ assetOpDetailList.totalItems ? assetOpDetailList.totalItems : '0' }} {{ t('table_results_text') }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-asset-reco-op-detail-list #assetOpDetailList id="assetOpDetailList"
+                                 [dataSource]="assetOpHttpService"
+                                 detailType="recos"
+                                 sortColumn="modifiedAt"
+                                 sortDirection="asc"
+                                 showSimpleSearch="false"
+                                 dynamicQuery="true"
+                                 [rowSelection]="assetRowSelection"
+                                 [pageSize]="10"
+                                 notifyOnChange="true"
+                                 (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                 usePaging="true">
+  </app-asset-reco-op-detail-list>
+
+</div>
+
+
+<!--<div class="animated fadeIn">-->
+<!--    <br>-->
+<!--    <div class="card">-->
+<!--      <div class="card-header">-->
+<!--            &lt;!&ndash; <button type="button" class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed">Filtre </button> &ndash;&gt;-->
+<!--            <div hideIfUnauthorized="COMPANY_FILTER|OPERATION" class="btn-group" dropdown>-->
+<!--                <button type="button" class="btn btn-dark btn-sm" (click)="selectLocations()">Etaje</button>-->
+<!--                <button type="button" dropdownToggle class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                  <span class="caret"></span>-->
+<!--                  <span class="sr-only">Split button!</span>-->
+<!--                  <span class="badge badge-light badge-pill" style="position: static;">{{selectedLocations.length > 0 ? selectedLocations.length : ''}}</span>-->
+<!--                </button>-->
+<!--                <ul  class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearLocationSelection()">Sterge toate</a></li>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <li role="menuitem" *ngFor="let location of selectedLocations"><a class="dropdown-item" (click)="removeFromLocationSelection(location)"><i class="fa fa-times"></i> &nbsp;{{ location.code }}</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+
+<!--              &nbsp;-->
+<!--              <div  class="btn-group" dropdown>-->
+<!--                <button dropdownToggle type="button" class="btn btn-dark btn-sm dropdown-toggle">-->
+<!--                    {{ assetOpState }}<span class="caret"></span>-->
+<!--                </button>-->
+<!--                <ul *dropdownMenu class="dropdown-menu" role="menu">-->
+<!--                  <li role="menuitem" (click)="onStateUpdate('Toate')"><a class="dropdown-item">Toate</a></li>-->
+<!--                  <li class="divider dropdown-divider"></li>-->
+<!--                  <li role="menuitem" (click)="onStateUpdate('Propunere reconciliere')"><a class="dropdown-item">Propunere reconciliere</a></li>-->
+<!--                  &lt;!&ndash; <li role="menuitem" (click)="onStateUpdate('In Transfer')"><a class="dropdown-item">In Transfer</a></li> &ndash;&gt;-->
+<!--                  <li role="menuitem" (click)="onStateUpdate('Validate')"><a class="dropdown-item">Validate</a></li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <button hideIfUnauthorized="ROW_SELECTION|OPERATION" type="button" class="btn btn-warning btn-sm" (click)="changeRowSelection()" >-->
+<!--                <i class="fa fa-list" *ngIf="assetRowSelection === 'multiple'"></i>-->
+<!--                <i class="fa fa-check-square" *ngIf="assetRowSelection === 'single'"></i>-->
+<!--            </button>-->
+<!--            <button hideIfUnauthorized="SELECTED_COUNT|OPERATION" type="button" class="btn btn-warning btn-sm" [style.backgroundColor] = "'rgb(255,204,0)'" [style.color]="'black'">Selected <span class="badge"></span>{{ assetOpDetailList.selectedItems.length }}</button>-->
+<!--            <button type="button" class="btn btn-danger btn-sm" (click)="clearSelection()" [style.backgroundColor] = "'rgb(168, 16, 0)'"><i class="fa fa-check"></i></button>-->
+<!--            <button type="button" class="btn btn-danger btn-sm" (click)="clearFilters()" [style.backgroundColor] = "'rgb(168, 16, 0)'" ><i class="fa fa-close"></i></button>-->
+
+<!--        <div class="card-header-actions">-->
+<!--            &lt;!&ndash; <div class="input-group">-->
+<!--                <input type="text" class="form-control" placeholder="Cauta..." aria-label="Cauta..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">-->
+<!--                <div class="input-group-append">-->
+<!--                    &nbsp;-->
+<!--                    <button type="button" class="btn btn-primary btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i> Adauga</button>-->
+<!--                    &nbsp;-->
+<!--                    <button type="button" class="btn btn-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Modifica</button>-->
+<!--                    &nbsp;-->
+<!--                    <button type="button" class="btn btn-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>-->
+<!--                </div>-->
+<!--              </div> &ndash;&gt;-->
+<!--              <div class="input-group">-->
+<!--                <input type="text" class="form-control" placeholder="Cauta..." aria-label="Cauta..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="checkForRefresh()">-->
+<!--                <div class="input-group-append">-->
+<!--                  &lt;!&ndash; <button type="button" class="btn btn-outline-secondary">Action</button> &ndash;&gt;-->
+<!--                  <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    <span class="sr-only">Toggle Dropdown</span>-->
+<!--                  </button>-->
+<!--                  <div class="dropdown-menu">-->
+<!--                    &lt;!&ndash; <a class="dropdown-item" (click)="addNewBudget()"><i class="fa fa-plus" style="color: blue;"></i>&nbsp;Add</a> &ndash;&gt;-->
+<!--                    &lt;!&ndash; <a *ngIf="selectedBudgets.length === 1" class="dropdown-item" (click)="editBudget()"><i class="fa fa-edit" style="color: darkorange;"></i> &nbsp;Detalii</a>-->
+<!--                    <a *ngIf="selectedBudgets.length === 1" class="dropdown-item" (click)="deleteBudget()"><i class="fa fa-trash-o" style="color: red;"></i> &nbsp;Delete</a> &ndash;&gt;-->
+<!--                    <a hideIfUnauthorized="EXPORT|OPERATION"  class="dropdown-item" (click)="exportToExcelBM()"><i class="fa fa-file-excel-o" style="color: green;"></i>&nbsp;Export</a>-->
+<!--                    &lt;!&ndash; <div role="separator" class="dropdown-divider"></div>-->
+<!--                    <a class="dropdown-item" href="#">Separated item</a> &ndash;&gt;-->
+
+<!--                    &lt;!&ndash; <a class="btn" *ngIf="selectedBudgets.length === 1" (click)="editBudget()" ><i class="fa fa-edit"></i>&nbsp;Detalii</a>-->
+<!--                    <a class="btn" [routerLink]="['/budget/newbudget']" (click)="addNewBudget()"><i class="fa fa-plus"></i> &nbsp;New</a>-->
+<!--                    <a class="btn" *ngIf="selectedBudgets.length === 1" (click)="deleteBudget()"><i class="fa fa-trash-o"></i> &nbsp;Delete</a>-->
+<!--                    <a class="btn" (click)="exportSocgen()"><i class="fa fa-file-excel-o"></i> &nbsp;Export</a> &ndash;&gt;-->
+<!--                     &lt;!&ndash; <input #fileInput type="file" class="custom-file-input" (change)="loadFile($event)" placeholder="Select..."/>-->
+<!--                        <button type="button" class="btn btn-outline-success btn-sm" (click)="importData()" [disabled]="((fileEvent === null) || (fileEvent === undefined))"><i class="fa fa-file-excel-o"></i> Import</button> &ndash;&gt;-->
+<!--                    &lt;!&ndash; <button type="button" class="btn btn-outline-danger btn-sm" (click)="addNewOperation()" [disabled]="selectedBudgets.length === 0" ><i class="fa fa-list-alt"></i> <span style="font-family: 'Roboto'">Operations</span></button> &ndash;&gt;-->
+<!--        &lt;!&ndash; <button type="button" class="btn btn-outline-primary btn-sm" (click)="editBudget()"  [disabled]="selectedBudgets.length !== 1" ><i class="fa fa-edit"></i> <span style="font-family: 'Roboto'">Details</span></button> &ndash;&gt;-->
+<!--        &lt;!&ndash; <button type="button" class="btn btn-outline-primary btn-sm" (click)="addNewBudget()" ><i class="fa fa-plus"></i> <span style="font-family: 'Roboto'">New Budget</span></button> &ndash;&gt;-->
+<!--        &lt;!&ndash; <button type="button" class="btn btn-outline-danger btn-sm"  (click)="deleteBudget()" ><i class="fa fa-trash-o"></i>&nbsp; <span style="font-family: 'Roboto'">Delete Budget</span></button>-->
+<!--        <button hideIfUnauthorized="ASSET_EXPORT" type="button" class="btn btn-outline-success btn-sm" (click)="exportSocgen()" ><i class="fa fa-file-excel-o"></i> &nbsp; <span style="font-family: 'Roboto'">Export</span> </button>     &ndash;&gt;-->
+<!--                  </div>-->
+<!--                </div>-->
+
+<!--                <div hideIfUnauthorized="PAGE_SIZE|S_OFFER_STATUS" class="btn-group" dropdown>-->
+<!--                    <button dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle" >-->
+<!--                     {{ pageSize }}<span class="caret"></span>-->
+<!--                    </button>-->
+<!--                    <ul *dropdownMenu class="dropdown-menu" role="menu">-->
+<!--                      <li role="menuitem" (click)="onPageUpdate(5)"><a class="dropdown-item">5</a></li>-->
+<!--                      <li role="menuitem" (click)="onPageUpdate(10)"><a class="dropdown-item">10</a></li>-->
+<!--                      <li role="menuitem" (click)="onPageUpdate(15)"><a class="dropdown-item">15</a></li>-->
+<!--                      <li role="menuitem" (click)="onPageUpdate(20)"><a class="dropdown-item">20</a></li>-->
+<!--                      <li role="menuitem" (click)="onPageUpdate(30)"><a class="dropdown-item">30</a></li>-->
+<!--                      <li role="menuitem" (click)="onPageUpdate(50)"><a class="dropdown-item">50</a></li>-->
+<!--                      <li role="menuitem" (click)="onPageUpdate(70)"><a class="dropdown-item">70</a></li>-->
+<!--                      <li role="menuitem" (click)="onPageUpdate(100)"><a class="dropdown-item">100</a></li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      &lt;!&ndash; <div class="card-body"-->
+<!--           (collapsed)="collapsed($event)"-->
+<!--           (expanded)="expanded($event)"-->
+<!--           [collapse]="isCollapsed">-->
+<!--           <div class="card-body-actions">-->
+<!--            <div class="row">-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--      </div> &ndash;&gt;-->
+<!--      <div hideIfUnauthorized="VIEW|OPERATION" class="card-footer" style="background-color: white;">-->
+<!--        <app-asset-reco-op-detail-list #assetOpDetailList id="assetOpDetailList"-->
+<!--                    [dataSource]="assetOpHttpService"-->
+<!--                    detailType="recos"-->
+<!--                    sortColumn="modifiedAt"-->
+<!--                    sortDirection="asc"-->
+<!--                    showSimpleSearch="false"-->
+<!--                    dynamicQuery="true"-->
+<!--                    [rowSelection]="assetRowSelection"-->
+<!--                    [pageSize]="10"-->
+<!--                    notifyOnChange="true"-->
+<!--                    (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"-->
+<!--                    usePaging="true">-->
+<!--                </app-asset-reco-op-detail-list>-->
+
+<!--                <button type="button" style="background-color: rgb(255, 170, 135); color: black;" class="btn btn-outline-success" (click)="onProcessManager1AssetOp()" [disabled]="selectedAssetOp == null || (selectedAssetOp != null && selectedAssetOp.assetOpState != null && selectedAssetOp.assetOpState.id === 7)"><i class="fa fas fa-ambulance"></i> &nbsp;Aprobare reconciliere</button>-->
+<!--                &lt;!&ndash; <button type="button" style="background-color: rgb(153, 135, 92); color: black;" class="btn btn-outline-success" (click)="onProcessManager2AssetOp()"  [disabled]="(assetOpDetailList.selectedItems.length !== 1 && ((selectedAssetOp == null) || (selectedAssetOp.assetOpState != null && selectedAssetOp.assetOpState.id !== 7)))"><i class="fa fas fa-ambulance"></i> &nbsp;Aprobare Nivel 2</button>-->
+<!--                <button type="button" style="background-color: rgb(255, 201, 156); color: black;" class="btn btn-outline-success" (click)="onProcessManager3AssetOp()" [disabled]="(assetOpDetailList.selectedItems.length !== 1 && ((selectedAssetOp == null) || (selectedAssetOp.assetOpState != null && selectedAssetOp.assetOpState.id !== 8)))"><i class="fa fas fa-ambulance"></i> &nbsp;Aprobare Nivel 3</button>-->
+<!--                <button type="button" style="background-color: rgb(219, 255, 251); color: black;" class="btn btn-outline-success" (click)="onProcessManager4AssetOp()" [disabled]="(assetOpDetailList.selectedItems.length !== 1 && ((selectedAssetOp == null) || (selectedAssetOp.assetOpState != null && selectedAssetOp.assetOpState.id !== 9)))"><i class="fa fas fa-ambulance"></i> &nbsp;Aprobare Nivel 4</button> &ndash;&gt;-->
+<!--                &lt;!&ndash; <button type="button" style="background-color: rgb(255, 170, 135);color: black" class="btn btn-outline-warning" (click)="onProcessAssetOp()" [disabled]="(assetOpState === 'Validate' || assetOpState === 'Aprobare Manager')"><i class="fa fas fa-ambulance"></i> &nbsp;Validare transfer</button> &ndash;&gt;-->
+<!--                <button type="button" class="btn btn-outline-danger"  (click)="deleteOperation()"  [disabled]="selectedAssetOp == null || (selectedAssetOp != null && selectedAssetOp.assetOpState != null && selectedAssetOp.assetOpState.id === 7)"><i class="fa fa-trash-o"></i>&nbsp;Anulare propunere reconciliere</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+    <div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+        tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Confirmare</h4>
+          </div>
+          <div class="modal-body">
+            {{ confirmationMessage }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> Nu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" bsModal #importDataModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     <div class="modal-header">
+       <h4 class="modal-title pull-left">Import date</h4>
+     </div>
+     <div class="modal-body">
+       <progressbar [max]="importLines.length" [value]="importIndex" type="success"><b>{{importIndex}} / {{importLines.length}}</b></progressbar>
+     </div>
+    </div>
+    </div>
+    </div>
+
+
+<div class="modal fade" bsModal #regionListModal="bs-modal" [config]="{backdrop: 'static'}"
+        tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Judete</h4>
+            </div>
+            <div class="modal-body">
+                <app-region-list #regionList id="regionList"
+                    [dataSource]="regionHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="10"
+                    usePaging="true">
+                </app-region-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRegions()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="regionListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #admCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+        tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Regiuni</h4>
+            </div>
+            <div class="modal-body">
+                <app-adm-center-list #admCenterList id="admCenterList"
+                    [dataSource]="admCenterHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="10"
+                    usePaging="true">
+                </app-adm-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdmCenters()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="admCenterListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #locationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Etaje</h4>
+                <button *ngIf="allLocations === 'NO'" (click)="showAllLocations()" class=" modal-title pull-right btn btn-outline-success btn-lg" type="button">Active</button>
+                <button *ngIf="allLocations === 'YES'" (click)="showAllLocations()" class="modal-title pull-right btn btn-outline-danger btn-lg" type="button">Inactive</button>
+            </div>
+            <div class="modal-body">
+                <app-location-list #locationList id="locationList"
+                    [dataSource]="locationHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="10"
+                    usePaging="true">
+                </app-location-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocations()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="locationListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #roomListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Adrese</h4>
+            </div>
+            <div class="modal-body">
+                <app-room-list #roomList id="roomList"
+                    [dataSource]="roomDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="10"
+                    usePaging="true">
+                </app-room-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRooms()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="roomListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Angajati</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="10"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployees()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #accMonthListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Luna contabila</h4>
+            </div>
+            <div class="modal-body">
+                <app-acc-month-list #accMonthList id="accMonthList"
+                    [dataSource]="accMonthHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="10"
+                    usePaging="true">
+                </app-acc-month-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAccMonths()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="accMonthListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>

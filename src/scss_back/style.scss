@@ -1,0 +1,63 @@
+// If you want to override variables do it here
+@import "variables";
+
+@import "~@ng-select/ng-select/themes/material.theme.css";
+// @import "~@ng-select/ng-select/themes/default.theme.css";
+// @import "~@ng-select/ng-select/themes/ant.design.theme";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// @import "node_modules/primeng/resources/themes/luna-blue/theme.css";
+ @import "./../../node_modules/primeng/resources/primeng.min.css";
+// @import  "node_modules/primeicons/primeicons.css";
+
+@import "./../../node_modules/primeng/resources/themes/mdc-light-deeppurple/theme.css";
+@import "./../../node_modules/primeicons/primeicons.css";
+
+@import '~@circlon/angular-tree-component/css/angular-tree-component.css';
+
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+//@import "~bootstrap/scss/containers"; // Add .container and .container-fluid classes
+@import "~bootstrap/scss/grid"; // Add the grid system
+
+// Import Bootstrap Reboot
+@import "~bootstrap/scss/root"; // Contains :root CSS variables used by other Bootstrap files
+@import "~bootstrap/scss/reboot";
+
+// @import "~ng-zorro-antd/ng-zorro-antd.min.css";
+
+// @import "~quill/dist/quill.core.css";
+// @import "~quill/dist/quill.snow.css";
+
+// @import "~@ng-select/ng-select/themes/default.theme.css";
+
+@import "../app/forms/generic/sticky-header.scss";
+
+.ng-select.custom {
+    border:0px;
+    min-height: 3.5rem;
+    border-radius: 8px;
+
+
+}
+.ng-select.custom .ng-select-container  {
+    min-height: 3.5rem;
+    border-radius: 8px;
+}
+
+
+
+

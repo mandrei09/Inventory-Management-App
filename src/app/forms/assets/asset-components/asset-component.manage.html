@@ -1,0 +1,221 @@
+<div class="animated fadeIn">
+    <br>
+    <div class="card">
+      <div class="card-header">
+            <button type="button" class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed">Filtre </button>
+
+            &nbsp;
+            <button type="button" class="btn btn-success btn-sm" (click)="exportToExcel()" style="background-color: rgb(0, 130, 19);color: white;" [disabled]="!showExportBtn" ><i class="fa fa-download"></i> &nbsp; Export </button>
+        <div class="card-header-actions">
+            <!-- <div class="input-group">
+                <input type="text" class="form-control" placeholder="Cauta..." aria-label="Cauta..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">
+                <div class="input-group-append">
+                    &nbsp;
+                    <button type="button" class="btn btn-primary btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i> Adauga</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Modifica</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>
+                </div>
+              </div> -->
+           
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Cauta..." aria-label="Cauta..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">
+                <div class="input-group-append">
+                  <!-- <button type="button" class="btn btn-outline-secondary">Action</button> -->
+                  <button type="button" class="btn btn-ghost-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">
+                    <!-- <span class="sr-only">Toggle Dropdown</span> -->
+                    ...
+                  </button>
+                  <div class="dropdown-menu" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">
+                    <a hideIfUnauthorized="ADD|COMPONENT" class="dropdown-item" (click)="addNewItem()"><i class="fa fa-plus" style="color: green;"></i>&nbsp;Adauga</a>
+                    <a hideIfUnauthorized="EDIT|COMPONENT" *ngIf="selectedItem" class="dropdown-item" (click)="editItem()"><i class="fa fa-edit" style="color: red;"></i> &nbsp;Modifica</a>
+                    <!-- <a hideIfUnauthorized="EXPORT|COMPONENT" class="dropdown-item" (click)="exportToExcel()"><i class="fa fa-file-excel-o" style="color: green;"></i>&nbsp;Export</a> -->
+                    <!-- <div role="separator" class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated item</a> -->
+                  </div>
+                </div>
+                <div hideIfUnauthorized="PAGE_SIZE|COMPONENT" class="btn-group" dropdown>
+                    <button dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle" >
+                        Size {{ pageSize }}<span class="caret"></span>
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu">
+                      <li role="menuitem" (click)="onPageUpdate(5)"><a class="dropdown-item">5</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(10)"><a class="dropdown-item">10</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(15)"><a class="dropdown-item">15</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(20)"><a class="dropdown-item">20</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(30)"><a class="dropdown-item">30</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(50)"><a class="dropdown-item">50</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(70)"><a class="dropdown-item">70</a></li>
+                      <li role="menuitem" (click)="onPageUpdate(100)"><a class="dropdown-item">100</a></li>
+                    </ul>
+                  </div>
+              </div>
+        </div>
+      </div>
+      <div class="card-body"
+           (collapsed)="collapsed($event)"
+           (expanded)="expanded($event)"
+           [collapse]="isCollapsed">
+           <div class="card-body-actions">
+            <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color:#341E16">Username</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px;">{{ selectedEmployee != null ?  selectedEmployee.firstName + ' ' + selectedEmployee.lastName : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" (click)="selectEmployee()" [ngClass]="{'btn-icon button': selectedEmployee == null, 'btn-icon': selectedEmployee != null}"><i class="fa fa-search"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm" (click)="unselectEmployee()" [ngClass]="{'btn-icon button': selectedEmployee == null, 'btn-icon': selectedEmployee != null}"><i class="fa fa-close"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 style="color:#341E16">SubType</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <h6 style="font-size: 12px;">{{ selectedSubType != null ?  selectedSubType.code + ' ' + selectedSubType.name : "" }}</h6>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="text-align: right;">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" (click)="selectSubType()" [ngClass]="{'btn-icon button': selectedSubType == null, 'btn-icon': selectedSubType != null}"><i class="fa fa-search"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm" (click)="unselectSubType()" [ngClass]="{'btn-icon button': selectedSubType == null, 'btn-icon': selectedSubType != null}"><i class="fa fa-close"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="col-sm-12">
+            <asset-component-list #assetComponentList id="assetComponentList"
+                [dataSource]="assetComponentDetailHttpService"
+                dynamicQuery="true"
+                usePaging="true"
+                showSimpleSearch="false"
+                [itemAddedEvent]="itemAddedEvent"
+                [itemUpdatedEvent]="itemUpdatedEvent"
+                [itemDeletedEvent]="itemDeletedEvent"
+                [requestSelectionEvent]="requestSelectionEvent"
+                [requestRefreshEvent]="requestRefreshEvent"
+                (selectionChanged)="setSelectedItem($event)"
+                rowSelection="single"
+                notifyOnChange="true">
+            </asset-component-list>
+          </div>
+      </div>
+    </div>   
+</div>
+<div class="modal fade" bsModal #assetComponentDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm">
+  <div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Detail</h4>
+      </div>
+      <div class="modal-body">
+        <asset-component-detail #assetComponentDetail id="assetComponentDetail"
+            [dataSource]="assetComponentHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (assetNeeded)="onAssetComponentDetailAssetNeeded()"
+            (employeeNeeded)="onAssetComponentDetailEmployeeNeeded()"
+            (subTypeNeeded)="onAssetComponentDetailSubTypeNeeded()"
+            (changesCanceled)="detailTerminate()">
+        </asset-component-detail>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #assetEntityListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Parinti</h4>
+            </div>
+            <div class="modal-body">
+                <app-asset-entity-list #assetEntityList id="assetEntityList"
+                    [dataSource]="assetHttpService"
+                    detailType="components"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-asset-entity-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAsset()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAssetListCancel()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Useri</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployee()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onEmployeeListCancel()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #subTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">SubType</h4>
+            </div>
+            <div class="modal-body">
+                <sub-type-list #subTypeList id="subTypeList"
+                    [dataSource]="subTypeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </sub-type-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedSubType()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onSubTypeListCancel()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>

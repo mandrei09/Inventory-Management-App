@@ -1,0 +1,314 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_asset_retire_asset'">
+  <div class="modal-dialog-header">
+    <div class="d-flex">
+      <h2 class="modal-title mb-0">
+        Asset Retire
+      </h2>
+    </div>
+    <div class="d-flex">
+      <div class="vertical-divider"></div>
+      <button type="button" class="btn-close" mat-dialog-close style="margin-left: 10px;margin-top: auto;margin-bottom: auto;"></button>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container-fluid">
+        <div class="d-flex align-items-start">
+          <div class="tab-content" style="width: 90%;margin-left: 90px;">
+            <div class="col-md-12">
+              <div class="row">
+
+                <div class="col-md-9" style="padding-right: 35px;">
+                  <div class="mb-3" #operation>
+                    <mat-tab-group mat-stretch-tabs="false" color="transparent">
+                      <mat-tab label="General">
+                        <div class="mt-3 row">
+                          <div *ngIf="asset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Asset:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="asset.invNo" name="invNo" #invNo="ngModel">
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                {{ t('subnumber_label')}}:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="asset.subNo" name="subNo" #subNo="ngModel">
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                {{ t('quantity_label')}}:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="asset.quantity" name="quantity">
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                {{ t('class_label')}}:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <exp-accounts-item-select class="form-group-select_wrapper" displayValue="name" [(ngModel)]="expAccount" placeholder="{{ t('class_placeholder')}}">
+                              </exp-accounts-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                {{ t('company_label')}}:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <company-item-select class="form-group-select_wrapper" displayValue="code" [(ngModel)]="company" placeholder="{{ t('company_placeholder')}}:">
+                              </company-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Tax:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <tax-item-select class="form-group-select_wrapper" displayValue="name" [(ngModel)]="tax" placeholder="Selecteaza tax">
+                              </tax-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                {{ t('serial_no_label')}}:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="asset.serialNumber" name="serialNumber">
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                {{ t('label_label')}}:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="asset.sapCode" name="sapCode">
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Header text:
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="asset.headerText" name="headerText" #headerText="ngModel">
+                            </div>
+                          </div>
+
+                          <div *ngIf="asset != null" class="col-md-12">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                {{ t('description_label')}}:
+                              </label>
+                              <textarea [(ngModel)]="asset.name" name="name" #name="ngModel" class="form-control" rows="3"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Time-dependent">
+                        <div class="mt-3 row">
+                          <div *ngIf="asset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                CC:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <cost-centers-item-select class="form-group-select_wrapper" [(ngModel)]="costCenter" placeholder="Selecteaza centru de cost">
+                              </cost-centers-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Plant:
+                              </label>
+                              <input matInput type="text" class="form-control" [value]="plant != null ? plant.code : 'RO02'" name="plant">
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Person:
+                              </label>
+                              <input matInput type="text" class="form-control" [value]="employee != null ? employee.internalCode + '-' + employee.firstName + ' ' +  employee.lastName: ''" name="employee">
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Location:
+                              </label>
+                              <input matInput type="text" class="form-control" [value]="location != null ? location.code + '-' + location.name : ''" name="location">
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                              <label>
+                                Room:
+                              </label>
+                              <input matInput type="text" class="form-control" [value]="room != null ? room.code + '-' + room.name : ''" name="room">
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Allocations">
+                        <div class="mt-3 row">
+                          <div *ngIf="asset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Asset category:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <asset-categories-item-select class="form-group-select_wrapper" [(ngModel)]="assetCategory" placeholder="Selecteaza categorie asset">
+                              </asset-categories-item-select>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Origin">
+                        <div class="mt-3 row">
+                          <div *ngIf="asset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                Vendor:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <partners-item-select class="form-group-select_wrapper" [(ngModel)]="partner" placeholder="Selecteaza vendor" >
+                              </partners-item-select>
+                            </div>
+                          </div>
+                          <div *ngIf="asset != null" class="col-12 col-md-4">
+                            <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                              <label>
+                                {{ t('invoice_label')}}:
+                                <span class="required-label-symbol">*</span>
+                              </label>
+                              <input matInput type="text" class="form-control" [(ngModel)]="asset.docNo1" name="docNo1" (keydown)="checkUniqueDocument($event)" [readOnly]="true">
+                            </div>
+                          </div>
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Net Worth Tax"></mat-tab>
+                      <mat-tab label="Insurance"></mat-tab>
+                      <mat-tab label="Leasing"></mat-tab>
+                      <mat-tab label="Deprec. area"></mat-tab>
+                    </mat-tab-group>
+                  </div>
+                </div>
+
+                <div *ngIf="asset != null && asset != null" class="col-md-3" style="border-left: 1px solid #D9D9DF !important;padding-left: 35px;">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <button
+                          (click)="onAssetFileUpload()"
+                          class="small-blue-btn mb-0"
+                        >
+                          <mat-icon>add</mat-icon>
+                          <span>
+                            {{ t('storno_documents_label')}}:
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div *ngIf="asset != null" class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          Asset:
+                        </label>
+                        <input matInput type="text" class="form-control" [(ngModel)]="asset.invNo" name="invNo" #invNo="ngModel">
+                      </div>
+                    </div>
+                    <div *ngIf="asset != null" class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          {{ t('observations_label')}}:
+                        </label>
+                        <textarea class="form-control" [(ngModel)]="itemText" name="itemText" rows="4"></textarea>
+                      </div>
+                    </div>
+                    <div *ngIf="asset != null" class="col-12 col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                        <label>
+                          Currency:
+                        </label>
+                        <uom-item-select class="form-group-select_wrapper" [(ngModel)]="uom" displayValue="code" placeholder="Selecteaza uom">
+                        </uom-item-select>
+                      </div>
+                    </div>
+                    <div *ngIf="asset != null" class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          Document no.:
+                        </label>
+                        <input matInput type="text" class="form-control" [(ngModel)]="refDocNo" name="refDocNo">
+                      </div>
+                    </div>
+                    <div *ngIf="asset != null" class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                           {{ t('sum_label')}}:
+                        </label>
+                        <input matInput type="number" class="form-control" [(ngModel)]="amount" name="amount">
+                      </div>
+                    </div>
+                    <div *ngIf="asset != null" class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          {{ t('percent_label')}}:
+                        </label>
+                        <input matInput type="number" class="form-control" [(ngModel)]="percent" name="percent">
+                      </div>
+                    </div>
+                    <div *ngIf="asset != null" class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                        <label>
+                          {{ t('quantity_label')}}:
+                        </label>
+                        <input matInput type="number" class="form-control" [(ngModel)]="quantity" name="quantity">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-1 d-flex" style="display:grid !important;">
+                        <mat-checkbox (change)="fullTransfer($event)" [ngModel]="completeRetire" name="completeRetire">COMPL_RET</mat-checkbox>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-1 d-flex" style="display:grid !important;">
+                        <mat-checkbox (change)="priorYearAcq($event)" [ngModel]="priorYearAcquisitions" name="priorYearAcquisition">PRIOR_YEAR_ACQUISITIONS</mat-checkbox>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group inputs-modal-nomenclature mb-1 d-flex" style="display:grid !important;">
+                        <mat-checkbox (change)="currentYearAcq($event)" [ngModel]="currentYearAcquisitions" name="currentYearAcquisition">CURRENT_YEAR_ACQUISITIONS</mat-checkbox>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">Cancel</button>
+    <button mat-button
+            class="btn blue-btn"
+            (click)="saveAsset()"
+            [disabled]="!isSaved || !allowSaving"
+    >Save</button>
+  </mat-dialog-actions>
+</div>

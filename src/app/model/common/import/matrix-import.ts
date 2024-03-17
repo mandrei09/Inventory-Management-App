@@ -1,0 +1,33 @@
+export class MatrixImport {
+    // CompanyCode: string;
+    // CompanyName: string;
+    // CostCenterCode: string;
+    // CostCenterName: string;
+    // AdmCenter: string;
+    // Area: string;
+    // CountryCode: string;
+    // CountryName: string;
+    DepartmentName: string;
+    DepartmentCode: string;
+    DivisionName: string;
+    DivisionCode: string;
+    // ProjectTypeName: string;
+    // ProjectTypeCode: string;
+    // AssetTypeName: string;
+    // AssetTypeCode: string;
+    // Project: string;
+    L1UserId: string;
+    L2UserId: string;
+    L3UserId: string;
+    L4UserId: string;
+    S1UserId: string;
+    S2UserId: string;
+    S3UserId: string;
+    L1UserIdSum: number;
+    L2UserIdSum: number;
+    L3UserIdSum: number;
+    L4UserIdSum: number;
+    S1UserIdSum: number;
+    S2UserIdSum: number;
+    S3UserIdSum: number;
+}

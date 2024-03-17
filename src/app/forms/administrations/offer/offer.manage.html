@@ -1,0 +1,289 @@
+<div *transloco="let t; read: 'page_procurement_offer_component'" style="height: 100%;">
+  <div class="content-page-header">
+    <app-common-header
+      (filterChanged)="doSimpleSearch($event)"
+      (addNew)="onOfferAddNew()">
+    </app-common-header>
+
+    <div class="modal-filters d-grid">
+      <div class="d-flex" style="display: flex;flex-wrap: wrap;">
+        <div hideIfUnauthorized="PHOTO_FILTER|S_INVENTORY_STATUS" class="filter-content-item child-w-200 mt-15 mr-10">
+          <div class="mt-auto d-flex filter-select-wrapper">
+            <div class="static-form-select">
+              <mat-form-field appearance="fill">
+                <mat-label>{{ t('type_filter_placeholder') }}:</mat-label>
+                <mat-select (selectionChange)="onValChange($event.value)">
+                  <mat-option [value]="null">-</mat-option>
+                  <mat-option [value]="'all'">{{ t('option_all') }}</mat-option>
+                  <mat-option [value]="'me'">{{ t('option_personal') }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-page-header-two d-flex">
+    <div class="left-actions d-flex">
+      <div class="refresh subheader-actions-wrapper">
+        <a (click)="checkForRefresh()">
+          <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="refresh subheader-actions-wrapper subheader-action-text_inline" style="min-width: auto;">
+        <a (click)="export()" class="d-flex" style="color: inherit;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/> </g> </svg>
+          {{ t('export_button_text') }}
+        </a>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="mr-15" style="display: flex;">
+      </div>
+      <div class="results d-flex align-items-center">
+        <div>
+          <span class="blue-color">{{ offerList._selectedItems ? offerList._selectedItems.length : '0' }}</span>
+          <span [class.blue-color]="offerList._selectedItems.length > 0">{{ t('table_selected_text') }}</span>
+        </div>
+        <div class="vertical-divider mr-15"></div>
+        <div>
+          <span>{{ offerList.totalItems ? offerList.totalItems : '0' }} {{ t('table_results_text') }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div hideIfUnauthorized="VIEW|S_OFFER_STATUS">
+    <offer-list #offerList id="offerList"
+                [dataSource]="offerHttpService"
+                listTemplate="OFFERS"
+                sortColumn="offer.id"
+                sortDirection="desc"
+                dynamicQuery="true"
+                usePaging="true"
+                showSimpleSearch="false"
+                [pageSize]="10"
+                [rowSelection]="budgetRowSelection"
+                (selectionChanged)="onBudgetSelectionChanged($event)"
+                notifyOnChange="true">
+    </offer-list>
+  </div>
+
+  <div *ngIf="selectedOffers.length > 0" class="second-table-section mt-3 mb-1" style="border-bottom: none;">
+    <div id="documentsSection1" class="row">
+      <div class="col-12 attributes">
+        <div>
+          <div class="table-responsive border-1-gray">
+            <offer-validate-read-only-list #offerMaterialList id="offerMaterialList"
+                                           [dataSource]="offerMaterialHttpService"
+                                           showSimpleSearch="false"
+                                           listTemplate="OFFERMATERIALS"
+                                           detailType=""
+                                           sortColumn="material.code"
+                                           sortDirection="asc"
+                                           dynamicQuery="true"
+                                           rowSelection="single"
+                                           notifyOnChange="true"
+                                           [pageSize]="100"
+                                           usePaging="true">
+            </offer-validate-read-only-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--<div class="animated fadeIn">-->
+<!--    <br>-->
+<!--    <div class="card">-->
+<!--      <div class="card-header" style="background-color: #fff;">-->
+
+<!--            <mat-button-toggle-group [(ngModel)]="type" aria-label="Font Style" (change)="onValChange($event.value)">-->
+<!--              <mat-button-toggle value="all">Toate</mat-button-toggle>-->
+<!--              <mat-button-toggle value="me">Personale</mat-button-toggle>-->
+<!--          </mat-button-toggle-group>-->
+<!--            <button hideIfUnauthorized="CLEAR_FILTER|S_OFFER_STATUS" type="button" class="btn btn-danger btn-sm" (click)="clearFilters()" [style.backgroundColor] = "'rgb(168, 16, 0)'" ><i class="fa fa-close"></i></button>-->
+<!--            &nbsp;-->
+<!--            <button hideIfUnauthorized="ADD|ASSET" type="button" class="btn btn-primary btn-sm" (click)="addNewBudget()"><i class="fa fa-plus"></i>&nbsp;Adauga oferta</button>-->
+<!--            &nbsp;-->
+
+<!--      </div>-->
+<!--      &lt;!&ndash; <div class="card-body"-->
+<!--           (collapsed)="collapsed($event)"-->
+<!--           (expanded)="expanded($event)"-->
+<!--           [collapse]="isCollapsed">-->
+<!--           <div class="card-body-actions">-->
+<!--            <div class="row">-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--      </div> &ndash;&gt;-->
+<!--      <div hideIfUnauthorized="VIEW|S_OFFER_STATUS" class="card-footer" style="background-color: #fff;">-->
+<!--        <div class="col-sm-12">-->
+<!--            <offer-list #offerList id="offerList"-->
+<!--                    [dataSource]="offerHttpService"-->
+<!--                    listTemplate="OFFERS"-->
+<!--                    sortColumn="offer.id"-->
+<!--                    sortDirection="desc"-->
+<!--                    dynamicQuery="true"-->
+<!--                    usePaging="true"-->
+<!--                    showSimpleSearch="false"-->
+<!--                    [pageSize]="5"-->
+<!--                    [rowSelection]="budgetRowSelection"-->
+<!--                    (selectionChanged)="onBudgetSelectionChanged($event)"-->
+<!--                    notifyOnChange="true">-->
+<!--                </offer-list>-->
+<!--          </div>-->
+<!--      </div>-->
+
+<!--      <div class="card-footer" *ngIf="selectedOffers.length > 0">-->
+<!--        <div class="col-sm-12">-->
+<!--            <offer-validate-read-only-list #offerMaterialList id="offerMaterialList"-->
+<!--            [dataSource]="offerMaterialHttpService"-->
+<!--            showSimpleSearch="false"-->
+<!--            listTemplate="OFFERMATERIALS"-->
+<!--            detailType=""-->
+<!--            sortColumn="material.code"-->
+<!--            sortDirection="asc"-->
+<!--            dynamicQuery="true"-->
+<!--            rowSelection="single"-->
+<!--            notifyOnChange="true"-->
+<!--            [pageSize]="100"-->
+<!--            usePaging="true">-->
+<!--            </offer-validate-read-only-list>-->
+<!--          </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Employees</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployees()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">CostCenters</h4>
+            </div>
+            <div class="modal-body">
+                <app-administration-list #administrationList id="administrationList"
+                    [dataSource]="administrationDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-administration-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministrations()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="administrationListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #partnerListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Partners</h4>
+            </div>
+            <div class="modal-body">
+                <app-partner-list #partnerList id="partnerList"
+                    [dataSource]="partnerHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-partner-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedPartners()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="partnerListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">CostCenters</h4>
+            </div>
+            <div class="modal-body">
+                <app-cost-center-list #costCenterList id="costCenterList"
+                    [dataSource]="costCenterHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenters()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="costCenterListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #companyListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">Companies</h4>
+      </div>
+      <div class="modal-body">
+          <app-company-list #companyList id="companyList"
+              [dataSource]="companyHttpService"
+              rowSelection="multiple"
+              notifyOnChange="false"
+              [pageSize]="5"
+              usePaging="true">
+          </app-company-list>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompanies()">Selecteaza</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="companyListModal.hide()">Inchide</button>
+      </div>
+  </div>
+</div>
+</div>

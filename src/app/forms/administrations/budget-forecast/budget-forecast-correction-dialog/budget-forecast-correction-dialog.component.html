@@ -1,0 +1,940 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_budget_details_dialog'">
+  <div class="modal-dialog-header">
+    <div class="d-flex align-items-center justify-content-between" style="width: 100%">
+      <h2 class="modal-title mb-0 d-flex align-items-center mr-15">Correction</h2>
+
+      <div class="d-flex">
+        <div class="vertical-divider mr-10"></div>
+        <button type="button" class="btn-close" mat-dialog-close></button>
+      </div>
+    </div>
+  </div>
+
+<!--  <button pButton [label]="order != null ? order.code : 'Selectie P.O.'" type="button" class="p-button-warning" (click)="selectOrder()"><i class="fa fa-save"></i>&nbsp;</button>-->
+  &nbsp;&nbsp;
+<!--  <button pButton type="button" [label]="destinationBudgetForecast != null && destinationBudgetForecast.budgetBase != null ? destinationBudgetForecast.budgetBase.code : 'Buget destinatie'" class="p-button-info" (click)="selectBudgetForecast()"><i class="fa fa-search"></i></button>-->
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body pt-0">
+      <div class="container-fluid">
+
+        <div class="row">
+            <div class="row mx-auto">
+              <div class="col-12 mx-auto">
+
+                <div class="mb-5">
+                  <mat-tab-group mat-stretch-tabs="false" color="transparent">
+                    <mat-tab label="Detalii forecast sursa">
+                      <div class="row mt-3">
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Selectie Owner:
+                            </label>
+                            <employee-item-select class="form-group-select_wrapper" [(ngModel)]="employee" displayValue="full-name" placeholder="Selecteaza">
+                            </employee-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              WBS:
+                            </label>
+                            <projects-item-select class="form-group-select_wrapper" [(ngModel)]="project" displayValue="code" placeholder="Selecteaza">
+                            </projects-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Tara:
+                            </label>
+                            <countries-item-select class="form-group-select_wrapper" [(ngModel)]="code-name" displayValue="code" placeholder="Selecteaza">
+                            </countries-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Activity:
+                            </label>
+                            <activities-item-select class="form-group-select_wrapper" [(ngModel)]="activity" displayValue="name" placeholder="Selecteaza">
+                            </activities-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Business Unit:
+                            </label>
+                            <departments-item-select class="form-group-select_wrapper" [(ngModel)]="department" displayValue="code-name" placeholder="Selecteaza">
+                            </departments-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Profit Center:
+                            </label>
+                            <adm-centers-item-select class="form-group-select_wrapper" [(ngModel)]="admCenter" displayValue="name" placeholder="Selecteaza">
+                            </adm-centers-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Region:
+                            </label>
+                            <regions-item-select class="form-group-select_wrapper" [(ngModel)]="region" displayValue="name" placeholder="Selecteaza">
+                            </regions-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Departament:
+                            </label>
+                            <divisions-item-select class="form-group-select_wrapper" [(ngModel)]="division" displayValue="code-name" placeholder="Selecteaza">
+                            </divisions-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Proiect:
+                            </label>
+                            <project-types-item-select class="form-group-select_wrapper" [(ngModel)]="projectType" displayValue="code-name" placeholder="Selecteaza">
+                            </project-types-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              CostType:
+                            </label>
+                            <asset-types-item-select class="form-group-select_wrapper" [(ngModel)]="assetType" displayValue="code-name" placeholder="Selecteaza">
+                            </asset-types-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Implementation Date:
+                            </label>
+                            <acc-months-item-select class="form-group-select_wrapper" [(ngModel)]="startAccMonth" displayValue="month-year" placeholder="Selecteaza">
+                            </acc-months-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              ACQ type:
+                            </label>
+                            <app-state-item-select class="form-group-select_wrapper" [(ngModel)]="appState" displayValue="name" placeholder="Selecteaza">
+                            </app-state-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Buget freeze:
+                            </label>
+                            <budget-base-item-select class="form-group-select_wrapper" [(ngModel)]="budgetBase" displayValue="code" placeholder="Selecteaza">
+                            </budget-base-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Detalii:
+                            </label>
+                            <input matInput type="text" class="form-control" [(ngModel)]="budget.info" name="info" #info="ngModel">
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Dep Per BGT (month):
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.depPeriod" name="depPeriod" #depPeriod="ngModel" step ="0.01">
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Dep Per ACT (month):
+                            </label>
+                            <input matInput type="number" class="form-control" [(ngModel)]="budget.depPeriodRem" name="depPeriodRem" #depPeriodRem="ngModel" step ="0.01">
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Corectie sursa - destinatie">
+                      <div class="row mt-3">
+
+                        <div *ngIf="budget != null" class="col-md-3">
+                          <div class="card budget-white-bg-card">
+                            <div class="card-header">
+                              <h6 style="font-weight: 500;font-size: 18px;line-height: 20px;color: #111052;margin-bottom: 0;margin: 5px 0;">SURSA - initial ({{srcValue}})</h6>
+                            </div>
+
+                            <div class="card-body">
+                              <h3 class="p-mb-2">(<span style="color: green;">{{srcResult?.totalRem | number: '1.2-2'}} RON</span>) / {{srcResult?.project?.code}}</h3>
+                              <p><span style="color: green;">{{srcResult?.budgetBase?.info}}</span></p>
+                              <div class="progress progress-xs">
+                                <div class="progress-bar bg-info progress-bar-animated" role="progressbar" [ngStyle]="{'width': ((srcResult?.totalRem/srcResult?.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                  <strong>{{(srcResult?.totalRem/srcResult?.total) * 100.0 | number: '1.2-2'}}</strong>
+                                </div>
+                              </div>
+                              <br>
+                              <ul class="card-lists">
+                                <li><span>B.U: </span>{{srcResult?.department?.code}} - {{srcResult?.department?.name}}</li>
+                                <li><span>Departament : </span>{{srcResult?.division?.code}} - {{srcResult?.division?.name}}</li>
+                                <li><span>Proiect : </span>{{srcResult?.projectType?.code}} - {{srcResult?.projectType?.name}}</li>
+                                <li><span>Tip : </span>{{srcResult?.assetType?.code}} - {{srcResult?.assetType?.name}}</li>
+                                <li><span>Profit center : </span>{{srcResult?.admCenter?.code}}</li>
+                              </ul>
+                            </div>
+
+                            <div class="card-footer">
+                              <div class="container budget-white-bg-card_inputs mt-3">
+                                <div class="row">
+                                  <div *ngIf="srcResult?.accMonth?.month === 4" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Aprilie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.aprilForecast" min="0" name="aprilForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeApril($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 5" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Mai:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="srcResult == null" [(ngModel)]="budget.mayForecastDstNew" min="0" name="mayForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeMay($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 6" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Iunie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true"   [(ngModel)]="budget.juneForecast"    min=0 name="juneForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeJune($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 7" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Iulie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true"   [(ngModel)]="budget.julyForecast"    min=0 name="julyForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeJuly($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 8" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        August:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true"   [(ngModel)]="budget.augustForecast"    min=0 name="augustForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeAugust($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 9" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Septembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true"   [(ngModel)]="budget.septemberForecast"    min=0 name="septemberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeSeptember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 10" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Octombrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true"   [(ngModel)]="budget.octomberForecast"    min=0 name="octomberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeOctomber($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 11" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Noiembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true"   [(ngModel)]="budget.novemberForecast"    min=0 name="novemberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeNovember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 12" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Decembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true"   [(ngModel)]="budget.decemberForecast"    min=0 name="decemberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDecember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 || srcResult?.accMonth?.month === 1" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Ianuarie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true"   [(ngModel)]="budget.januaryForecast"    min=0 name="januaryForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeJanuary($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 || (srcResult?.accMonth?.month >= 1 && srcResult?.accMonth?.month <= 2)" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Februarie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.februaryForecast"    min=0 name="februaryForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeFebruary($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 || (srcResult?.accMonth?.month >= 1 && srcResult?.accMonth?.month <= 3)" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Martie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true"   [(ngModel)]="budget.marchForecast"    min=0 name="marchForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeMarch($event)">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-3">
+                          <div class="card budget-white-bg-card">
+                            <div class="card-header">
+                              <h6 style="font-weight: 500;font-size: 18px;line-height: 20px;color: #111052;margin-bottom: 0;margin: 5px 0;">SURSA - modificat ({{srcValue}})</h6>
+                            </div>
+
+                            <div class="card-body">
+                              <h3 class="p-mb-2">(<span style="color: green;">{{srcResult?.totalRem | number: '1.2-2'}} RON</span>) / {{srcResult?.project?.code}}</h3>
+                              <p><span style="color: green;">{{srcResult?.budgetBase?.info}}</span></p>
+                              <div class="progress progress-xs">
+                                <div class="progress-bar bg-info progress-bar-animated" role="progressbar" [ngStyle]="{'width': ((srcResult?.totalRem/srcResult?.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                  <strong>{{(srcResult?.totalRem/srcResult?.total) * 100.0 | number: '1.2-2'}}</strong>
+                                </div>
+                              </div>
+                              <br>
+                              <ul class="card-lists">
+                                <li><span>B.U: </span>{{srcResult?.department?.code}} - {{srcResult?.department?.name}}</li>
+                                <li><span>Departament : </span>{{srcResult?.division?.code}} - {{srcResult?.division?.name}}</li>
+                                <li><span>Proiect : </span>{{srcResult?.projectType?.code}} - {{srcResult?.projectType?.name}}</li>
+                                <li><span>Tip : </span>{{srcResult?.assetType?.code}} - {{srcResult?.assetType?.name}}</li>
+                                <li><span>Profit center : </span>{{srcResult?.admCenter?.code}}</li>
+                              </ul>
+                            </div>
+
+                            <div class="card-footer">
+                              <div class="container budget-white-bg-card_inputs mt-3">
+                                <div class="row">
+                                  <div *ngIf="srcResult?.accMonth?.month === 4" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Aprilie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.aprilForecastSrcNew" min="0" name="aprilForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationApril($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 5" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Mai:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.mayForecastSrcNew" min="0" name="mayForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationMay($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 6" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Iunie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.juneForecastSrcNew" min="0" name="juneForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJune($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 7" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Iulie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.julyForecastSrcNew" min="0" name="julyForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJuly($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 8" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        August:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.augustForecastSrcNew"min-0 name="augustForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationAugust($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 9" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Septembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.septemberForecastSrcNew" min="0" name="septemberForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationSeptember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 10" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Octombrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.octomberForecastSrcNew" min="0" name="octomberForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationOctomber($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 11" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Noiembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.novemberForecastSrcNew" min="0" name="novemberForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationNovember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 12" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Decembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.decemberForecastSrcNew" min="0" name="decemberForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationDecember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 || srcResult?.accMonth?.month === 1" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Ianuarie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.januaryForecastSrcNew" min="0" name="januaryForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJanuary($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 || (srcResult?.accMonth?.month >= 1 && srcResult?.accMonth?.month <= 2)" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Februarie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.februaryForecastSrcNew" min="0" name="februaryForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationFebruary($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="srcResult?.accMonth?.month >= 4 || (srcResult?.accMonth?.month >= 1 && srcResult?.accMonth?.month <= 3)" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Martie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.marchForecastSrcNew" min="0" name="marchForecastSrcNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationMarch($event)">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-3">
+                          <div class="card budget-white-bg-card">
+                            <div class="card-header">
+                              <h6 style="font-weight: 500;font-size: 18px;line-height: 20px;color: #111052;margin-bottom: 0;margin: 5px 0;">DESTINATIE - initial ({{dstValue}})</h6>
+                            </div>
+
+                            <div class="card-body">
+                              <h3 class="p-mb-2">(<span style="color: green;">{{dstResult?.totalRem | number: '1.2-2'}} RON</span>) / {{dstResult?.project?.code}}</h3>
+                              <p><span style="color: green;">{{dstResult?.budgetBase?.info}}</span></p>
+                              <div class="progress progress-xs">
+                                <div class="progress-bar bg-info progress-bar-animated" role="progressbar" [ngStyle]="{'width': ((dstResult?.totalRem/dstResult?.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                  <strong>{{(dstResult?.totalRem/dstResult?.total) * 100.0 | number: '1.2-2'}}</strong>
+                                </div>
+                              </div>
+                              <br>
+                              <ul class="card-lists">
+                                <li><span>B.U: </span>{{dstResult?.department?.code}} - {{dstResult?.department?.name}}</li>
+                                <li><span>Departament : </span>{{dstResult?.division?.code}} - {{dstResult?.division?.name}}</li>
+                                <li><span>Proiect : </span>{{dstResult?.projectType?.code}} - {{dstResult?.projectType?.name}}</li>
+                                <li><span>Tip : </span>{{dstResult?.assetType?.code}} - {{dstResult?.assetType?.name}}</li>
+                                <li><span>Profit center : </span>{{dstResult?.admCenter?.code}}</li>
+                              </ul>
+                            </div>
+
+                            <div class="card-footer">
+                              <div class="container budget-white-bg-card_inputs mt-3">
+                                <div class="row">
+                                  <div *ngIf="dstResult?.accMonth?.month === 4" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Aprilie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.aprilForecastDestination" min-0 name="aprilForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationApril($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 5" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Mai:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.mayForecastDestination" min="0" name="mayForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationMay($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 6" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Iunie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.juneForecastDestination" min="0" name="juneForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJune($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 7" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Iulie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.julyForecastDestination" min="0" name="julyForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJuly($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 8" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        August:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.augustForecastDestination" min="0" name="augustForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationAugust($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 9" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Septembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.septemberForecastDestination" min="0" name="septemberForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationSeptember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 10" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Octombrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.octomberForecastDestination" min="0" name="octomberForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationOctomber($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 11" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Noiembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.novemberForecastDestination" min="0" name="novemberForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationNovember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 12" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Decembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.decemberForecastDestination" min="0" name="decemberForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationDecember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 || dstResult?.accMonth?.month === 1" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Ianuarie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.januaryForecastDestination" min="0" name="januaryForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJanuary($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 || (dstResult?.accMonth?.month >= 1 && dstResult?.accMonth?.month <= 2)" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Februarie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.februaryForecastDestination" min=0name="februaryForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationFebruary($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 || (dstResult?.accMonth?.month >= 1 && dstResult?.accMonth?.month <= 3)" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Martie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.marchForecastDestination" min="0" name="marchForecastDestination" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationMarch($event)">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="budget != null" class="col-md-3">
+                          <div class="card budget-white-bg-card">
+                            <div class="card-header">
+                              <h6 style="font-weight: 500;font-size: 18px;line-height: 20px;color: #111052;margin-bottom: 0;margin: 5px 0;">DESTINATIE - modificat ({{dstValue}})</h6>
+                            </div>
+
+                            <div class="card-body">
+                              <h3 class="p-mb-2">(<span style="color: green;">{{dstResult?.totalRem | number: '1.2-2'}} RON</span>) / {{dstResult?.project?.code}}</h3>
+                              <p><span style="color: green;">{{dstResult?.budgetBase?.info}}</span></p>
+                              <div class="progress progress-xs">
+                                <div class="progress-bar bg-info progress-bar-animated" role="progressbar" [ngStyle]="{'width': ((dstResult?.totalRem/dstResult?.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                  <strong>{{(dstResult?.totalRem/dstResult?.total) * 100.0 | number: '1.2-2'}}</strong>
+                                </div>
+                              </div>
+                              <br>
+                              <ul class="card-lists">
+                                <li><span>B.U: </span>{{dstResult?.department?.code}} - {{dstResult?.department?.name}}</li>
+                                <li><span>Departament : </span>{{dstResult?.division?.code}} - {{dstResult?.division?.name}}</li>
+                                <li><span>Proiect : </span>{{dstResult?.projectType?.code}} - {{dstResult?.projectType?.name}}</li>
+                                <li><span>Tip : </span>{{dstResult?.assetType?.code}} - {{dstResult?.assetType?.name}}</li>
+                                <li><span>Profit center : </span>{{dstResult?.admCenter?.code}}</li>
+                              </ul>
+                            </div>
+
+                            <div class="card-footer">
+                              <div class="container budget-white-bg-card_inputs mt-3">
+                                <div class="row">
+                                  <div *ngIf="dstResult?.accMonth?.month === 4" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Aprilie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.aprilForecastDstNew" min="0" name="aprilForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationApril($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 5" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Mai:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.mayForecastDstNew" min="0" name="mayForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationMay($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 6" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Iunie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.juneForecastDstNew" min="0" name="juneForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJune($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 7" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Iulie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.julyForecastDstNew" min="0" name="julyForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJuly($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 8" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        August:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.augustForecastDstNew" min="0" name="augustForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationAugust($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 9" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Septembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.septemberForecastDstNew" min="0" name="septemberForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationSeptember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 10" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Octombrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.octomberForecastDstNew" min="0" name="octomberForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationOctomber($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 11" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Noiembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.novemberForecastDstNew" min="0" name="novemberForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationNovember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 && dstResult?.accMonth?.month <= 12" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Decembrie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.decemberForecastDstNew" min="0" name="decemberForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationDecember($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 || dstResult?.accMonth?.month === 1" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Ianuarie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.januaryForecastDstNew" min="0" name="januaryForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJanuary($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 || (dstResult?.accMonth?.month >= 1 && dstResult?.accMonth?.month <= 2)" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Februarie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.februaryForecastDstNew" min="0" name="februaryForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationFebruary($event)">
+                                    </div>
+                                  </div>
+                                  <div *ngIf="dstResult?.accMonth?.month >= 4 || (dstResult?.accMonth?.month >= 1 && dstResult?.accMonth?.month <= 3)" class="col-md-6">
+                                    <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                                      <label>
+                                        Martie:
+                                      </label>
+                                      <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budget.marchForecastDstNew" min="0" name="marchForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationMarch($event)">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Detalii forecast destinatie">
+                      <div class="row mt-3">
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Owner:
+                            </label>
+                            <employee-item-select class="form-group-select_wrapper" [(ngModel)]="employeeDst" displayValue="full-name" placeholder="Selecteaza" [disabled]="true">
+                            </employee-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              WBS:
+                            </label>
+                            <projects-item-select class="form-group-select_wrapper" [(ngModel)]="projectDst" displayValue="code" placeholder="Selecteaza" [disabled]="true">
+                            </projects-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Country:
+                            </label>
+                            <countries-item-select class="form-group-select_wrapper" [(ngModel)]="countryDst" displayValue="code-name" placeholder="Selecteaza" [disabled]="true">
+                            </countries-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Activity:
+                            </label>
+                            <activities-item-select class="form-group-select_wrapper" [(ngModel)]="activityDst" displayValue="name" placeholder="Selecteaza" [disabled]="true">
+                            </activities-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Business Unit:
+                            </label>
+                            <departments-item-select class="form-group-select_wrapper" [(ngModel)]="departmentDst" displayValue="code-name" placeholder="Selecteaza" [disabled]="true">
+                            </departments-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Profit Center:
+                            </label>
+                            <adm-centers-item-select class="form-group-select_wrapper" [(ngModel)]="admCenterDst" displayValue="name" placeholder="Selecteaza" [disabled]="true">
+                            </adm-centers-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              PC Det:
+                            </label>
+                            <regions-item-select class="form-group-select_wrapper" [(ngModel)]="regionDst" displayValue="name" placeholder="Selecteaza" [disabled]="true">
+                            </regions-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Departament:
+                            </label>
+                            <divisions-item-select class="form-group-select_wrapper" [(ngModel)]="divisionDst" displayValue="code-name" placeholder="Selecteaza" [disabled]="true">
+                            </divisions-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              CostType:
+                            </label>
+                            <asset-types-item-select class="form-group-select_wrapper" [(ngModel)]="assetTypeDst" displayValue="code-name" placeholder="Selecteaza" [disabled]="true">
+                            </asset-types-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Implementation Date:
+                            </label>
+                            <acc-months-item-select class="form-group-select_wrapper" [(ngModel)]="startAccMonthDst" displayValue="month-year" placeholder="Selecteaza">
+                            </acc-months-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              ACQ type:
+                            </label>
+                            <app-state-item-select class="form-group-select_wrapper" [(ngModel)]="appStateDst" displayValue="name" placeholder="Selecteaza">
+                            </app-state-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Buget freeze:
+                            </label>
+                            <budget-base-item-select class="form-group-select_wrapper" [(ngModel)]="budgetBaseDst" displayValue="code" placeholder="Selecteaza">
+                            </budget-base-item-select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Detalii:
+                            </label>
+                            <input matInput type="text" class="form-control" [(ngModel)]="budgetBaseDst.info" name="info" #info="ngModel">
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Dep Per BGT (month):
+                            </label>
+                            <input matInput type="number" class="form-control" [value]="budgetBaseDst.depPeriod" name="budgetBaseDstDepPeriod" readonly="true">
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                            <label>
+                              Dep Per ACT (month):
+                            </label>
+                            <input matInput type="number" class="form-control" [value]="budgetBaseDst.depPeriodRem" name="budgetBaseDstDepPeriodRem" readonly>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+
+                <div class="mt-3 mb-5">
+                  <mat-tab-group mat-stretch-tabs="false" color="transparent">
+                    <mat-tab label="Jurnal operatii">
+                      <div class="row mt-3">
+                        <div class="col-12 attributes">
+                          <div class="files-header mb-2">
+                            <span class="mr-15 my-auto">Jurnal operatii ({{ budgetBaseOpDetailList?.totalItems }})</span>
+                            <div class="d-flex">
+                            </div>
+                          </div>
+                          <hr class="mb-3">
+                          <div>
+                            <div class="table-responsive border-1-gray">
+                              <app-budget-base-op-detail-list #budgetBaseOpDetailList id="budgetBaseOpDetailList"
+                                                              [dataSource]="budgetBaseOpHttpService"
+                                                              showSimpleSearch="false"
+                                                              listTemplate="BUDGET_BASE_OPERATIONS"
+                                                              detailType="details"
+                                                              sortColumn="id"
+                                                              sortDirection="desc"
+                                                              dynamicQuery="true"
+                                                              rowSelection="single"
+                                                              notifyOnChange="true"
+                                                              (selectionChanged)="onBudgetBaseOpDetailListSelectionChanged($event)"
+                                                              usePaging="true">
+                              </app-budget-base-op-detail-list>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Istoric achizitii">
+                      <div class="row mt-3">
+                        <div class="col-12 attributes">
+                          <div class="files-header mb-2">
+                            <span class="mr-15 my-auto">Istoric achizitii ({{ assetList?.totalItems }})</span>
+                            <div class="d-flex">
+                            </div>
+                          </div>
+                          <hr class="mb-3">
+                          <div>
+                            <div class="table-responsive border-1-gray">
+                              <app-request-budget-forecast-view-ng-prime-validate #assetList id="assetList"
+                                                                                  [dataSource]="assetHttpService"
+                                                                                  listTemplate="ASSETS"
+                                                                                  detailType="stockhistory"
+                                                                                  sortColumn="asset.invNo"
+                                                                                  sortDirection="asc"
+                                                                                  [showValues]="showValues"
+                                                                                  dynamicQuery="true"
+                                                                                  usePaging="true"
+                                                                                  showSimpleSearch="false"
+                                                                                  rowSelection="single"
+                                                                                  [pageSize]="100"
+                                                                                  (selectionChanged)="onAssetSelectionChanged($event)"
+                                                                                  notifyOnChange="true">
+                              </app-request-budget-forecast-view-ng-prime-validate>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Validare transferuri bugete">
+                      <div class="row mt-3">
+                        <div class="col-12 attributes">
+                          <div class="files-header mb-2">
+                            <span class="mr-15 my-auto">Validare transferuri bugete ({{ budgetBaseValidatedOpDetailList?.totalItems }})</span>
+                            <div class="d-flex">
+                            </div>
+                          </div>
+                          <hr class="mb-3">
+                          <div>
+                            <div class="table-responsive border-1-gray">
+                              <app-budget-base-op-detail-list #budgetBaseValidatedOpDetailList id="budgetBaseValidatedOpDetailList"
+                                                              [dataSource]="budgetBaseOpHttpService"
+                                                              showSimpleSearch="false"
+                                                              listTemplate="BUDGET_BASE_OPERATIONS"
+                                                              detailType="validationdetails"
+                                                              sortColumn="id"
+                                                              sortDirection="desc"
+                                                              dynamicQuery="true"
+                                                              rowSelection="single"
+                                                              notifyOnChange="true"
+                                                              (selectionChanged)="onBudgetBaseOpValidatedDetailListSelectionChanged($event)"
+                                                              usePaging="true">
+                              </app-budget-base-op-detail-list>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">Inchide</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            (click)="saveBudget()" [disabled]="!allowSaving || !isSaved"
+    >Save</button>
+  </mat-dialog-actions>
+</div>

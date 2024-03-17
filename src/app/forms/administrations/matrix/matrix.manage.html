@@ -1,0 +1,751 @@
+<div *transloco="let t; read: 'page_matrix_status_component'" style="height: 100%;">
+  <div class="content-page-header">
+    <app-common-header
+      (filterChanged)="doSimpleSearch($event)"
+      (addNew)="onAddNew()">
+    </app-common-header>
+
+    <div class="modal-filters">
+
+      <div hideIfUnauthorized="DIVISION_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
+        <divisions-item-select [(ngModel)]="divisions" selectionType="multiple" placeholder="{{ t('divisions_filter_placeholder') }}" displayValue="code" showMinimizedPlaceHolder="true">
+        </divisions-item-select>
+      </div>
+
+      <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
+        <employee-item-select [(ngModel)]="selectedEmployeeL1" placeholder="{{ t('l1_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        </employee-item-select>
+      </div>
+
+      <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
+        <employee-item-select [(ngModel)]="selectedEmployeeL2" placeholder="{{ t('l2_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        </employee-item-select>
+      </div>
+
+      <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
+        <employee-item-select [(ngModel)]="selectedEmployeeL3" placeholder="{{ t('l3_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        </employee-item-select>
+      </div>
+
+      <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
+        <employee-item-select [(ngModel)]="selectedEmployeeL4" placeholder="{{ t('l4_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        </employee-item-select>
+      </div>
+
+      <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
+        <employee-item-select [(ngModel)]="selectedEmployeeS1" placeholder="{{ t('s1_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        </employee-item-select>
+      </div>
+
+      <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
+        <employee-item-select [(ngModel)]="selectedEmployeeS2" placeholder="{{ t('s2_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        </employee-item-select>
+      </div>
+
+      <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
+        <employee-item-select [(ngModel)]="selectedEmployeeS3" placeholder="{{ t('s3_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        </employee-item-select>
+      </div>
+
+      <button class="selected-filter-remove mr-15" (click)="onClearFilters()">
+        <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 3.34375H9V6.15625L11.3438 7.5625L10.8438 8.375L8 6.65625V3.34375ZM4.40625 1.75C5.59375 0.583333 7.01042 0 8.65625 0C10.3021 0 11.7083 0.583333 12.875 1.75C14.0625 2.91667 14.6562 4.33333 14.6562 6C14.6562 7.66667 14.0625 9.08333 12.875 10.25C11.7083 11.4167 10.3021 12 8.65625 12C7.96875 12 7.20833 11.8333 6.375 11.5C5.5625 11.1458 4.91667 10.7292 4.4375 10.25L5.375 9.28125C6.29167 10.1979 7.38542 10.6562 8.65625 10.6562C9.94792 10.6562 11.0521 10.2083 11.9688 9.3125C12.8854 8.39583 13.3438 7.29167 13.3438 6C13.3438 4.70833 12.8854 3.61458 11.9688 2.71875C11.0521 1.80208 9.94792 1.34375 8.65625 1.34375C7.36458 1.34375 6.26042 1.80208 5.34375 2.71875C4.44792 3.61458 4 4.70833 4 6H6L3.3125 8.6875L3.25 8.59375L0.65625 6H2.65625C2.65625 4.33333 3.23958 2.91667 4.40625 1.75Z" fill="#CC1010"/>
+        </svg>
+        {{ t('reset_filters') }}
+      </button>
+    </div>
+  </div>
+
+  <div class="content-page-header-two d-flex">
+    <div class="left-actions d-flex">
+      <div class="refresh subheader-actions-wrapper">
+        <a>
+          <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="refresh subheader-actions-wrapper subheader-action-text_inline" style="min-width: auto;">
+        <a (click)="export()" class="d-flex" style="color: inherit;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/> </g> </svg>
+          Export
+        </a>
+      </div>
+
+    </div>
+    <div class="results">
+      <span>{{ matrixList.totalItems }} {{ t('table_results_text') }}</span>
+    </div>
+  </div>
+
+  <app-matrix-list #matrixList id="matrixList"
+                   [dataSource]="matrixHttpService"
+                   usePaging="true"
+                   showHeader="false"
+                   showSimpleSearch="false"
+                   showEditAction="true"
+                   [itemAddedEvent]="itemAddedEvent"
+                   [itemUpdatedEvent]="itemUpdatedEvent"
+                   [itemDeletedEvent]="itemDeletedEvent"
+                   [requestSelectionEvent]="requestSelectionEvent"
+                   [requestRefreshEvent]="requestRefreshEvent"
+                   (selectionChanged)="setSelectedItem($event)"
+                   (itemEdit)="onItemEdit($event)"
+                   rowSelection="multiple"
+                   [pageSize]="10"
+                   notifyOnChange="true">
+  </app-matrix-list>
+</div>
+
+<div class="animated fadeIn">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <div hideIfUnauthorized="DIVISION_FILTER|ASSET" class="btn-group" dropdown>
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDivisions()" >Departamente</button>
+        <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+          <span class="caret"></span>
+          <span class="sr-only">Split button!</span>
+          <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedDivision != null ? 1 : 0}}</span>
+        </button>
+        <ul  class="dropdown-menu" role="menu">
+            <li role="menuitem"><a class="dropdown-item" (click)="clearDivisionSelection()">Sterge toate</a></li>
+            <div class="dropdown-divider"></div>
+            <li role="menuitem" *ngFor="let division of selectedDivisions"><a class="dropdown-item" (click)="removeFromDivisionSelection(division)"><i class="fa fa-times"></i> &nbsp;{{ division.code }}</a>
+            </li>
+          </ul>
+      </div>
+
+               &nbsp;
+              <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectL1Employees()" [style.color] = "'burlywood'">L1</button>
+                <button type="button" dropdownToggle class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-light badge-pill" style="position: static;">{{selectedL1Employees.length > 0 ? selectedL1Employees.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearL1EmployeeSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let employee of selectedL1Employees"><a class="dropdown-item" (click)="removeFromL1EmployeeSelection(employee)"><i class="fa fa-times"></i> &nbsp;{{ employee.internalCode }}</a>
+                    </li>
+                  </ul>
+              </div>
+              &nbsp;
+              <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectL2Employees()" [style.color] = "'burlywood'">L2</button>
+                <button type="button" dropdownToggle class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-light badge-pill" style="position: static;">{{selectedL2Employees.length > 0 ? selectedL2Employees.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearL2EmployeeSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let employee of selectedL2Employees"><a class="dropdown-item" (click)="removeFromL2EmployeeSelection(employee)"><i class="fa fa-times"></i> &nbsp;{{ employee.internalCode }}</a>
+                    </li>
+                  </ul>
+              </div>
+              &nbsp;
+              <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectL3Employees()" [style.color] = "'burlywood'">L3</button>
+                <button type="button" dropdownToggle class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-light badge-pill" style="position: static;">{{selectedL3Employees.length > 0 ? selectedL3Employees.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearL3EmployeeSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let employee of selectedL3Employees"><a class="dropdown-item" (click)="removeFromL3EmployeeSelection(employee)"><i class="fa fa-times"></i> &nbsp;{{ employee.internalCode }}</a>
+                    </li>
+                  </ul>
+              </div>
+              &nbsp;
+              <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectL4Employees()" [style.color] = "'burlywood'">L4</button>
+                <button type="button" dropdownToggle class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-light badge-pill" style="position: static;">{{selectedL4Employees.length > 0 ? selectedL4Employees.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearL4EmployeeSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let employee of selectedL4Employees"><a class="dropdown-item" (click)="removeFromL4EmployeeSelection(employee)"><i class="fa fa-times"></i> &nbsp;{{ employee.internalCode }}</a>
+                    </li>
+                  </ul>
+              </div>
+              &nbsp;
+              <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectS1Employees()" [style.color] = "'burlywood'">S1</button>
+                <button type="button" dropdownToggle class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-light badge-pill" style="position: static;">{{selectedS1Employees.length > 0 ? selectedS1Employees.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearS1EmployeeSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let employee of selectedS1Employees"><a class="dropdown-item" (click)="removeFromS1EmployeeSelection(employee)"><i class="fa fa-times"></i> &nbsp;{{ employee.internalCode }}</a>
+                    </li>
+                  </ul>
+              </div>
+              &nbsp;
+              <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectS2Employees()" [style.color] = "'burlywood'">S2</button>
+                <button type="button" dropdownToggle class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-light badge-pill" style="position: static;">{{selectedS2Employees.length > 0 ? selectedS2Employees.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearS2EmployeeSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let employee of selectedS2Employees"><a class="dropdown-item" (click)="removeFromS2EmployeeSelection(employee)"><i class="fa fa-times"></i> &nbsp;{{ employee.internalCode }}</a>
+                    </li>
+                  </ul>
+              </div>
+              &nbsp;
+              <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="btn-group" dropdown>
+                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectS3Employees()" [style.color] = "'burlywood'">S3</button>
+                <button type="button" dropdownToggle class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                  <span class="badge badge-light badge-pill" style="position: static;">{{selectedS3Employees.length > 0 ? selectedS3Employees.length : ''}}</span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" (click)="clearS3EmployeeSelection()">Sterge toate</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li role="menuitem" *ngFor="let employee of selectedS3Employees"><a class="dropdown-item" (click)="removeFromS3EmployeeSelection(employee)"><i class="fa fa-times"></i> &nbsp;{{ employee.internalCode }}</a>
+                    </li>
+                  </ul>
+              </div>
+              &nbsp;
+      <div class="card-header-actions">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">
+          <div class="input-group-append">
+            &nbsp;
+            <button hideIfUnauthorized="ADD|MATRIX" type="button" class="btn btn-outline-info btn-sm" (click)="addNewItem()"><i class="fa fa-plus"></i>&nbsp;Adauga</button>
+            &nbsp;
+            <button hideIfUnauthorized="EDIT|MATRIX" type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i>&nbsp;Modifica</button>
+            &nbsp;
+            <button hideIfUnauthorized="EXPORT|MATRIX"type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i>&nbsp;Export</button>
+            &nbsp;
+            <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadMatrixFile()" style="background-color: rgb(0, 130, 19);color: white;" ><i class="fa fa-upload"></i> Import matrice</button>
+        </div>
+        </div>
+    </div>
+</div>
+    <div class="card-body">
+         <div class="card-body-actions">
+            <app-matrix-list #matrixList id="matrixList"
+            [dataSource]="matrixHttpService"
+            dynamicQuery="true"
+            usePaging="true"
+            showSimpleSearch="false"
+            [itemAddedEvent]="itemAddedEvent"
+            [itemUpdatedEvent]="itemUpdatedEvent"
+            [itemDeletedEvent]="itemDeletedEvent"
+            [requestSelectionEvent]="requestSelectionEvent"
+            [requestRefreshEvent]="requestRefreshEvent"
+            (selectionChanged)="setSelectedItem($event)"
+            rowSelection="single"
+            [pageSize]="10"
+            notifyOnChange="true">
+        </app-matrix-list>
+
+      </div>
+    </div>
+    <!-- <div class="card-footer">
+      <div class="col-sm-12">
+        <app-matrix-validate-read-only-list #matrixLevelList id="matrixLevelList"
+        [dataSource]="matrixLevelHttpService"
+        showSimpleSearch="false"
+        listTemplate="MATRIXLEVELS"
+        detailType=""
+        sortColumn="level.code"
+        sortDirection="asc"
+        dynamicQuery="true"
+        rowSelection="single"
+        notifyOnChange="true"
+        [pageSize]="10"
+        (selectionChanged)="onMatrixLevelListSelectionChanged($event)"
+        usePaging="true">
+        </app-matrix-validate-read-only-list>
+        </div>
+    </div> -->
+
+    <!-- <div class="card-footer">
+        <div class="col-sm-12"> -->
+          <!-- <app-matrix-validate-read-only-list #matrixLevelList id="matrixLevelList"
+          [dataSource]="matrixLevelHttpService"
+          showSimpleSearch="false"
+          listTemplate="MATRIXLEVELS"
+          detailType=""
+          sortColumn="level.code"
+          sortDirection="asc"
+          dynamicQuery="true"
+          rowSelection="single"
+          notifyOnChange="true"
+          [pageSize]="10"
+          (selectionChanged)="onMatrixLevelListSelectionChanged($event)"
+          usePaging="true">
+          </app-matrix-validate-read-only-list> -->
+          <!-- </div>
+      </div> -->
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #matrixDetailModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dark bs-full-width-dialog">
+    <app-matrix-detail #matrixDetail id="matrixDetail"
+                       [dataSource]="matrixHttpService"
+                       [addNewItemEvent]="addNewItemEvent"
+                       [editItemEvent]="editItemEvent"
+                       (itemAdded)="itemAdded($event)"
+                       (itemUpdated)="itemUpdated($event)"
+                       (itemDeleted)="itemDeleted($event)"
+                       (changesCanceled)="detailTerminate()"
+                       (companyNeeded)="onMatrixDetailCompanyNeeded()"
+                       (divisionNeeded)="onMatrixDetailDivisionNeeded()"
+                       (employeeL1Needed)="onMatrixDetailEmployeeL1Needed()"
+                       (employeeL2Needed)="onMatrixDetailEmployeeL2Needed()"
+                       (employeeL3Needed)="onMatrixDetailEmployeeL3Needed()"
+                       (employeeL4Needed)="onMatrixDetailEmployeeL4Needed()"
+                       (employeeS1Needed)="onMatrixDetailEmployeeS1Needed()"
+                       (employeeS2Needed)="onMatrixDetailEmployeeS2Needed()"
+                       (employeeS3Needed)="onMatrixDetailEmployeeS3Needed()">
+    </app-matrix-detail>
+  </div>
+</div>
+
+<!-- <div class="modal fade" bsModal #assetTypeListModal="bs-modal"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-info" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Type</h4>
+                <button type="button" class="close" (click)="assetTypeListModal.hide()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-asset-type-list #assetTypeList id="assetTypeList"
+                    [dataSource]="assetTypeHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-asset-type-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="setSelectedAssetTypes()">Selecteaza</button>
+                <button type="button" class="btn btn-info" (click)="onAssetTypeListCancel()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!--
+<div class="modal fade" bsModal #areaListModal="bs-modal"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-info" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Area</h4>
+                <button type="button" class="close" (click)="areaListModal.hide()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-area-list #areaList id="areaList"
+                    [dataSource]="areaHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-area-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="setSelectedAreas()">Selecteaza</button>
+                <button type="button" class="btn btn-info" (click)="onAreaListCancel()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="modal fade" bsModal #countryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dark">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Tara</h4>
+            </div>
+            <div class="modal-body">
+                <app-country-list #countryList id="countryList"
+                    [dataSource]="countryHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-country-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCountries()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onCountryListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="modal fade" bsModal #companyListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dark">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Companie</h4>
+            </div>
+            <div class="modal-body">
+                <app-company-list #companyList id="companyList"
+                    [dataSource]="companyHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-company-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompanies()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onCompanyListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #divisionListModal="bs-modal" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">Departament</h4>
+      </div>
+      <div class="modal-body">
+          <app-division-list #divisionList id="divisionList"
+              [dataSource]="divisionHttpService"
+              dynamicQuery="true"
+              rowSelection="multiple"
+              notifyOnChange="true"
+              [pageSize]="5"
+              usePaging="true">
+          </app-division-list>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivisions()">Selecteaza</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="divisionListModal.hide()">Inchide</button>
+      </div>
+  </div>
+</div>
+</div>
+
+
+<!-- <div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dark">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Centru de cost</h4>
+            </div>
+            <div class="modal-body">
+                <app-cost-center-list #costCenterList id="costCenterList"
+                    [dataSource]="costCenterHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </app-cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenter()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onCostCenterListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="modal fade" bsModal #projectListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dark">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">WBS</h4>
+            </div>
+            <div class="modal-body">
+                <project-list #projectList id="projectList"
+                    [dataSource]="projectHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </project-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedProject()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onProjectListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div bsModal #confirmationModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-info" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Confirmare</h4>
+          <button type="button" class="close" (click)="confirmationModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ confirmationMessage }}&hellip;</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success btn-sm" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> No</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+  <div class="modal fade" bsModal #uploadModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Incarca fisier</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Import active</h3>
+                          <input #fileInputBudget type="file" (change)="loadFileMatrix($event)" data-toggle="tooltip" placeholder="Incarca..."/>
+                          <div class="row">
+                              <br>
+                          </div>
+
+                          <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadMatrix()" [disabled]="((fileEventMatrix === null) || (fileEventMatrix === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
+                          <!-- &nbsp;
+                          <button type="button" class="btn btn-success btn-sm" (click)="exportTemplate()" [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'" [disabled]="!exportCompleted" ><i class="fa fa-download"></i> &nbsp; Model import </button> -->
+                      </div>
+                  </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #importDataMatrixModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Import matrice...</h4>
+      </div>
+      <div class="modal-body">
+        <div class="progress-group">
+            <div class="progress-group-header align-items-end">
+              <i class="cil-globe progress-group-icon"></i>
+              <!-- <div>Organic Search</div> -->
+              <div class="ml-auto font-weight-bold mr-2">{{((importIndex/noOfItems) * 100.0) | number: '1.2-2'}} {{'%'}}</div>
+              <div class="text-muted small">({{ importIndex }} / {{ noOfItems }}) </div>
+            </div>
+            <div class="progress-group-bars">
+              <div class="progress progress-xs">
+                <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': ((importIndex/noOfItems) * 100.0)+ '%'}" aria-valuenow="((importIndex /noOfItems) * 100.0) + '%'" aria-valuemin="0" aria-valuemax="noOfItems"></div>
+              </div>
+            </div>
+          </div>
+
+
+        <!-- <progressbar class="progress progress-striped active" [max]="noOfItems" [value]="importIndex" type="danger"><i>{{ importIndex }} / {{ noOfItems }}</i></progressbar> -->
+        <!-- <progressbar [max]="noOfItems" [value]="importIndex" type="success"><b>{{ importIndex }} / {{ noOfItems }}</b></progressbar> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #employeeL1ListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">L1</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeL1List id="employeeL1List"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployeeL1()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeL1ListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeL2ListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">L2</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeL2List id="employeeL2List"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployeeL2()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeL2ListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeL3ListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">L3</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeL3List id="employeeL3List"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployeeL3()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeL3ListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeL4ListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">L4</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeL4List id="employeeL4List"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployeeL4()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeL4ListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeS1ListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">S1</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeLS1List id="employeeS1List"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployeeS1()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeS1ListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeS2ListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">S2</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeL1List id="employeeS2List"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployeeS2()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeS2ListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeS3ListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">S3</h4>
+            </div>
+            <div class="modal-body">
+                <app-employee-list #employeeS3List id="employeeS3List"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    [pageSize]="5"
+                    usePaging="true">
+                </app-employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployeeS3()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeS3ListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,341 @@
+<div class="widgets">
+  <!-- <button type="button" style="background-color: rgb(255, 170, 135); color: black;" class="btn btn-outline-dark blink">Reconcilieri propuse</button>
+         <button type="button" style="background-color: rgb(34, 179, 154); color: black;" class="btn btn-outline-dark blink">Reconcilieri aprobate</button>
+         <button type="button" style="background-color: rgb(240,230,140); color: black;" class="btn btn-outline-dark blink">Etichete printate</button> -->
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <div>
+        <br />
+        <div class="row">
+          <h6>INSTRUCTIONS:</h6>
+          <br />
+          <p style="color: black">
+            i) To confirm an budget, press the button
+            <label class="switch"
+              ><input type="checkbox" /><span class="slider round"></span
+            ></label>
+            in the first column
+            <strong style="color: black; font-weight: bold"
+              >“Individual confirmation”.</strong
+            >
+          </p>
+          <p style="color: black">
+            <!-- ii) To add a new asset (if the one you have is not in the list/the
+            list is empty), press
+            <button
+              type="button"
+              class="btn btn-outline-success btn-sm"
+              (click)="selectAsset()"
+              style="background: rgb(0, 176, 80); color: white"
+            >
+              <i class="fa fa-plus"></i>&nbsp;Add RO
+            </button>
+            and search by the “RO” code (you will find it on the tag on your
+            laptop).
+          </p>
+          <p style="color: black"> -->
+            <!-- iii) If one of the assets listed in the table is not allocated to
+            you, do not confirm it and complete the field
+            <strong style="color: black; font-weight: bold"
+              >“not confirming reason”
+            </strong>
+            with details (ex. You did not receive the specified asset, you had
+            it temporarily allocated but you returned it, it was replaced by a
+            new one, etc).
+          </p>
+          <p style="color: black"> -->
+            ii) To complete the validation, press
+            <strong style="color: darkgreen; font-weight: bold"
+              >“Send confirmation and comments” button</strong
+            >
+            button.
+          </p>
+          <p style="color: black">
+            Note: if you are not able to see the list, please press
+            <strong style="color: rgb(255, 107, 41); font-weight: bold"
+              >„Reload”</strong
+            >
+            button.
+          </p>
+          <!-- <p style="color: black"> iv)   Pentru exportul datelor din ecran, apasati butonul <button type="button" class="btn btn-outline-success btn-sm" (click)="showInventoryList()" style="background: rgb(0, 176, 80); color: white;"><i class="fa fa-file-excel-o"></i>&nbsp;Export</button>  </p> -->
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="ui-toolbar-group-left">
+              <div class="text-left">
+                <!-- <div class="btn-group flex-dropdown" dropdown>
+                                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenters('FIN')">Zone</button>
+                                    <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                                      <span class="sr-only">Toggle Dropdown</span>
+                                      <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdmCentersFin.length> 0 ? selectedAdmCentersFin.length : ''}}</span>
+                                    </button>
+                                    <ul class="dropdown-menu" dropdownMenu>
+                                      <li class="dropdown-item"><a (click)="clearAdmCenterSelection('FIN')">{{'DELETE ALL_F' | translate}}<i class="fa fa-times"></i></a></li>
+                                      <li *ngFor="let admCenter of selectedAdmCentersFin" class="dropdown-item"><a (click)="removeFromAdmCenterSelection('FIN', admCenter)">{{ admCenter.name }} <i class="fa fa-times"></i></a></li>
+                                    </ul>
+                                  </div> -->
+
+                <!-- <div class="btn-group flex-dropdown" dropdown [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCounties('FIN')" >Judete</button>
+                                    <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                                      <span class="sr-only">Toggle Dropdown</span>
+                                      <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedCountiesFin.length > 0 ? selectedCountiesFin.length : ''}}</span>
+                                    </button>
+                                    <ul class="dropdown-menu" dropdownMenu>
+                                      <li class="dropdown-item"><a (click)="clearCountySelection('FIN')">Sterge toate <i class="fa fa-times"></i></a></li>
+                                      <li *ngFor="let county of selectedCountiesFin" class="dropdown-item"><a (click)="removeFromCountySelection('FIN', county)">{{ county.name }} <i class="fa fa-times"></i></a></li>
+                                    </ul>
+                                 </div> -->
+
+                <!-- <div class="btn-group flex-dropdown" dropdown [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCities('FIN')" >Orase</button>
+                                    <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                                      <span class="sr-only">Toggle Dropdown</span>
+                                      <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedCitiesFin.length > 0 ? selectedCitiesFin.length : ''}}</span>
+                                    </button>
+                                    <ul class="dropdown-menu" dropdownMenu>
+                                      <li class="dropdown-item"><a (click)="clearCitySelection('FIN')">Sterge toate <i class="fa fa-times"></i></a></li>
+                                      <li *ngFor="let city of selectedCitiesFin" class="dropdown-item"><a (click)="removeFromCitySelection('FIN', city)">{{ city.name }} <i class="fa fa-times"></i></a></li>
+                                    </ul>
+                                 </div> -->
+
+                <!-- <div class="btn-group flex-dropdown" dropdown>
+                                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectLocations('FIN')">Locatii</button>
+                                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                                          <span class="sr-only">Toggle Dropdown</span>
+                                          <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedLocationsFin.length> 0 ? selectedLocationsFin.length : ''}}</span>
+                                        </button>
+                                        <ul class="dropdown-menu" dropdownMenu>
+                                          <li class="dropdown-item"><a (click)="clearLocationSelection('FIN')">{{'DELETE ALL_F' | translate}}<i class="fa fa-times"></i></a></li>
+                                          <li *ngFor="let location of selectedLocationsFin" class="dropdown-item"><a (click)="removeFromLocationSelection('FIN', location)">{{ location.name }} <i class="fa fa-times"></i></a></li>
+                                        </ul>
+                                      </div> -->
+
+                <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useEmployee">
+                                  <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectEmployees('FIN')">Angajati</button>
+                                  <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                    <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedEmployeesFin.length> 0 ? selectedEmployeesFin.length : ''}}</span>
+                                  </button>
+                                  <ul class="dropdown-menu" dropdownMenu>
+                                    <li class="dropdown-item"><a (click)="clearEmployeeSelection('FIN')">{{'DELETE ALL_M' |translate}} <i class="fa fa-times"></i></a></li>
+                                    <li *ngFor="let employee of selectedEmployeesFin" class="dropdown-item"><a (click)="removeFromEmployeeSelection('FIN', employee)">{{ employee.firstName }}, {{ employee.lastName }} <i class="fa fa-times"></i></a></li>
+                                  </ul>
+                                </div> -->
+
+                <!-- <div class="btn-group flex-dropdown" dropdown>
+                                        <button type="button" class="btn btn-dark btn-sm" (click)="selectInvStates('FIN')">Stari</button>
+                                        <button type="button" class="btn btn-dark btn-sm" dropdownToggle addToggleClass="true">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedInvStatesFin.length> 0 ? selectedInvStatesFin.length : ''}}</span>
+                                        </button>
+                                        <ul class="dropdown-menu" dropdownMenu>
+                                            <li class="dropdown-item"><a (click)="clearInvStateSelection('FIN')">Sterge toate <i class="fa fa-times"></i></a></li>
+                                            <li *ngFor="let invState of selectedInvStatesFin" class="dropdown-item"><a (click)="removeFromInvStateSelection('FIN', invState)">{{ invState.name }} <i class="fa fa-times"></i></a></li>
+                                        </ul>
+                                    </div> -->
+              </div>
+            </div>
+
+            <!-- <button type="button" class="btn btn-outline-danger btn-sm" (click)="clearFilters()"><i class="fa fa-filter"></i>&nbsp;Stergere filtre</button> -->
+            <!-- <div class="col-lg-1">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Cautare" [(ngModel)]="filter" (change)="checkForRefresh()" />
+                 </div> -->
+          </div>
+        </div>
+        <br />
+        <br />
+        <!-- {{ selectedAsset | json}} -->
+        <div class="row">
+          <div class="col-sm-12">
+            <order-validate-list
+              #budgetValidateList
+              id="budgetValidateList"
+              [dataSource]="orderHttpService"
+              listTemplate="BUDGETS"
+              detailType="budgetvalidate"
+              sortColumn="budget.id"
+              sortDirection="asc"
+              dynamicQuery="true"
+              usePaging="true"
+              showSimpleSearch="false"
+              [pageSize]="5"
+              [rowSelection]="budgetRowSelection"
+              (selectionChanged)="onBudgetSelectionChanged($event)"
+              notifyOnChange="true"
+            >
+            </order-validate-list>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="saveValidated()"
+          style="background: darkgreen; color: white"
+        >
+          <i class="fa fa-check-circle"></i>&nbsp;Send confirmation and comments
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-danger btn-sm"
+          (click)="clearFilters()"
+          style="background: rgb(255, 107, 41); color: white"
+        >
+          <i class="fa fa-refresh"></i>&nbsp;Reload
+        </button>
+        <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="saveValidatedAll()" style="background-color: chocolate; color: white;"><i class="fa fa-check-circle"></i>&nbsp;Confirmare intreaga lista</button> -->
+        <!--
+        <div class="col-sm-4">
+            <span style="font-size: 20px;">Adauga RO: {{ selectedAsset != null ? selectedAsset.invNo : "-" }}</span>
+        </div>
+        <div class="col-sm-2">
+
+        </div> -->
+        <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAsset()"><i class="fa fa-search"></i></button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectAsset()" [disabled]="!selectedAsset"><i class="fa fa-close"></i></button> -->
+        </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #employeeListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Angajati</h4>
+      </div>
+      <div class="modal-body">
+        <app-employee-list
+          #employeeList
+          id="employeeList"
+          [dataSource]="employeeHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          [pageSize]="5"
+          usePaging="true"
+        >
+        </app-employee-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedEmployees()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="employeeListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #administrationListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Gestiuni</h4>
+      </div>
+      <div class="modal-body">
+        <app-administration-list
+          #administrationList
+          id="administrationList"
+          [dataSource]="administrationDetailHttpService"
+          dynamicQuery="true"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          [pageSize]="5"
+          usePaging="true"
+        >
+        </app-administration-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedAdministrations()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="administrationListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #companyListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">IT / Non IT</h4>
+      </div>
+      <div class="modal-body">
+        <app-company-list
+          #companyList
+          id="companyList"
+          [dataSource]="companyHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          [pageSize]="5"
+          usePaging="true"
+        >
+        </app-company-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedCompanies()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="companyListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

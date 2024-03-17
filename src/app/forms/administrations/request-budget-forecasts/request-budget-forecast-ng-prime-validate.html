@@ -1,0 +1,299 @@
+<p-table [resizableColumns]="true" #dt1 [autoLayout]="true" [value]="tableItems"  [rows]="rows" [resizableColumns]="true"
+	[rowsPerPageOptions]="[5,10,25,50,100, { showAll: 'All' }]" [loading]="loading" [showCurrentPageReport]="true" [alwaysShowPaginator]="false"
+    [lazy]="true" [rows]="100"
+    (onLazyLoad)="loadData($event)"  [totalRecords]="totalItems" styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines p-datatable-sm"
+	[paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+	<!-- <ng-template pTemplate="caption">
+		<div class="p-d-flex">
+			<span class="p-input-icon-left p-ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt1.filterGlobal(getValue($event), 'contains');" placeholder="Search keyword" />
+            </span>
+		</div>
+	</ng-template> -->
+	<ng-template pTemplate="header">
+		<tr>
+			 <!-- <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th> -->
+			<th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+				<!-- <button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-check"></i></button>
+				<button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-check"></i></button> -->
+		</th>
+    <th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">Lipsa buget</th>
+    <th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">Lipsa contract</th>
+        <th *ngFor="let column of columns" [pSortableColumn]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+
+				<div class="p-d-flex p-jc-between p-ai-center">
+                        {{column.headerCode}}
+                    <p-sortIcon [field]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy"></p-sortIcon>
+					<p-columnFilter
+					[showMatchModes]="false"
+					[showOperator]="false"
+					[showAddButton]="false"
+					[type]="((column.pipe && (column.pipe.length > 0)) ? column.pipe : 'text')"
+					[field]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy"
+					display="menu"
+					sortable="usePaging === 'true' ? 'custom' : 'true'">
+<!--
+					<ng-template pTemplate="header">
+						<div class="p-px-3 p-pt-3 p-pb-0">
+							<span class="p-text-bold">Stare</span>
+						</div>
+					</ng-template>
+					<ng-template pTemplate="filter" let-value let-filter="filterCallback">
+						<p-multiSelect [ngModel]="value" [options]="invStates" placeholder="Any"
+							(onChange)="filter($event.value)" optionLabel="name">
+							<ng-template let-option pTemplate="item">
+								<div class="p-multiselect-representative-option">
+									<span class="p-ml-1">{{option.name}}</span>
+								</div>
+							</ng-template>
+						</p-multiSelect>
+					</ng-template> -->
+
+				</p-columnFilter>
+				</div>
+			</th>
+
+			<!-- <th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Stare
+					<p-columnFilter type="text" field="stare" display="menu"></p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Name
+					<p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Country
+					<p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Agent
+					<p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false"
+						[showOperator]="false" [showAddButton]="false">
+						<ng-template pTemplate="header">
+							<div class="p-px-3 p-pt-3 p-pb-0">
+								<span class="p-text-bold">Agent Picker</span>
+							</div>
+						</ng-template>
+						<ng-template pTemplate="filter" let-value let-filter="filterCallback">
+							<p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any"
+								(onChange)="filter($event.value)" optionLabel="name">
+								<ng-template let-option pTemplate="item">
+									<div class="p-multiselect-representative-option">
+										<span class="p-ml-1">{{option.name}}</span>
+									</div>
+								</ng-template>
+							</p-multiSelect>
+						</ng-template>
+					</p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Date
+					<p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Balance
+					<p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Status
+					<p-columnFilter field="status" matchMode="equals" display="menu">
+						<ng-template pTemplate="filter" let-value let-filter="filterCallback">
+							<p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
+								placeholder="Any">
+								<ng-template let-option pTemplate="item">
+									<span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+								</ng-template>
+							</p-dropdown>
+						</ng-template>
+					</p-columnFilter>
+				</div>
+			</th>
+			<th>
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Activity
+					<p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false"
+						[showOperator]="false" [showAddButton]="false">
+						<ng-template pTemplate="filter" let-filter="filterCallback">
+							<p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)"
+								styleClass="p-m-3"></p-slider>
+							<div class="p-d-flex p-ai-center p-jc-between p-px-2">
+								<span>{{activityValues[0]}}</span>
+								<span>{{activityValues[1]}}</span>
+							</div>
+						</ng-template>
+					</p-columnFilter>
+				</div>
+			</th>
+			<th style="width: 8rem">
+				<div class="p-d-flex p-jc-between p-ai-center">
+					Verified
+					<p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
+				</div>
+			</th> -->
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-tableItem>
+        <tr (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+			<!-- <td>
+				<p-tableCheckbox [value]="tableItem.selected"></p-tableCheckbox>
+			</td> -->
+			<td>
+				<button *ngIf="!tableItem.selected" class="btn btn-light btn-sm" type="button"><i class="pi pi-times"></i></button>
+				<button *ngIf="tableItem.selected"  class="btn btn-success btn-sm" type="button"><i class="pi pi-check"></i></button>
+				<!-- <button *ngIf="!tableItem.selected" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-sm"></button> -->
+				<!-- <button *ngIf="tableItem.selected"  class="rounded-button ui-button-outlined" type="button"><i class="pi pi-check"></i></button> -->
+				<!-- <button *ngIf="tableItem.selected"  pButton type="button" class="p-button-rounded p-button-success p-button-sm" icon="pi pi-check"></button> -->
+
+				<!-- <button *ngIf="tableItem.selected" pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-success p-button-sm"></button> -->
+			</td>
+      <td>
+        <!-- <button pButton pRipple icon="pi-money-bill" class="p-button-rounded p-button-success mr-2" (click)="editProduct(tableItem.item)"></button> -->
+        <button pButton pRipple icon="pi pi-exclamation-circle"  [ngClass]="{'p-button-rounded p-button-danger': tableItem.item.needBudget, 'p-button-rounded p-button-success': !tableItem.item.needBudget}" (click)="needBudget(tableItem.item)"></button>
+    </td>
+    <td>
+      <button pButton pRipple icon="pi pi-exclamation-circle" [ngClass]="{'p-button-rounded p-button-info' : tableItem.item.contract == null, 'p-button-rounded p-button-danger' : tableItem.item.contract != null && (tableItem.item.needContract || (tableItem.item.contract?.amountRonRem <= tableItem.item.valueRon)), 'p-button-rounded p-button-success': tableItem.item.contract != null && !tableItem.item.needContract}" (click)="needBudget(tableItem.item)"></button>
+  </td>
+
+			<!-- <td><i *ngIf="tableItem.selected" class="pi pi-check"></i></td> -->
+            <td *ngFor="let column of columns"  style="width: max-content; font-size: 12px;white-space: nowrap" selectionMode="multiple">
+              <span [ngClass]="{'missingMaterial': (tableItem.item.offerType?.code !== 'O-V' ? tableItem.item.quantity < 1 && tableItem.item.totalOrderQuantity < 1 : tableItem.item.valueRon < 1 && tableItem.item.totalOrderValueRon < 1 ) && tableItem.item.contract != null, 'instock': tableItem.item.quantity > 0 && (!tableItem.item.needBudget && !tableItem.item.needContract && ((tableItem.item.maxQuantity >= tableItem.item.totalOrderQuantity) && (tableItem.item.maxValueRon >= tableItem.item.totalOrderValueRon))), 'needContract': tableItem.item.contract == null || (tableItem.item.quantity > 0 && ((tableItem.item.contract?.amountRonRem < tableItem.item.maxValueRon) || (tableItem.item.contract?.amountRonRem < tableItem.item.valueRon))), 'needBudget': tableItem.item.budgetForecast?.totalRem < tableItem.item.valueRon, 'lowstock': tableItem.item.offerType?.code !== 'O-V' ? (tableItem.item.maxQuantity < tableItem.item.totalOrderQuantity) : (tableItem.item.maxValueRon < tableItem.item.totalOrderValueRon)}">{{ tableItem.item | fieldByColumnDefinition: column }}</span></td>
+            <!-- <td *ngFor="let column of columns"  style="width: max-content; font-size: 12px;white-space: nowrap">{{ tableItem.item }}</td> -->
+        </tr>
+		<!-- <tr>
+			<td>
+				{{customer.name}}
+			</td>
+			<td>
+				<span class="image-text">{{customer.country.name}}</span>
+			</td>
+			<td>
+				<span class="image-text">{{customer.representative.name}}</span>
+			</td>
+			<td>
+				{{customer.date | date: 'MM/dd/yyyy'}}
+			</td>
+			<td>
+				{{customer.balance | currency:'USD':'symbol'}}
+			</td>
+			<td>
+				<span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+			</td>
+			<td>
+				<p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
+			</td>
+			<td class="p-text-center">
+				<i class="pi" [ngClass]="{'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified}"></i>
+			</td>
+		</tr> -->
+	</ng-template>
+	<!-- <ng-template pTemplate="footer">
+        <tr>
+			<td style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+				<button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-check"></i></button>
+				<button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-check"></i></button>
+		</td>
+            <td *ngFor="let col of columns" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+                {{
+                    col.headerCode === 'APC FY start' ? (totals?.apcfyStart | number : '1.2-2') :
+                    col.headerCode === 'Dep. FY start' ? (totals?.depFYStart | number : '1.2-2') :
+                    col.headerCode === 'Bk.val.FY strt' ? (totals?.bkValFYStart | number : '1.2-2') :
+                    col.headerCode === 'Acquisition' ? (totals?.acquisition | number : '1.2-2') :
+                    col.headerCode === 'Dep. for year' ? (totals?.depForYear | number : '1.2-2') :
+                    col.headerCode === 'Retirement' ? (totals?.retirement | number : '1.2-2') :
+                    col.headerCode === 'Dep.retir.' ? (totals?.depRetirement | number : '1.2-2') :
+                    col.headerCode === 'Curr.bk.val.' ? (totals?.currBkValue | number : '1.2-2') :
+                    col.headerCode === 'Current APC' ? (totals?.currentAPC | number : '1.2-2') :
+                    col.headerCode === 'Accumul. dep.' ? (totals?.accumulDep | number : '1.2-2') :
+                     ''}}
+            </td>
+        </tr>
+    </ng-template> -->
+	<!-- <ng-template pTemplate="summary">
+        Total {{totalItems}}
+    </ng-template> -->
+	<!-- <ng-template pTemplate="emptymessage">
+		<tr>
+			<td colspan="7">No customers found.</td>
+		</tr>
+	</ng-template> -->
+  <!-- <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner> -->
+</p-table>
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+      <!-- <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"> -->
+      <!-- <div class="field">
+          <label for="name">Name</label>
+          <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
+          <small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>
+      </div> -->
+      <!-- <div class="field">
+          <label for="description">Description</label>
+          <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
+      </div> -->
+      <!-- <div class="field">
+          <label for="inventoryStatus">Inventory Status</label>
+          <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
+              <ng-template let-option pTemplate="item">
+                  <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
+              </ng-template>
+          </p-dropdown>
+      </div> -->
+
+      <!-- <div class="field">
+          <label class="mb-3">Category</label>
+          <div class="formgrid grid">
+              <div class="field-radiobutton col-6">
+                  <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category"></p-radioButton>
+                  <label for="category1">Accessories</label>
+              </div>
+              <div class="field-radiobutton col-6">
+                  <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category"></p-radioButton>
+                  <label for="category2">Clothing</label>
+              </div>
+              <div class="field-radiobutton col-6">
+                  <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category"></p-radioButton>
+                  <label for="category3">Electronics</label>
+              </div>
+              <div class="field-radiobutton col-6">
+                  <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category"></p-radioButton>
+                  <label for="category4">Fitness</label>
+              </div>
+          </div>
+      </div> -->
+
+      <div class="formgrid grid">
+          <div class="field col">
+              <label for="price">Buget solicitat</label>
+              <p-inputNumber id="price" [(ngModel)]="product.budgetValueNeed" mode="currency" currency="RON" locale="ro-RO"></p-inputNumber>
+          </div>
+          <!-- <div class="field col">
+              <label for="quantity">Quantity</label>
+              <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
+          </div> -->
+      </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+  </ng-template>
+</p-dialog>
+<p-messages></p-messages>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

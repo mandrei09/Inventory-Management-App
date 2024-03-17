@@ -1,0 +1,286 @@
+<div class="animated fadeIn">
+    <div class="card" *ngIf="showSimpleSearch === 'true'">
+            <div class="card-header">
+                <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2" [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)">
+            </div>
+    </div>
+    <div class="card-body table-responsive table w-auto small">
+        <table class="table table-bordered table-striped" style="white-space: nowrap; font-weight: 500;" [style.font-size.px]="12">
+            <thead class="thead" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'burlywood'">
+            <tr>
+                <th>
+                    [%]
+                </th>
+                <th>
+                        <button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-default btn-sm" type="button"><i class="fa fa-check"></i></button>
+                        <button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+                </th>
+                <th *ngFor="let column of columns" class="align-left">
+                    <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+                        <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                        <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                        <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                        {{ column.headerCode }}
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+                <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': ((tableItem.item.valueFin/tableItem.item.valueIni) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        <strong>{{(tableItem.item.valueFin/tableItem.item.valueIni) * 100.0 | number: '1.2-2'}}</strong></div>
+                    </div>
+                  </td>
+
+                <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+                <td *ngFor="let column of columns" [style.text-align]="column.textAlign" >{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <nav> 
+        <div class="row">
+            <div class="col-xs-12 col-12 col-md-6">
+                <pagination   
+                [totalItems]="totalItems"
+                [(ngModel)]="currentPage" 
+                [maxSize]="maxSize" 
+                class="pagination-sm" 
+                [itemsPerPage]="pageSize"
+                previousText="&lsaquo;" 
+                nextText="&rsaquo;" 
+                firstText="&laquo;" 
+                lastText="&raquo;" 
+                (pageChanged)="pageChanged($event)"
+                [boundaryLinks]="true" 
+                [rotate]="false" 
+                (numPages)="numPages = $event">
+            </pagination>
+          </div>
+        <div class="col-xs-12 col-12 col-md-6">
+            <h6 style="text-align: right;">Total: {{ totalItems }}</h6>
+          </div>
+        </div>
+      </nav>
+</div>
+</div>
+
+<!-- <div>
+    <div class="row" *ngIf="showSimpleSearch === 'true'">
+        <div class="form-group">
+            <label class="col-sm-1 control-label">Cauta</label>
+            <div class="col-sm-4"><input type="text" pInputText [(ngModel)]="filter" (change)="applySimpleSearchFilter(filter)" /></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <p-table [value]="tableItems" [responsive]="false" scrollable="true" scrollWidth="100%" scrollHeight="800px"
+            [paginator]="usePaging === 'true' ? true : false" [rows]="20" [rowsPerPageOptions]="[20, 50,100]"
+            [lazy]="usePaging === 'true' ? true : false" (onLazyLoad)="loadData($event)" [totalRecords]="totalItems"
+            [selectionMode]="rowSelection"
+            (onRowSelect)="$event.data.selected ? unselectItem($event.data.item) : selectItem($event.data.item)" resizableColumns="true">
+
+            <p-column styleClass="col-button" [style]="{'width':'5%'}">
+                <ng-template let-tableItem="rowData" pTemplate="body">
+                    <i *ngIf="tableItem.selected" class="fa fa-check"></i>
+                </ng-template>
+            </p-column>
+            <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header" [style]="{'width':column.width, 'text-align': column.textAlign}" sortable="usePaging === 'true' ? 'custom' : 'true'"></p-column> 
+        </p-table>
+    </div>
+</div> -->
+
+<!--(onRowSelect)="$event.data.selected ? unselectItem($event.data.item) : selectItem($event.data.item)" resizableColumns="true" columnResizeMode="expand">-->
+
+
+<!-- <p-table [resizableColumns]="true" #dt1 [autoLayout]="true" [value]="tableItems"  [rows]="10" [resizableColumns]="true"
+	[rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+    [lazy]="true"
+    (onLazyLoad)="loadData($event)"  [totalRecords]="totalItems" styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines"
+	[paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+	<ng-template pTemplate="header">		
+		<tr>
+			<th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+				<button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-check"></i></button>
+				<button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-check"></i></button>
+		</th>
+            <th *ngFor="let column of columns" [pSortableColumn]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+                
+				<div class="p-d-flex p-jc-between p-ai-center">
+                        {{column.headerCode}}
+                    <p-sortIcon [field]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy"></p-sortIcon>
+				</div>
+			</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-tableItem let-expanded="expanded">
+        <tr (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">            
+			<td>
+				<button *ngIf="!tableItem.selected" class="btn btn-light btn-sm" type="button"><i class="pi pi-times"></i></button>
+				<button *ngIf="tableItem.selected"  class="btn btn-success btn-sm" type="button"><i class="pi pi-check"></i></button>
+			</td>
+            <td *ngFor="let column of columns"  style="width: max-content; font-size: 12px;white-space: nowrap" selectionMode="multiple">{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+        </tr>
+	</ng-template>
+</p-table> -->
+
+
+<!-- <p-table dataKey="item.id" [resizableColumns]="true" #dt1 [autoLayout]="true" [value]="tableItems"  [rows]="10"
+[rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+[lazy]="true"
+(onLazyLoad)="loadData($event)"  [totalRecords]="totalItems" styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines"
+[paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="header">		
+		<tr>
+			<th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+				<button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-check"></i></button>
+				<button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-check"></i></button>
+		</th>
+        <th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+            <button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-chevron-right"></i></button>
+            <button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-chevron-right"></i></button>
+    </th>
+            <th *ngFor="let column of columns" [pSortableColumn]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+                
+				<div class="p-d-flex p-jc-between p-ai-center">
+                        {{column.headerCode}}
+                    <p-sortIcon [field]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy"></p-sortIcon>
+				</div>
+			</th>
+		</tr>
+	</ng-template>
+    <ng-template pTemplate="body" let-tableItem let-expanded="expanded">
+        <tr (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [ngClass]="{'bad': tableItem.item.appStateId === 18 || tableItem.item.appStateId === 21, 'good': tableItem.item.appStateId === 19, 'bgt': tableItem.item.appStateId === 20}">
+            <td>
+				<button *ngIf="!tableItem.selected" class="btn btn-light btn-sm" type="button"><i class="pi pi-times"></i></button>
+				<button *ngIf="tableItem.selected"  class="btn btn-success btn-sm" type="button"><i class="pi pi-check"></i></button>
+			</td>
+            <td>
+                <button type="button" pButton pRipple [pRowToggler]="tableItem" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+            </td>
+            <td *ngFor="let column of columns"  style="width: max-content; font-size: 12px;white-space: nowrap" selectionMode="multiple">{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-tableItem>
+        <tr>
+            <td colspan="6">
+                <div class="p-p-3">
+                    <p-table expandableRows="true" rowExpandMode="single" [autoLayout]="true" [responsive]="true" scrollWidth="100%" scrollHeight="800px" [value]="tableItem.item.budgetMonths" dataKey="item.id" styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines">
+                        <ng-template pTemplate="header">
+                            <span>Buget valoare</span>
+                            <tr>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">4/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">5/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">6/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">7/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">8/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">9/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">10/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">11/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">12/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">1/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">2/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">3/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">TOTAL</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-buget let-i="rowIndex">
+                            <tr *ngIf="i === 0">
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[0].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[1].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[2].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[3].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[4].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[5].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[6].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[7].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[8].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[9].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[10].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[11].value | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[0].value + 
+                                                                                                                           tableItem.item.budgetMonths[1].value + 
+                                                                                                                           tableItem.item.budgetMonths[2].value + 
+                                                                                                                           tableItem.item.budgetMonths[3].value + 
+                                                                                                                           tableItem.item.budgetMonths[4].value + 
+                                                                                                                           tableItem.item.budgetMonths[5].value + 
+                                                                                                                           tableItem.item.budgetMonths[6].value + 
+                                                                                                                           tableItem.item.budgetMonths[7].value + 
+                                                                                                                           tableItem.item.budgetMonths[8].value + 
+                                                                                                                           tableItem.item.budgetMonths[9].value + 
+                                                                                                                           tableItem.item.budgetMonths[10].value + 
+                                                                                                                           tableItem.item.budgetMonths[11].value | number : '1.2-2'}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="6">There are no budget yet.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </td>
+            
+        </tr>
+        <tr>
+            <td colspan="6">
+                <div class="p-p-3">
+                    <p-table expandableRows="true" rowExpandMode="single" [autoLayout]="true" [responsive]="true" scrollWidth="100%" scrollHeight="800px" [value]="tableItem.item.budgetMonths" dataKey="item.id" styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines">
+                        <ng-template pTemplate="header">
+                            <span>Buget depreciere</span>
+                            <tr>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">4/1/2021 </th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">5/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">6/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">7/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">8/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">9/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">10/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">11/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">12/1/2021</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">1/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">2/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">3/1/2022</th>
+                                <th pSortableColumn="valueInv" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white; text-align: center">TOTAL</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-buget let-i="rowIndex">
+                            <tr *ngIf="i === 0">
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[0].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[1].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[2].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[3].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[4].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[5].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[6].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[7].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[8].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[9].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[10].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[11].valueDep | number : '1.2-2'}}</td>
+                                <td style="width: max-content; font-size: 12px;white-space: nowrap; text-align: center;">{{tableItem.item.budgetMonths[0].valueDep + 
+                                                                                                                           tableItem.item.budgetMonths[1].valueDep + 
+                                                                                                                           tableItem.item.budgetMonths[2].valueDep + 
+                                                                                                                           tableItem.item.budgetMonths[3].valueDep + 
+                                                                                                                           tableItem.item.budgetMonths[4].valueDep + 
+                                                                                                                           tableItem.item.budgetMonths[5].valueDep + 
+                                                                                                                           tableItem.item.budgetMonths[6].valueDep + 
+                                                                                                                           tableItem.item.budgetMonths[7].valueDep + 
+                                                                                                                           tableItem.item.budgetMonths[8].valueDep + 
+                                                                                                                           tableItem.item.budgetMonths[9].valueDep + 
+                                                                                                                           tableItem.item.budgetMonths[10].valueDep + 
+                                                                                                                           tableItem.item.budgetMonths[11].valueDep | number : '1.2-2'}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="6">There are no order for this product yet.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table> -->

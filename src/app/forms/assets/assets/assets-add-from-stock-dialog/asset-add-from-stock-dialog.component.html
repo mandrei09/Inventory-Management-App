@@ -1,0 +1,112 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_asset_new_transfer'">
+  <div class="modal-dialog-header">
+    <div class="d-flex">
+      <h2 class="modal-title mb-0">
+        Operations details
+      </h2>
+    </div>
+    <div class="d-flex">
+      <button (click)="getStockByCategoryID()" class="small-blue-btn mb-0 ml-30 b-radius-20">
+        <mat-icon role="img">list</mat-icon>
+        <span>
+          {{ 'Afiseaza stock ' + (category != null ? category.name : '') }}
+        </span>
+      </button>
+      <div class="vertical-divider"></div>
+      <button type="button" class="btn-close" mat-dialog-close style="margin-left: 10px;margin-top: auto;margin-bottom: auto;"></button>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container-fluid">
+        <div class="d-flex align-items-start">
+          <div class="tab-content" style="width: 90%;margin-left: 90px;">
+            <div class="col-md-12">
+
+              <div class="">
+                <div class="row mx-auto">
+                  <div class="col-10 mx-auto">
+
+                    <div class="row">
+                      <div class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mt-3 mb-3]" [class.mt-4]="checkUniqueSN">
+                          <label>
+                            Sub categorie:
+                            <span class="required-label-symbol">*</span>
+                          </label>
+                          <sub-categories-item-select [(ngModel)]="subCategory" class="form-group-select_wrapper" placeholder="Selecteaza sub categorie">
+                          </sub-categories-item-select>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                          <label>
+                            <button *ngIf="checkUniqueSN" type="button" class="btn btn-danger btn-sm" (click)="checkUniqueSerialNumber($event)">
+                              <i  class="fa fa-check-circle-o"></i> Serial number / IMEI</button>
+                          </label>
+                          <input matInput class="form-control" [(ngModel)]="asset.serialNumber" name="serialNumber" #serialNumber="ngModel" (keydown)="checkUniqueSerialNumber($event)">
+                        </div>
+                      </div>
+                      <div *ngIf="asset != null" class="col-12 col-md-4">
+                        <div class="form-group asset-form">
+                          <label>
+                            Descriere:
+                            <span class="required-label-symbol">*</span>
+                          </label>
+                          <textarea [(ngModel)]="asset.name2" name="name2" #name2="ngModel" class="form-control" rows="4"></textarea>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12 mt-5 mb-5" #operation>
+                        <div id="documentsSection1" class="row">
+                          <div class="col-12 attributes">
+                            <div class="files-header mb-2">
+                              <div class="d-flex">
+
+                              </div>
+                            </div>
+                            <hr class="mb-3">
+                            <div>
+<!--                              <stock-list #stockList id="stockList"-->
+<!--                                          [dataSource]="stockHttpService"-->
+<!--                                          dynamicQuery="true"-->
+<!--                                          usePaging="true"-->
+<!--                                          showSimpleSearch="false"-->
+<!--                                          (selectionChanged)="onStockListSelectionChanged($event)"-->
+<!--                                          rowSelection="single"-->
+<!--                                          [pageSize]="100"-->
+<!--                                          notifyOnChange="true">-->
+<!--                              </stock-list>-->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">Inapoi</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+    >Transfer</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            (click)="saveAsset()"
+            [disabled]="!isSaved || !allowSaving"
+    >Adauga pe STOCK IT</button>
+  </mat-dialog-actions>
+</div>

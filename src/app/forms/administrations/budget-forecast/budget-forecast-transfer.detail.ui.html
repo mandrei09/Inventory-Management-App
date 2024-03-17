@@ -1,0 +1,1280 @@
+<div class="animated fadeIn">
+    <br>
+    <div class="card">
+        <div class="card-header" style="background-color: white;">
+            <button pButton label="Transfera" type="button" class="p-button-success" (click)="saveBudget()" [disabled]="!allowSaving || !isSaved || (budgetValueCorrection != 0 && requestBudgetForecast != null)"><i class="fa fa-save"></i></button>
+            &nbsp;
+            <!-- <button type="button" class="btn btn-warning btn-sm" (click)="selectRequest()"><i class="fa fa-save"></i> {{request != null ? request.code : 'Selectie ticket'}}</button>
+            &nbsp; -->
+
+            <!-- <button type="button" class="btn btn-warning btn-sm" (click)="selectRequestBudgetForecast()"><i class="fa fa-save"></i> {{requestBudgetForecast != null ? requestBudgetForecast?.budgetForecast?.budgetBase?.info : 'Selectie WBS lipsa comanda'}}</button>
+            &nbsp; -->
+            <button pButton label="Inapoi" type="button" class="p-button-dark" (click)="cancelChanges()"><i class="fa fa-step-backward"></i></button>
+            &nbsp;&nbsp;
+            <button pButton [label]="order != null ? order.code : 'Selectie P.O.'" type="button" class="p-button-warning" (click)="selectOrder()"><i class="fa fa-save"></i>&nbsp;</button>
+            &nbsp;&nbsp;
+            <button pButton type="button" [label]="destinationBudgetForecast != null && destinationBudgetForecast.budgetBase != null ? destinationBudgetForecast.budgetBase.code : 'Buget destinatie'" class="p-button-info" (click)="selectBudgetForecast()"><i class="fa fa-search"></i></button>
+            <!-- &nbsp;
+            <button hideIfUnauthorized="UPLOAD|REQUEST" [disabled]="!allowSaving || !isSaved || (budgetValueCorrection != 0 && requestBudgetForecast != null)" type="button" class="btn btn-secondary btn-sm" (click)="onAssetFileUpload()">
+              <i class="fa fa-upload"></i> Incarca documente</button> -->
+            <!-- &nbsp;&nbsp;
+            <button pButton type="button" [label]="employeeNotifySrc != null ? employeeNotifySrc.email : 'Responsabil sursa'" class="p-button-info" (click)="selectSrcEmployee()"><i class="fa fa-search"></i></button>
+            &nbsp;&nbsp;
+            <button pButton type="button" [label]="employeeNotifySrc != null ? employeeNotifyDst.email : 'Responsabil destinatie'" class="p-button-info" (click)="selectDstEmployee()"><i class="fa fa-search"></i></button> -->
+            <!-- &nbsp;&nbsp;
+            <button pButton type="button" class="p-button-success" (click)="updateBudgetBase()" [disabled]="destinationBudgetForecast == null"><i class="fa fa-check-circle"></i>&nbsp;Actualizare</button> -->
+        </div>
+</div>
+
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="post" class="form-horizontal">
+
+                <p-tabView>
+            <p-tabPanel header="Corectie sursa - destinatie">
+                <div class="p-grid p-fluid">
+                    <div class="row">
+                      <div class="col-md-3">
+                          <div class="card">
+                            <div class="p-grid p-fluid">
+
+                              <div class="form-group row">
+
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      SURSA ({{srcValue}})
+
+
+                                      <h3 class="p-mb-2">(<span style="color: green;">{{srcResult?.totalRem | number: '1.2-2'}} RON</span>) / {{srcResult?.project?.code}}</h3>
+                                      <p><span style="color: green;">{{srcResult?.budgetBase?.info.length < '20' ? srcResult?.budgetBase?.info : srcResult?.budgetBase?.info}}</span></p>
+                                      <div class="progress progress-xs">
+                                        <div class="progress-bar bg-info progress-bar-animated" role="progressbar" [ngStyle]="{'width': ((srcResult?.totalRem/srcResult?.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                          <strong>{{(srcResult?.totalRem/srcResult?.total) * 100.0 | number: '1.2-2'}}</strong>
+                                        </div>
+                                      </div>
+                                      <br>
+                                      <p style="text-align: left;"><span style="color: blue;">B.U: </span>{{srcResult?.department?.code}} - {{srcResult?.department?.name}}</p>
+                                      <p style="text-align: left;"><span style="color: blue;">Departament : </span>{{srcResult?.division?.code}} - {{srcResult?.division?.name}}</p>
+                                      <p style="text-align: left;"><span style="color: blue;">Proiect : </span>{{srcResult?.projectType?.code}} - {{srcResult?.projectType?.name}}</p>
+                                      <p style="text-align: left;"><span style="color: blue;">Tip : </span>{{srcResult?.assetType?.code}} - {{srcResult?.assetType?.name}}</p>
+                                      <p style="text-align: left;"><span style="color: blue;">Profit center : </span>{{srcResult?.admCenter?.code}}</p>
+                                  </div>
+
+                              </div>
+                                </div>
+
+                                <div class="form-group row">
+
+                                  <!-- <div class="col-md-3" *ngIf="budget != null">
+                                    <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Cod buget
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-12">
+                                      <input type="text" pInputText [(ngModel)]="srcValue" [ngModelOptions]="{ standalone: true }" [ngClass]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral'}"/>
+
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-12">
+                                      <input type="text" pInputText [(ngModel)]="dstValue" [ngModelOptions]="{ standalone: true }" [ngClass]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'cadetblue'}"/>
+                                  </div>
+                                    </div> -->
+
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Valoare inainte de transfer
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="true" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.totalRem" mode="decimal" [minFractionDigits]="2" [min]="0" name="totalRem" [ngModelOptions]="{ standalone: true }"></p-inputNumber>
+                                  </div>
+                              </div>
+                              </div>
+
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month === 4">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Aprilie
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [size]="1" [disabled]="destinationBudgetForecast == null || budget.aprilForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.aprilForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="aprilForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeApril($event)"></p-inputNumber>
+
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 5">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Mai
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.mayForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.mayForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="mayForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeMay($event)"></p-inputNumber>
+
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 6">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Iunie
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.juneForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.juneForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="juneForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeJune($event)"></p-inputNumber>
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 7">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Iulie
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.julyForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral'}" [(ngModel)]="budget.julyForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="julyForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeJuly($event)"></p-inputNumber>
+
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 8">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      August
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.augustForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.augustForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="augustForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeAugust($event)"></p-inputNumber>
+
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 9">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Septembrie
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.septemberForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.septemberForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="septemberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeSeptember($event)"></p-inputNumber>
+
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 10">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Octombrie
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.octomberForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.octomberForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="octomberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeOctomber($event)"></p-inputNumber>
+
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 11">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Noiembrie
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.novemberForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.novemberForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="novemberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeNovember($event)"></p-inputNumber>
+
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 && srcResult?.accMonth?.month <= 12">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Decembrie
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.decemberForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.decemberForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="decemberForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDecember($event)"></p-inputNumber>
+
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 || srcResult?.accMonth?.month === 1">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Ianuarie
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.januaryForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.januaryForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="januaryForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeJanuary($event)"></p-inputNumber>
+
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 || (srcResult?.accMonth?.month >= 1 && srcResult?.accMonth?.month <= 2)">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Februarie
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.februaryForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.februaryForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="februaryForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeFebruary($event)"></p-inputNumber>
+
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="form-group row" *ngIf="srcResult?.accMonth?.month >= 4 || (srcResult?.accMonth?.month >= 1 && srcResult?.accMonth?.month <= 3)">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Martie
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="destinationBudgetForecast == null  || budget.marchForecast === 0" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budget.marchForecast" mode="decimal" [minFractionDigits]="2" [min]="0" name="marchForecast" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeMarch($event)"></p-inputNumber>
+
+                                  </div>
+                              </div>
+                              </div>
+
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="card">
+                          <div class="p-grid p-fluid">
+                            <div class="form-group row">
+
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      DESTINATIE ({{dstValue}})
+
+                                      <h3 class="p-mb-2">(<span style="color: green;">{{destinationBudgetForecast?.totalRem | number: '1.2-2'}} RON</span>) / {{destinationBudgetForecast?.project?.code}}</h3>
+                                      <p><span style="color: green;">{{destinationBudgetForecast?.budgetBase?.info}}</span></p>
+                                      <div class="progress progress-xs">
+                                        <div class="progress-bar bg-info progress-bar-animated" role="progressbar" [ngStyle]="{'width': ((destinationBudgetForecast?.totalRem/destinationBudgetForecast?.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                          <strong>{{(destinationBudgetForecast?.totalRem/destinationBudgetForecast?.total) * 100.0 | number: '1.2-2'}}</strong>
+                                        </div>
+                                      </div>
+                                      <br>
+                                      <p style="text-align: left;"><span style="color: blue;">B.U: </span>{{destinationBudgetForecast?.department?.code}} - {{destinationBudgetForecast?.department?.name}}</p>
+                                      <p style="text-align: left;"><span style="color: blue;">Departament : </span>{{destinationBudgetForecast?.division?.code}} - {{destinationBudgetForecast?.division?.name}}</p>
+                                      <p style="text-align: left;"><span style="color: blue;">Proiect : </span>{{destinationBudgetForecast?.projectType?.code}} - {{destinationBudgetForecast?.projectType?.name}}</p>
+                                      <p style="text-align: left;"><span style="color: blue;">Tip : </span>{{destinationBudgetForecast?.assetType?.code}} - {{destinationBudgetForecast?.assetType?.name}}</p>
+                                      <p style="text-align: left;"><span style="color: blue;">Profit center : </span>{{destinationBudgetForecast?.admCenter?.code}}</p>
+                                </div>
+
+                            </div>
+                              </div>
+
+                              <div class="form-group row">
+                                <div class="col-md-12" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Valoare dupa transfer
+                                  </div>
+                                  <div class="p-field p-col-12 p-md-12">
+                                    <p-inputNumber [disabled]="true" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : {'background-color': 'cadetblue', 'font-weight': 'bold', 'color': 'white'}" [(ngModel)]="budgetValueCorrection" mode="decimal" [minFractionDigits]="2" [min]="0" name="totalRemDestinationNew" [ngModelOptions]="{ standalone: true }"></p-inputNumber>
+                                </div>
+
+                              </div>
+                              </div>
+
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month === 4">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Aprilie
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.aprilForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.aprilForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="aprilForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationApril($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month >= 4 && destinationBudgetForecast?.accMonth?.month <= 5">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Mai
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.mayForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.mayForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="mayForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationMay($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month >= 4 && destinationBudgetForecast?.accMonth?.month <= 6">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Iunie
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.juneForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.juneForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="juneForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJune($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month >= 4 && destinationBudgetForecast?.accMonth?.month <= 7">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Iulie
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.julyForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.julyForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="julyForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJuly($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month >= 4 && destinationBudgetForecast?.accMonth?.month <= 8">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    August
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.augustForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.augustForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="augustForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationAugust($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month >= 4 && destinationBudgetForecast?.accMonth?.month <= 9">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Septembrie
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.septemberForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.septemberForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="septemberForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationSeptember($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month >= 4 && destinationBudgetForecast?.accMonth?.month <= 10">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Octombrie
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.octomberForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.octomberForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="octomberForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationOctomber($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month >= 4 && destinationBudgetForecast?.accMonth?.month <= 11">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Noiembrie
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.novemberForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.novemberForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="novemberForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationNovember($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month >= 4 && destinationBudgetForecast?.accMonth?.month <= 12">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Decembrie
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.decemberForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.decemberForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="decemberForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationDecember($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month >= 4 || destinationBudgetForecast?.accMonth?.month === 1">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Ianuarie
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.januaryForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.januaryForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="januaryForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationJanuary($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month >= 4 || (destinationBudgetForecast?.accMonth?.month >= 1 && destinationBudgetForecast?.accMonth?.month <= 2)">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Februarie
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.februaryForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.februaryForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="februaryForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationFebruary($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="form-group row" *ngIf="destinationBudgetForecast?.accMonth?.month >= 4 || (destinationBudgetForecast?.accMonth?.month >= 1 && destinationBudgetForecast?.accMonth?.month <= 3)">
+                              <div class="col-md-12" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Martie
+                                </div>
+                                <div class="p-field p-col-12 p-md-12">
+                                  <p-inputNumber [disabled]="destinationBudgetForecast == null" [inputStyle]="destinationBudgetForecast == null ? {'background-color':'white'} : budget.marchForecastDstNew > 0 ? {'background-color': 'cornflowerblue', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'cadetblue'}" [(ngModel)]="budget.marchForecastDstNew" mode="decimal" [minFractionDigits]="2" [min]="0" name="marchForecastDstNew" [ngModelOptions]="{ standalone: true }" (ngModelChange)="valueChangeDestinationMarch($event)"></p-inputNumber>
+                              </div>
+                            </div>
+                            </div>
+
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="card">
+                        <div class="p-grid p-fluid">
+
+
+                          <div class="form-group row">
+
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    SURSA
+                              </div>
+
+                          </div>
+                            </div>
+                          <div class="form-group row">
+                            <div class="col-md-12" *ngIf="budget != null">
+                              <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                + / -
+                              </div>
+                              <div class="p-field p-col-12 p-md-12">
+                                <p-inputNumber [disabled]="true" [(ngModel)]="budgetValue" mode="decimal" [minFractionDigits]="2" name="budgetValue" prefix="-" [ngModelOptions]="{ standalone: true }" [inputStyle]="budgetValue != 0 ? {'background-color':'coral', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'coral', 'font-weight': 'bold', 'color': 'white'}"></p-inputNumber>
+                              </div>
+                              </div>
+
+
+
+                                    <!-- <div class="col-md-3" *ngIf="budget != null">
+                                        <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                            Corectie / total ramas
+                                        </div>
+                                        <div class="input-group">
+                                            <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                            [ngModel]="budget.totalRem | number : '1.2-2'" name="totalRem"  step ="0.01" [readOnly]="true">
+                                            <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: azure;color: black;text-align: center;font-weight: bold"
+                                            [ngModel]="budget.totalRemDestination | number : '1.2-2'" name="totalRemDestination"  step ="0.01">
+                                        </div>
+                                        <br> -->
+                                        <!-- <div class="input-group">
+                                            <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: #ffc107;color: black;text-align: center;font-weight: bold"
+                                            [ngModel]="budgetValue | number : '1.2-2'" name="budgetValue"  step ="0.01">
+                                            <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: red;color: black;text-align: center;font-weight: bold" [ngStyle]="budgetValueCorrection != 0 ? {'background-color':'red'} : {'background-color': 'green'}"
+                                            [ngModel]="budgetValueCorrection | number : '1.2-2'" name="budgetValueCorrection"  step ="0.0001">
+                                        </div> -->
+                                        <!-- <div class="p-field p-col-12 p-md-12">
+                                          <p-inputNumber [disabled]="true" [(ngModel)]="budgetValue" mode="decimal" [minFractionDigits]="2" name="budgetValue" [ngModelOptions]="{ standalone: true }" [inputStyle]="budgetValue != 0 ? {'background-color':'coral'} : {'background-color': 'coral'}"></p-inputNumber>
+
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-12">
+                                          <p-inputNumber [disabled]="true" [(ngModel)]="budgetValueCorrection" mode="decimal" [minFractionDigits]="2" name="budgetValueCorrection" prefix="+" [ngModelOptions]="{ standalone: true }" [inputStyle]="budgetValueCorrection !== 0 && budgetValue !== 0 && (budgetValueCorrection - budgetValue === 0 ) ? {'background-color':'cadetblue'} : {'background-color': 'cadetblue'}"></p-inputNumber>
+                                      </div>
+                                    </div> -->
+                                    <!-- <div class="col-md-3" *ngIf="budget != null">
+                                      <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                          Total comenzi
+                                      </div>
+                                      <div class="input-group">
+                                          <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                          [ngModel]="budget.valueOrder | number : '1.2-2'" name="valueOrder"  step ="0.01" [readOnly]="true">
+                                          <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                          [ngModel]="budget.importValueOrder | number : '1.2-2'" name="importValueOrder"  step ="0.01" [readOnly]="true">
+                                      </div>
+                                  </div>
+                                <div class="col-md-3" *ngIf="budget != null">
+                                  <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                      Total achizitii
+                                  </div>
+                                  <div class="input-group">
+                                      <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                      [ngModel]="budget.valueAsset | number : '1.2-2'" name="valueAsset"  step ="0.01" [readOnly]="true">
+                                  </div>
+                              </div>
+                              <div class="col-md-3" *ngIf="budget != null">
+                                <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                    Buget ramas
+                                </div>
+                                <div class="input-group">
+                                    <input  type="text" class="form-control" placeholder="" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold"
+                                    [ngModel]="budget.totalRem | number : '1.2-2'" name="totalRem"  step ="0.01" [readOnly]="true">
+                                </div>
+                            </div> -->
+                                </div>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="card">
+                      <div class="p-grid p-fluid">
+
+
+                        <div class="form-group row">
+
+                          <div class="col-md-12" *ngIf="budget != null">
+                            <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                                  DESTINATIE
+                            </div>
+
+                        </div>
+                          </div>
+                        <div class="form-group row">
+                          <div class="col-md-12" *ngIf="budget != null">
+                            <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                              + / -
+                            </div>
+                            <div class="p-field p-col-12 p-md-12">
+                              <p-inputNumber [disabled]="true" [(ngModel)]="budgetDynamicValueCorrection" mode="decimal" [minFractionDigits]="2" name="budgetValueCorrection" prefix="+" [ngModelOptions]="{ standalone: true }" [inputStyle]="budgetDynamicValueCorrection > 0 && budgetValue > 0 && (budgetDynamicValueCorrection - budgetValue === 0 ) ? {'background-color':'green', 'font-weight': 'bold', 'color': 'white'} : {'background-color': 'red', 'font-weight': 'bold', 'color': 'white'}"></p-inputNumber>
+                          </div>
+                            </div>
+                              </div>
+                      </div>
+                    </div>
+                </div>
+                  </div>
+
+               </div>
+            </p-tabPanel>
+                </p-tabView>
+            </form>
+          </div>
+      </div>
+</div>
+<div class="modal fade" bsModal #masterTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">PC</h3>
+       </div>
+       <div class="modal-body">
+           <app-master-type-list #masterTypeList id="masterTypeList"
+               [dataSource]="masterTypeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-master-type-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedMasterType()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="masterTypeListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #typeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Expence Type</h3>
+       </div>
+       <div class="modal-body">
+           <type-list #typeList id="typeList"
+               [dataSource]="typeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </type-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedType()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="typeListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #subTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Details</h3>
+       </div>
+       <div class="modal-body">
+           <sub-type-list #subTypeList id="subTypeList"
+               [dataSource]="subTypeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </sub-type-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedSubType()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="subTypeListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Activity</h3>
+       </div>
+       <div class="modal-body">
+           <app-administration-list #administrationList id="administrationList"
+               [dataSource]="administrationHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-administration-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministration()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="administrationListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+    <div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Owner Project</h3>
+                </div>
+                <div class="modal-body">
+                    <app-employee-list #employeeList id="employeeList"
+                        [dataSource]="employeeHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        usePaging="true">
+                    </app-employee-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployee()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3 class="modal-title pull-left">Cost Centers</h3>
+           </div>
+           <div class="modal-body">
+               <app-cost-center-list #costCenterList id="costCenterList"
+                   [dataSource]="costCenterHttpService"
+                   rowSelection="single"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </app-cost-center-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenter()">Selecteaza</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="costCenterListModal.hide()">Inchide</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+
+    <div class="modal fade" bsModal #partnerListModal="bs-modal" [config]="{backdrop: 'static'}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title pull-left">Supplier</h3>
+                </div>
+                <div class="modal-body">
+                    <app-partner-list #partnerList id="partnerList"
+                        [dataSource]="partnerHttpService"
+                        rowSelection="single"
+                        notifyOnChange="false"
+                        usePaging="true">
+                    </app-partner-list>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedPartner()">Selecteaza</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="partnerListModal.hide()">Inchide</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+        tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h6 class="modal-title">Confirmare</h6>
+          </div>
+          <div class="modal-body">
+            {{ confirmationMessage }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<div class="modal fade" bsModal #projectListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Project</h3>
+       </div>
+       <div class="modal-body">
+           <project-list #projectList id="projectList"
+               [dataSource]="projectHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </project-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedProject()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="projectListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #appStateListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Project</h3>
+       </div>
+       <div class="modal-body">
+           <app-state-list #appStateList id="appStateList"
+               [dataSource]="appStateHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-state-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAppState()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="appStateListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #assetTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Cost Type</h3>
+       </div>
+       <div class="modal-body">
+           <app-asset-type-list #assetTypeList id="assetTypeList"
+               [dataSource]="assetTypeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-asset-type-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetType()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="assetTypeListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+<div class="modal fade" bsModal #departmentListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">B.U.</h3>
+       </div>
+       <div class="modal-body">
+           <app-department-list #departmentList id="departmentList"
+               [dataSource]="departmentHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-department-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDepartment()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="departmentListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #divisionListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Departament</h3>
+       </div>
+       <div class="modal-body">
+           <app-division-list #divisionList id="divisionList"
+               [dataSource]="divisionHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-division-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivision()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="divisionListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #admCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Profit Center</h3>
+       </div>
+       <div class="modal-body">
+           <app-adm-center-list #admCenterList id="admCenterList"
+               [dataSource]="admCenterHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-adm-center-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdmCenter()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="admCenterListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #regionListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">PC Det</h3>
+       </div>
+       <div class="modal-body">
+           <app-region-list #regionList id="regionList"
+               [dataSource]="regionHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-region-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRegion()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="regionListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #projectTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Project</h3>
+       </div>
+       <div class="modal-body">
+           <app-project-type-list #projectTypeList id="projectTypeList"
+               [dataSource]="projectTypeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-project-type-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedProjectType()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="projectTypeListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #countryListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Tara</h3>
+       </div>
+       <div class="modal-body">
+           <app-country-list #countryList id="countryList"
+               [dataSource]="countryHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-country-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCountry()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="countryListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #activityListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Activity</h3>
+       </div>
+       <div class="modal-body">
+           <activity-list #activityList id="activityList"
+               [dataSource]="activityHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </activity-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedActivity()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="activityListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #companyListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Company</h3>
+       </div>
+       <div class="modal-body">
+           <app-company-list #companyList id="companyList"
+               [dataSource]="companyHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-company-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompany()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="companyListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #interCompanyListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Total life in periods</h3>
+       </div>
+       <div class="modal-body">
+           <app-inter-company-list #interCompanyList id="interCompanyList"
+               [dataSource]="interCompanyHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-inter-company-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInterCompany()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="interCompanyListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+<div class="modal fade" bsModal #accMonthListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Year</h3>
+       </div>
+       <div class="modal-body">
+           <app-acc-month-list #accMonthList id="accMonthList"
+               [dataSource]="accMonthHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-acc-month-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAccMonth()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="accMonthListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #startAccMonthListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Implementation Date (month&year)</h3>
+       </div>
+       <div class="modal-body">
+           <app-acc-month-list #startAccMonthList id="startAccMonthList"
+               [dataSource]="accMonthHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-acc-month-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedStartAccMonth()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="startAccMonthListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #requestListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Tichete</h3>
+       </div>
+       <div class="modal-body">
+           <app-request-list #requestList id="requestList"
+               [dataSource]="requestHttpService"
+               rowSelection="single"
+               detailType="detailneedbudgetui"
+               sortColumn="request.id"
+               sortDirection="asc"
+               dynamicQuery="true"
+               showSimpleSearch="true"
+               notifyOnChange="false"
+               listTemplate="REQUESTUI"
+               [pageSize]="5"
+               usePaging="true">
+           </app-request-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRequest()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="requestListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #orderListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">P.O.</h3>
+       </div>
+       <div class="modal-body">
+           <!-- <order-list #orderList id="orderList"
+               [dataSource]="orderHttpService"
+               rowSelection="single"
+               detailType="detailneedbudgetui"
+               sortColumn="order.id"
+               sortDirection="asc"
+               dynamicQuery="true"
+               showSimpleSearch="true"
+               notifyOnChange="false"
+               listTemplate="ORDERUI"
+               [pageSize]="5"
+               usePaging="true">
+           </order-list> -->
+
+           <app-order-view-ng-prime-validate #orderList id="orderList"
+           [dataSource]="orderHttpService"
+           showSimpleSearch="false"
+           listTemplate="ORDERUI"
+           detailType="detailneedbudgetui"
+           sortColumn="order.id"
+           sortDirection="desc"
+           dynamicQuery="true"
+           rowSelection="single"
+           notifyOnChange="true"
+           [pageSize]="5"
+           usePaging="true">
+           </app-order-view-ng-prime-validate>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedOrder()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="orderListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #requestBudgetForecastListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Budget Forecast</h3>
+       </div>
+       <div class="modal-body">
+           <app-request-budget-forecast-list #requestBudgetForecastList id="requestBudgetForecastList"
+               [dataSource]="requestBudgetForecastHttpService"
+               rowSelection="single"
+               detailType="detailneedbudgetui"
+               sortColumn="id"
+               sortDirection="asc"
+               dynamicQuery="true"
+               showSimpleSearch="true"
+               notifyOnChange="false"
+               listTemplate="REQUESTBUDGETFORECASTS"
+               [pageSize]="5"
+               usePaging="true">
+           </app-request-budget-forecast-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRequestBudgetForecast()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="requestBudgetForecastListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #accountListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title pull-left">GL accounts</h4>
+      </div>
+      <div class="modal-body">
+          <account-list #accountList id="accountList"
+              [dataSource]="accountHttpService"
+              rowSelection="multiple"
+              notifyOnChange="false"
+              usePaging="true">
+          </account-list>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAccount()">Selecteaza</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="accountListModal.hide()">Inchide</button>
+      </div>
+  </div>
+</div>
+</div>
+
+
+<div class="modal fade" bsModal #budgetBaseListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Budget Freeze</h3>
+       </div>
+       <div class="modal-body">
+           <app-budget-base-list #budgetBaseList id="budgetBaseList"
+               [dataSource]="budgetBaseHttpService"
+               rowSelection="single"
+               detailType="detailfreezeui"
+               sortColumn="budgetBase.id"
+               sortDirection="asc"
+               dynamicQuery="true"
+               showSimpleSearch="true"
+               notifyOnChange="false"
+               listTemplate="BUDGETFREEZEUI"
+               [pageSize]="5"
+               usePaging="true">
+           </app-budget-base-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedBudgetBase()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="budgetBaseListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+<div class="modal fade" bsModal #budgetChangeForecastListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Forecast</h4>
+            </div>
+            <div class="modal-body">
+                <!-- <app-budget-forecast-list #budgetChangeForecastList id="budgetChangeForecastList"
+                [dataSource]="budgetForecastHttpService"
+                listTemplate="BUDGETFORECASTUI"
+                sortColumn="budgetForecast.id"
+                sortDirection="asc"
+                dynamicQuery="true"
+                usePaging="true"
+                [pageSize]= 5
+                showSimpleSearch="true"
+                rowSelection="single"
+                (selectionChanged)="onBudgetSelectionChanged($event)"
+                notifyOnChange="true"
+
+                >
+            </app-budget-forecast-list> -->
+
+
+            <app-budget-forecast-material-view-ng-prime-validate #budgetChangeForecastList id="budgetChangeForecastList"
+              [dataSource]="budgetForecastHttpService"
+              listTemplate="BUDGETFORECASTUI"
+              sortColumn="budgetForecast.id"
+              sortDirection="desc"
+              dynamicQuery="true"
+              usePaging="true"
+              detailType="detailui"
+              showSimpleSearch="true"
+              [pageSize]="5"
+              rowSelection="single"
+              (selectionChanged)="onBudgetSelectionChanged($event)"
+              notifyOnChange="true">
+              </app-budget-forecast-material-view-ng-prime-validate>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedBudgetForecast()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="unselectBudgetForecast()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #employeeSrcListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Notificare sursa</h3>
+       </div>
+       <div class="modal-body">
+           <app-employee-list #employeeSrcList id="employeeSrcList"
+               [dataSource]="employeeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-employee-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedSrcEmployee()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeSrcListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+<div class="modal fade" bsModal #employeeDstListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h3 class="modal-title pull-left">Notificare destinatie</h3>
+       </div>
+       <div class="modal-body">
+           <app-employee-list #employeeDstList id="employeeDstList"
+               [dataSource]="employeeHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               usePaging="true">
+           </app-employee-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDstEmployee()">Selecteaza</button>
+           <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeDstListModal.hide()">Inchide</button>
+       </div>
+   </div>
+</div>
+</div>
+
+
+

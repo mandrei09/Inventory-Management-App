@@ -1,0 +1,229 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+        <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+            <div class="form-group">
+                <label for="code">Cod</label>
+                <input type="text" class="form-control" placeholder="cod..." required maxlength="30"
+                    [(ngModel)]="item.code" name="code" #code="ngModel">
+                <div [hidden]="code.valid || code.pristine" class="alert alert-danger">
+                   <!-- {{'VALIDATE_MESSAGE_COD'  |translate}} -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">Denumire</label>
+                <input type="text" class="form-control" placeholder="denumire..." required maxlength="100"
+                    [(ngModel)]="item.name" name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    <!-- {{'VALIDATE_MESSAGE_DESCRIPTION'  |translate}} -->
+                </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="name">Tag 1</label>
+                  <input type="text" class="form-control" placeholder="tag 1..." maxlength="100"
+                      [(ngModel)]="item.tag1Pattern" name="tag1Pattern" #tag1Pattern="ngModel">
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="name">Tag 2</label>
+                    <input type="text" class="form-control" placeholder="tag 2..." maxlength="100"
+                        [(ngModel)]="item.tag2Pattern" name="tag2Pattern" #tag2Pattern="ngModel">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                  <label for="name">Tag 3</label>
+                  <input type="text" class="form-control" placeholder="tag 3..." maxlength="100"
+                      [(ngModel)]="item.tag3Pattern" name="tag3Pattern" #tag3Pattern="ngModel">
+              </div>
+            </div>
+
+          <div class="col-md-2">
+              <div class="form-group">
+                <label for="name">Tag 4</label>
+                <input type="text" class="form-control" placeholder="tag 4..." maxlength="100"
+                    [(ngModel)]="item.tag4Pattern" name="tag4Pattern" #tag4Pattern="ngModel">
+            </div>
+          </div>
+
+          <div class="col-md-2">
+              <div class="form-group">
+                <label for="name">Tag 5</label>
+                <input type="text" class="form-control" placeholder="tag 5..." maxlength="100"
+                    [(ngModel)]="item.tag5Pattern" name="tag5Pattern" #tag5Pattern="ngModel">
+            </div>
+          </div>
+
+          </div>
+          <br>
+          <div class="form-group row">
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="name">Serie 1</label>
+                <input type="text" class="form-control" placeholder="serie 1..." maxlength="100"
+                    [(ngModel)]="item.serial1Pattern" name="serial1Pattern" #serial1Pattern="ngModel">
+            </div>
+          </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+              <label for="name">Serie 2</label>
+              <input type="text" class="form-control" placeholder="serie 2..." maxlength="100"
+                  [(ngModel)]="item.serial2Pattern" name="serial2Pattern" #serial2Pattern="ngModel">
+          </div>
+        </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="name">Serie 3</label>
+              <input type="text" class="form-control" placeholder="serie 3..." maxlength="100"
+                  [(ngModel)]="item.serial3Pattern" name="serial3Pattern" #serial3Pattern="ngModel">
+          </div>
+        </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="name">Serie 4</label>
+              <input type="text" class="form-control" placeholder="serie 4..." maxlength="100"
+                  [(ngModel)]="item.serial4Pattern" name="serial4Pattern" #serial4Pattern="ngModel">
+          </div>
+        </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="name">Serie 5</label>
+              <input type="text" class="form-control" placeholder="serie 5..." maxlength="100"
+                  [(ngModel)]="item.serial5Pattern" name="serial5Pattern" #serial5Pattern="ngModel">
+          </div>
+        </div>
+        </div>
+        <br>
+        <div class="form-group row">
+          <div class="col-md-2">
+          <div class="form-group">
+            <label for="name">IMEI 1</label>
+            <input type="text" class="form-control" placeholder="imei 1..." maxlength="100"
+                [(ngModel)]="item.imei1Pattern" name="imei1Pattern" #imei1Pattern="ngModel">
+        </div>
+      </div>
+        <div class="col-md-2">
+            <div class="form-group">
+              <label for="name">IMEI 2</label>
+              <input type="text" class="form-control" placeholder="imei 2..." maxlength="100"
+                  [(ngModel)]="item.imei2Pattern" name="imei2Pattern" #imei2Pattern="ngModel">
+          </div>
+        </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="name">IMEI 3</label>
+              <input type="text" class="form-control" placeholder="imei 3..." maxlength="100"
+                  [(ngModel)]="item.imei3Pattern" name="imei3Pattern" #imei3Pattern="ngModel">
+          </div>
+        </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="name">IMEI 4</label>
+              <input type="text" class="form-control" placeholder="imei 4..." maxlength="100"
+                  [(ngModel)]="item.imei4Pattern" name="imei4Pattern" #imei4Pattern="ngModel">
+          </div>
+        </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="name">IMEI 5</label>
+              <input type="text" class="form-control" placeholder="imei 5..." maxlength="100"
+                  [(ngModel)]="item.imei5Pattern" name="imei5Pattern" #imei5Pattern="ngModel">
+          </div>
+        </div>
+          </div>
+          <br>
+          <div class="form-group row">
+            <div class="col-md-2">
+            <div class="form-group">
+              <label for="name">Phone number 1</label>
+              <input type="text" class="form-control" placeholder="phone number 1..." maxlength="100"
+                  [(ngModel)]="item.phoneNumber1Pattern" name="phoneNumber1Pattern" #imei1Pattern="ngModel">
+          </div>
+        </div>
+          <div class="col-md-2">
+              <div class="form-group">
+                <label for="name">Phone number 2</label>
+                <input type="text" class="form-control" placeholder="phone number 2..." maxlength="100"
+                    [(ngModel)]="item.phoneNumber2Pattern" name="phoneNumber2Pattern" #phoneNumber2Pattern="ngModel">
+            </div>
+          </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="name">Phone number 3</label>
+                <input type="text" class="form-control" placeholder="phone number 3..." maxlength="100"
+                    [(ngModel)]="item.phoneNumber3Pattern" name="phoneNumber3Pattern" #phoneNumber3Pattern="ngModel">
+            </div>
+          </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="name">Phone number 4</label>
+                <input type="text" class="form-control" placeholder="phone number 4..." maxlength="100"
+                    [(ngModel)]="item.phoneNumber4Pattern" name="phoneNumber4Pattern" #phoneNumber4Pattern="ngModel">
+            </div>
+          </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="name">Phone number 5</label>
+                <input type="text" class="form-control" placeholder="phone number 5..." maxlength="100"
+                    [(ngModel)]="item.phoneNumber5Pattern" name="phoneNumber5Pattern" #phoneNumber5Pattern="ngModel">
+            </div>
+          </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">Descriere</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <!-- <h4>{{ selectedCountry != null ? selectedCountry.name : "" }}</h4> -->
+                            <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedDictionaryItem != null ? selectedDictionaryItem.name : ''" disabled>
+                            <span class="input-group-append">
+                                <button type="button"  class="btn btn-success"  (click)="askForDictionaryItem()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                                <!-- <button type="button"  class="btn btn-danger"  (click)="setCity(null)"><i class="fa fa-times-circle" aria-hidden="true"></i></button> -->
+                            </span>
+                          </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-left">
+                        <div *ngIf="!deleteConfirmationMode">
+                            <button hideIfUnauthorized="DELETE|INSURANCECATEGORIES" type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0">Sterge</button>
+                        </div>
+                        <div *ngIf="deleteConfirmationMode">
+                            <button type="button" class="btn btn-success" (click)="deleteItem()">Da</button>
+                            <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=false">Nu</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-right">
+                        <div class="text-right">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-info" (click)="saveItem()" [disabled]="!detailForm.form.valid">Salveaza</button>
+                                <button type="button" class="btn btn-secondary" (click)="cancelChanges()">Inchide</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

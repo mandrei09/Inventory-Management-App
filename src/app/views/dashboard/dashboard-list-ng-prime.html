@@ -1,0 +1,107 @@
+<p-table
+  #dt1
+  [autoLayout]="true"
+  [value]="tableItems"
+  [rows]="rows"
+  [rowHover]="true"
+  [resizableColumns]="true"
+	[loading]="loading"
+  [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[5,10,25,50]"
+  [lazy]="true"
+  (onLazyLoad)="loadData($event)"
+  [totalRecords]="totalItems"
+  styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines p-datatable-sm"
+	[paginator]="true"
+  dataKey="id"
+  currentPageReportTemplate="{first} - {last} din {totalRecords}">
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex" *ngIf="showSimpleSearch === 'true'">
+        <button pButton label="Reseteaza" class="p-button-outlined" icon="pi pi-filter-slash" (click)="applySimpleSearchFilter('')"></button>
+        <span class="p-input-icon-left p-ml-auto" style="float: right;">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" [(ngModel)]="filterSearch" (input)="applySimpleSearchFilter(filterSearch)" (change)="applySimpleSearchFilter(filterSearch)" placeholder="cauta..." />
+        </span>
+    </div>
+  </ng-template>
+	<ng-template pTemplate="header">
+		<tr>
+			<th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+				<button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-check"></i></button>
+				<button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-check"></i></button>
+		</th>
+            <th *ngFor="let column of columns" [pSortableColumn]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+				<div class="p-d-flex p-jc-between p-ai-center">
+                        {{column.headerCode}}
+                    <p-sortIcon [field]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy"></p-sortIcon>
+				</div>
+			</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-tableItem let-expanded="expanded">
+      <tr (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+        <!-- <td>
+          <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+      </td> -->
+			<td>
+				<button *ngIf="!tableItem.selected" class="btn btn-light btn-sm" type="button"><i class="pi pi-times"></i></button>
+				<button *ngIf="tableItem.selected"  class="btn btn-success btn-sm" type="button"><i class="pi pi-check"></i></button>
+			</td>
+            <td *ngFor="let column of columns"  style="width: max-content; font-size: 12px;white-space: nowrap" selectionMode="multiple" [ngClass]="{'isScanned': tableItem.item.isDuplicate === true, 'notScanned': tableItem.item.isDuplicate === false}"><span [style.color] = "'black'">{{ tableItem.item | fieldByColumnDefinition: column }}</span></td>
+        </tr>
+	</ng-template>
+
+  <ng-template pTemplate="rowexpansion" let-tableItem>
+    <tr>
+        <!-- <td colspan="7">
+            <div class="p-p-3">
+                <p-table [value]="product.orders" dataKey="id">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
+                            <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
+                            <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+                            <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
+                            <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                            <th style="width: 4rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-order>
+                        <tr>
+                            <td>{{order.id}}</td>
+                            <td>{{order.customer}}</td>
+                            <td>{{order.id}}</td>
+                            <td>{{order.amount | currency:'USD'}}</td>
+                            <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
+                            <td><p-button type="button" icon="pi pi-search"></p-button></td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="6">There are no order for this product yet.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </td> -->
+    </tr>
+</ng-template>
+
+
+	<ng-template pTemplate="footer">
+    <tr>
+			<td style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+				<button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-light btn-sm" ><i class="pi pi-check"></i></button>
+				<button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-success btn-sm" ><i class="pi pi-check"></i></button>
+		</td>
+            <td *ngFor="let col of columns" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+                <span style="color: aquamarine;">{{
+                    col.headerCode === 'PCS' ? (totals?.quantity | number : '1.0-0') :
+                    col.headerCode === 'Curr.bk.val.' ? (totals?.currBkValue | number : '1.2-2') :
+                    col.headerCode === 'Current APC' ? (totals?.currentAPC | number : '1.2-2') :
+                    col.headerCode === 'Accumul. dep.' ? (totals?.accumulDep | number : '1.2-2') :
+                     ''}}</span>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

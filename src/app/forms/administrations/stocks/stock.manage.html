@@ -1,0 +1,96 @@
+<div class="animated fadeIn">
+  <br>
+  <div class="card">
+    <div class="card-header">
+          <button type="button" class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed">Filtre </button>
+      <div class="card-header-actions">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">
+          <div class="input-group-append">
+            &nbsp;
+            <button hideIfUnauthorized="ADD|STOCKS" type="button" class="btn btn-outline-info btn-sm" (click)="addNewItem()"><i class="fa fa-plus"></i>&nbsp;Adauga</button>
+            &nbsp;
+            <button hideIfUnauthorized="EDIT|STOCKS" type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i>&nbsp;Modifica</button>
+            &nbsp;
+            <button hideIfUnauthorized="EXPORT|STOCKS"type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i>&nbsp;Export</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body"
+         (collapsed)="collapsed($event)"
+         (expanded)="expanded($event)"
+         [collapse]="isCollapsed">
+         <div class="card-body-actions">
+          <!-- <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h6 style="color:#341E16">Judet</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h6 style="font-size: 12px;">{{ selectedCounty != null ?  selectedCounty.code + ' ' + selectedCounty.name : "" }}</h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <div style="text-align: right;">
+                                <button type="button" class="btn btn-secondary btn-sm" (click)="selectCounty()" [ngClass]="{'btn-icon button': selectedCounty == null, 'btn-icon': selectedCounty != null}"><i class="fa fa-search"></i></button>
+                                <button type="button" class="btn btn-info btn-sm" (click)="unselectCounty()" [ngClass]="{'btn-icon button': selectedCounty == null, 'btn-icon': selectedCounty != null}"><i class="fa fa-close"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div> -->
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="col-sm-12">
+            <stock-list #stockList id="stockList"
+            [dataSource]="stockHttpService"
+            dynamicQuery="true"
+            usePaging="true"
+            showSimpleSearch="false"
+            [itemAddedEvent]="itemAddedEvent"
+            [itemUpdatedEvent]="itemUpdatedEvent"
+            [itemDeletedEvent]="itemDeletedEvent"
+            [requestSelectionEvent]="requestSelectionEvent"
+            [requestRefreshEvent]="requestRefreshEvent"
+            (selectionChanged)="setSelectedItem($event)"
+            rowSelection="single"
+            notifyOnChange="true">
+        </stock-list>
+        </div>
+    </div>
+  </div>   
+</div>
+
+    <div bsModal #stockDetailModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dark" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title pull-left">Detalii Stock</h4>
+            <button type="button" class="close" (click)="stockDetailModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <app-stock-detail #stockDetail id="stockDetail"
+              [dataSource]="stockHttpService"
+              [addNewItemEvent]="addNewItemEvent"
+              [editItemEvent]="editItemEvent"
+              (itemAdded)="itemAdded($event)"
+              (itemUpdated)="itemUpdated($event)"
+              (itemDeleted)="itemDeleted($event)"
+              (changesCanceled)="detailTerminate()">
+          </app-stock-detail>
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="countyDetailModal.hide()">Inchide</button>
+            <button type="button" class="btn btn-primary" (click)="setSelectedCountry()">Selecteaza</button>
+          </div> -->
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->

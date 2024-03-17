@@ -1,0 +1,35 @@
+<div class="add-assets-modal" *transloco="let t; read: 'page_asset_pre_validate_add_edit'">
+    <div class="modal-dialog-header">
+      <h2 class="modal-title">{{ t((item === null || item.id < 1) ? 'title_add' : 'title_edit') }}</h2>
+      <button type="button" class="btn-close" [mat-dialog-close]="null"></button>
+    </div>
+  <form [formGroup]="form" (ngSubmit)="save()">
+      <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+        <div class="modal-dialog-body">
+          <div class="container">
+            <div class="row">
+              <div class="row mx-auto">
+                <div class="col-8 mx-auto">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group inputs-modal-nomenclature mt-3 mb-3" >
+                        <label>{{t('label_in_sap_validation')}}</label>
+                        <div style="width: 100%;display: inline;">
+                          <input matInput class="form-control" formControlName="inSapValidation">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close class="btn gray-btn-outline" [mat-dialog-close]="null">{{t('action_cancel')}}</button>
+        <button mat-button class="btn blue-button"  type="submit" [disabled]="!form.valid" (click)="save()">{{t('action_save')}}</button>
+      </mat-dialog-actions>
+  </form>
+</div>
+  

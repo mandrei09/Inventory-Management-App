@@ -1,0 +1,58 @@
+<div class="centered-middle-modal_wrapper">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">Modifica rol utilizator</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-dialog-content mb-3">
+    <div class="mat-dialog-content_wrapper">
+
+      <div class="form-groups_wrapper">
+        <div class="col-md-12 mx-auto">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Role:</label>
+                <div class="mt-auto d-flex form-select-wrapper">
+                  <div class="static-form-select">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Rol:</mat-label>
+                      <mat-select [(ngModel)]="roles">
+                        <mat-option [value]="null">-</mat-option>
+                        <mat-option [value]="'user'">User</mat-option>
+                        <mat-option [value]="'audit'">Audit</mat-option>
+                        <mat-option [value]="'controlling'">Controlling</mat-option>
+                        <mat-option [value]="'accounting'">Accounting</mat-option>
+                        <mat-option [value]="'procurement'">Procurement</mat-option>
+                        <mat-option [value]="'proc-it'">Procurement IT</mat-option>
+                        <mat-option [value]="'buget'">Bugetare</mat-option>
+                        <mat-option [value]="'approvers'">Aprobatori</mat-option>
+                        <mat-option [value]="'reception'">Receptie bunuri</mat-option>
+                        <mat-option [value]="'stock-it'">Stock IT</mat-option>
+                        <mat-option [value]="'matrix'">Matrice aprobare</mat-option>
+                        <mat-option [value]="'order'">Purchase Order (PO)</mat-option>
+                        <mat-option [value]="'request'">Purchase Request(PR)</mat-option>
+                        <mat-option [value]="'contract'">Contracte</mat-option>
+                        <mat-option [value]="'administrator'">Administrator</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">Inchide</button>
+    <button mat-button
+            class="btn blue-btn"
+            [mat-dialog-close]="roles"
+            [disabled]="!roles || roles === ''"
+    >Save</button>
+  </mat-dialog-actions>
+</div>

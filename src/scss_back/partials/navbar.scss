@@ -1,0 +1,131 @@
+// .navbar {
+//   //background-color: #F3F3F6;
+//   height: 56px;
+//   padding: 0px 16px;
+
+//   .navbar-logo {
+//     position: relative;
+//     z-index: 999;
+
+//     img {
+//       height: 32px;
+//     }
+
+//     .minimized-logo {
+//       width: 42px;
+//       height: auto;
+//       margin-left: 2px;
+//     }
+//   }
+
+//   .navbar-content {
+//     width: calc(100% - 240px);
+//     display: flex;
+//     justify-content: space-between;
+
+//     .navbar-right-content {
+//       display: flex;
+//       -webkit-box-align: stretch;
+//       -ms-flex-align: stretch;
+//       align-items: stretch;
+
+//       .user-profile-dropdown {
+//         padding-right: 16px;
+
+//         .navbar-dropdown-username {
+//           font-weight: 500;
+//           font-size: 14px;
+//           line-height: 18px;
+//           color: #35354A;
+//           margin-right: 8px;
+//         }
+
+//         .dropdown-profile {
+//           a {
+//             padding: 0;
+
+//             img {
+//               width: 32px;
+//               height: 32px;
+//               object-fit: cover;
+//               border-radius: 50%;
+//             }
+//           }
+//           ul {
+//             margin-top: 6px;
+//             box-shadow: 0px 4px 16px rgb(17 16 82 / 15%);
+//             border-radius: 8px;
+//             padding: 10px;
+//             border: none;
+
+//             li {
+//               a {
+//                 padding: 5px;
+//               }
+//             }
+//           }
+//         }
+//       }
+
+//       .dark-mode-switch {
+//         transform: rotate(-90deg);
+//         color: #111052;
+//         margin-bottom: auto;
+//         margin-top: 0;
+
+//         .form-check-input {
+//           width: 24px;
+//           height: 12px;
+//           box-shadow: none;
+//           border: none;
+//         }
+
+//         .form-check-input:checked {
+//           background-color: #111052 !important;
+//           border: 1px solid #111052;
+//         }
+//       }
+
+//       .topbar-item {
+//         display: -webkit-box;
+//         display: -ms-flexbox;
+//         display: flex;
+//         -webkit-box-align: center;
+//         -ms-flex-align: center;
+//         align-items: center;
+//       }
+//     }
+
+//     .navbar-toggle {
+//       .toggler-action {
+//         margin-top: auto;
+//         margin-bottom: auto;
+
+//         svg {
+//           width: 24px;
+//         }
+
+//         &:hover {
+//           cursor: pointer;
+//         }
+//       }
+//       .navbar-page-title {
+//         margin: 0px 16px;
+//         margin-top: auto;
+//         margin-bottom: auto;
+
+//         h4 {
+//           font-weight: 500;
+//           font-size: 24px;
+//           line-height: 32px;
+//           color: #111052;
+//           margin: 0;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .nav-link {
+//   color: inherit;
+// }

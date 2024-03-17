@@ -1,0 +1,388 @@
+<div class="widgets">
+
+  <div class="row">
+    <div class="col-md-12">
+
+            <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem()" *ngIf="item != null">
+
+              <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">Companie</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedCompany != null ? selectedCompany.code + ' ' + selectedCompany.name : ''" disabled>
+                            <span class="input-group-append">
+                                <button type="button"  class="btn btn-success"  (click)="askForCompany()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                            </span>
+                          </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                  <div class="col-sm-12">
+                      <label for="location">Departament</label>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="input-group">
+                          <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedDivision != null ? selectedDivision.code + ' ' + selectedDivision.name : ''" disabled>
+                          <span class="input-group-append">
+                              <button type="button"  class="btn btn-success"  (click)="askForDivision()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                          </span>
+                        </div>
+                  </div>
+
+              </div>
+          </div>
+
+            <!-- <div class="form-group">
+              <div class="row">
+                  <div class="col-sm-12">
+                      <label for="location">Centru de cost</label>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="input-group">
+                          <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedCostCenter != null ? selectedCostCenter.code + ' ' + selectedCostCenter.name : ''" disabled>
+                          <span class="input-group-append">
+                              <button type="button"  class="btn btn-success"  (click)="askForCostCenter()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                          </span>
+                        </div>
+                  </div>
+
+              </div>
+          </div> -->
+          <!-- <div class="form-group">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="location">Area</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="input-group">
+                        <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedArea != null ? selectedArea.code : ''" disabled>
+                        <span class="input-group-append">
+                            <button type="button"  class="btn btn-success"  (click)="askForArea()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                        </span>
+                      </div>
+                </div>
+
+            </div>
+        </div> -->
+        <!-- <div class="form-group">
+          <div class="row">
+              <div class="col-sm-12">
+                  <label for="location">Tara</label>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="input-group">
+                      <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedCountry != null ? selectedCountry.code + ' ' + selectedCountry.name : ''" disabled>
+                      <span class="input-group-append">
+                          <button type="button"  class="btn btn-success"  (click)="askForCountry()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                      </span>
+                    </div>
+              </div>
+
+          </div>
+      </div> -->
+      <!-- <div class="form-group">
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="location">Cost type</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedAssetType != null ? selectedAssetType.code + ' ' + selectedAssetType.name : ''" disabled>
+                    <span class="input-group-append">
+                        <button type="button"  class="btn btn-success"  (click)="askForAssetType()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                    </span>
+                  </div>
+            </div>
+
+        </div>
+    </div> -->
+    <!-- <div class="form-group">
+      <div class="row">
+          <div class="col-sm-12">
+              <label for="location">WBS</label>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="input-group">
+                  <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedProject != null ? selectedProject.code : ''" disabled>
+                  <span class="input-group-append">
+                      <button type="button"  class="btn btn-success"  (click)="askForProject()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                  </span>
+                </div>
+          </div>
+
+      </div>
+  </div> -->
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">L1</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedEmployeeL1 != null ? selectedEmployeeL1.email : ''" disabled>
+                            <span class="input-group-append">
+                                <button type="button"  class="btn btn-success"  (click)="askForEmployeeL1()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">L2</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedEmployeeL2 != null ? selectedEmployeeL2.email : ''" disabled>
+                            <span class="input-group-append">
+                                <button type="button"  class="btn btn-success"  (click)="askForEmployeeL2()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">L3</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedEmployeeL3 != null ? selectedEmployeeL3.email : ''" disabled>
+                            <span class="input-group-append">
+                                <button type="button"  class="btn btn-success"  (click)="askForEmployeeL3()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">L4</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedEmployeeL4 != null ? selectedEmployeeL4.email : ''" disabled>
+                            <span class="input-group-append">
+                                <button type="button"  class="btn btn-success"  (click)="askForEmployeeL4()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">S1</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedEmployeeS1 != null ? selectedEmployeeS1.email : ''" disabled>
+                            <span class="input-group-append">
+                                <button type="button"  class="btn btn-success"  (click)="askForEmployeeS1()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">S2</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedEmployeeS2 != null ? selectedEmployeeS2.email : ''" disabled>
+                            <span class="input-group-append">
+                                <button type="button"  class="btn btn-success"  (click)="askForEmployeeS2()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">S3</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedEmployeeS3 != null ? selectedEmployeeS3.email : ''" disabled>
+                            <span class="input-group-append">
+                                <button type="button"  class="btn btn-success"  (click)="askForEmployeeS3()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label for="name">L4</label>
+              <input type="number" class="form-control" placeholder="pret" required
+                  [(ngModel)]="item.amountL4" name="amountL4" #amountL4="ngModel">
+              <div [hidden]="amountL4.valid || amountL4.pristine" class="alert alert-danger">
+                  L4 obligatoriu!
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label for="name">L3</label>
+            <input type="number" class="form-control" placeholder="pret" required
+                [(ngModel)]="item.amountL3" name="amountL3" #amountL3="ngModel">
+            <div [hidden]="amountL3.valid || amountL3.pristine" class="alert alert-danger">
+                L3 obligatoriu!
+            </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="name">L2</label>
+          <input type="number" class="form-control" placeholder="pret" required
+              [(ngModel)]="item.amountL2" name="amountL2" #amountL2="ngModel">
+          <div [hidden]="amountL2.valid || amountL2.pristine" class="alert alert-danger">
+              L2 obligatoriu!
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">L1</label>
+        <input type="number" class="form-control" placeholder="pret" required
+            [(ngModel)]="item.amountL1" name="amountL1" #amountL1="ngModel">
+        <div [hidden]="amountL1.valid || amountL1.pristine" class="alert alert-danger">
+            L1 obligatoriu!
+        </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">S1</label>
+      <input type="number" class="form-control" placeholder="pret" required
+          [(ngModel)]="item.amountS1" name="amountS1" #amountS1="ngModel">
+      <div [hidden]="amountS1.valid || amountS1.pristine" class="alert alert-danger">
+          S1 obligatoriu!
+      </div>
+  </div>
+
+  <div class="form-group">
+    <label for="name">S2</label>
+    <input type="number" class="form-control" placeholder="pret" required
+        [(ngModel)]="item.amountS2" name="amountS2" #amountS2="ngModel">
+    <div [hidden]="amountS2.valid || amountS2.pristine" class="alert alert-danger">
+        S2 obligatoriu!
+    </div>
+</div>
+
+<div class="form-group">
+  <label for="name">S3</label>
+  <input type="number" class="form-control" placeholder="pret" required
+      [(ngModel)]="item.amountS3" name="amountS3" #amountS3="ngModel">
+  <div [hidden]="amountS3.valid || amountS3.pristine" class="alert alert-danger">
+      S3 obligatoriu!
+  </div>
+</div>
+
+
+                  <br>
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <div class="ui-toolbar-group-left">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Sterge</button>
+                            </div>
+                            <div *ngIf="deleteConfirmationMode">
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteItem()"><i class="fa fa-check"></i>Da</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> Nu</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="ui-toolbar-group-right">
+                            <div class="text-right">
+                                <div *ngIf="!deleteConfirmationMode">
+                                    <button type="button" class="btn btn-outline-success btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Salveaza</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Inchide</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+    </div>
+  </div>
+
+</div>
+
+<!--<form role="form" novalidate (ngSubmit)="saveItem()" *ngIf="item != null">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="code">Code</label>
+                <input type="text" id="code" placeholder="cod" class="form-control"
+                    [(ngModel)]="item.code" name="code" #code="ngModel">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="name">Description</label>
+                <input type="text" id="name" placeholder="denumire" class="form-control"
+                    [(ngModel)]="item.name" name="name" #name="ngModel">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div *ngIf="!deleteConfirmationMode">
+            <button type="button" class="btn btn-white" (click)="cancelChanges()">Inchide</button>
+            <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0">Delete</button>
+            <button type="button" class="btn btn-primary" (click)="saveItem()">Save changes</button>
+        </div>
+        <div *ngIf="deleteConfirmationMode">
+            <button type="button" class="btn btn-warning" (click)="deleteItem()">Da</button>
+            <button type="button" class="btn btn-white" (click)="deleteConfirmationMode=false">No</button>
+        </div>
+    </div>
+</form>-->

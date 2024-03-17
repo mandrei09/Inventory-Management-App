@@ -1,0 +1,463 @@
+mat-form-field.datepicker-range-input {
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 1.125;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+
+  ::ng-deep .mat-mdc-form-field-flex {
+    background-color: transparent;
+    padding: 7px 12px !important;
+    border: 1px solid #C6C6D5;
+    border-radius: 8px !important;
+    padding-bottom: 3px !important;
+    font-size: 14px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding-top: 0 !important;
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    padding-bottom: 0 !important;
+    height: 48px;
+    padding: 0;
+    background: transparent;
+  }
+
+  ::ng-deep .mat-mdc-form-field-infix {
+    min-height: 48px !important;
+
+    label {
+      color: #8B8B9D !important;
+      font-family: 'Roboto';
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+
+  ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+    padding: 16px;
+  }
+
+  ::ng-deep .mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix {
+    width: 200px;
+    height: 48px;
+
+    .mdc-floating-label {
+      position: absolute;
+      left: 0;
+      box-sizing: content-box;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+  }
+
+  ::ng-deep .mdc-line-ripple {
+    display: none !important;
+  }
+
+  ::ng-deep mat-date-range-input {
+    color: #35354A !important;
+    font-weight: 500;
+  }
+
+  ::ng-deep {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+}
+
+.mat-datepicker-toggle-active {
+  color: #0B4FFF;
+}
+
+::ng-deep .mat-datepicker-content-container {
+  ::ng-deep .mat-datepicker-actions .mat-button-base+.mat-button-base {
+    background-color: #0B4FFF !important;
+    color: #FFF;
+    box-shadow: none;
+    border-radius: 6px;
+  }
+
+  ::ng-deep .mat-datepicker-actions .gray-btn-outline {
+    padding: 0 16px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid #D9D9DF;
+    border-radius: 6px;
+    color: #8B8B9D;
+  }
+}
+
+.content-page-header {
+  width: 100%;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #D9D9DF;
+  background-color: rgba(255, 255, 255, 0.6);
+
+  .import-export-dropdown {
+    margin-right: 16px;
+  }
+}
+
+.header-search {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  border-radius: 8px;
+  border: 1px solid #C6C6D5;
+  padding: 0 16px;
+  width: 310px;
+  height: 48px;
+  justify-content: space-between;
+
+  input {
+    border: none;
+    outline: none;
+    color: #8B8B9D;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+    height: 38px;
+    width: 100%;
+    background: transparent !important;
+  }
+
+  button {
+    border: none;
+    background: none;
+
+    svg {
+      fill: #0B4FFF;
+    }
+  }
+}
+
+.header-filter-button {
+  background-color: transparent;
+  border: 1px solid #D9D9DF;
+  border-radius: 4px;
+  color: #8B8B9D;
+  font-size: 14px;
+  line-height: 18px;
+  //padding: 7px 8px;
+  padding: 0;
+  margin: 16px 16px 0 0;
+  box-shadow: none !important;
+
+  svg {
+    width: 16px;
+    margin-left: 8px;
+    fill: #8B8B9D;
+  }
+
+  span {
+    padding: 7px 8px;
+  }
+
+  .filter-button-remove__icon {
+    svg {
+      fill: #CC1010;
+      margin: 0;
+      height: 12px;
+    }
+  }
+
+  &:hover {
+    color: #212529;
+    background-color: #fff;
+  }
+
+  &.header-filter-button__active {
+    border: 1px solid #0B4FFF;
+    color: #212529;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .filter-button-remove__icon {
+      padding-left: 0 !important;
+    }
+  }
+}
+
+.left-column {
+  .search-form {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    border-radius: 8px;
+    border: 1px solid #D9D9DF;
+    padding: 0 16px;
+    width: 310px;
+    height: 48px;
+    justify-content: space-between;
+
+    input {
+      border: none;
+      outline: none;
+      color: #8B8B9D;
+      font-size: 14px;
+      line-height: 18px;
+      height: 38px;
+      width: 100%;
+      background: transparent !important;
+    }
+
+    button {
+      border: none;
+      background: none;
+
+      svg {
+        fill: #0B4FFF;
+      }
+    }
+  }
+}
+
+.top-right-column {
+  display: flex;
+  align-items: center;
+
+  .add-asset {
+    background-color: #0B4FFF;
+    border-radius: 8px;
+    margin: 0 16px;
+
+    &:hover {
+      background-color: #0725C5;
+    }
+
+    button {
+      color: #FFFFFF;
+      padding: 11px 16px;
+      font-size: 14px;
+      line-height: 18px;
+      box-shadow: none;
+
+      svg {
+        width: 16px;
+        margin-right: 8px;
+        fill: #fff;
+      }
+    }
+  }
+}
+
+.top-right-column {
+  display: flex;
+  align-items: center;
+
+  .add-asset {
+    background-color: #0B4FFF;
+    border-radius: 8px;
+    margin: 0 16px;
+
+    &:hover {
+      background-color: #0725C5;
+    }
+
+    button {
+      color: #FFFFFF;
+      padding: 11px 16px;
+      font-size: 14px;
+      line-height: 18px;
+      box-shadow: none;
+
+      svg {
+        width: 16px;
+        margin-right: 8px;
+        fill: #fff;
+      }
+    }
+  }
+}
+
+.blue-button {
+  background-color: #0B4FFF !important;
+  border-radius: 8px;
+  margin: 0 16px;
+  color: #FFFFFF !important;
+  padding: 11px 30px;
+  font-size: 14px;
+  line-height: 18px;
+  box-shadow: none;
+  border: none;
+  text-decoration: none;
+
+  svg {
+    width: 16px;
+    margin-right: 8px;
+    fill: #fff;
+  }
+
+  &:hover {
+    background-color: #063FD0;
+    transition: .3s;
+  }
+}
+
+
+div#mat-menu-panel-0, div#mat-menu-panel-1 {
+  padding: 0!important;
+  margin-top: 6px;
+  background: #FFFFFF;
+  box-shadow: 0 4px 16px #11105226;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.mat-mdc-menu-panel {
+  min-width: 112px;
+  max-width: 280px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(100vh - 48px);
+  border-radius: 4px;
+  outline: 0;
+  min-height: 64px;
+  position: relative;
+  width: 100%;
+}
+
+::ng-deep .small-danger-outline-btn {
+  background-color: transparent;
+  color: #CC1010;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 6px 16px 6px 16px;
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  display: flex;
+  border: 1px solid #CC1010;
+  transition: .3s;
+
+  svg {
+    fill: white;
+    margin-right: 8px;
+    width: 12px;
+  }
+
+  span {
+    color: #CC1010;
+  }
+
+  mat-icon {
+    font-size: 14px;
+    height: 14px;
+    margin-top: 2px;
+    padding-right: 4px;
+    color: #CC1010;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    //background: #f6f6f6;
+    background: #dedede;
+    border: none;
+    color: #b8b8b8;
+    box-shadow: 0 0 3px #dfdfdf;
+    border-radius: 4px;
+
+    svg {
+      fill: #8B8B9D !important;
+    }
+
+    mat-icon {
+      color: #8B8B9D !important;
+    }
+
+    span {
+      color: #8B8B9D !important;
+    }
+
+    &:hover {
+      svg {
+        fill: #fff !important;
+      }
+
+      mat-icon {
+        color: #fff !important;
+      }
+
+      span {
+        color: #fff !important;
+      }
+    }
+  }
+
+  &:hover {
+    background: #CC1010;
+    color: #FFF;
+    transition: .3s;
+
+    svg {
+      fill: white;
+      margin-right: 8px;
+      width: 12px;
+    }
+
+    span {
+      color: #FFF;
+    }
+
+    mat-icon {
+      color: #FFF;
+    }
+  }
+}
+
+
+::ng-deep .small-blue-btn {
+  background-color: #0B4FFF;
+  color: #FFF;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 6px 16px 6px 16px;
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 8px;
+  font-weight: 400;
+  display: flex;
+
+  svg {
+    fill: white;
+    margin-right: 8px;
+    width: 12px;
+  }
+
+  span {
+    color: #FFF;
+  }
+
+  mat-icon {
+    font-size: 14px;
+    height: 14px;
+    margin-top: 2px;
+    padding-right: 4px;
+    color: #FFF;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    //background: #f6f6f6;
+    background: #dedede;
+    border: none;
+    color: #b8b8b8;
+    box-shadow: 0 0 3px #dfdfdf;
+    border-radius: 4px;
+
+    svg {
+      fill: #C6C6D4
+    }
+  }
+}

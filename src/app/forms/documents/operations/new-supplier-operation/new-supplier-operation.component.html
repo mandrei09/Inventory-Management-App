@@ -1,0 +1,147 @@
+<div class="full-width-add-edit-dialog">
+  <div class="modal-dialog-header">
+    <div class="d-flex">
+      <h2 class="modal-title mb-0">
+        Operations details
+      </h2>
+    </div>
+    <div class="d-flex">
+      <button type="button" class="btn-close" mat-dialog-close style="margin-left: 10px;margin-top: auto;margin-bottom: auto;"></button>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container-fluid">
+        <div class="d-flex align-items-start">
+          <div class="tab-content">
+            <div class="col-md-12">
+              <div #details id="detailsSection" class="row">
+                <form [formGroup]="form" (ngSubmit)="save()">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group inputs-modal-nomenclature form-group-select_wrapper mb-4 d-flex" style="display:grid !important;">
+                          <label>
+                            Test:
+                            <span class="required-label-symbol">*</span>
+                          </label>
+                          <mat-form-field appearance="fill">
+                            <mat-label>Tip:</mat-label>
+                            <mat-select [(ngModel)]="operationTypes" (selectionChange)="onOperationTypesChange($event.value)" [ngModelOptions]="{standalone: true}">
+                              <mat-option [value]="null">
+                                -
+                              </mat-option>
+                              <mat-option *ngFor="let item of documentTypes" [value]="item">
+                                {{ item.name }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-md-12 mt-5 mb-5" #operation>
+              <div id="documentsSection1" class="row">
+                <div class="col-12 attributes">
+                  <div class="files-header mb-2">
+                    <div class="d-flex">
+
+                    </div>
+                  </div>
+                  <hr class="mb-3">
+                  <div>
+                    <div class="table-responsive border-1-gray">
+                      <div class="content-page-table table table-responsive" style="position: relative;">
+<!--                        <table mat-table [dataSource]="tableData[0]" class="table custom-table mat-elevation-z0">-->
+<!--                          &lt;!&ndash; Position Column &ndash;&gt;-->
+<!--                          <ng-container matColumnDef="company">-->
+<!--                            <th mat-header-cell *matHeaderCellDef> Company </th>-->
+<!--                            <td mat-cell *matCellDef="let element"> {{ element?.company?.name }} </td>-->
+<!--                          </ng-container>-->
+
+<!--                          <ng-container matColumnDef="erp_code">-->
+<!--                            <th mat-header-cell *matHeaderCellDef> ERPCODE </th>-->
+<!--                            <td mat-cell *matCellDef="let element"> {{ element?.erpCode }} </td>-->
+<!--                          </ng-container>-->
+
+<!--                          <ng-container matColumnDef="asset">-->
+<!--                            <th mat-header-cell *matHeaderCellDef> Asset </th>-->
+<!--                            <td mat-cell *matCellDef="let element"> {{ element?.invNo }} </td>-->
+<!--                          </ng-container>-->
+
+<!--                          <ng-container matColumnDef="description">-->
+<!--                            <th mat-header-cell *matHeaderCellDef> Description </th>-->
+<!--                            <td mat-cell *matCellDef="let element"> {{ element?.name }} </td>-->
+<!--                          </ng-container>-->
+
+<!--                          <ng-container matColumnDef="brand">-->
+<!--                            <th mat-header-cell *matHeaderCellDef> Brand </th>-->
+<!--                            <td mat-cell *matCellDef="let element"> {{ element?.brand?.code }} </td>-->
+<!--                          </ng-container>-->
+
+<!--                          <ng-container matColumnDef="model">-->
+<!--                            <th mat-header-cell *matHeaderCellDef> Model </th>-->
+<!--                            <td mat-cell *matCellDef="let element"> {{ element?.model?.code }} </td>-->
+<!--                          </ng-container>-->
+<!--                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--                        </table>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mt-5 mb-5">
+              <div class="row">
+                <div class="col-12 attributes">
+                  <div class="files-header mb-2">
+                    <div class="d-flex">
+
+                    </div>
+                  </div>
+                  <div class="border-1-gray">
+<!--                    <back-assets-mat-table #assetsList id="assetsList"-->
+<!--                                      [dataSource]="dataSource"-->
+<!--                                      dynamicQuery="true"-->
+<!--                                      usePaging="true"-->
+<!--                                      sortColumn="asset.invNo"-->
+<!--                                      sortDirection="asc"-->
+<!--                                      showSimpleSearch="true"-->
+<!--                                      showSelectionCheckBox="true"-->
+<!--                                      showAddAction="false"-->
+<!--                                      showEditAction="false"-->
+<!--                                      showViewAction="false"-->
+<!--                                      showCancelAction="false"-->
+<!--                                      showDeleteAction="false"-->
+<!--                                      rowSelection="single"-->
+<!--                                      notifyOnChange="false">-->
+<!--                    </back-assets-mat-table>-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">Cancel</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            (click)="save()"
+    >Save</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,208 @@
+<div class="modalfilters-page-header" *ngIf="showSimpleSearch === 'true'">
+  <div class="full-search-form">
+    <input type="text" placeholder="Search.." [(ngModel)]="simpleFilter" (change)="applySimpleSearchFilter(simpleFilter)">
+    <button type="submit">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.32812 9.70312C4.20312 10.5781 5.26562 11.0156 6.51562 11.0156C7.76562 11.0156 8.82812 10.5781 9.70312 9.70312C10.5781 8.82812 11.0156 7.76562 11.0156 6.51562C11.0156 5.26562 10.5781 4.20313 9.70312 3.32812C8.82812 2.45312 7.76562 2.01562 6.51562 2.01562C5.26562 2.01562 4.20312 2.45312 3.32812 3.32812C2.45312 4.20313 2.01562 5.26562 2.01562 6.51562C2.01562 7.76562 2.45312 8.82812 3.32812 9.70312ZM12.5156 11.0156L17.4844 15.9844L15.9844 17.4844L11.0156 12.5156V11.7188L10.7344 11.4375C9.54688 12.4688 8.14062 12.9844 6.51562 12.9844C4.70312 12.9844 3.15625 12.3594 1.875 11.1094C0.625 9.85938 0 8.32812 0 6.51562C0 4.70312 0.625 3.17188 1.875 1.92188C3.15625 0.640625 4.70312 0 6.51562 0C8.32812 0 9.85938 0.640625 11.1094 1.92188C12.3594 3.17188 12.9844 4.70312 12.9844 6.51562C12.9844 7.17188 12.8281 7.92188 12.5156 8.76562C12.2031 9.57812 11.8438 10.2344 11.4375 10.7344L11.7188 11.0156H12.5156Z" fill="#0B4FFF"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="showHeader === 'true'" class="content-page-header-two d-flex">
+  <div class="left-actions d-flex">
+    <div class="refresh">
+      <a [routerLink]="" (click)="refreshItems()">
+        <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="results d-flex">
+    <span>Total: {{ totalItems }}</span>
+  </div>
+</div>
+
+<div class="content-page-table table table-responsive" style="position: relative;">
+  <table class="table custom-table" [class.padding-compact]="true">
+    <thead>
+    <tr>
+      <th class="width-50 text-center">
+        <mat-checkbox (change)="$event ? updateAllSelection($event.checked) : null"
+                      [checked]="isAllSelected()"
+                      [indeterminate]="(this._selectedItems.length > 0) && !isAllSelected()"
+                      *ngIf="rowSelection === 'multiple'">
+        </mat-checkbox>
+      </th>
+      <th class="align-left">
+        <a (click)="applySort('name')">
+          <i *ngIf="sortColumn !== 'name'" class="fa fa-sort"></i>
+          <i *ngIf="((sortColumn === 'name') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+          <i *ngIf="((sortColumn === 'name') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+          Nume
+        </a>
+      </th>
+
+      <th class="align-left">
+        <a (click)="applySort('normalizedName')">
+          <i *ngIf="sortColumn !== 'normalizedName'" class="fa fa-sort"></i>
+          <i *ngIf="((sortColumn === 'normalizedName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+          <i *ngIf="((sortColumn === 'normalizedName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+          Normalized Name
+        </a>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" style="height: 42px !important;">
+      <td class="text-center">
+        <!--                <i *ngIf="tableItem.selected" class="fa fa-check"></i>-->
+        <!--                <mat-icon *ngIf="tableItem.selected">check_box</mat-icon>-->
+        <!--                <mat-icon *ngIf="!tableItem.selected">check_box_outline_blank</mat-icon>-->
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? updateItemSelection(tableItem) : null"
+                      [checked]="tableItem.selected">
+        </mat-checkbox>
+      </td>
+      <!-- <td>{{ tableItem.item.id }}</td> -->
+      <td>{{ tableItem.item.name }}</td>
+      <td>{{ tableItem.item.normalizedName }}</td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <nav>
+    <div class="row">
+      <div class="col-xs-12 col-12 col-md-6">
+        <pagination
+          [totalItems]="totalItems"
+          [(ngModel)]="currentPage"
+          [maxSize]="maxSize"
+          class="pagination-sm"
+          [itemsPerPage]="pageSize"
+          previousText="&lsaquo;"
+          nextText="&rsaquo;"
+          firstText="&laquo;"
+          lastText="&raquo;"
+          (pageChanged)="pageChanged($event)"
+          [boundaryLinks]="true"
+          [rotate]="false"
+          (numPages)="numPages = $event">
+        </pagination>
+      </div>
+      <div class="col-xs-12 col-12 col-md-6">
+        <h6 style="text-align: right;">Total: {{ totalItems }}</h6>
+      </div>
+    </div>
+  </nav>
+
+  <div *ngIf="loading" class="table-loading-spinner">
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+      style="margin: 0 10px"
+      [diameter]="80">
+    </mat-progress-spinner>
+  </div>
+</div>
+
+
+<!--<pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"-->
+<!--            [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"-->
+<!--            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>-->
+
+
+
+<!--<div class="content-page-table table table-responsive">-->
+<!--    <table class="table custom-table" [class.padding-compact]="true">-->
+<!--      <thead>-->
+<!--        <tr>-->
+<!--            <th class="width-50 text-center">-->
+<!--&lt;!&ndash;                <button *ngIf="!isAllChecked() && rowSelection === 'multiple'" (click)="updateCheckState(true)" type="button" style="background: none;border: none;display: flex;align-items: center;width: 100%;">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <mat-icon>check_box</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                <button *ngIf="isAllChecked() && rowSelection === 'multiple'" (click)="updateCheckState(false)" type="button" style="background: none;border: none;display: flex;align-items: center;width: 100%;">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <mat-icon>check_box_outline_blank</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                </button>&ndash;&gt;-->
+<!--              <mat-checkbox (change)="$event ? updateAllSelection($event.checked) : null"-->
+<!--                            [checked]="isAllSelected()"-->
+<!--                            [indeterminate]="(this._selectedItems.length > 0) && !isAllSelected()"-->
+<!--                            *ngIf="rowSelection === 'multiple'">-->
+<!--              </mat-checkbox>-->
+<!--            </th>-->
+<!--            &lt;!&ndash; <th class="align-left">-->
+<!--                <a (click)="applySort('id')">-->
+<!--                    <i *ngIf="sortColumn !== 'id'" class="fa fa-sort"></i>-->
+<!--                    <i *ngIf="((sortColumn === 'id') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>-->
+<!--                    <i *ngIf="((sortColumn === 'id') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>-->
+<!--                    Id-->
+<!--                </a>-->
+<!--            </th> &ndash;&gt;-->
+<!--            <th class="align-left">-->
+<!--                <a (click)="applySort('name')">-->
+<!--                    <i *ngIf="sortColumn !== 'name'" class="fa fa-sort"></i>-->
+<!--                    <i *ngIf="((sortColumn === 'name') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>-->
+<!--                    <i *ngIf="((sortColumn === 'name') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>-->
+<!--                    Nume-->
+<!--                </a>-->
+<!--            </th>-->
+
+<!--            <th class="align-left">-->
+<!--              <a (click)="applySort('normalizedName')">-->
+<!--                  <i *ngIf="sortColumn !== 'normalizedName'" class="fa fa-sort"></i>-->
+<!--                  <i *ngIf="((sortColumn === 'normalizedName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>-->
+<!--                  <i *ngIf="((sortColumn === 'normalizedName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>-->
+<!--                  Normalized Name-->
+<!--              </a>-->
+<!--          </th>-->
+<!--        </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+
+<!--          <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" style="height: 42px !important;">-->
+<!--              <td class="text-center">-->
+<!--&lt;!&ndash;                <i *ngIf="tableItem.selected" class="fa fa-check"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                <mat-icon *ngIf="tableItem.selected">check_box</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                <mat-icon *ngIf="!tableItem.selected">check_box_outline_blank</mat-icon>&ndash;&gt;-->
+<!--                <mat-checkbox (click)="$event.stopPropagation()"-->
+<!--                              (change)="$event ? updateItemSelection(tableItem) : null"-->
+<!--                              [checked]="tableItem.selected">-->
+<!--                </mat-checkbox>-->
+<!--              </td>-->
+<!--              &lt;!&ndash; <td>{{ tableItem.item.id }}</td> &ndash;&gt;-->
+<!--              <td>{{ tableItem.item.name }}</td>-->
+<!--              <td>{{ tableItem.item.normalizedName }}</td>-->
+<!--          </tr>-->
+
+<!--      </tbody>-->
+<!--    </table>-->
+
+
+
+<!--      <div class="row">-->
+<!--          <div class="col-sm-9">-->
+<!--              <div class="ui-toolbar-group-left">-->
+<!--                  <div class="text-left">-->
+<!--                      <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"-->
+<!--                                  [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"-->
+<!--                                  previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--          </div>-->
+<!--          <div class="col-sm-3">-->
+<!--              <div class="ui-toolbar-group-left">-->
+<!--                  <div class="text-right">-->
+<!--                      <br>-->
+<!--                      <h5 class="panel-subtitle">Total: {{ totalItems }}</h5>-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--          </div>-->
+<!--      </div>-->
+<!--  </div>-->
+
+
+
+

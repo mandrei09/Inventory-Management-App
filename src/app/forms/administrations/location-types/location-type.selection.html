@@ -1,0 +1,39 @@
+<div class="input-group" *ngIf="itemSelection === 'single'">
+    <h4>{{ selectedLocationType != null ? selectedLocationType.name : "-" }}</h4>
+    <span class="input-group-btn">
+        <button type="button" class="btn btn-default btn-icon" (click)="selectLocationTypes()"><i class="fa fa-ellipsis-h"></i></button>
+    </span>
+</div>
+<div class="btn-group flex-dropdown" dropdown *ngIf="itemSelection === 'multiple'">
+    <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectRegions()">Regiuni</button>
+    <button type="button" class="btn btn-default" dropdownToggle addToggleClass="true">
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" dropdownMenu>
+        <li class="dropdown-item"><a (click)="clearLocationTypeSelection('INI')">Sterge toate<i class="fa fa-times"></i></a></li>
+        <li *ngFor="let locationType of selectedLocationTypes" class="dropdown-item"><a (click)="removeFromLocationTypeSelection(locationType)">{{ locationType.name }} <i class="fa fa-times"></i></a></li>
+    </ul>
+</div>
+
+<div class="modal fade" bsModal #locationTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">TIP MAGAZIN</h4>
+            </div>
+            <div class="modal-body">
+                <location-type-list #locationTypeList id="locationTypeList"
+                    [dataSource]="locationTypeHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </location-type-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocationTypes()">Selecteaza</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="locationTypeListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>

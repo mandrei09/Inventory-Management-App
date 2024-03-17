@@ -1,0 +1,600 @@
+<div *transloco="let t; read: 'page_identity_users_component'">
+  <div class="content-page-header">
+    <app-common-header
+      (filterChanged)="onFilterChanged($event)"
+      (addNew)="onAddNew()">
+    </app-common-header>
+
+    <div class="modal-filters">
+      <div class="filter-content-item child-w-200 mt-15 mr-15">
+        <div class="mt-auto d-flex filter-select-wrapper">
+          <div class="static-form-select">
+            <mat-form-field appearance="fill">
+              <mat-label>Roluri:</mat-label>
+              <mat-select (selectionChange)="setSelectedRole($event.value)">
+                <mat-option [value]="'all'" aria-selected="">Toate</mat-option>
+                <mat-option [value]="'user'">User</mat-option>
+                <mat-option [value]="'audit'">Audit</mat-option>
+                <mat-option [value]="'controlling'">Controlling</mat-option>
+                <mat-option [value]="'accounting'">Accounting</mat-option>
+                <mat-option [value]="'procurement'">Procurement</mat-option>
+                <mat-option [value]="'proc-it'">Procurement IT</mat-option>
+                <mat-option [value]="'buget'">Bugetare</mat-option>
+                <mat-option [value]="'approvers'">Aprobatori</mat-option>
+                <mat-option [value]="'reception'">Receptie bunuri</mat-option>
+                <mat-option [value]="'stock-it'">Stock IT</mat-option>
+                <mat-option [value]="'matrix'">Matrice aprobare</mat-option>
+                <mat-option [value]="'order'">Purchase Order (PO)</mat-option>
+                <mat-option [value]="'request'">Purchase Request(PR)</mat-option>
+                <mat-option [value]="'contract'">Contracte</mat-option>
+                <mat-option [value]="'administrator'">Administrator</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-page-header-two d-flex">
+    <div class="left-actions d-flex">
+      <div class="refresh mr-15 my-auto">
+        <a (click)="refreshUsers()">
+          <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
+          </svg>
+        </a>
+      </div>
+      <div  class="refresh subheader-actions-wrapper subheader-action-text_inline" style="min-width: auto;">
+        <a (click)="export()" class="d-flex" style="color: inherit;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/> </g> </svg>
+          Export
+        </a>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="mr-15" style="display: flex;">
+        <div class="refresh">
+          <button
+            hideIfUnauthorized="MAP_TEMP|ADMIN"
+            (click)="onTemporaryAdd()"
+            class="small-blue-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Temporary"
+            matTooltipHideDelay="200"
+            [disabled]="userList.selectedItems.length === 0"
+          >
+            <mat-icon>more_time</mat-icon>
+            <span>
+              Temporare
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="onEmployeeMap()"
+            class="small-blue-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Mapeaza utilizator"
+            matTooltipHideDelay="200"
+            [disabled]="userList.selectedItems.length === 0"
+          >
+            <mat-icon>person_add_alt_1</mat-icon>
+            <span>
+              Mapare user
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="onSubstituteMap()"
+            class="small-blue-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Mapeaza inlocuitor"
+            matTooltipHideDelay="200"
+            [disabled]="userList.selectedItems.length === 0"
+          >
+            <mat-icon>person_add_alt_1</mat-icon>
+            <span>
+              Mapare inlocuitor
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="onPasswordChange()"
+            class="small-blue-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Change password"
+            matTooltipHideDelay="200"
+            [disabled]="userList.selectedItems.length === 0"
+          >
+            <mat-icon>password</mat-icon>
+            <span>
+              Change password
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="onDeviceMap()"
+            class="small-blue-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Add device"
+            matTooltipHideDelay="200"
+            [disabled]="userList.selectedItems.length === 0"
+          >
+            <mat-icon>devices</mat-icon>
+            <span>
+              Dispozitiv
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="onMobilePhoneMap()"
+            class="small-blue-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Add mobile phone"
+            matTooltipHideDelay="200"
+            [disabled]="userList.selectedItems.length === 0"
+          >
+            <mat-icon>phone_android</mat-icon>
+            <span>
+              Telefon
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="removeMobilePhone()"
+            class="small-danger-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Remove mobile phone"
+            matTooltipHideDelay="200"
+            [disabled]="userList.selectedItems.length === 0"
+          >
+            <mat-icon>devices</mat-icon>
+            <span>
+              Telefon
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="updateDevice()"
+            class="small-danger-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Remove device"
+            matTooltipHideDelay="200"
+            [disabled]="userList.selectedItems.length === 0"
+          >
+            <mat-icon>devices</mat-icon>
+            <span>
+              Dispozitiv
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            (click)="onRoleChange()"
+            class="small-blue-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Change user role"
+            matTooltipHideDelay="200"
+            [disabled]="userList.selectedItems.length === 0"
+          >
+            <mat-icon>group</mat-icon>
+            <span>
+              Modifica rol
+            </span>
+          </button>
+        </div>
+        <div class="vertical-divider"></div>
+      </div>
+      <div class="results d-flex align-items-center">
+        <div>
+          <span>{{ userList.totalItems ? userList.totalItems : '0' }} results</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-user-list #userList id="userList"
+                 [dataSource]="identityHttpService"
+                 detailType="users"
+                 [pageSize]="10"
+                 sortColumn="username"
+                 sortDirection="asc"
+                 rowSelection="multiple"
+                 usePaging="true"
+                 showSimpleSearch="false"
+                 showDeleteAction="true"
+                 (selectionChanged)="onUserSelectionChanged($event)"
+                 (itemDelete)="deleteUser($event)"
+                 notifyOnChange="true">
+  </app-user-list>
+
+</div>
+
+
+
+<!--<div class="animated fadeIn">-->
+<!--  <br>-->
+<!--  <div class="card">-->
+<!--    <div class="card-header" style="background-color: white;">-->
+
+<!--          &nbsp;-->
+<!--&lt;!&ndash;          <div class="btn-group" dropdown>&ndash;&gt;-->
+<!--&lt;!&ndash;              <button dropdownToggle type="button" class="btn btn-dark btn-sm dropdown-toggle">&ndash;&gt;-->
+<!--&lt;!&ndash;              Roluri  {{ role === 'administrator' ? 'Administrator':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'audit' ? 'Audit':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'controlling' ? 'Controlling':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'accounting' ? 'Accounting':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'procurement' ? 'Procurement':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'proc-it' ? 'Procurement IT':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'buget' ? 'Bugetare':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'approvers' ? 'Aprobatori':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'reception' ? 'Receptie bunuri':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'stock-it' ? 'Stock IT':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'matrix' ? 'Matrice aprobare':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'order' ? 'Purchase Order (PO)':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'request' ? 'Purchase Request(PR)':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'contract' ? 'Contracte':&ndash;&gt;-->
+<!--&lt;!&ndash;                         role == 'user' ? 'User':&ndash;&gt;-->
+<!--&lt;!&ndash;                         'Toate' }}<span class="caret"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;              </button>&ndash;&gt;-->
+<!--&lt;!&ndash;              <ul *dropdownMenu class="dropdown-menu" role="menu" role="menu" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item" (click)="setSelectedRole('all')">Toate</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item" (click)="setSelectedRole('user')">User</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item" (click)="setSelectedRole('audit')">Audit</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item" (click)="setSelectedRole('controlling')">Controlling</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item"  (click)="setSelectedRole('accounting')">Accounting</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item"  (click)="setSelectedRole('procurement')">Procurement</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item"  (click)="setSelectedRole('proc-it')">Procurement IT</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item"  (click)="setSelectedRole('buget')">Bugetare</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item"  (click)="setSelectedRole('approvers')">Aprobatori</a></li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item" (click)="setSelectedRole('reception')">Receptie bunuri</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item" (click)="setSelectedRole('stock-it')">Stock IT</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item"  (click)="setSelectedRole('matrix')">Matrice aprobare</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item"  (click)="setSelectedRole('order')">Purchase Order (PO)</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item"  (click)="setSelectedRole('request')">Purchase Request(PR)</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item"  (click)="setSelectedRole('contract')">Contracte</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="divider dropdown-divider"></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li role="menuitem"><a class="dropdown-item" (click)="setSelectedRole('administrator')">Administrator</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;              </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            &nbsp;-->
+<!--            <button hideIfUnauthorized="MAP_TEMP|ADMIN" [disabled]="userList.selectedItems.length === 0" type="button" class="btn btn-success btn-sm" (click)="selectAssetTemp()" [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-plus"></i> &nbsp;Mapare temporara</button>-->
+<!--            &nbsp;-->
+<!--            <button [disabled]="userList.selectedItems.length === 0" type="button" class="btn btn-success btn-sm" (click)="selectDevice()" [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-plus"></i> dispozitiv</button>-->
+<!--            &nbsp;-->
+<!--            <button [disabled]="userList.selectedItems.length === 0" type="button" class="btn btn-danger btn-sm" (click)="updateDevice()" [style.backgroundColor] = "'rgb(168, 16, 0)'"><i class="fa fa-trash-o"></i> dispozitiv</button>-->
+<!--            &nbsp;-->
+<!--            <button [disabled]="userList.selectedItems.length === 0" type="button" class="btn btn-success btn-sm" (click)="selectEmployee()"><i class="fa fa-plus"></i> &nbsp;mapare Angajat</button>-->
+<!--            &nbsp;-->
+<!--            <button [disabled]="userList.selectedItems.length === 0" type="button" class="btn btn-warning btn-sm" (click)="selectSubstitute()"><i class="fa fa-plus"></i> &nbsp;mapare Inlocuitor</button>-->
+<!--            &lt;!&ndash; &nbsp;-->
+<!--            <button [disabled]="userList.selectedItems.length === 0" type="button" class="btn btn-success btn-sm" (click)="selectRoom()"><i class="fa fa-plus"></i> &nbsp;Mapare Centru de cost</button> &ndash;&gt;-->
+<!--            &nbsp;-->
+<!--            <button [disabled]="userList.selectedItems.length === 0" type="button" class="btn btn-info btn-sm"-->
+<!--              (click)="changePassword(this.userList.selectedItem.userName)"><i class="fa fa-key"></i> &nbsp;modificare parola</button>-->
+<!--              &nbsp;-->
+<!--              <div class="btn-group" dropdown>-->
+<!--                <button [disabled]="userList.selectedItems.length === 0" dropdownToggle type="button" class="btn btn-info btn-sm dropdown-toggle">&nbsp;modifica rol<span class="caret"></span></button>-->
+<!--                <ul *dropdownMenu class="dropdown-menu" role="menu" role="menu" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="changeRole('user')">User</a></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="changeRole('audit')">Audit</a></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="changeRole('controlling')">Controlling</a></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item"  (click)="changeRole('accounting')">Accounting</a></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item"  (click)="changeRole('procurement')">Procurement</a></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item"  (click)="changeRole('proc-it')">Procurement IT</a></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item"  (click)="changeRole('buget')">Bugetare</a></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item"  (click)="changeRole('approvers')">Aprobatori</a></li>-->
+
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="changeRole('reception')">Receptie bunuri</a></li>-->
+<!--                <li role="menuitem"><a class="dropdown-item" (click)="changeRole('stock-it')">Stock IT</a></li>-->
+<!--                <li role="menuitem"><a class="dropdown-item"  (click)="changeRole('matrix')">Matrice aprobare</a></li>-->
+<!--                <li role="menuitem"><a class="dropdown-item"  (click)="changeRole('order')">Purchase Order (PO)</a></li>-->
+<!--                <li role="menuitem"><a class="dropdown-item"  (click)="changeRole('request')">Purchase Request(PR)</a></li>-->
+<!--                <li role="menuitem"><a class="dropdown-item"  (click)="changeRole('contract')">Contracte</a></li>-->
+<!--                  <li class="divider dropdown-divider"></li>-->
+<!--                  <li role="menuitem"><a class="dropdown-item" (click)="changeRole('administrator')">Administrator</a></li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--              &nbsp;-->
+<!--              <button [disabled]="userList.selectedItems.length === 0" type="button" class="btn btn-danger btn-sm"-->
+<!--              (click)="deleteUser(this.userList.selectedItem.userName)"><i class="fa fa-trash"></i> &nbsp;stergere utilizator</button>-->
+<!--              &nbsp;-->
+<!--            <button type="button" class="btn btn-success btn-sm" (click)="register()"><i class="fa fa-plus"></i>&nbsp;utilizator nou</button>-->
+<!--            &nbsp; &nbsp;-->
+<!--            <button type="button" class="btn btn-success btn-sm" (click)="export()" style="background-color: rgb(0, 130, 19);color: white;" [disabled]="!showExportBtn" ><i class="fa fa-download"></i> </button>-->
+
+<!--            <div class="card-header-actions">-->
+<!--                    <div class="input-group">-->
+<!--                      <input type="text" class="form-control" placeholder="Search.." aria-label="Search..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="refreshUsers()" style="width: 150px;">-->
+<!--                      <div class="input-group-append">-->
+<!--                        &lt;!&ndash; <button type="button" class="btn btn-dark" (click)="isCollapsed = !isCollapsed">Action</button> &ndash;&gt;-->
+<!--                        <button type="button" class="btn btn-ghost-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">-->
+<!--                          &lt;!&ndash; <span class="sr-only">Toggle Dropdown</span> &ndash;&gt;-->
+<!--                          ...-->
+<!--                        </button>-->
+<!--                        <div class="dropdown-menu" [style.backgroundColor]="'rgb(52, 30, 22)'" [style.color]="'burlywood'">-->
+
+
+<!--                          &lt;!&ndash; <a hideIfUnauthorized="ADD|ASSET" class="dropdown-item" (click)="addNewAsset()"><i class="fa fa-plus" style="color: green;"></i>&nbsp;Asset</a>-->
+<!--                          &nbsp;-->
+<!--                          <a hideIfUnauthorized="ADD_TRANSFER|ASSET" class="dropdown-item" *ngIf="selectedAssets.length !== 0" (click)="addNewOperation()"><i class="fa fa-plus" style="color: green;"></i> &nbsp;Operatie</a>-->
+<!--                          &nbsp;-->
+<!--                          <a hideIfUnauthorized="ADD_DESCRIPTION|ASSET" class="dropdown-item" *ngIf="selectedAssets.length > 0" (click)="newAsset()"><i class="fa fa-plus" style="color: green;"></i>&nbsp;Descriere</a>-->
+<!--                          &nbsp;-->
+<!--                          <a hideIfUnauthorized="EDIT|ASSET" class="dropdown-item" *ngIf="selectedAssets.length === 1"  (click)="editAsset()"><i class="fa fa-edit" style="color: darkorange;"></i> &nbsp;Detalii</a>-->
+<!--                          &nbsp;-->
+<!--                          <a hideIfUnauthorized="DELETE|ASSET" class="dropdown-item" *ngIf="selectedAssets.length === 1" (click)="deleteAsset()"><i class="fa fa-trash-o" style="color: red;"></i> &nbsp;Sterge</a>-->
+<!--                          &nbsp;-->
+<!--                          <a hideIfUnauthorized="PRINT|ASSET" class="dropdown-item" *ngIf="selectedAssets.length > 0" (click)="printLabel()"><i class="fa fa-barcode" style="color: darkcyan;"></i> &nbsp;Eticheta</a> &ndash;&gt;-->
+<!--                        </div>-->
+<!--                      </div>-->
+
+
+<!--                    </div>-->
+<!--              </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; <div class="card-body"-->
+<!--         (collapsed)="collapsed($event)"-->
+<!--         (expanded)="expanded($event)"-->
+<!--         [collapse]="isCollapsed">-->
+<!--         <div class="card-body-actions">-->
+<!--          <div class="row">-->
+
+<!--          </div>-->
+<!--      </div>-->
+<!--    </div> &ndash;&gt;-->
+<!--    <div hideIfUnauthorized="VIEW|ASSET" class="card-footer" style="background-color: white;">-->
+<!--      <div class="col-sm-12">-->
+<!--          <app-user-list #userList id="userList"-->
+<!--            [dataSource]="identityHttpService"-->
+<!--            detailType="users"-->
+<!--            [pageSize]="5"-->
+<!--            sortColumn="username"-->
+<!--            sortDirection="asc"-->
+<!--            usePaging="true"-->
+<!--            showSimpleSearch="false"-->
+<!--            (selectionChanged)="onUserSelectionChanged($event)"-->
+<!--            notifyOnChange="true">-->
+<!--        </app-user-list>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--      <button [disabled]="userList.selectedItems.length === 0" type="button" class="btn btn-warning btn-sm" (click)="saveUpdateRoles()"><i class="fa fa-plus"></i> &nbsp;Salveaza modificari</button>-->
+<!--      <div class="col-sm-12">-->
+<!--        <p-pickList [source]="availableRoles" [target]="selectedRoles" sourceHeader="Roluri disponibile" targetHeader="Roluri selectate" [dragdrop]="true"-->
+<!--        [showSourceFilter]="false" [showTargetFilter]="false" [showSourceControls]="false" [showTargetControls]="false" [responsive]="true" [sourceStyle]="{'height':'20rem', 'background-color': 'ghostwhite'}" [targetStyle]="{'height':'20rem', 'background-color': 'ghostwhite'}" filterBy="name" (onMoveToTarget)="moveToTarget($event)"-->
+<!--        sourceFilterPlaceholder="cauta dupa denumire" targetFilterPlaceholder="cauta dupa denumire">-->
+<!--        <ng-template let-item pTemplate="item">-->
+<!--            <div class="partner-item">-->
+<!--                <div class="product-list-detail">-->
+<!--                    <h5 class="p-mb-2">{{item?.name}} </h5>-->
+<!--                    <i class="pi pi-tag product-category-icon"></i>-->
+<!--                    &lt;!&ndash; <span class="product-category">{{budgetForecast?.budgetBase?.info}} / {{budgetForecast?.project?.code}} </span> &ndash;&gt;-->
+<!--                    &lt;!&ndash; <div class="progress progress-xs">-->
+<!--                      <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': ((budgetForecast.totalRem/budgetForecast.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">-->
+<!--                        <strong>{{(budgetForecast.totalRem/budgetForecast.total) * 100.0 | number: '1.2-2'}}</strong></div>-->
+<!--                    </div> &ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </ng-template>-->
+<!--    </p-pickList>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="modal fade" bsModal #registerModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Utilizator nou</h4>
+      </div>
+      <div class="modal-body">
+        <!-- <register></register> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #admCenterListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Regiuni</h4>
+      </div>
+      <div class="modal-body">
+        <app-adm-center-list #admCenterList id="admCenterList" [dataSource]="admCenterHttpService" rowSelection="multiple"
+          notifyOnChange="false" usePaging="true">
+        </app-adm-center-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdmCenter()">Selecteaza</button>
+        <button type="button" class="btn btn-dark btn-sm" (click)="admCenterListModal.hide()">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Angajat</h4>
+      </div>
+      <div class="modal-body">
+        <app-employee-list #employeeList id="employeeList" [dataSource]="employeeHttpService" rowSelection="single"
+          notifyOnChange="false" usePaging="true">
+        </app-employee-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm"
+          (click)="setSelectedEmployee()">Selecteaza</button>
+        <button type="button" class="btn btn-dark btn-sm" (click)="employeeListModal.hide()">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #substituteListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Substitute</h4>
+
+          <div class="col-md-3">
+            <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+                De la
+              </div>
+            <div class="input-group">
+                    <input (change)="changeSubstituteFromDate($event)" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" type="date" onkeydown="return false" class="form-control" required #fromDateSubstitute [value]="fromDate | date: 'yyyy-MM-dd'" name="fromDate" (input)="fromDate=parseDate($event.target)">
+            </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold; background-color: gainsboro">
+              Pana la
+            </div>
+          <div class="input-group">
+                  <input (change)="changeSubstituteToDate($event)" style="font-size: 12px;background-color: transparent;text-align: center;font-weight: bold" type="date" onkeydown="return false" class="form-control" required #toDateSubstitute [value]="toDate | date: 'yyyy-MM-dd'" name="toDate" (input)="toDate=parseDate($event.target)">
+          </div>
+      </div>
+
+      </div>
+      <div class="modal-body">
+        <app-employee-list #substituteList id="substituteList" [dataSource]="employeeHttpService" rowSelection="single"
+          notifyOnChange="false" usePaging="true">
+        </app-employee-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedSubstitute()" [disabled]="substituteList.selectedItem == null">Selecteaza</button>
+        <button type="button" class="btn btn-dark btn-sm" (click)="substituteListModal.hide()">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #divisionListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Manager</h4>
+      </div>
+      <div class="modal-body">
+        <app-division-list #divisionList id="divisionList" [dataSource]="divisionHttpService" rowSelection="single"
+          notifyOnChange="false" usePaging="true">
+        </app-division-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm"
+          (click)="setSelectedDivision()">Selecteaza</button>
+        <button type="button" class="btn btn-dark btn-sm" (click)="divisionListModal.hide()">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #roomListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Shop</h4>
+      </div>
+      <div class="modal-body">
+        <app-room-list #roomList id="roomList" [dataSource]="roomHttpService" rowSelection="single"
+          notifyOnChange="false" usePaging="true">
+        </app-room-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm"
+          (click)="setSelectedRoom()">Selecteaza</button>
+        <button type="button" class="btn btn-dark btn-sm" (click)="roomListModal.hide()">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #assetTempListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Temporare</h4>
+                <button (click)="showAllTemps(false)" class=" modal-title pull-right btn btn-success btn" type="button">Alocate</button>
+                <button (click)="showAllTemps(true)" class="modal-title pull-right btn btn-danger btn" type="button">Disponibile</button>
+
+                <!-- <div hideIfUnauthorized="PAGE_SIZE|ASSET" class="btn-group" dropdown>
+                  <button dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle" >
+                   {{ pageSizeTemp }}<span class="caret"></span>
+                  </button>
+                  <ul *dropdownMenu class="dropdown-menu" role="menu" role="menu" style="background-color: #212529;color: ghostwhite;">
+                    <li role="menuitem" (click)="onPageTempUpdate(5)"><a class="dropdown-item">5</a></li>
+                    <li role="menuitem" (click)="onPageTempUpdate(10)"><a class="dropdown-item">10</a></li>
+                    <li role="menuitem" (click)="onPageTempUpdate(15)"><a class="dropdown-item">15</a></li>
+                    <li role="menuitem" (click)="onPageTempUpdate(20)"><a class="dropdown-item">20</a></li>
+                    <li role="menuitem" (click)="onPageTempUpdate(30)"><a class="dropdown-item">30</a></li>
+                    <li role="menuitem" (click)="onPageTempUpdate(50)"><a class="dropdown-item">50</a></li>
+                    <li role="menuitem" (click)="onPageTempUpdate(70)"><a class="dropdown-item">70</a></li>
+                    <li role="menuitem" (click)="onPageTempUpdate(100)"><a class="dropdown-item">100</a></li>
+                  </ul>
+                </div> -->
+            </div>
+            <div class="modal-body">
+                <app-asset-entity-list #assetTempList id="assetTempList"
+                    [dataSource]="assetHttpService"
+                    detailType="maptemps"
+                    listTemplate="MAPTEMPS"
+                    dynamicQuery="true"
+                    sortColumn="asset.id"
+                    sortDirection="asc"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    [pageSize]="pageSizeTemp"
+                    usePaging="true">
+                </app-asset-entity-list>
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="assetTempList.selectedItems.length === 0" type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetTemp()">Selecteaza</button>
+                <button type="button" class="btn btn-dark btn-sm" (click)="assetTempListModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #deviceListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Dispozitive</h4>
+       </div>
+       <div class="modal-body">
+           <device-list #deviceList id="deviceList"
+               [dataSource]="deviceHttpService"
+               rowSelection="single"
+               notifyOnChange="false"
+               sortColumn="code"
+               sortDirection="asc"
+               usePaging="true">
+           </device-list>
+       </div>
+       <div class="modal-footer">
+           <button type="button" class="btn btn-success btn-xs" (click)="setSelectedDevice()">SELECT</button>
+           <button type="button" class="btn btn-default btn-xs" (click)="deviceListModal.hide()">CLOSE</button>
+       </div>
+   </div>
+</div>
+</div>

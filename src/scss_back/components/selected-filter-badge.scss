@@ -1,0 +1,44 @@
+.selected-filter-badge {
+  background: #D9D9DF;
+  border-radius: 12px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 4px 16px;
+  margin-right: 16px;
+
+  svg {
+    margin-left: 8px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.selected-filter-remove {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: transparent;
+  border: none;
+
+  svg {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 16px;
+    color: #CC1010;
+    margin-right: 8px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

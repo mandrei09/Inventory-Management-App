@@ -1,0 +1,88 @@
+<div class="widgets">
+    <div class="row">
+      <div class="col-md-12">
+          <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+              <!-- <div class="form-group">
+                  <label for="code">Code</label>
+                  <input type="text" class="form-control" placeholder="code..." required maxlength="30"
+                      [(ngModel)]="item.code" name="code" #code="ngModel">
+                  <div [hidden]="code.valid || code.pristine" class="alert alert-danger">
+                      Code is required!
+                  </div>
+
+              </div>
+              <div class="form-group">
+                  <label for="name">Description</label>
+                  <input type="text" class="form-control" placeholder="descriere" required maxlength="100"
+                      [(ngModel)]="item.name" name="name" #name="ngModel">
+                  <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                      Description is required!
+                  </div>
+              </div> -->
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <label for="location">Storage</label>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <div class="input-group">
+                              <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedStorage != null ? selectedStorage.code + ' | ' + selectedStorage.name : ''" disabled>
+                              <span class="input-group-append">
+                                  <button type="button"  class="btn btn-success"  (click)="askForStorage()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                              </span>
+                            </div>
+                      </div>
+
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <label for="location">Angajat</label>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <div class="input-group">
+                              <!-- <h4>{{ selectedCountry != null ? selectedCountry.name : "" }}</h4> -->
+                              <input type="text" id="disabled-input" name="disabled-input" class="form-control" [value]="selectedEmployee != null ? selectedEmployee.firstName + ' | ' + selectedEmployee.lastName : ''" disabled>
+                              <span class="input-group-append">
+                                  <button type="button"  class="btn btn-success"  (click)="askForEmployee()"><i class="fa fa-globe" aria-hidden="true"></i></button>
+                              </span>
+                            </div>
+                      </div>
+
+                  </div>
+              </div>
+
+
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="ui-toolbar-group-left">
+                          <div *ngIf="!deleteConfirmationMode">
+                              <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Delete</button>
+                          </div>
+                          <div *ngIf="deleteConfirmationMode">
+                              <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-check"></i> Da</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> No</button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="ui-toolbar-group-right">
+                          <div class="text-right">
+                              <div *ngIf="!deleteConfirmationMode">
+                                  <button type="button" class="btn btn-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Save</button>
+                                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Inchide</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>

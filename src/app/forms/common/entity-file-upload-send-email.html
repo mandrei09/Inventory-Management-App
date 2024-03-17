@@ -1,0 +1,8 @@
+<!-- <input #fileInput type="file" placeholder="Selectie fisier ..."/>
+<button class="browse btn btn-success input-lg" style="background-color: chocolate;" (click)="upload()" [disabled]="!allowUpload"><i class="fa fa-upload"></i> Incarca</button> -->
+
+<form style="display: inline-flex;" >
+    <input #fileInput type="file" multiple="multiple" class="form-control" id="fileName"  placeholder="Selectie fisier ..." accept=".pdf" required  (change)="onImageChangeFromFile($event)">
+    <button [disabled]="!showUploadBtn"  type="button" class="btn btn-outline-success btn-sm" style="background-color: forestgreen; color: blanchedalmond" (click)="upload()">Trimite spre aprobare</button>
+ </form>
+ 

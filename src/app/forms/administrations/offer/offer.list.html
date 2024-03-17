@@ -1,0 +1,151 @@
+<div class="animated fadeIn">
+    <div class="card" *ngIf="showSimpleSearch === 'true'">
+            <div class="card-header">
+                <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2" [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)">
+            </div>
+    </div>
+    <div class="card-body table-responsive table w-auto small">
+        <table class="table table-bordered table-striped" style="white-space: nowrap; font-weight: 500;" [style.font-size.px]="12">
+            <thead class="thead" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'burlywood'">
+            <tr>
+                <th>
+                        <button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-default btn-sm" type="button"><i class="fa fa-check"></i></button>
+                        <button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+                </th>
+                <th>
+                    Status
+                </th>
+                <th *ngFor="let column of columns" class="align-left">
+                    <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+                        <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                        <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                        <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                        {{ column.headerCode }}
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "tableItem.selected ? 'rgb(95,158,160)' : 'rgb(255, 255, 255)'">
+                <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+                <td>
+                    <div class="progress progress-xs">
+                      <div  role="progressbar" style="width: 100%;"
+                      [ngClass]="{
+                          'progress-bar bg-danger':  tableItem.item.appStateId  === 1,
+                          'progress-bar bg-success' : tableItem.item.appStateId === 7
+                      }" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+
+                    </div>
+                    </div>
+                  </td>
+                <td *ngFor="let column of columns" [style.text-align]="column.textAlign" >{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <nav>
+        <div class="row">
+            <div class="col-xs-12 col-12 col-md-6">
+                <pagination
+                [totalItems]="totalItems"
+                [(ngModel)]="currentPage"
+                [maxSize]="maxSize"
+                class="pagination-sm"
+                [itemsPerPage]="pageSize"
+                previousText="&lsaquo;"
+                nextText="&rsaquo;"
+                firstText="&laquo;"
+                lastText="&raquo;"
+                (pageChanged)="pageChanged($event)"
+                [boundaryLinks]="true"
+                [rotate]="false"
+                (numPages)="numPages = $event">
+            </pagination>
+          </div>
+        <div class="col-xs-12 col-12 col-md-6">
+            <h6 style="text-align: right;">Total: {{ totalItems }}</h6>
+          </div>
+        </div>
+      </nav>
+</div>
+</div>
+
+<!-- {{tableItems.length}}
+<p-table dataKey="id" [resizableColumns]="true" #dt1 [autoLayout]="true" [value]="tableItems"  [rows]="5" [resizableColumns]="true"
+	[rowsPerPageOptions]="[5,10,25,50,100, { showAll: 'All' }]" [loading]="loading" [showCurrentPageReport]="true" [alwaysShowPaginator]="false"
+    [lazy]="true" [rows]="100"
+    (onLazyLoad)="loadData($event)"  [totalRecords]="totalItems" styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines p-datatable-sm"
+	[paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+	<ng-template pTemplate="header">
+		<tr>
+			<th style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+		</th>
+        <th *ngFor="let column of columns" [pSortableColumn]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy" style="width: max-content; font-size: 12px;background-color: rgb(52, 30, 22);color: white;">
+
+				<div class="p-d-flex p-jc-between p-ai-center">
+                        {{column.headerCode}}
+                    <p-sortIcon [field]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy"></p-sortIcon>
+					<p-columnFilter
+					[showMatchModes]="false"
+					[showOperator]="false"
+					[showAddButton]="false"
+					[type]="((column.pipe && (column.pipe.length > 0)) ? column.pipe : 'text')"
+					[field]="((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy"
+					display="menu"
+					sortable="usePaging === 'true' ? 'custom' : 'true'">
+				</p-columnFilter>
+				</div>
+			</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-tableItem let-expanded="expanded">
+        <tr (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+        <td>
+          <button type="button" pButton pRipple [pRowToggler]="tableItem" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+      </td>
+			<td>
+				<button *ngIf="!tableItem.selected" class="btn btn-light btn-sm" type="button"><i class="pi pi-times"></i></button>
+				<button *ngIf="tableItem.selected"  class="btn btn-success btn-sm" type="button"><i class="pi pi-check"></i></button>
+			</td>
+            <td *ngFor="let column of columns"  style="width: max-content; font-size: 12px;white-space: nowrap" selectionMode="multiple">
+              <span [ngClass]="'default'">{{ tableItem.item | fieldByColumnDefinition: column }}</span></td>
+        </tr>
+	</ng-template>
+
+  <ng-template pTemplate="rowexpansion" let-tableItem>
+    <tr>
+        <td colspan="7">
+            <div class="p-p-3">
+                <p-table [value]="tableItem.item.orders" dataKey="id">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
+                            <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
+                            <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+                            <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
+                            <th pSortableColumn="stats">Status <p-sortIcon field="status"></p-sortIcon></th>
+                            <th style="width: 4rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-order>
+                        <tr>
+                            <td>{{order.id}}</td>
+                            <td>{{order.customer}}</td>
+                            <td>{{order.id}}</td>
+                            <td>{{order.amount | currency:'USD'}}</td>
+                            <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
+                            <td><p-button type="button" icon="pi pi-search"></p-button></td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="6">There are no order for this product yet.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </td>
+    </tr>
+</ng-template>
+
+</p-table> -->

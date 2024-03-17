@@ -1,0 +1,502 @@
+<div class="full-width-add-edit-dialog po-order-edit-dialog_component" *transloco="let t; read: 'page_order_details'">
+  <div class="modal-dialog-header">
+    <div class="d-flex">
+      <h2 class="modal-title mb-0">
+        Order details ({{ this.order?.code }})
+      </h2>
+    </div>
+
+    <div class="d-flex">
+      <button
+      [disabled]="this.order?.appState?.code !== 'ACCEPTED'"
+        (click)="onAddPreReception()"
+        class="small-blue-btn mb-0 ml-10 b-radius-20"
+      >
+        <mat-icon>add</mat-icon>
+        <span>
+          Adaugare pre receptie
+        </span>
+      </button>
+      <button
+        class="small-blue-btn mb-0 ml-10 b-radius-20"
+        [disabled]="budgetForecastNew == null"
+        (click)="updateOrderBudgetForecast()"
+      >
+        <mat-icon>attach_money</mat-icon>
+        <span>
+          Actualizare buget
+        </span>
+      </button>
+      <button
+        class="small-blue-btn mb-0 ml-10 b-radius-20"
+        [disabled]="readOnlyInfo && readOnlyAppState"
+        (click)="update()"
+      >
+        <mat-icon>mode_edit</mat-icon>
+        <span>
+          Editare
+        </span>
+      </button>
+      <button
+        class="small-danger-btn mb-0 ml-10 b-radius-20"
+        (click)="onDeleteOrder()"
+      >
+        <mat-icon>delete_outline</mat-icon>
+        <span>
+          Stergere
+        </span>
+      </button>
+      <div class="vertical-divider"></div>
+      <button type="button" class="btn-close" mat-dialog-close style="margin-left: 10px;margin-top: auto;margin-bottom: auto;"></button>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+
+      <div class="container-fluid">
+        <div class="row dash-alerts-wrapper">
+          <div class="col-md-12" *ngIf="addInvoiceNo == false">
+            <div class="dash-alert-item">
+              <div class="alert" role="alert">
+                  Adaugati factura din sectiunea "Pre-receptii"
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="row mx-auto">
+            <div class="col-12 mx-auto">
+
+              <div class="mb-5">
+                <mat-tab-group mat-stretch-tabs="false" color="transparent" (selectedTabChange)="handleChange($event)">
+                  <mat-tab label="Detalii">
+                    <div class="row mt-5">
+                      <div class="col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4 d-flex" style="display:grid !important;">
+                          <label>
+                            Info:
+                          </label>
+                          <input matInput type="text" class="form-control" [(ngModel)]="order.info" name="info" [readOnly]="readOnlyInfo">
+                        </div>
+                      </div>
+
+                      <div *ngIf="order !== null" class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                          <label>
+                            Owner:
+                          </label>
+                          <employee-item-select class="form-group-select_wrapper" [(ngModel)]="selectedOwner" displayValue="email" placeholder="Selecteaza owner" [disabled]="readOnlyOwner" [ngModelOptions]="{standalone: true}">
+                          </employee-item-select>
+                        </div>
+                      </div>
+
+                      <div *ngIf="order !== null" class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                          <label>
+                            App state:
+                          </label>
+                          <app-state-item-select class="form-group-select_wrapper" [(ngModel)]="selectedAppState" displayValue="name" placeholder="Selecteaza state" [disabled]="readOnlyAppState" [ngModelOptions]="{standalone: true}">
+                          </app-state-item-select>
+                        </div>
+                      </div>
+
+                      <div *ngIf="order !== null" class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                          <label>
+                            Divizie:
+                          </label>
+                          <divisions-item-select class="form-group-select_wrapper" [(ngModel)]="selectedDivision" displayValue="name" placeholder="Selecteaza divizie" [disabled]="readOnlyDivision" [ngModelOptions]="{standalone: true}">
+                          </divisions-item-select>
+                        </div>
+                      </div>
+
+                      <div *ngIf="order !== null" class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                          <label>
+                            Asset type:
+                          </label>
+                          <asset-types-item-select class="form-group-select_wrapper" [(ngModel)]="selectedAssetType" displayValue="name" placeholder="Selecteaza asset type" [disabled]="readOnlyAssetType" [ngModelOptions]="{standalone: true}">
+                          </asset-types-item-select>
+                        </div>
+                      </div>
+
+                      <div *ngIf="order !== null" class="col-12 col-md-4">
+                        <div class="form-group inputs-modal-nomenclature mb-4 d-grid">
+                          <label>
+                            Project type:
+                          </label>
+                          <project-types-item-select class="form-group-select_wrapper" [(ngModel)]="selectedProjectType" displayValue="name" placeholder="Selecteaza project type" [disabled]="readOnlyProjectType" [ngModelOptions]="{standalone: true}">
+                          </project-types-item-select>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Bugete">
+                    <div class="row mt-5">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Lista bugete ({{ requestBudgetForecastList?.totalItems }})</span>
+                          <div class="d-flex">
+<!--                            <button class="medium-blue-btn mb-0 ml-15" (click)="onParentAdd()" [disabled]="item?.state?.id == ticketStatesEnum.InProgress || assetsList?.totalItems! === 0">-->
+<!--                              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>-->
+<!--                              </svg>-->
+<!--                              Adauga-->
+<!--                            </button>-->
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-request-budget-forecast-material-view-ng-prime-validate #requestBudgetForecastList id="requestBudgetForecastList"
+                                                                                         [dataSource]="requestBudgetForecastHttpService"
+                                                                                         showSimpleSearch="false"
+                                                                                         listTemplate="REQUESTBUDGETFORECASTS"
+                                                                                         detailType=""
+                                                                                         sortColumn="request.code"
+                                                                                         sortDirection="asc"
+                                                                                         dynamicQuery="true"
+                                                                                         rowSelection="single"
+                                                                                         notifyOnChange="true"
+                                                                                         (selectionChanged)="setSelectedItem($event)"
+                                                                                         usePaging="true">
+                            </app-request-budget-forecast-material-view-ng-prime-validate>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="P.R.">
+                    <div class="row mt-5">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Lista P.R. ({{ requestList?.totalItems }})</span>
+                          <div class="d-flex">
+<!--                            <button class="medium-blue-btn mb-0 ml-15" (click)="onParentAdd()" [disabled]="item?.state?.id == ticketStatesEnum.InProgress || assetsList?.totalItems! === 0">-->
+<!--                              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>-->
+<!--                              </svg>-->
+<!--                              Adauga-->
+<!--                            </button>-->
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-request-list-ng-prime #requestList id="requestList"
+                                                       [dataSource]="requestHttpService"
+                                                       showSimpleSearch="false"
+                                                       listTemplate="REQUESTS"
+                                                       detailType=""
+                                                       sortColumn="request.id"
+                                                       sortDirection="desc"
+                                                       dynamicQuery="true"
+                                                       rowSelection="single"
+                                                       notifyOnChange="true"
+                                                       (selectionChanged)="setSelectedItem($event)"
+                                                       usePaging="true">
+                            </app-request-list-ng-prime>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Oferte">
+                    <div class="row mt-5">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Lista oferte ({{ offerList?.totalItems }})</span>
+                          <div class="d-flex">
+
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-offer-view-ng-prime-validate #offerList id="offerList"
+                                                              [dataSource]="offerHttpService"
+                                                              showSimpleSearch="false"
+                                                              listTemplate="OFFERS"
+                                                              detailType=""
+                                                              sortColumn="offer.code"
+                                                              sortDirection="desc"
+                                                              dynamicQuery="true"
+                                                              rowSelection="single"
+                                                              notifyOnChange="true"
+                                                              (selectionChanged)="setSelectedItem($event)"
+                                                              usePaging="true">
+                            </app-offer-view-ng-prime-validate>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Produse">
+                    <div class="row mt-5">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Lista produse ({{ offerMaterialList?.totalItems }})</span>
+                          <div class="d-flex">
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-offer-material-view-ng-prime-validate #offerMaterialList id="offerMaterialList"
+                                                                       [dataSource]="offerMaterialHttpService"
+                                                                       showSimpleSearch="false"
+                                                                       listTemplate="OFFERMATERIALS"
+                                                                       detailType=""
+                                                                       sortColumn="offer.code"
+                                                                       sortDirection="desc"
+                                                                       dynamicQuery="true"
+                                                                       rowSelection="single"
+                                                                       notifyOnChange="true"
+                                                                       (selectionChanged)="setSelectedItem($event)"
+                                                                       usePaging="true">
+                            </app-offer-material-view-ng-prime-validate>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Flux aprobare">
+                    <div class="row mt-5">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Flux aprobare PO</span>
+                          <div class="d-flex">
+
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div class="po-organization-chart_wrapper">
+                          <p-organizationChart [value]="data2" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)" styleClass="company">
+
+                            <ng-template let-node pTemplate="person">
+                              <div class="node-header">{{node.label}}</div>
+                              <!-- <div class="node-content">
+                                  <div>{{node.level}}</div>
+                              </div> -->
+                            </ng-template>
+                            <ng-template let-node pTemplate="statusPO">
+                              <div class="node-header">{{node.skipValidate ? '' : node.validated ? 'Aprobat' : 'Lipsa aprobare'}}</div>
+                              <span>{{node.label}}</span><br>
+                              <span>{{node.validatedDate | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+                            </ng-template>
+
+                            <ng-template let-node pTemplate="validate">
+                              <span style="font-weight:bold">{{node.label}}</span>
+                            </ng-template>
+                          </p-organizationChart>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Pre - receptii">
+                    <div hideIfUnauthorized="VIEW|ASSET" class="row mt-5">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Lista pre - receptii ({{ assetReceptionList?.totalItems }})</span>
+                          <div class="d-flex">
+                            <button (click)="onAssetPreReceptionFileUpload()" class="medium-blue-btn mb-0 ml-15" [disabled]="assetReceptionList.selectedItems.length == 0"> 
+                              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.65625 5.65625H5.65625V9.65625H4.34375V5.65625H0.34375V4.34375H4.34375V0.34375H5.65625V4.34375H9.65625V5.65625Z"/>
+                              </svg>
+                              Documente pre - receptie
+                            </button>
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-asset-list #assetReceptionList id="assetReceptionList"
+                                            [dataSource]="assetHttpService"
+                                            listTemplate="ASSETS"
+                                            detailType="prereception"
+                                            sortColumn="asset.invNo"
+                                            sortDirection="desc"
+                                            dynamicQuery="true"
+                                            usePaging="true"
+                                            [pageSize]="100"
+                                            showSimpleSearch="false"
+                                            notifyOnChange="true"
+                                            rowSelection="multiple">
+                            </app-asset-list>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Receptii">
+                    <div hideIfUnauthorized="VIEW|ASSET" class="row mt-5">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Lista receptii ({{ assetReceptionList?.totalItems }})</span>
+                          <div class="d-flex">
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-asset-list #assetReceptionList id="assetReceptionList"
+                                            [dataSource]="assetHttpService"
+                                            listTemplate="ASSETS"
+                                            detailType="reception"
+                                            sortColumn="asset.invNo"
+                                            sortDirection="desc"
+                                            dynamicQuery="true"
+                                            usePaging="true"
+                                            [pageSize]="100"
+                                            showSimpleSearch="false"
+                                            notifyOnChange="true">
+                            </app-asset-list>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Achizitii">
+                    <div class="row mt-5">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Lista achizitii ({{ assetList?.totalItems }})</span>
+                          <div class="d-flex">
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-asset-list #assetList id="assetList"
+                                            [dataSource]="assetHttpService"
+                                            listTemplate="ASSETS"
+                                            detailType="inuse"
+                                            sortColumn="asset.invNo"
+                                            sortDirection="asc"
+                                            dynamicQuery="true"
+                                            usePaging="true"
+                                            [pageSize]="100"
+                                            showSimpleSearch="false"
+                                            notifyOnChange="true">
+                            </app-asset-list>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Operatii">
+                    <div class="row mt-5">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Lista operatii ({{ requestOpDetailList?.totalItems }})</span>
+                          <div class="d-flex">
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-request-view-ng-prime-op #requestOpDetailList id="requestOpDetailList"
+                                                          [dataSource]="requestOpHttpService"
+                                                          showSimpleSearch="false"
+                                                          listTemplate="REQUEST_OPERATIONS"
+                                                          detailType="details"
+                                                          sortColumn="id"
+                                                          sortDirection="desc"
+                                                          dynamicQuery="true"
+                                                          rowSelection="single"
+                                                          notifyOnChange="true"
+                                                          usePaging="true">
+                            </app-request-view-ng-prime-op>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Fisiere">
+                    <div class="row mt-5">
+                      <div class="col-12 attributes">
+                        <div class="files-header mb-2">
+                          <span class="mr-15 my-auto">Lista fisiere ({{ entityFileList?.totalItems }})</span>
+                          <div class="d-flex">
+                          </div>
+                        </div>
+                        <hr class="mb-3">
+                        <div>
+                          <div class="table-responsive border-1-gray">
+                            <app-entity-file-list #entityFileList id="entityFileList"
+                                                  [dataSource]="entityFileHttpService"
+                                                  showSimpleSearch="false"
+                                                  rowSelection="single"
+                                                  notifyOnChange="true"
+                                                  (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                                  usePaging="false"
+                                                  [inInvetoryReport] = "false">
+                            </app-entity-file-list>
+                            <br>
+                            <button class="browse btn btn-primary input-lg" (click)="onPoDocumentUpload()" (uploadFinished)="refreshEntityFiles()">
+                              <i class="fas fa-file-upload"></i> Incarca documente
+                            </button>
+                            <app-entity-file-validate-asset-download *ngIf="entityFile != null"
+                                                                     [entityFile]="entityFile">
+                            </app-entity-file-validate-asset-download>
+                            <app-entity-file-request-delete *ngIf="entityFile != null"
+                                                            (deleteFinished)="refreshEntityFiles()"
+                                                            [entityFile]="entityFile">
+                            </app-entity-file-request-delete>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">Inchide</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            (click)="update()"
+            [disabled]="(readOnlyInfo && readOnlyAppState) || addInvoiceNo == false"
+    >Actualizare</button>
+  </mat-dialog-actions>
+</div>
+
+<div class="modal fade" bsModal #contractListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title pull-left">Contracte</h3>
+      </div>
+      <div class="modal-body">
+        <app-contract-list #contractList id="contractList"
+                           [dataSource]="contractHttpService"
+                           rowSelection="single"
+                           detailType="detailui"
+                           sortColumn="contract.id"
+                           sortDirection="asc"
+                           dynamicQuery="true"
+                           showSimpleSearch="true"
+                           notifyOnChange="false"
+                           listTemplate="CONTRACTUI"
+                           [pageSize]="5"
+                           usePaging="true">
+        </app-contract-list>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedContract()">Selecteaza</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="contractListModal.hide()">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,103 @@
+<div>
+
+
+
+  <div class="card-header border-0" *ngIf="showSimpleSearch === 'true'">
+    <!--<label class="col-sm-1 control-label">Cauta</label>-->
+    <!-- <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)" /> -->
+    <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2" [(ngModel)]="filterSearch" (change)="applySimpleSearchFilter(filterSearch)">
+  </div>
+  <div class="content-page-table table table-responsive ng-star-inserted">
+    <table class="table custom-table" style="white-space: nowrap; font-weight: 500" [style.font-size.px]="12">
+      <thead class="thead" [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'burlywood'">
+      <tr>
+
+        <th>
+<!--          <button *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="btn btn-success btn-sm" type="button" style="background-color: black"><i class="fa fa-check"></i></button>-->
+<!--          <button *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="btn btn-default btn-sm" type="button" style="background-color: aliceblue"><i class="fa fa-check"></i></button>-->
+          <div class="d-flex cursor-pointer">
+            <i *ngIf="!isAllChecked()" (click)="updateCheckState(true)" class="material-icons" style="font-size: 22px;color: #C6C6D4;">check_box_outline_blank</i>
+          </div>
+          <div class="d-flex cursor-pointer">
+            <i *ngIf="isAllChecked()" (click)="updateCheckState(false)" class="material-icons" style="font-size: 22px;color: #0d6efd;">check_box</i>
+          </div>
+        </th>
+        <th *ngFor="let column of columns" class="align-left">
+          <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+            <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+            <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+            <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+            <!-- {{ column.headerCode | translate }} -->
+            {{ column.headerCode }}
+          </a>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+        <!-- <td>
+            <div class="progress progress-xs">
+              <div  role="progressbar" style="width: 100%;"
+              [ngClass]="{
+                  'progress-bar bg-danger':  tableItem.item.invState != null && tableItem.item.invState.id === 16,
+                  'progress-bar bg-success' : tableItem.item.invState != null && tableItem.item.invState.id === 1,
+                  'progress-bar bg-info' : tableItem.item.invState != null && tableItem.item.invState.id === 20,
+                  'progress-bar bg-warning' : tableItem.item.invState != null && tableItem.item.invState.id === 15,
+                  'progress-bar bg-secondary' : tableItem.item.invState != null && tableItem.item.invState.id === 22,
+                  'progress-bar bg-dark' : tableItem.item.invState != null && tableItem.item.invState.id === 19,
+                  'progress-bar bg-primary' : tableItem.item.invState != null && tableItem.item.invState.id === 23
+              }" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+            </div>
+            </div>
+          </td> -->
+
+<!--        <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>-->
+        <td><i *ngIf="tableItem.selected" class="material-icons cursor-pointer" style="font-size: 22px;color: #0d6efd;" (click)="updateSelectedCount()">check_box</i></td>
+        <td *ngFor="let column of columns" [style.text-align]="column.textAlign" [style.color] = "tableItem.item.notSync === true ? 'red' : 'black'" [style.backgroundColor] = "tableItem.item.state != null && tableItem.item.state.code === 'FINAL_EMPLOYEE_VALIDATE' ? 'rgb(173,216,230)' :  tableItem.item.state != null && tableItem.item.state.code === 'STOCK_VALIDATE' ? '#E7EEFF' : 'rgb(255, 255, 255)'">{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+      </tr>
+
+      <tr *ngIf="tableItems.length === 0" role="row" class="mat-mdc-no-data-row">
+        <td colspan="12" style="text-align: left; padding: .5rem .5rem !important;min-width: 100vw;">
+          <div class="table-no_results">No results found!</div>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+    <nav>
+      <div class="d-flex justify-content-between">
+        <div class="">
+<!--          <pagination-->
+<!--            [totalItems]="totalItems"-->
+<!--            [(ngModel)]="currentPage"-->
+<!--            [maxSize]="maxSize"-->
+<!--            class="pagination-sm"-->
+<!--            [itemsPerPage]="pageSize"-->
+<!--            previousText="&lsaquo;"-->
+<!--            nextText="&rsaquo;"-->
+<!--            firstText="&laquo;"-->
+<!--            lastText="&raquo;"-->
+<!--            (pageChanged)="pageChanged($event)"-->
+<!--            [boundaryLinks]="true"-->
+<!--            [rotate]="false"-->
+<!--            (numPages)="numPages = $event">-->
+<!--          </pagination>-->
+
+          <mat-paginator showFirstLastButtons="true" [length]="totalItems" *ngIf="paging && showPaginator"
+                         [pageSize]="10"
+                         [pageSizeOptions]="[ 10, 15, 20, 25, 50, 100 ]" (page)="changePage($event)">
+          </mat-paginator>
+        </div>
+        <!-- <pre class="card card-body card-header">Page: {{currentPage}} / {{numPages}}</pre> -->
+        <div class="">
+          <h6 style="text-align: right;">Total: {{ totalItems }}</h6>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+
+</div>
+
+
+

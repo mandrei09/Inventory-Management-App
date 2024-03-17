@@ -1,0 +1,338 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_request_add_edit'">
+  <div class="modal-dialog-header">
+    <div class="d-flex align-items-center">
+      <h2 class="modal-title mb-0">{{ t('modal_title_details') }}</h2>
+      <div class="d-flex ml-15">
+        <div class="mr-15">
+          <mat-form-field appearance="fill" class="datepicker-range-input">
+            <mat-label>
+              {{ t('implementation_period_label') }}:
+              <span class="required-label-symbol">*</span>
+            </mat-label>
+            <mat-date-range-input [rangePicker]="rangePicker">
+              <input style="padding: 0 10%;" matStartDate placeholder="{{ t('start_period_placeholder') }}" [(ngModel)]="startPeriodDate">
+              <input style="padding: 0 10%;" matEndDate placeholder="{{ t('end_period_placeholder') }}" [(ngModel)]="endPeriodDate">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #rangePicker>
+              <mat-date-range-picker-actions class="mat-dialog-actions d-flex justify-content-between">
+                <div style="width: 100%;">
+                  <button mat-button (click)="resetDateRange()" class="blue-button">{{ t('action_reset_date_picker') }}</button>
+                </div>
+                <div class="d-flex">
+                  <!--                <button mat-button matDateRangePickerCancel class="gray-btn-outline">Înapoi</button>-->
+                  <button mat-raised-button matDateRangePickerApply (click)="notifyDateChange()" class="blue-button">{{ t('action_apply_date_picker') }}</button>
+                </div>
+              </mat-date-range-picker-actions>
+            </mat-date-range-picker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group inputs-modal-nomenclature d-grid mr-15">
+          <div class="document-info__datepicker d-flex" style="height: 40px;min-width: 200px !important;">
+            <input matInput [matDatepicker]="endDate" [value]="request.endDate | date: 'yyyy-MM-dd'" name="request.endDate" (input)="request.endDate=parseDate($event.target)" style="border: none" placeholder="{{ t('month_execution_filter_placeholder') }}">
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+          </div>
+        </div>
+
+        <div class="form-group inputs-modal-nomenclature mr-15" style="min-width: 270px;">
+          <input matInput class="form-control" [(ngModel)]="request.info" name="info" #info="ngModel" placeholder="{{ t('pr_details_filter_placeholder') }}">
+        </div>
+
+        <div *ngIf="selectedBudgetForecasts.length === 0" class="form-group inputs-modal-nomenclature">
+          <input matInput type="number" class="form-control" [(ngModel)]="request.budgetValueNeed" name="budgetValueNeed" #budgetValueNeed="ngModel" step ="0.01" placeholder="{{ t('budget_requested_filter_placeholder') }}">
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <button
+        *ngIf="selectedBudgetForecasts.length === 0"
+        (click)="needBudget()"
+        class="small-blue-btn mb-0 ml-10"
+        [disabled]="!allowNeedBudget"
+        style="height: 30px;"
+      >
+        <mat-icon>attach_money</mat-icon>
+        <span>{{ t('request_budget_button') }} </span>
+      </button>
+      <div class="vertical-divider mr-10"></div>
+      <button type="button" class="btn-close" mat-dialog-close></button>
+    </div>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body pt-0">
+      <div class="container-fluid">
+
+        <div class="row">
+            <div class="row mx-auto">
+              <div class="col-12 mx-auto">
+
+                <div class="row">
+                  <div class="col-12 col-md-2">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        1. {{ t('select_responsible_label') }}:
+                      </label>
+                      <span class="required-label-symbol">*</span>
+                      <employee-item-select class="form-group-select_wrapper" [(ngModel)]="employee" displayValue="email" placeholder="{{ t('select_filter_placeholder') }}">
+                      </employee-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        2. {{ t('select_budget_owner_label') }}:
+                      </label>
+                      <span class="required-label-symbol">*</span>
+                      <employee-item-select class="form-group-select_wrapper" [(ngModel)]="employeeOwner" [params]="employeeOwnerParams" displayValue="email" placeholder="{{ t('select_filter_placeholder') }}" [disabled]="employee == null">
+                      </employee-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        3. {{ t('select_business_unit_label') }}:
+                      </label>
+                      <span class="required-label-symbol">*</span>
+                      <departments-item-select class="form-group-select_wrapper" [(ngModel)]="department" displayValue="code-name" placeholder="{{ t('select_filter_placeholder') }}" [disabled]="employee == null || employeeOwner == null">
+                      </departments-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        4. {{ t('select_department_label') }}:
+                      </label>
+                      <span class="required-label-symbol">*</span>
+                      <divisions-item-select class="form-group-select_wrapper" [params]="divisionParams" [(ngModel)]="division" displayValue="code-name" placeholder="{{ t('select_filter_placeholder') }}" [disabled]="department == null">
+                      </divisions-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        5. {{ t('select_project_label') }}:
+                      </label>
+                      <span class="required-label-symbol">*</span>
+                      <project-type-divisions-item-select class="form-group-select_wrapper"  [params]="projectTypeDivisionParams" [(ngModel)]="projectTypeDivision" displayValue="projectType.name" placeholder="{{ t('select_filter_placeholder') }}" [disabled]="division == null">
+                      </project-type-divisions-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        6. {{ t('select_type_label') }}:
+                      </label>
+                      <span class="required-label-symbol">*</span>
+                      <asset-types-item-select class="form-group-select_wrapper" [(ngModel)]="assetType" displayValue="code-name" placeholder="{{ t('select_filter_placeholder') }}" [disabled]="projectTypeDivision == null">
+                      </asset-types-item-select>
+                    </div>
+                  </div>
+<!--                  <div class="col-12 col-md-2">-->
+<!--                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">-->
+<!--                      <label>-->
+<!--                        Detalii P.R:-->
+<!--                        <span class="required-label-symbol">*</span>-->
+<!--                      </label>-->
+<!--                      <input matInput class="form-control" [(ngModel)]="request.info" name="info" #info="ngModel">-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div *ngIf="selectedBudgetForecasts.length === 0" class="col-12 col-md-2">-->
+<!--                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">-->
+<!--                      <label>-->
+<!--                        Buget solicitat (RON):-->
+<!--                        <span class="required-label-symbol">*</span>-->
+<!--                      </label>-->
+<!--                      <input matInput type="number" class="form-control" [(ngModel)]="request.budgetValueNeed" name="budgetValueNeed" #budgetValueNeed="ngModel" step ="0.01">-->
+<!--                    </div>-->
+<!--                  </div>-->
+                </div>
+
+                <div class="mt-3 mb-3" style="border-top: 1px solid #d6d6d6;padding-top: 15px;">
+                  <p-pickList
+                    [source]="availableBudgetForecasts"
+                    [target]="selectedBudgetForecasts"
+                    sourceHeader="{{ t('budgets_available_header_picklist') }}"
+                    targetHeader="{{ t('budgets_selected_header_picklist') }}"
+                    [showSourceFilter]="false"
+                    [showTargetFilter]="false"
+                    [showSourceControls]="false"
+                    [showTargetControls]="false"
+                    [responsive]="true"
+                    [sourceStyle]="{'height':'50rem', 'background-color': 'ghostwhite'}"
+                    [targetStyle]="{'height':'50rem', 'background-color': 'ghostwhite'}"
+                    filterBy="name"
+                    (onMoveToTarget)="moveToTarget($event)"
+                    (onMoveToSource)="moveToSource($event)"
+                    sourceFilterPlaceholder="{{ t('search_picklist') }}"
+                    [disabled]="false"
+                    [dragdrop]="projectTypeDivision != null"
+                    targetFilterPlaceholder="{{ t('search_picklist') }}">
+                    <ng-template let-budgetForecast pTemplate="item">
+                      <div class="partner-item" style="padding: 8px;">
+                        <div class="product-list-detail" [ngStyle]="{ backgroundColor: budgetForecast?.inTransfer ? 'lightblue' : 'transparent' }">
+                          <h3 class="p-mb-2">{{budgetForecast?.budgetBase?.code}} (<span style="color: green;">{{budgetForecast.totalRem | number: '1.2-2'}} RON</span>) / {{budgetForecast?.project?.code}}</h3>
+                          <i class="fa fa-money"></i>
+                          <span class="product-category">
+                            <span>{{budgetForecast?.budgetBase?.info}}</span>
+                          </span>
+                          <div class="progress progress-xs">
+                            <div class="progress-bar progress-bar-animated" role="progressbar" [ngStyle]="{'width': ((budgetForecast.totalRem/budgetForecast.total) * 100.0)+ '%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="background: #0B4FFF">
+                              <strong>{{(budgetForecast.totalRem/budgetForecast.total) * 100.0 | number: '1.2-2'}}</strong>
+                            </div>
+                          </div>
+                          <br>
+                          <span class="product-category"><span style="color: blue;">B.U. (business unit) : </span>{{budgetForecast?.department?.code}} - {{budgetForecast?.department?.name}}</span>
+                          <br>
+                          <span class="product-category"><span style="color: blue;">Departament : </span>{{budgetForecast?.division?.code}} - {{budgetForecast?.division?.name}}</span>
+                          <br>
+                          <span class="product-category"><span style="color: blue;">Proiect : </span>{{budgetForecast?.projectType?.code}} - {{budgetForecast?.projectType?.name}}</span>
+                          <br>
+                          <span class="product-category"><span style="color: blue;">Tip : </span>{{budgetForecast?.assetType?.code}} - {{budgetForecast?.assetType?.name}}</span>
+                          <br>
+                          <span class="product-category"><span style="color: blue;">Profit center : </span>{{budgetForecast?.admCenter?.code}}</span>
+                          <br>
+                          <!-- <button [disabled]="budgetForecast?.totalRem === 0 || budgetForecast?.inTransfer" pButton label="Transfera buget (SURSA)" type="button" class="mt-2 small-blue-btn" (click)="onBudgetForecastTransfer(budgetForecast?.id)"><i class="fa fa-exchange"></i></button> -->
+                          <!-- <div style="font-size:14px;float:right;margin:15px 5px 0 0">B.U. : {{budgetForecast?.department?.code}} - {{budgetForecast?.department?.name}}</div>
+                          <div style="font-size:14px;float:right;margin:15px 5px 0 0">Departament : {{budgetForecast?.division?.code}} - {{budgetForecast?.division?.name}}</div>
+                          <div style="font-size:14px;float:right;margin:15px 5px 0 0">Tip : {{budgetForecast?.assetType?.code}} - {{budgetForecast?.assetType?.name}}</div> -->
+
+                          <div class="p-grid p-fluid row">
+
+                            <div class="col-12 col-md-4">
+                              <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                                <label>{{ t('available_budget_label') }}:</label>
+                                <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budgetForecast.totalRem" inputId="totalRem" min="2"  [ngModelOptions]="{standalone: true}" prefix="Disponibil RON" readOnly="true">
+                              </div>
+                            </div>
+
+                            <div class="col-12 col-md-4">
+                              <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                                <label>{{ t('additional_budget_label') }}:</label>
+                                <input matInput type="number" class="form-control" [(ngModel)]="budgetForecast.needBudgetValue" inputId="needBudgetValue" min="2" [ngModelOptions]="{standalone: true}" prefix="Suplimentare RON">
+                              </div>
+                            </div>
+
+                            <div class="col-12 col-md-4">
+                              <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                                <label>{{ t('total_budget_label') }}:</label>
+                                <input matInput type="number" class="form-control" [disabled]="true" [(ngModel)]="budgetForecast.needBudgetValue + budgetForecast.totalRem" inputId="totalBudgetValue" min="2"  [ngModelOptions]="{standalone: true}" prefix="Total RON ">
+                              </div>
+                            </div>
+
+<!--                            <div class="p-field p-col-12 p-md-4" *ngIf="budgetForecast.needBudget">-->
+
+<!--                              &lt;!&ndash; <label for="locale-user">Buget disponibil</label> &ndash;&gt;-->
+<!--                              <p-inputNumber [disabled]="true" [(ngModel)]="budgetForecast.totalRem" inputId="totalRem" [minFractionDigits]="2" mode="decimal" [ngModelOptions]="{standalone: true}" prefix="Disponibil RON " readOnly="true">-->
+<!--                              </p-inputNumber>-->
+
+<!--                            </div>-->
+
+
+<!--                            <div class="p-field p-col-12 p-md-4" *ngIf="budgetForecast.needBudget">-->
+
+<!--                              <p-inputNumber [(ngModel)]="budgetForecast.needBudgetValue" inputId="needBudgetValue" [minFractionDigits]="2" mode="decimal"  [ngModelOptions]="{standalone: true}" prefix="Suplimentare RON ">-->
+<!--                              </p-inputNumber>-->
+<!--                            </div>-->
+
+
+
+<!--                            <div class="p-field p-col-12 p-md-4" *ngIf="budgetForecast.needBudget">-->
+
+<!--                              <p-inputNumber [disabled]="true" [(ngModel)]="budgetForecast.needBudgetValue + budgetForecast.totalRem" inputId="totalBudgetValue" [minFractionDigits]="2" mode="decimal"  [ngModelOptions]="{standalone: true}" prefix="Total RON ">-->
+<!--                              </p-inputNumber>-->
+<!--                            </div>-->
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </p-pickList>
+                </div>
+
+                <div *ngIf="request != null && request.id > 0" class="mt-5 mb-5" #operation>
+                  <mat-tab-group mat-stretch-tabs="false" color="transparent">
+                    <mat-tab label="Operations">
+                      <div class="row mt-3">
+                        <div class="col-12 attributes">
+                          <div class="files-header mb-2">
+                            <span class="mr-15 my-auto">{{ t('operations_list_title') }} ({{ requestOpDetailList?.totalItems }})</span>
+                            <div class="d-flex">
+                            </div>
+                          </div>
+                          <hr class="mb-3">
+                          <div>
+                            <div class="table-responsive border-1-gray">
+                              <request-op-detail-list #requestOpDetailList id="requestOpDetailList"
+                                                      [dataSource]="requestOpHttpService"
+                                                      showSimpleSearch="false"
+                                                      listTemplate="REQUEST_OPERATIONS"
+                                                      detailType="details"
+                                                      sortColumn="modifiedAt"
+                                                      sortDirection="asc"
+                                                      dynamicQuery="true"
+                                                      rowSelection="single"
+                                                      notifyOnChange="true"
+                                                      (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                                      usePaging="true">
+                              </request-op-detail-list>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Files">
+                      <div class="row mt-3">
+                        <div class="col-12 attributes">
+                          <div class="files-header mb-2">
+                            <span class="mr-15 my-auto">{{ t('files_list_title') }} ({{ entityFileList?.totalItems }})</span>
+                            <div class="d-flex">
+                            </div>
+                          </div>
+                          <hr class="mb-3">
+                          <div>
+                            <div class="table-responsive border-1-gray">
+                              <app-entity-file-list #entityFileList id="entityFileList"
+                                                    [dataSource]="entityFileHttpService"
+                                                    showSimpleSearch="false"
+                                                    rowSelection="single"
+                                                    notifyOnChange="true"
+                                                    (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                                    usePaging="false"
+                                                    [inInvetoryReport] = "false">
+                              </app-entity-file-list>
+                              <br>
+                              <!-- <app-entity-file-upload *ngIf="request.id > 0"
+                                  [entityId]="request.id"
+                                  [entityTypeCode]="entityTypeCode"
+                                  (uploadFinished)="refreshEntityFiles()">
+                              </app-entity-file-upload> -->
+                                                            <app-entity-file-download *ngIf="request.id > 0"
+                                                        [entityFile]="entityFile">
+                              </app-entity-file-download>
+                                                         </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline" (click)="cancelChanges()">{{ t('action_cancel') }}</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            (click)="saveOrder()" [disabled]="!isSaved || !allowSaving"
+    >{{ t('action_save') }}</button>
+  </mat-dialog-actions>
+
+</div>

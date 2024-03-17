@@ -1,0 +1,10 @@
+.table{
+    overflow-y: auto;
+    max-height: 1000px;
+  }
+  
+thead {
+    display: block;
+    position: sticky;
+    top: 0;
+}

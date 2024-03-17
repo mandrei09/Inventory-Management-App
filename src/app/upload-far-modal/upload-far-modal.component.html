@@ -1,0 +1,26 @@
+<div *transloco="let t; read: 'far_upload_component'" style="height: 100%;">
+    <div class="upload-dialog">
+        <div class="modal-dialog-header">
+            <h3 class="modal-title">Import New Assets - FAR</h3>
+            <button class="button-close" mat-button [mat-dialog-close]="true">{{ t('action_close') }}</button>
+        </div>
+        
+        <div class="row dash-alerts-wrapper">
+            <div class="col-md-12">
+              <div class="dash-alert-item">
+                <div class="alert" role="alert">
+                    {{ t('upload_warning') }}
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <mat-dialog-content class="mat-dialog-content">
+            <input #fileInputEmag type="file" class="form-control" id="fileName"  accept=".xlsx" required (change)="loadFileEmag($event)" placeholder="Choose file"/>
+            <button type="button" class="btn btn-outline-success btn-sm" (click)="generateFarTemplate()" style="background-color: forestgreen; color: blanchedalmond"><i class="fa fa-upload"></i> Template</button>
+            <button type="button" class="btn btn-outline-success btn-sm" (click)="upload()" [disabled]="((fileEventEmag === null) || (fileEventEmag === undefined))" style="background-color: forestgreen; color: blanchedalmond"><i class="fa fa-upload"></i> Import</button>
+        </mat-dialog-content>
+    </div>
+</div>
+
+                   

@@ -1,0 +1,58 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_project_type_division_add_edit'">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">{{ t((item === null || item.id! < 1) ? 'title_add' : 'title_edit') }}</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container">
+
+        <div class="row">
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="row mx-auto">
+              <div class="col-10 mx-auto">
+
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('project_type_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <project-types-item-select class="form-group-select_wrapper" formControlName="projectType" placeholder="{{ t('project_type_placeholder') }}">
+                      </project-types-item-select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('department_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <divisions-item-select class="form-group-select_wrapper" formControlName="division" placeholder="{{ t('department_placeholder') }}">
+                      </divisions-item-select>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">{{ t('action_cancel') }}</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            [disabled]="!form.valid"
+            (click)="save()"
+    >{{ t('action_save') }}</button>
+  </mat-dialog-actions>
+
+</div>

@@ -1,0 +1,61 @@
+///* To learn more about this file see: https://angular.io/config/tsconfig. */
+//{
+//  "compileOnSave": false,
+//  "angularCompilerOptions": {
+//    "strictTemplates": true,
+//    "strictInjectionParameters": true
+//  }, // ADRIAN
+//  "compilerOptions": {
+//    "importHelpers": true,
+//    "outDir": "./dist/out-tsc",
+//    "sourceMap": true,
+//    "declaration": false,
+//    "moduleResolution": "node",
+//    "experimentalDecorators": true,
+//    "module": "es2020",
+//    "target": "es2015",
+//    "typeRoots": [
+//      "node_modules/@types"
+//    ],
+//    "lib": [
+//      "ES2022",
+//      "dom"
+//    ]
+//  }
+//}
+
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "noImplicitOverride": false,
+    "noImplicitAny": false,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "esnext",
+    "useDefineForClassFields": false,
+    "lib": [
+      "ES2022",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+    "strictPropertyInitialization": false
+  }
+}

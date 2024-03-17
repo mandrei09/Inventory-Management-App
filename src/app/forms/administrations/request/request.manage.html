@@ -1,0 +1,495 @@
+<div *transloco="let t; read: 'page_procurement_request_component'" style="height: 100%;">
+  <div class="content-page-header">
+    <app-common-header
+      (filterChanged)="doSimpleSearch($event)" (addNew)="addNewItem()">
+    </app-common-header>
+
+    <div class="modal-filters d-grid">
+      <div class="d-flex" style="display: flex;flex-wrap: wrap;">
+        <div hideIfUnauthorized="PHOTO_FILTER|S_INVENTORY_STATUS" class="filter-content-item child-w-200 mt-15 mr-10">
+          <div class="mt-auto d-flex filter-select-wrapper">
+            <div class="static-form-select">
+              <mat-form-field appearance="fill">
+                <mat-label>{{ t('type_filter_placeholder') }}:</mat-label>
+                <mat-select (selectionChange)="onValChange($event.value)">
+                  <mat-option [value]="null">-</mat-option>
+                  <mat-option [value]="'all'">{{ t('option_all') }}</mat-option>
+                  <mat-option [value]="'me'">{{ t('option_personal') }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-page-header-two d-flex">
+    <div class="left-actions d-flex">
+      <div class="refresh subheader-actions-wrapper">
+        <a (click)="checkForRefresh()">
+          <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="refresh subheader-actions-wrapper subheader-action-text_inline" style="min-width: auto;">
+        <a (click)="export()" class="d-flex" style="color: inherit;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/> </g> </svg>
+          {{ t('export_button_text') }}
+        </a>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="mr-15" style="display: flex;">
+        <div class="refresh">
+          <button
+            hideIfUnauthorized="ALLOCATE|REQUEST"
+            (click)="onProcessLevel1()"
+            class="small-blue-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Aloca PR"
+            matTooltipHideDelay="200"
+            [disabled]="selectedRequests.length === 0 || (selectedRequests[0].appStateId !== 33 && selectedRequests[0].appStateId !== 72 && selectedRequests[0].appStateId !== 73)"
+          >
+            <mat-icon>share</mat-icon>
+            <span>
+              {{ t('allocation_pr_button') }}
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            hideIfUnauthorized="REJECT|REQUEST"
+            (click)="onProcessLevel2()"
+            class="small-blue-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Refuza PR"
+            matTooltipHideDelay="200"
+            [disabled]="selectedRequests.length === 0 || (selectedRequests[0].appStateId !== 33 && selectedRequests[0].appStateId !== 72 && selectedRequests[0].appStateId !== 73)"
+          >
+            <mat-icon>highlight_remove</mat-icon>
+            <span>
+              {{ t('refusal_pr_button') }}
+            </span>
+          </button>
+        </div>
+        <div class="refresh">
+          <button
+            ideIfUnauthorized="UPLOAD|REQUEST"
+            (click)="onAssetFileUpload()"
+            class="small-blue-btn mb-0 ml-10"
+            #tooltip="matTooltip"
+            matTooltip="Upload documente"
+            matTooltipHideDelay="200"
+            [disabled]="selectedRequests.length === 0 || (selectedRequests[0].appStateId !== 55 && selectedRequests[0].appStateId != 56)"
+          >
+            <mat-icon>upload_file</mat-icon>
+            <span>
+              {{ t('upload_documents_button') }}
+            </span>
+          </button>
+        </div>
+        <div class="vertical-divider"></div>
+      </div>
+
+      <div class="results d-flex align-items-center">
+        <div>
+          <span class="blue-color">{{ requestList._selectedItems ? requestList._selectedItems.length : '0' }}</span>
+          <span [class.blue-color]="requestList._selectedItems.length > 0"> {{ t('table_selected_text') }}</span>
+        </div>
+        <div class="vertical-divider mr-15"></div>
+        <div>
+          <span>{{ requestList.totalItems ? requestList.totalItems : '0' }} {{ t('table_results_text') }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div hideIfUnauthorized="VIEW|REQUEST">
+    <app-request-list-ng-prime #requestList id="requestList"
+                        [dataSource]="requestHttpService"
+                        listTemplate="REQUESTS"
+                        sortColumn="request.id"
+                        sortDirection="desc"
+                        dynamicQuery="true"
+                        usePaging="true"
+                        showSimpleSearch="false"
+                        showEditAction="true"
+                        [pageSize]="10"
+                        [rowSelection]="budgetRowSelection"
+                        (selectionChanged)="onBudgetSelectionChanged($event)"
+                        (itemEdit)="onPrRequestEdit($event)"
+                        notifyOnChange="true">
+    </app-request-list-ng-prime>
+  </div>
+
+  <div *ngIf="selectedRequests.length > 0" class="second-table-section mt-3 mb-1" #assets>
+    <div id="documentsSection1" class="row">
+      <div class="col-12 attributes">
+        <div>
+          <div class="table-responsive border-1-gray">
+            <div class="modalfilters-page-header d-flex" style="justify-content: space-between;">
+              <div class="d-flex" style="align-items: center;">
+                <div class="refresh">
+                  <button hideIfUnauthorized="UPLOAD|REQUEST" [disabled]="selectedRequests.length === 0 || selectedRequestBudgetForecasts.length === 0" class="small-blue-btn mb-0" (click)="onAssetDocumentFileUpload()">
+                    <mat-icon>upload_file</mat-icon>
+                    <span>{{ t('upload_documents_pr_button') }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <app-request-budget-forecast-material-view-ng-prime-validate #requestBudgetForecastList id="requestBudgetForecastList"
+                                                                         [dataSource]="requestBudgetForecastHttpService"
+                                                                         showSimpleSearch="false"
+                                                                         listTemplate="REQUESTBUDGETFORECASTS"
+                                                                         detailType=""
+                                                                         sortColumn="request.code"
+                                                                         sortDirection="asc"
+                                                                         dynamicQuery="true"
+                                                                         rowSelection="single"
+                                                                         notifyOnChange="true"
+                                                                         (selectionChanged)="setSelectedItem($event)"
+                                                                         usePaging="true">
+            </app-request-budget-forecast-material-view-ng-prime-validate>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedRequests.length > 0" class="second-table-section mt-3 mb-1" #assets>
+    <div class="row">
+      <div class="col-12 attributes">
+        <div class="files-header mb-0" style="padding: 0 16px;">
+          <span class="mr-15 my-auto">{{ t('table_title_text') }} ({{ entityFileList.totalItems }})</span>
+        </div>
+        <hr class="mb-3 mt-2">
+
+        <div>
+          <div class="table-responsive border-1-gray">
+            <app-entity-file-list #entityFileList id="entityFileList"
+                                  [dataSource]="entityFileHttpService"
+                                  showSimpleSearch="false"
+                                  rowSelection="single"
+                                  notifyOnChange="true"
+                                  (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                  usePaging="false"
+                                  [inInvetoryReport] = "false">
+            </app-entity-file-list>
+            <br>
+            <!-- <app-entity-file-upload *ngIf="selectedRequests.length > 0 && selectedRequests[0].id > 0"
+                [entityId]="selectedRequests[0].id"
+                [entityTypeCode]="entityTypeCode"
+                (uploadFinished)="refreshEntityFiles()">
+            </app-entity-file-upload> -->
+            <app-entity-file-validate-asset-download *ngIf="entityFile != null"
+                                                     [entityFile]="entityFile">
+            </app-entity-file-validate-asset-download>
+            <app-entity-file-request-delete *ngIf="entityFile != null"
+                                            (deleteFinished)="refreshEntityFiles()"
+                                            [entityFile]="entityFile">
+            </app-entity-file-request-delete>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!--<div class="animated fadeIn">-->
+
+<!--  <br>-->
+<!--    <div class="card">-->
+<!--      <div class="card-header">-->
+<!--         -->
+<!--          <mat-button-toggle-group [(ngModel)]="type" aria-label="Font Style" (change)="onValChange($event.value)">-->
+<!--            <mat-button-toggle value="all">Toate</mat-button-toggle>-->
+<!--            <mat-button-toggle value="me">Personale</mat-button-toggle>-->
+<!--        </mat-button-toggle-group>-->
+<!--          <button hideIfUnauthorized="CLEAR_SELECTION|REQUEST" type="button" class="btn btn-danger btn-sm" (click)="clearSelection()" [style.backgroundColor] = "'rgb(168, 16, 0)'"><i class="fa fa-check"></i></button>-->
+<!--          &nbsp;-->
+<!--          <button hideIfUnauthorized="CLEAR_FILTER|REQUEST" type="button" class="btn btn-danger btn-sm" (click)="clearFilters()" [style.backgroundColor] = "'rgb(168, 16, 0)'" ><i class="fa fa-close"></i></button>-->
+<!--          &nbsp;-->
+<!--          <button hideIfUnauthorized="ADD|REQUEST" type="button" class="btn btn-primary btn-sm" (click)="addNewBudget()"><i class="fa fa-plus"></i>&nbsp;Adauga P.R.</button>-->
+<!--          &nbsp;-->
+<!--          <button hideIfUnauthorized="ALLOCATE|REQUEST" type="button" [disabled]="selectedRequests.length === 0 || selectedRequests[0].appStateId !== 33" class="btn btn-success btn-sm" (click)="onProcessLevel1()">&nbsp;Alocare P.R.</button>-->
+<!--          &nbsp;-->
+<!--          <button hideIfUnauthorized="REJECT|REQUEST" type="button" [disabled]="selectedRequests.length === 0 || selectedRequests[0].appStateId !== 40" class="btn btn-danger btn-sm" (click)="onProcessLevel2()">&nbsp;Refuz P.R.</button>-->
+<!--          &nbsp;-->
+<!--          <button hideIfUnauthorized="UPLOAD|REQUEST" [disabled]="selectedRequests.length === 0 || (selectedRequests[0].appStateId !== 55 && selectedRequests[0].appStateId != 56)" type="button" class="btn btn-secondary btn-sm" (click)="onAssetFileUpload()">-->
+<!--            <i class="fa fa-upload"></i> Incarca documente</button>-->
+<!--          &lt;!&ndash; <button type="button" class="btn btn-success btn-sm" (click)="exportSocgen()" style="background-color: rgb(0, 130, 19);color: white;" [disabled]="!showExportBtn" ><i class="fa fa-download"></i> &nbsp; Export </button>-->
+<!--          &nbsp; &ndash;&gt;-->
+<!--        <div class="card-header-actions">-->
+<!--              <div class="input-group">-->
+<!--                <input type="text" class="form-control" placeholder="Cauta..." aria-label="Cauta..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="checkForRefresh()">-->
+<!--                <div hideIfUnauthorized="PAGE_SIZE|REQUEST" class="btn-group" dropdown>-->
+<!--                  <button dropdownToggle type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle">-->
+<!--                      Size {{ pageSize }}<span class="caret"></span>-->
+<!--                  </button>-->
+<!--                  <ul *dropdownMenu class="dropdown-menu" role="menu">-->
+<!--                    <li role="menuitem" (click)="onPageUpdate(5)"><a class="dropdown-item">5</a></li>-->
+<!--                    <li role="menuitem" (click)="onPageUpdate(10)"><a class="dropdown-item">10</a></li>-->
+<!--                    <li role="menuitem" (click)="onPageUpdate(15)"><a class="dropdown-item">15</a></li>-->
+<!--                    <li role="menuitem" (click)="onPageUpdate(20)"><a class="dropdown-item">20</a></li>-->
+<!--                    <li role="menuitem" (click)="onPageUpdate(30)"><a class="dropdown-item">30</a></li>-->
+<!--                    <li role="menuitem" (click)="onPageUpdate(50)"><a class="dropdown-item">50</a></li>-->
+<!--                    <li role="menuitem" (click)="onPageUpdate(70)"><a class="dropdown-item">70</a></li>-->
+<!--                    <li role="menuitem" (click)="onPageUpdate(100)"><a class="dropdown-item">100</a></li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div hideIfUnauthorized="VIEW|ORDER" class="card-footer" style="background-color: #fff;">-->
+<!--        <div class="col-sm-12">-->
+<!--            <app-request-list-ng-prime #requestList id="requestList"-->
+<!--                    [dataSource]="requestHttpService"-->
+<!--                    listTemplate="REQUESTS"-->
+<!--                    sortColumn="request.id"-->
+<!--                    sortDirection="desc"-->
+<!--                    dynamicQuery="true"-->
+<!--                    usePaging="true"-->
+<!--                    showSimpleSearch="false"-->
+<!--                    [pageSize]="5"-->
+<!--                    [rowSelection]="budgetRowSelection"-->
+<!--                    (selectionChanged)="onBudgetSelectionChanged($event)"-->
+<!--                    notifyOnChange="true">-->
+<!--                </app-request-list-ng-prime>-->
+<!--          </div>-->
+<!--      </div>-->
+
+<!--      <div class="card-footer" *ngIf="selectedRequests.length > 0">-->
+<!--        <div class="col-md-6">-->
+<!--          <button hideIfUnauthorized="UPLOAD|REQUEST" [disabled]="selectedRequests.length === 0 || selectedRequestBudgetForecasts.length === 0" type="button" class="btn btn-warning btn-sm" (click)="onAssetDocumentFileUpload()">-->
+<!--            <i class="fa fa-upload"></i> Incarca documente P.R. </button>-->
+<!--        </div>-->
+<!--        <div class="col-sm-12">-->
+<!--            <app-request-budget-forecast-material-view-ng-prime-validate #requestBudgetForecastList id="requestBudgetForecastList"-->
+<!--            [dataSource]="requestBudgetForecastHttpService"-->
+<!--            showSimpleSearch="false"-->
+<!--            listTemplate="REQUESTBUDGETFORECASTS"-->
+<!--            detailType=""-->
+<!--            sortColumn="request.code"-->
+<!--            sortDirection="asc"-->
+<!--            dynamicQuery="true"-->
+<!--            rowSelection="single"-->
+<!--            notifyOnChange="true"-->
+<!--            (selectionChanged)="setSelectedItem($event)"-->
+<!--            usePaging="true">-->
+<!--            </app-request-budget-forecast-material-view-ng-prime-validate>-->
+<!--          </div>-->
+<!--      </div>-->
+
+<!--      <ul class="nav nav-pills justify-content-center" *ngIf="selectedRequests.length > 0">-->
+<!--        <li>-->
+<!--          &lt;!&ndash; <a class="active" id="home-tab" data-toggle="tab" href="#operation" (click)="changeTab('operatii',$event)">Istoric operatii</a> &ndash;&gt;-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <a  id="messages-tab" data-toggle="tab" href="#files" (click)="changeTab('fisiere',$event)">Fisiere incarcate</a>-->
+<!--        </li>-->
+<!--        </ul>-->
+
+<!--        &lt;!&ndash; Tab panes &ndash;&gt;-->
+<!--          <div class="tab-content clearfix">-->
+<!--          &lt;!&ndash; <div class="tab-pane active" id="operation">-->
+<!--              <div class="col-sm-12">-->
+<!--                <div class="jumbotron bg-transparent">-->
+<!--                        <request-op-detail-list #requestOpDetailList id="requestOpDetailList"-->
+<!--                        [dataSource]="requestOpHttpService"-->
+<!--                        showSimpleSearch="false"-->
+<!--                        listTemplate="REQUEST_OPERATIONS"-->
+<!--                        detailType="details"-->
+<!--                        sortColumn="modifiedAt"-->
+<!--                        sortDirection="asc"-->
+<!--                        dynamicQuery="true"-->
+<!--                        rowSelection="single"-->
+<!--                        notifyOnChange="true"-->
+<!--                        (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"-->
+<!--                        usePaging="true">-->
+<!--                    </request-op-detail-list>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--          </div> &ndash;&gt;-->
+<!--          <div class="tab-pane active" id="files" *ngIf="selectedRequests.length > 0">-->
+<!--            <div class="row">-->
+<!--              <div class="col-sm-12">-->
+<!--                <div class="jumbotron bg-transparent">-->
+<!--                    <app-entity-file-list #entityFileList id="entityFileList"-->
+<!--                        [dataSource]="entityFileHttpService"-->
+<!--                        showSimpleSearch="false"-->
+<!--                        rowSelection="single"-->
+<!--                        notifyOnChange="true"-->
+<!--                        (selectionChanged)="onEntityFileListSelectionChanged($event)"-->
+<!--                        usePaging="false">-->
+<!--                    </app-entity-file-list>-->
+<!--                    <br>-->
+<!--                    &lt;!&ndash; <app-entity-file-upload *ngIf="selectedRequests.length > 0 && selectedRequests[0].id > 0"-->
+<!--                        [entityId]="selectedRequests[0].id"-->
+<!--                        [entityTypeCode]="entityTypeCode"-->
+<!--                        (uploadFinished)="refreshEntityFiles()">-->
+<!--                    </app-entity-file-upload> &ndash;&gt;-->
+<!--                    <app-entity-file-validate-asset-download *ngIf="entityFile != null"-->
+<!--                        [entityFile]="entityFile">-->
+<!--                    </app-entity-file-validate-asset-download>-->
+<!--                    <app-entity-file-request-delete *ngIf="entityFile != null"-->
+<!--                                   (deleteFinished)="refreshEntityFiles()"-->
+<!--                                  [entityFile]="entityFile">-->
+<!--                    </app-entity-file-request-delete>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"-->
+<!--     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog modal-lg">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h4 class="modal-title pull-left">Employees</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <app-employee-list #employeeList id="employeeList"-->
+<!--                    [dataSource]="employeeHttpService"-->
+<!--                    dynamicQuery="true"-->
+<!--                    rowSelection="multiple"-->
+<!--                    notifyOnChange="false"-->
+<!--                    [pageSize]="5"-->
+<!--                    usePaging="true">-->
+<!--                </app-employee-list>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployees()">Selecteaza</button>-->
+<!--                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeListModal.hide()">Inchide</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}"-->
+<!--     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog modal-lg">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h4 class="modal-title pull-left">CostCenters</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <app-administration-list #administrationList id="administrationList"-->
+<!--                    [dataSource]="administrationDetailHttpService"-->
+<!--                    dynamicQuery="true"-->
+<!--                    rowSelection="multiple"-->
+<!--                    notifyOnChange="false"-->
+<!--                    [pageSize]="5"-->
+<!--                    usePaging="true">-->
+<!--                </app-administration-list>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministrations()">Selecteaza</button>-->
+<!--                <button type="button" class="btn btn-outline-primary btn-sm" (click)="administrationListModal.hide()">Inchide</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" bsModal #partnerListModal="bs-modal" [config]="{backdrop: 'static'}"-->
+<!--     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog modal-lg">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h4 class="modal-title pull-left">Partners</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <app-partner-list #partnerList id="partnerList"-->
+<!--                    [dataSource]="partnerHttpService"-->
+<!--                    rowSelection="multiple"-->
+<!--                    notifyOnChange="false"-->
+<!--                    [pageSize]="5"-->
+<!--                    usePaging="true">-->
+<!--                </app-partner-list>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedPartners()">Selecteaza</button>-->
+<!--                <button type="button" class="btn btn-outline-primary btn-sm" (click)="partnerListModal.hide()">Inchide</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"-->
+<!--     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog modal-lg">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h4 class="modal-title pull-left">CostCenters</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <app-cost-center-list #costCenterList id="costCenterList"-->
+<!--                    [dataSource]="costCenterHttpService"-->
+<!--                    dynamicQuery="true"-->
+<!--                    rowSelection="multiple"-->
+<!--                    notifyOnChange="false"-->
+<!--                    [pageSize]="5"-->
+<!--                    usePaging="true">-->
+<!--                </app-cost-center-list>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenters()">Selecteaza</button>-->
+<!--                <button type="button" class="btn btn-outline-primary btn-sm" (click)="costCenterListModal.hide()">Inchide</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<!--<div class="modal fade" bsModal #companyListModal="bs-modal" [config]="{backdrop: 'static'}"-->
+<!--tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">-->
+<!--<div class="modal-dialog modal-lg">-->
+<!--  <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--          <h4 class="modal-title pull-left">Companies</h4>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--          <app-company-list #companyList id="companyList"-->
+<!--              [dataSource]="companyHttpService"-->
+<!--              rowSelection="multiple"-->
+<!--              notifyOnChange="false"-->
+<!--              [pageSize]="5"-->
+<!--              usePaging="true">-->
+<!--          </app-company-list>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompanies()">Selecteaza</button>-->
+<!--          <button type="button" class="btn btn-outline-primary btn-sm" (click)="companyListModal.hide()">Inchide</button>-->
+<!--      </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+  <div class="modal-header">
+    <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Confirmare</h4>
+  </div>
+  <div class="modal-body">
+    {{ confirmationMessage }}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+    <button type="button" class="btn btn-outline-primary" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> Nu</button>
+  </div>
+</div>
+</div>
+</div>

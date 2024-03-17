@@ -1,0 +1,198 @@
+<div class="full-width-add-edit-dialog" *transloco="let t; read: 'page_contract_add_edit'">
+  <div class="modal-dialog-header">
+    <h2 class="modal-title mb-0">{{ t((id === null || id! < 1) ? 'title_add' : 'title_edit') }}</h2>
+    <button type="button" class="btn-close" mat-dialog-close></button>
+  </div>
+
+  <mat-dialog-content class="mat-typography" (click)="$event.stopPropagation()">
+    <div class="modal-dialog-body">
+      <div class="container">
+
+        <div class="row">
+          <form>
+            <div class="row mx-auto">
+              <div class="col-10 mx-auto">
+
+                <div class="row">
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('budget_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <budgets-item-select class="form-group-select_wrapper" [(ngModel)]="budget" displayValue="code" placeholder="{{ t('budget_placeholder') }}" [ngModelOptions]="{standalone: true}">
+                      </budgets-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        {{ t('company_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <company-item-select class="form-group-select_wrapper" [(ngModel)]="company" displayValue="name" placeholder="{{ t('company_placeholder') }}" [ngModelOptions]="{standalone: true}">
+                      </company-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        <!-- Label: Owner -->
+                        {{ t('employee_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <employee-item-select class="form-group-select_wrapper" [(ngModel)]="employee" displayValue="full-name" placeholder="{{ t('employee_placeholder') }}" [ngModelOptions]="{standalone: true}">
+                      </employee-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        <!-- Label: Proiect -->
+                        {{ t('project_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <projects-item-select class="form-group-select_wrapper" [(ngModel)]="project" displayValue="name" placeholder="{{ t('project_placeholder') }}" [ngModelOptions]="{standalone: true}">
+                      </projects-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        <!-- Label: PC -->
+                        {{ t('adm_center_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <adm-centers-item-select class="form-group-select_wrapper" [(ngModel)]="admCenter" displayValue="name" placeholder="{{ t('adm_center_placeholder') }}" [ngModelOptions]="{standalone: true}">
+                      </adm-centers-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        <!-- Label: PC det -->
+                        {{ t('region_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <regions-item-select class="form-group-select_wrapper" [(ngModel)]="region" displayValue="name" placeholder="{{ t('region_placeholder') }}" [ngModelOptions]="{standalone: true}">
+                      </regions-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        <!-- Label: Type -->
+                        {{ t('asset_type_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <asset-types-item-select class="form-group-select_wrapper" [(ngModel)]="assetType" displayValue="name" placeholder="{{ t('asset_type_placeholder') }}" [ngModelOptions]="{standalone: true}">
+                      </asset-types-item-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        <!-- Label: PCS -->
+                        {{ t('quantity_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" [(ngModel)]="contract.quantity" name="quantity" [placeholder]="t('quantity_placeholder')" #quantity="ngModel" [ngModelOptions]="{standalone: true}">
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-group inputs-modal-nomenclature mt-3 mb-3">
+                      <label>
+                        <!-- Label: Info -->
+                        {{ t('info_label') }}:
+                        <span class="required-label-symbol">*</span>
+                      </label>
+                      <input matInput class="form-control" [(ngModel)]="contract.info" name="info" #info="ngModel" [placeholder]="t('info_placeholder')" [ngModelOptions]="{standalone: true}">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-5 mb-5" #operation>
+                  <mat-tab-group mat-stretch-tabs="false" color="transparent">
+                    <mat-tab label="Operations">
+                      <div class="row mt-3">
+                        <div class="col-12 attributes">
+                          <div class="files-header mb-2">
+                            <div class="d-flex">
+                            </div>
+                          </div>
+                          <hr class="mb-3">
+                          <div>
+                            <div class="table-responsive border-1-gray">
+                              <app-contract-op-detail-list #contractOpDetailList id="contractOpDetailList"
+                                                           [dataSource]="contractOpHttpService"
+                                                           showSimpleSearch="false"
+                                                           listTemplate="CONTRACT_OPERATIONS"
+                                                           detailType="details"
+                                                           sortColumn="modifiedAt"
+                                                           sortDirection="asc"
+                                                           dynamicQuery="true"
+                                                           rowSelection="single"
+                                                           notifyOnChange="true"
+                                                           (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                                           usePaging="true">
+                              </app-contract-op-detail-list>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Files">
+                      <div class="row mt-3">
+                        <div class="col-12 attributes">
+                          <div class="files-header mb-2">
+                            <div class="d-flex">
+                            </div>
+                          </div>
+                          <hr class="mb-3">
+                          <div>
+                            <div class="table-responsive border-1-gray">
+                              <app-entity-file-list #entityFileList id="entityFileList"
+                                                    [dataSource]="entityFileHttpService"
+                                                    showSimpleSearch="false"
+                                                    rowSelection="single"
+                                                    notifyOnChange="true"
+                                                    (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                                    usePaging="false"
+                                                    [inInvetoryReport] = "false">
+                              </app-entity-file-list>
+                              <br>
+                              <app-entity-file-upload *ngIf="contract.id > 0 || id > 0"
+                                                      [entityId]="contract.id"
+                                                      [entityTypeCode]="entityTypeCode"
+                                                      (uploadFinished)="refreshEntityFiles()">
+                              </app-entity-file-upload>
+                              <app-entity-file-download *ngIf="contract.id > 0 || id > 0"
+                                                        [entityFile]="entityFile">
+                              </app-entity-file-download>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn gray-btn-outline">{{ t('action_cancel') }}</button>
+    <button mat-button
+            class="btn blue-btn"
+            type="submit"
+            [disabled]="!allowSaving || !isSaved"
+            (click)="saveContract()"
+    >{{ t('action_save') }}</button>
+  </mat-dialog-actions>
+
+</div>
