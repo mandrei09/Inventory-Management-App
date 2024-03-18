@@ -73,13 +73,11 @@ import { AssetTempRecoSave } from '../../../model/api/assets/asset-temp-reco-sav
 import { AppUtils } from '../../../common/app.utils';
 import { PagedResult } from '../../../model/common/paged-result';
 import { EntityFileHttpService } from '../../../services/http/common/entity-file.http.service';
-import { InterCompany } from '../../../model/api/assets/inter-company';
+
 import { AssetNatureListComponent } from '../asset-natures/asset-nature.list';
 import { InsuranceCategoryList } from '../insurance-categories/insurance-category.list';
-import { InterCompanyListComponent } from '../inter-companies/inter-company.list';
 import { InsuranceCategory } from '../../../model/api/assets/insurance-category';
 import { AssetNature } from '../../../model/api/assets/asset-nature';
-import { InterCompanyHttpService } from '../../../services/http/assets/inter-company.http.service';
 import { InsuranceCategoryHttpService } from '../../../services/http/assets/insurance-category.http.service';
 import { AssetNatureHttpService } from '../../../services/http/assets/asset-nature.http.service';
 import { SaveAssetInvMinus } from '../../../model/api/assets/asset-minus-inventory-sap';
@@ -332,9 +330,6 @@ export class AssetInventoryManageComponent {
     @ViewChild('companyListNi') public companyListNi: CompanyListComponent;
     @ViewChild('companyListNiModal') public companyListNiModal: ModalDirective;
 
-    @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-    @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
-
     @ViewChild('insuranceCategoryList') public insuranceCategoryList: InsuranceCategoryList;
     @ViewChild('insuranceCategoryListModal') public insuranceCategoryListModal: ModalDirective;
 
@@ -344,9 +339,6 @@ export class AssetInventoryManageComponent {
 
     @ViewChild('tempCompanyList') public tempCompanyList: CompanyListComponent;
     @ViewChild('tempCompanyListModal') public tempCompanyListModal: ModalDirective;
-
-    @ViewChild('tempInterCompanyList') public tempInterCompanyList: InterCompanyListComponent;
-    @ViewChild('tempInterCompanyListModal') public tempInterCompanyListModal: ModalDirective;
 
     @ViewChild('tempInsuranceCategoryList') public tempInsuranceCategoryList: InsuranceCategoryList;
     @ViewChild('tempInsuranceCategoryListModal') public tempInsuranceCategoryListModal: ModalDirective;
@@ -487,12 +479,10 @@ export class AssetInventoryManageComponent {
     public selectedUsers: Array<ApplicationUser> = new Array<ApplicationUser>();
     public selectedUserTemps: Array<ApplicationUser> = new Array<ApplicationUser>();
 
-    public selectedInterCompanies: Array<InterCompany> = new Array<InterCompany>();
     public selectedInsuranceCategories: Array<InsuranceCategory> = new Array<InsuranceCategory>();
     public selectedAssetNatures: Array<AssetNature> = new Array<AssetNature>();
 
     public selectedTempCompanies: Array<Company> = new Array<Company>();
-    public selectedTempInterCompanies: Array<InterCompany> = new Array<InterCompany>();
     public selectedTempInsuranceCategories: Array<InsuranceCategory> = new Array<InsuranceCategory>();
     public selectedTempAssetNatures: Array<AssetNature> = new Array<AssetNature>();
     public selectedTempDimensions: Array<Dimension> = new Array<Dimension>();
@@ -583,7 +573,6 @@ export class AssetInventoryManageComponent {
         public departmentHttpService: DepartmentHttpService,
         public inventoryHttpService: InventoryHttpService,
         public divisionHttpService: DivisionHttpService,
-        public interCompanyHttpService: InterCompanyHttpService,
         public insuranceCategoryHttpService: InsuranceCategoryHttpService,
         public assetNatureHttpService: AssetNatureHttpService,
         public locationHttpService: LocationHttpService,
@@ -2645,33 +2634,6 @@ public setSelectedLocations() {
 
         /*end asset category*/
 
-         /*begin INTERCOMPANY */
-         public selectInterCompanies() {
-            this.interCompanyListModal.show();
-            this.interCompanyList.selectedItems = this.selectedInterCompanies;
-            this.interCompanyList.refresh(null);
-        }
-
-        public removeFromInterCompanySelection(interCompany: InterCompany) {
-            const index: number = this.selectedInterCompanies.indexOf(interCompany);
-            this.selectedInterCompanies.splice(index, 1);
-            this.checkForRefresh();
-        }
-
-        public clearInterCompanySelection() {
-            this.selectedInterCompanies = new Array<InterCompany>();
-            this.checkForRefresh();
-        }
-
-        public setSelectedInterCompanies() {
-            this.selectedInterCompanies = this.interCompanyList.selectedItems;
-            this.interCompanyListModal.hide();
-            this.checkForRefresh();
-        }
-
-
-        /*end  INTERCOMPANY  */
-
          /*begin INSURANCECATEGORY */
          public selectInsuranceCategories() {
             this.insuranceCategoryListModal.show();
@@ -2750,36 +2712,6 @@ public setSelectedLocations() {
             this.tempCompanyListModal.hide();
             this.refreshNotIdentified();
         }
-
-
-        /*end TEMP asset category*/
-
-         /*begin TEMP INTERCOMPANY */
-         public selectTempInterCompanies() {
-            this.tempInterCompanyListModal.show();
-            this.tempInterCompanyList.selectedItems = this.selectedTempInterCompanies;
-            this.tempInterCompanyList.refresh(null);
-        }
-
-        public removeFromTempInterCompanySelection(interCompany: InterCompany) {
-            const index: number = this.selectedTempInterCompanies.indexOf(interCompany);
-            this.selectedTempInterCompanies.splice(index, 1);
-            this.refreshNotIdentified();
-        }
-
-        public clearTempInterCompanySelection() {
-            this.selectedTempInterCompanies = new Array<InterCompany>();
-            this.refreshNotIdentified();
-        }
-
-        public setSelectedTempInterCompanies() {
-            this.selectedTempInterCompanies = this.tempInterCompanyList.selectedItems;
-            this.tempInterCompanyListModal.hide();
-            this.refreshNotIdentified();
-        }
-
-
-        /*end  TEMP INTERCOMPANY  */
 
          /*begin TEMP INSURANCECATEGORY */
          public selectTempInsuranceCategories() {
@@ -2985,7 +2917,7 @@ public setSelectedLocations() {
         params.push(new Param('dimensionIds', AppUtils.getIdsList<Dimension, number>(this.selectedDimensions)));
         // params.push(new Param('uomIds', AppUtils.getIdsList<Uom, number>(this.selectedUoms)));
         params.push(new Param('companyIds', AppUtils.getIdsList<Company, number>(this.selectedCompanies)));
-        params.push(new Param('interCompanyIds', AppUtils.getIdsList<InterCompany, number>(this.selectedInterCompanies)));
+       
         params.push(new Param('insuranceCategoryIds', AppUtils.getIdsList<InsuranceCategory, number>(this.selectedInsuranceCategories)));
         params.push(new Param('assetNatureIds', AppUtils.getIdsList<AssetNature, number>(this.selectedAssetNatures)));
         // params.push(new Param('assetCategoryIds', AppUtils.getIdsList<AssetCategory, number>(this.selectedAssetCategories)));
@@ -3162,7 +3094,7 @@ public setSelectedLocations() {
         this.selectedCompanyNis = new Array<Company>();
 
         this.selectedTempCompanies = new Array<Company>();
-        this.selectedTempInterCompanies = new Array<InterCompany>();
+        
         this.selectedTempInsuranceCategories = new Array<InsuranceCategory>();
         this.selectedTempAssetNatures = new Array<AssetNature>();
         this.selectedTempDimensions = new Array<Dimension>();

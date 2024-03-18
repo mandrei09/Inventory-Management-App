@@ -23,7 +23,6 @@ import {RegionListComponent} from '../../regions/region.list';
 import {ProjectTypeListComponent} from '../../../assets/project-types/project-type.list';
 import {CountryListComponent} from '../../countries/country.list';
 import {ActivityList} from '../../../assets/activities/activity.list';
-import {InterCompanyListComponent} from '../../../assets/inter-companies/inter-company.list';
 import {BudgetOpDetailList} from '../../budget-ops/budget-op.detail.list';
 import {BudgetBaseOpDetailListComponent} from '../../budget-base-ops/budget-base-op.detail.list';
 import {EntityFileListComponent} from '../../../common/entity-file.list';
@@ -66,7 +65,6 @@ import {CompanyHttpService} from '../../../../services/http/assets/company.http.
 import {BudgetOpHttpService} from '../../../../services/http/administration/budget-op.http.service';
 import {PartnerHttpService} from '../../../../services/http/documents/partner.http.service';
 import {AdministrationHttpService} from '../../../../services/http/administration/administration.http.service';
-import {InterCompanyHttpService} from '../../../../services/http/assets/inter-company.http.service';
 import {RequestHttpService} from '../../../../services/http/administration/request.http.service';
 import {OrderHttpService} from '../../../../services/http/administration/order.http.service';
 import {AssetHttpService} from '../../../../services/http/assets/asset.http.service';
@@ -87,7 +85,6 @@ import {Region} from '../../../../model/api/administration/region';
 import {ProjectType} from '../../../../model/api/assets/project-type';
 import {Country} from '../../../../model/api/assets/customer';
 import {Activity} from '../../../../model/api/assets/activity';
-import {InterCompany} from '../../../../model/api/assets/inter-company';
 import {BudgetForecastCorrrectionResult} from '../../../../model/api/result/budget-forecast-correction-result';
 import {AppConfig} from '../../../../config';
 import {UploadBudgetTransferModalComponent} from '../../../common/upload-budget-transfer-modal.component';
@@ -205,9 +202,6 @@ export class BudgetForecastTransferDialogComponent implements AfterViewInit {
 
     @ViewChild('activityList') public activityList: ActivityList;
     @ViewChild('activityListModal') public activityListModal: ModalDirective;
-
-    @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-    @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
 
     @ViewChild('budgetOpDetailList') public budgetOpList: BudgetOpDetailList;
     @ViewChild('budgetBaseOpDetailList') public budgetBaseOpList: BudgetBaseOpDetailListComponent;
@@ -341,7 +335,6 @@ export class BudgetForecastTransferDialogComponent implements AfterViewInit {
         public countryHttpService: CountryHttpService,
         public activityHttpService: ActivityHttpService,
         public companyHttpService: CompanyHttpService,
-        public interCompanyHttpService: InterCompanyHttpService,
         public budgetOpHttpService: BudgetOpHttpService,
         public partnerHttpService: PartnerHttpService,
         public administrationHttpService: AdministrationHttpService,
@@ -1129,25 +1122,6 @@ export class BudgetForecastTransferDialogComponent implements AfterViewInit {
                 this.activity = ((items != null) && (items.length === 1)) ? items[0] : null;
                 this.activityListModal.hide();
             }
-
-            /*end ACTIVITY */
-
-               /*begin INTERCOMPANY */
-               public selectInterCompany() {
-
-                const params = new Array<Param>();
-
-                params.push(new Param('partnerIds', this.partner != null ? this.partner.id.toString() : null));
-
-                this.interCompanyList.refresh(null);
-                this.interCompanyListModal.show();
-            }
-            public setSelectedInterCompany() {
-                const items: Array<InterCompany> = this.interCompanyList.selectedItems;
-                this.interCompany = ((items != null) && (items.length === 1)) ? items[0] : null;
-                this.interCompanyListModal.hide();
-            }
-            /*end INTERCOMPANY */
 
     /*begin employee*/
     public selectEmployee() {

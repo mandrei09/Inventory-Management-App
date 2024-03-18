@@ -29,7 +29,7 @@ import { MasterType } from '../../../model/api/assets/master-type';
 import { Administration } from '../../../model/api/administration/administration';
 import { Company } from '../../../model/api/assets/company';
 import { Project } from '../../../model/api/assets/project';
-import { InterCompany } from '../../../model/api/assets/inter-company';
+
 import { AccMonth } from '../../../model/api/accounting/acc-month';
 import { CostCenter } from '../../../model/api/administration/cost-center';
 import { Account } from '../../../model/api/administration/account';
@@ -38,7 +38,6 @@ import { SubType } from '../../../model/api/administration/sub-type';
 import { Type } from '../../../model/api/administration/type';
 import { MonthEntity } from '../../../model/api/common/month-entity';
 import { BudgetOpHttpService } from '../../../services/http/administration/budget-op.http.service';
-import { InterCompanyHttpService } from '../../../services/http/assets/inter-company.http.service';
 import { ProjectHttpService } from '../../../services/http/assets/project.http.service';
 import { SubTypeHttpService } from '../../../services/http/administration/sub-type.http.service';
 import { TypeHttpService } from '../../../services/http/administration/type.http.service';
@@ -47,7 +46,6 @@ import { TypeList } from '../types/type.list';
 import { SubTypeList } from '../sub-types/sub-type.list';
 import { AccountList } from '../account/account.list';
 import { ProjectList } from '../../assets/projects/project.list';
-import { InterCompanyListComponent } from '../../assets/inter-companies/inter-company.list';
 import { BudgetOpDetailList } from '../budget-ops/budget-op.detail.list';
 import { BudgetBaseHttpService } from '../../../services/http/administration/budget-base.http.service';
 import { Country } from '../../../model/api/administration/country';
@@ -174,9 +172,6 @@ export class BudgetBaseDetailUIComponent implements AfterViewInit  {
     @ViewChild('activityList') public activityList: ActivityList;
     @ViewChild('activityListModal') public activityListModal: ModalDirective;
 
-    @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-    @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
-
     @ViewChild('budgetOpDetailList') public budgetOpList: BudgetOpDetailList;
     @ViewChild('budgetBaseOpDetailList') public budgetBaseOpList: BudgetBaseOpDetailListComponent;
     @ViewChild('entityFileList') public entityFileList: EntityFileListComponent;
@@ -268,7 +263,6 @@ export class BudgetBaseDetailUIComponent implements AfterViewInit  {
         public countryHttpService: CountryHttpService,
         public activityHttpService: ActivityHttpService,
         public companyHttpService: CompanyHttpService,
-        public interCompanyHttpService: InterCompanyHttpService,
         public budgetOpHttpService: BudgetOpHttpService,
         public partnerHttpService: PartnerHttpService,
         public administrationHttpService: AdministrationHttpService,
@@ -845,23 +839,6 @@ export class BudgetBaseDetailUIComponent implements AfterViewInit  {
             }
 
             /*end ACTIVITY */
-
-               /*begin INTERCOMPANY */
-               public selectInterCompany() {
-
-                const params = new Array<Param>();
-
-                params.push(new Param('partnerIds', this.partner != null ? this.partner.id.toString() : null));
-
-                this.interCompanyList.refresh(null);
-                this.interCompanyListModal.show();
-            }
-            public setSelectedInterCompany() {
-                const items: Array<InterCompany> = this.interCompanyList.selectedItems;
-                this.interCompany = ((items != null) && (items.length === 1)) ? items[0] : null;
-                this.interCompanyListModal.hide();
-            }
-            /*end INTERCOMPANY */
 
     /*begin employee*/
     public selectEmployee() {

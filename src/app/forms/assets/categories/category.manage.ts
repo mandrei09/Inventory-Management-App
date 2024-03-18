@@ -4,12 +4,10 @@ import { GenericManage, GenericManageViewMode } from '../../generic/generic.mana
 import { saveAs as fileSaveAs } from 'file-saver-es';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AppUtils } from '../../../common/app.utils';
-import { InterCompanyHttpService } from '../../../services/http/assets/inter-company.http.service';
 import { Category } from '../../../model/api/assets/category';
 import { CategoryDetailComponent } from './category.detail';
 import { CategoryListComponent } from './category.list';
-import { InterCompanyListComponent } from '../inter-companies/inter-company.list';
-import { InterCompany } from '../../../model/api/assets/inter-company';
+
 import { CategoryHttpService } from '../../../services/http/assets/category.http.service';
 import { CategoryENHttpService } from '../../../services/http/assets/category-en.http.service';
 import { CategoryENListComponent } from '../categories-en/category-en.list';
@@ -20,7 +18,7 @@ import {MatDialog} from '@angular/material/dialog';
 @Component({
     selector: 'app-category-manage',
     templateUrl: 'category.manage.html',
-    providers: [ InterCompanyHttpService, CategoryENHttpService ]
+    providers: [ CategoryENHttpService ]
 })
 export class CategoryManageComponent extends GenericManage<Category, number> {
 
@@ -28,20 +26,18 @@ export class CategoryManageComponent extends GenericManage<Category, number> {
     @ViewChild('categoryList') categoryList: CategoryListComponent;
     @ViewChild('categoryDetail') categoryDetail: CategoryDetailComponent;
     @ViewChild('interCompanyListModal') interCompanyListModal: ModalDirective;
-    @ViewChild('interCompanyList') interCompanyList: InterCompanyListComponent;
     @ViewChild('categoryENListModal') categoryENListModal: ModalDirective;
     @ViewChild('categoryENList') categoryENList: CategoryENListComponent;
 
     public filter: string = '';
-    public selectedInterCompany: InterCompany = null;
+
     public selectedCategoryEN: CategoryEN = null;
     isCollapsed: boolean = true;
 
     constructor(
         public dialog: MatDialog,
         public categoryHttpService: CategoryHttpService,
-        public categoryENHttpService: CategoryENHttpService,
-        public interCompanyHttpService: InterCompanyHttpService) {
+        public categoryENHttpService: CategoryENHttpService){
         super();
     }
 
@@ -101,7 +97,7 @@ export class CategoryManageComponent extends GenericManage<Category, number> {
 
     public onCategoryDetailInterCompanyNeeded() {
         this.categoryDetailModal.hide();
-        this.selectInterCompany();
+        //this.selectInterCompany();
     }
 
     public onInterCompanyListCancel() {
@@ -124,45 +120,14 @@ export class CategoryManageComponent extends GenericManage<Category, number> {
         }
     }
 
-
-
     public refresh() {
-        const params: Array<Param> = new Array<Param>();
+        // const params: Array<Param> = new Array<Param>();
 
-        params.push(new Param('filter', this.filter));
-        params.push(new Param('interCompanyIds', AppUtils.getIdsList<InterCompany, number>([ this.selectedInterCompany ])));
+        // params.push(new Param('filter', this.filter));
+        // params.push(new Param('interCompanyIds', AppUtils.getIdsList<InterCompany, number>([ this.selectedInterCompany ])));
 
-        this.categoryList.refresh(params);
+        // this.categoryList.refresh(params);
     }
-
-    public selectInterCompany() {
-        this.interCompanyListModal.show();
-        this.interCompanyList.refresh(null);
-    }
-
-    public setSelectedInterCompany() {
-        switch (this.viewMode) {
-            case GenericManageViewMode.ItemList:
-                this.selectedInterCompany = this.interCompanyList.selectedItem;
-                this.interCompanyListModal.hide();
-                this.refresh();
-                break;
-            case GenericManageViewMode.ItemDetail:
-                this.categoryDetail.interCompany = this.interCompanyList.selectedItem;
-                this.interCompanyListModal.hide();
-                this.categoryDetailModal.show();
-                break;
-            default:
-                break;
-        }
-    }
-
-    public unselectInterCompany() {
-        this.selectedInterCompany = null;
-        this.refresh();
-    }
-
-
 
     public selectCategoryEN() {
         this.categoryENListModal.show();
@@ -223,25 +188,25 @@ export class CategoryManageComponent extends GenericManage<Category, number> {
 
     // }
 
-    public getFilters(): Array<Param> {
-        const params: Array<Param> = new Array<Param>();
-        params.push(new Param('filter', this.filter));
-        params.push(new Param('interCompanyIds', AppUtils.getIdsList<InterCompany, number>([this.selectedInterCompany])));
+    // public getFilters(): Array<Param> {
+    //     const params: Array<Param> = new Array<Param>();
+    //     params.push(new Param('filter', this.filter));
+    //     params.push(new Param('interCompanyIds', AppUtils.getIdsList<InterCompany, number>([this.selectedInterCompany])));
 
-        return params;
-    }
+    //     return params;
+    // }
 
-    public export() {
+    // public export() {
 
-        let params: Array<Param> = null;
+    //     let params: Array<Param> = null;
 
-        params = this.getFilters();
-        this.categoryHttpService
-            .export(params)
-            .subscribe((blob) => {
-                fileSaveAs(blob.body, 'categories.xlsx');
-            });
-    }
+    //     params = this.getFilters();
+    //     this.categoryHttpService
+    //         .export(params)
+    //         .subscribe((blob) => {
+    //             fileSaveAs(blob.body, 'categories.xlsx');
+    //         });
+    // }
 
     collapsed(event: any): void {
         // console.log(event);

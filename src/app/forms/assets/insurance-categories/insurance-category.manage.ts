@@ -2,7 +2,7 @@ import { Param } from './../../../model/common/param';
 import { Component, ViewChild } from '@angular/core';
 import { GenericManage, GenericManageViewMode } from '../../generic/generic.manage';
 import { saveAs as fileSaveAs } from 'file-saver-es';
-import { InterCompany } from '../../../model/api/assets/inter-company';
+
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AppUtils } from '../../../common/app.utils';
 import { InsuranceCategory } from '../../../model/api/assets/insurance-category';

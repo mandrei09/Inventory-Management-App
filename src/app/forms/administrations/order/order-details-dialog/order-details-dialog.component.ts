@@ -14,7 +14,6 @@ import {RequestBudgetForecastMaterialListComponent} from '../../../administratio
 import {EntityFile} from '../../../../model/api/common/entity-file';
 import {AppConfig} from '../../../../config';
 import {CodeNameEntity} from '../../../../model/api/common/code-name-entity';
-import {InterCompany} from '../../../../model/api/assets/inter-company';
 import {Project} from '../../../../model/api/assets/project';
 import {Uom} from '../../../../model/api/assets/uom';
 import {Employee} from '../../../../model/api/administration/employee';
@@ -24,7 +23,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AssetHttpService} from '../../../../services/http/assets/asset.http.service';
 import {ProjectHttpService} from '../../../../services/http/assets/project.http.service';
 import {OrderHttpService} from '../../../../services/http/administration/order.http.service';
-import {InterCompanyHttpService} from '../../../../services/http/assets/inter-company.http.service';
 import {Administration} from '../../../../model/api/administration/administration';
 import {Company} from '../../../../model/api/assets/company';
 import {AccountHttpService} from '../../../../services/http/administration/account.http.service';
@@ -96,7 +94,6 @@ import {StockHttpService} from '../../../../services/http/administration/stock.h
 import {BudgetForecastHttpService} from '../../../../services/http/administration/budget-forecast.http.service';
 import {CompanyListComponent} from '../../../assets/companies/company.list';
 import {UomListComponent} from '../../../assets/uoms/uom.list';
-import {InterCompanyListComponent} from '../../../assets/inter-companies/inter-company.list';
 import {ProjectList} from '../../../assets/projects/project.list';
 import {SubCategoryHttpService} from '../../../../services/http/assets/sub-category.http.service';
 import {PlantHttpService} from '../../../../services/http/assets/plant.http.service';
@@ -229,9 +226,6 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
 
     @ViewChild('projectList') public projectList: ProjectList;
     @ViewChild('projectListModal') public projectListModal: ModalDirective;
-
-    @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-    @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
 
     @ViewChild('orderOpDetailList') public orderOpList: OrderOpDetailList;
     @ViewChild('entityFileList') public entityFileList: EntityFileListComponent;
@@ -472,7 +466,6 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
         public contractHttpService: ContractHttpService,
         public budgetHttpService: BudgetHttpService,
         public budgetBaseHttpService: BudgetBaseHttpService,
-        public interCompanyHttpService: InterCompanyHttpService,
         public orderOpHttpService: OrderOpHttpService,
         public partnerHttpService: PartnerHttpService,
         public uomHttpService: UomHttpService,
@@ -1254,24 +1247,6 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
                 this.projectListModal.hide();
             }
             /*end PROJECT */
-
-               /*begin INTERCOMPANY */
-               public selectInterCompany() {
-
-                const params = new Array<Param>();
-                params.push(new Param('partnerIds', this.partner != null ? this.partner.id.toString() : null));
-
-                this.interCompanyList.refresh(null);
-                this.interCompanyListModal.show();
-            }
-            public setSelectedInterCompany() {
-                const items: Array<InterCompany> = this.interCompanyList.selectedItems;
-                this.interCompany = ((items != null) && (items.length === 1)) ? items[0] : null;
-                this.interCompanyListModal.hide();
-            }
-
-            /*end INTERCOMPANY */
-
 
     /*begin employee*/
     public selectEmployee() {

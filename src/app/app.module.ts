@@ -240,7 +240,6 @@ import { AccountHttpService } from './services/http/administration/account.http.
 import { TypeHttpService } from './services/http/administration/type.http.service';
 import { MasterTypeHttpService } from './services/http/assets/master-type.http.service';
 import { ProjectHttpService } from './services/http/assets/project.http.service';
-import { InterCompanyHttpService } from './services/http/assets/inter-company.http.service';
 import { BudgetOpHttpService } from './services/http/administration/budget-op.http.service';
 import { AssetOpHttpService } from './services/http/assets/asset-op.http.service';
 import { DimensionHttpService } from './services/http/administration/dimension.http.service';
@@ -380,13 +379,6 @@ import { CategoryDetailComponent } from './forms/assets/categories/category.deta
 import { CategoryListComponent } from './forms/assets/categories/category.list';
 import { CategoryManageComponent } from './forms/assets/categories/category.manage';
 import { CategoryHttpService } from './services/http/assets/category.http.service';
-import { InterCompanyENHttpService } from './services/http/assets/inter-company-en.http.service';
-import { InterCompanyENManageComponent } from './forms/assets/inter-companies-en/inter-company-en.manage';
-import { InterCompanyENListComponent } from './forms/assets/inter-companies-en/inter-company-en.list';
-import { InterCompanyENDetailComponent } from './forms/assets/inter-companies-en/inter-company-en.detail';
-import { InterCompanyManageComponent } from './forms/assets/inter-companies/inter-company.manage';
-import { InterCompanyDetailComponent } from './forms/assets/inter-companies/inter-company.detail';
-import { InterCompanyListComponent } from './forms/assets/inter-companies/inter-company.list';
 import { CategoryENDetailComponent } from './forms/assets/categories-en/category-en.detail';
 import { CategoryENListComponent } from './forms/assets/categories-en/category-en.list';
 import { CategoryENManageComponent } from './forms/assets/categories-en/category-en.manage';
@@ -441,10 +433,6 @@ import { MatrixHttpService } from './services/http/administration/matrix.http.se
 import { MatrixDetailComponent } from './forms/administrations/matrix/matrix.detail';
 import { MatrixListComponent } from './forms/administrations/matrix/matrix.list';
 import { MatrixManageComponent } from './forms/administrations/matrix/matrix.manage';
-import { AreaDetailComponent } from './forms/administrations/areas/area.detail';
-import { AreaListComponent } from './forms/administrations/areas/area.list';
-import { AreaManageComponent } from './forms/administrations/areas/area.manage';
-import { AreaHttpService } from './services/http/administration/area.http.service';
 import { LevelHttpService } from './services/http/administration/level.http.service';
 import { LevelDetailComponent } from './forms/administrations/level/level.detail';
 import { LevelListComponent } from './forms/administrations/level/level.list';
@@ -796,9 +784,7 @@ import {OrderTypeAddEditComponent} from './forms/orders/order-type/order-type-ad
 import {OfferDetailsDialogComponent} from './forms/administrations/offer/offer-details-dialog/offer-details-dialog.component';
 import {OfferOpHttpService} from './services/http/administration/offer-op.http.service';
 import {LevelAddEditComponent} from './forms/administrations/level/level-add-edit/level-add-edit.component';
-import {AreaAddEditComponent} from './forms/administrations/areas/area-add-edit/area-add-edit.component';
 import {ProjectTypeAddEditComponent} from './forms/assets/project-types/project-type-add-edit/project-type-add-edit.component';
-import {InterCompanyEnAddEditComponent} from './forms/assets/inter-companies-en/inter-company-en-add-edit/inter-company-en-add-edit.component';
 import {StoragesAddEditComponent} from './forms/stock/storages/storages-add-edit/storages-add-edit.component';
 import {TableDefinitionAddEditComponent} from './forms/common/table-definition/table-definition-add-edit/table-definition-add-edit.component';
 import {DictionaryItemsSelectionDialog} from './forms/administrations/dictionary-item/selection/dictionary-items.selection.dialog';
@@ -829,7 +815,6 @@ import {CategoryEnSelectionDialog} from './forms/assets/categories-en/selection/
 import {CategoryEnItemSelect} from './forms/assets/categories-en/selection/category-en.item-select';
 import {SubCategoryEnAddEditComponent} from './forms/assets/sub-categories-en/sub-category-en-add-edit/sub-category-en-add-edit.component';
 import {CategoriesAddEditComponent} from './forms/assets/categories/categories-add-edit/categories-add-edit.component';
-import {InterCompaniesAddEditComponent} from './forms/assets/inter-companies/inter-companies-add-edit/inter-companies-add-edit.component';
 import {SubCategoriesEnSelectionDialog} from './forms/assets/sub-categories-en/selection/sub-categories-en.selection.dialog';
 import {SubCategoriesEnItemSelect} from './forms/assets/sub-categories-en/selection/sub-categories-en.item-select';
 import {CategoriesEnAddEditComponent} from './forms/assets/categories-en/categories-en-add-edit/categories-en-add-edit.component';
@@ -913,10 +898,6 @@ import {ProjectTypeDivisionAddEditComponent} from './forms/administrations/proje
 import {AccountSelectionDialog} from './forms/administrations/account/selection/account.selection.dialog';
 import {AccountItemSelect} from './forms/administrations/account/selection/account.item-select';
 import {AccountancyAddEditComponent} from './forms/administrations/accountancy/accountancy-add-edit/accountancy-add-edit.component';
-import {InterCompanySelectionDialog} from './forms/assets/inter-companies/selection/inter-company.selection.dialog';
-import {InterCompanyItemSelect} from './forms/assets/inter-companies/selection/inter-company.item-select';
-import {InterCompanyEnSelectionDialog} from './forms/assets/inter-companies-en/selection/inter-company-en.selection.dialog';
-import {InterCompanyEnItemSelect} from './forms/assets/inter-companies-en/selection/inter-company-en.item-select';
 import {ReasonDialogComponent} from './common/reason-dialog/reason-dialog.component';
 import {BudgetForecastCorrectionDialogComponent} from './forms/administrations/budget-forecast/budget-forecast-correction-dialog/budget-forecast-correction-dialog.component';
 import {BudgetBaseSelectionDialog} from './forms/administrations/budget-base/selection/budget-base.selection.dialog';
@@ -1251,9 +1232,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     BudgetDetailUI,
     AccountList,
     AcquisitionValidateReadOnlyOfferListComponent,
-    InterCompanyManageComponent,
-    InterCompanyDetailComponent,
-    InterCompanyListComponent,
     InsuranceCategoryDetail,
     InsuranceCategoryList,
     InsuranceCategoryManage,
@@ -1395,9 +1373,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     CategoryDetailComponent,
     CategoryListComponent,
     CategoryManageComponent,
-    InterCompanyENManageComponent,
-    InterCompanyENListComponent,
-    InterCompanyENDetailComponent,
     CategoryENDetailComponent,
     CategoryENListComponent,
     CategoryENManageComponent,
@@ -1442,9 +1417,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     MatrixDetailComponent,
     MatrixListComponent,
     MatrixManageComponent,
-    AreaDetailComponent,
-    AreaListComponent,
-    AreaManageComponent,
     LevelDetailComponent,
     LevelDetailComponent,
     LevelListComponent,
@@ -1771,12 +1743,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     CountySelectionDialog,
     CountyItemSelect,
 
-    InterCompanySelectionDialog,
-    InterCompanyItemSelect,
-
-    InterCompanyEnSelectionDialog,
-    InterCompanyEnItemSelect,
-
     AccountSelectionDialog,
     AccountItemSelect,
 
@@ -1817,9 +1783,7 @@ const JWT_Module_Options: JwtModuleOptions = {
     ProjectAddEditComponent,
     OfferDetailsDialogComponent,
     LevelAddEditComponent,
-    AreaAddEditComponent,
     ProjectTypeAddEditComponent,
-    InterCompanyEnAddEditComponent,
     StoragesAddEditComponent,
     TableDefinitionAddEditComponent,
     PermissionTypeAddEditComponent,
@@ -1839,7 +1803,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     SubCategoryAddEditComponent,
     SubCategoryEnAddEditComponent,
     CategoriesAddEditComponent,
-    InterCompaniesAddEditComponent,
     ExpAccountAddEditComponent,
     ArticleAddEditComponent,
     DimensionAddEditComponent,
@@ -1961,7 +1924,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   ModelHttpService,
   FileHttpService,
   ProjectHttpService,
-  InterCompanyHttpService,
   BudgetOpHttpService,
   CostCenterHttpService,
   AssetComponentOpHttpService,
@@ -2046,7 +2008,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   EmailTypeHttpService,
   EmployeeHttpService,
   MatrixLevelHttpService,
-  AreaHttpService,
   LevelHttpService,
   OfferMaterialHttpService,
   OrderMaterialHttpService,
@@ -2083,7 +2044,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   RoomHttpService,
   CategoryHttpService,
   CategoryENHttpService,
-  InterCompanyENHttpService,
   SubCategoryENHttpService,
   SubCategoryHttpService,
   OrderTypeHttpService,

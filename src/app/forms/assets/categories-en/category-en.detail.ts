@@ -2,7 +2,6 @@ import { Component, EventEmitter, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AppConfig } from '../../../config';
 import { CategoryEN } from '../../../model/api/assets/category-en';
-import { InterCompanyEN } from '../../../model/api/assets/inter-company-en';
 import { CodeNameEntity } from '../../../model/api/common/code-name-entity';
 import { GenericDetail } from '../../generic/generic.detail';
 
@@ -16,7 +15,7 @@ export class CategoryENDetailComponent extends GenericDetail<CategoryEN, number>
     @ViewChild('detailForm') detailForm: FormGroup;
     public interCompanyENNeeded: EventEmitter<void> = new EventEmitter<void>();
 
-    public selectedInterCompanyEN: InterCompanyEN;
+    //public selectedInterCompanyEN: InterCompanyEN;
 
     setItemDefaultValues() {
         this.item = new CategoryEN(0, '', '', null);
@@ -26,26 +25,26 @@ export class CategoryENDetailComponent extends GenericDetail<CategoryEN, number>
         this.detailForm.reset();
     }
 
-    public saveItem() {
-        if ((AppConfig.INTER_COMPANY_EN_REQUIRED) && (this.selectedInterCompanyEN == null)) {
-            alert('Supracategoria EN este obligatorie!');
-        } else {
-            super.saveItem();
-        }
+    // public saveItem() {
+    //     if ((AppConfig.INTER_COMPANY_EN_REQUIRED) && (this.selectedInterCompanyEN == null)) {
+    //         alert('Supracategoria EN este obligatorie!');
+    //     } else {
+    //         super.saveItem();
+    //     }
 
-        // super.saveItem();
-    }
+    //     // super.saveItem();
+    // }
 
-    public set interCompanyEN(interCompany: InterCompanyEN) {
-        this.setInterCompanyEN(interCompany);
-    }
+    // public set interCompanyEN(interCompany: InterCompanyEN) {
+    //     this.setInterCompanyEN(interCompany);
+    // }
 
-    public setInterCompanyEN(interCompanyEN: InterCompanyEN) {
-        this.selectedInterCompanyEN = interCompanyEN;
-        this.item.interCompanyEN = interCompanyEN != null ? new CodeNameEntity(interCompanyEN.id, interCompanyEN.code, interCompanyEN.name) : null;
-    }
+    // public setInterCompanyEN(interCompanyEN: InterCompanyEN) {
+    //     this.selectedInterCompanyEN = interCompanyEN;
+    //     this.item.interCompanyEN = interCompanyEN != null ? new CodeNameEntity(interCompanyEN.id, interCompanyEN.code, interCompanyEN.name) : null;
+    // }
 
-    public askForInterCompanyEN() {
-        this.interCompanyENNeeded.emit();
-    }
+    // public askForInterCompanyEN() {
+    //     this.interCompanyENNeeded.emit();
+    // }
 }

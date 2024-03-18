@@ -84,11 +84,9 @@ import { RoomDetailComponent as RoomUIDetail } from '../../administrations/rooms
 import { InvStateDetail } from '../../inventory/inv-state/inv-state.detail';
 import { InvStateList } from '../../inventory/inv-state/inv-state.list';
 import { InsuranceCategoryList } from '../insurance-categories/insurance-category.list';
-import { InterCompanyListComponent } from '../inter-companies/inter-company.list';
-import { InterCompany } from '../../../model/api/assets/inter-company';
+
 import { InsuranceCategory } from '../../../model/api/assets/insurance-category';
 import { InsuranceCategoryHttpService } from '../../../services/http/assets/insurance-category.http.service';
-import { InterCompanyHttpService } from '../../../services/http/assets/inter-company.http.service';
 import { NotificationService } from '../../../services/notification.service';
 import { AssetNature } from '../../../model/api/assets/asset-nature';
 import { AssetNatureListComponent } from '../asset-natures/asset-nature.list';
@@ -175,9 +173,6 @@ export class AssetDetailUIComponent  {
 
     @ViewChild('brandList') public brandList: BrandList;
     @ViewChild('brandListModal') public brandListModal: ModalDirective;
-
-    @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-    @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
 
     @ViewChild('dictionaryItemDetail') public dictionaryItemDetail: DictionaryItemDetailComponent;
     @ViewChild('dictionaryItemList') public dictionaryItemList: DictionaryItemListComponent;
@@ -385,7 +380,6 @@ export class AssetDetailUIComponent  {
     }
     public invState: CodeNameEntity = null;
     public assetCategory: AssetCategory = null;
-    public interCompany: InterCompany = null;
     public project: Project = null;
     public order: Order = null;
     public brand: Brand = null;
@@ -455,7 +449,6 @@ export class AssetDetailUIComponent  {
         public projectHttpService: ProjectHttpService,
         public orderHttpService: OrderHttpService,
         public brandHttpService: BrandHttpService,
-        public interCompanyHttpService: InterCompanyHttpService,
         public dictionaryItemHttpService: DictionaryItemHttpService,
         public invStateHttpService: InvStateHttpService,
         public assetClassHttpService: AssetClassHttpService,
@@ -667,7 +660,7 @@ export class AssetDetailUIComponent  {
             this.type = asset.adm.type;
             this.employee = asset.adm.employee;
             this.material = asset.adm.material;
-            this.interCompany = asset.adm.interCompany;
+            
             this.subType = asset.adm.subType;
             this.assetClass = asset.adm.assetClass;
             this.admCenter = asset.adm.admCenter;
@@ -799,22 +792,6 @@ export class AssetDetailUIComponent  {
     }
 
     /*end asset category*/
-
-      /*begin INTER COMPANY */
-      public selectInterCompany() {
-        this.interCompanyList.refresh(null);
-        this.interCompanyListModal.show();
-    }
-
-    public setSelectedInterCompany() {
-        const items: Array<InterCompany> = this.interCompanyList.selectedItems;
-        this.interCompany = ((items != null) && (items.length === 1)) ? items[0] : null;
-        this.interCompanyListModal.hide();
-    }
-
-    /*end INTER COMPANY */
-
-
 
      /*begin dictionary Item*/
      public selectDictionaryItem() {
@@ -1398,7 +1375,6 @@ export class AssetDetailUIComponent  {
         this.asset.dimensionId = this.dimension != null ? this.dimension.id : null;
         this.asset.documentDate = this.asset.purchaseDate;
         // this.asset.serialNumberInv = this.serialNumberFinal;
-        this.asset.interCompanyId = this.interCompany != null ? this.interCompany.id : null;
         this.asset.insuranceCategoryId = this.insuranceCategory != null ? this.insuranceCategory.id : null;
         this.asset.assetNatureId = this.assetNature != null ? this.assetNature.id : null;
         this.asset.projectId = this.project != null ? this.project.id : null;

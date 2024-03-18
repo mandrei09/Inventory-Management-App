@@ -1,16 +1,11 @@
-import { PagedResult } from './../../../model/common/paged-result';
 import { Param } from './../../../model/common/param';
 import { Component, ViewChild } from '@angular/core';
 import { GenericManage } from '../../generic/generic.manage';
-import { DictionaryType } from '../../../model/api/administration/dictionary-type';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { OfferTypeHttpService } from '../../../services/http/offfers/offer-type.http.service';
 import { OfferType } from '../../../model/api/offer/offer-type';
 import { OfferTypeListComponent } from './offer-type.list';
 import { OfferTypeDetailComponent } from './offer-type.detail';
-import {AssetType} from '../../../model/api/assets/asset-type';
-import {AssetTypeAddEditComponent} from '../../assets/asset-types/asset-type-add-edit/asset-type-add-edit.component';
-import {Area} from '../../../model/api/administration/area';
 import {OfferTypeAddEditComponent} from './offer-type-add-edit/offer-type-add-edit.component';
 import {MatDialog} from '@angular/material/dialog';
 import { saveAs as fileSaveAs } from 'file-saver-es';
@@ -53,9 +48,9 @@ export class OfferTypeManageComponent extends GenericManage<OfferType, number> {
     });
   }
 
-  public onItemEdit(item: Area) {
-    this.onAddEditItem(item);
-  }
+  // public onItemEdit(item: Area) {
+  //   this.onAddEditItem(item);
+  // }
 
     public detailInitialize() {
         super.detailInitialize();

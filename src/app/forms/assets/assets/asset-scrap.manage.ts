@@ -94,11 +94,9 @@ import alasql from 'alasql';
 import { AssetNature } from '../../../model/api/assets/asset-nature';
 import { AssetNatureListComponent } from '../asset-natures/asset-nature.list';
 import { AssetNatureHttpService } from '../../../services/http/assets/asset-nature.http.service';
-import { InterCompany } from '../../../model/api/assets/inter-company';
+
 import { InsuranceCategory } from '../../../model/api/assets/insurance-category';
-import { InterCompanyListComponent } from '../inter-companies/inter-company.list';
 import { InsuranceCategoryList } from '../insurance-categories/insurance-category.list';
-import { InterCompanyHttpService } from '../../../services/http/assets/inter-company.http.service';
 import { InsuranceCategoryHttpService } from '../../../services/http/assets/insurance-category.http.service';
 import { Project } from '../../../model/api/assets/project';
 import { Brand } from '../../../model/api/assets/brand';
@@ -275,9 +273,6 @@ export class AssetScrapManageComponent implements AfterViewInit { // extends Gen
     @ViewChild('companyList') public companyList: CompanyListComponent;
     @ViewChild('companyListModal') public companyListModal: ModalDirective;
 
-    @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-    @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
-
     @ViewChild('insuranceCategoryList') public insuranceCategoryList: InsuranceCategoryList;
     @ViewChild('insuranceCategoryListModal') public insuranceCategoryListModal: ModalDirective;
 
@@ -414,7 +409,6 @@ export class AssetScrapManageComponent implements AfterViewInit { // extends Gen
     public selectedAssetCategories: Array<AssetCategory> = new Array<AssetCategory>();
     public selectedUoms: Array<Uom> = new Array<Uom>();
     public selectedCompanies: Array<Company> = new Array<Company>();
-    public selectedInterCompanies: Array<InterCompany> = new Array<InterCompany>();
     public selectedInsuranceCategories: Array<InsuranceCategory> = new Array<InsuranceCategory>();
     public selectedCounties: Array<County> = new Array<County>();
     public selectedCities: Array<City> = new Array<City>();
@@ -504,7 +498,6 @@ export class AssetScrapManageComponent implements AfterViewInit { // extends Gen
                 public assetCategoryHttpService: AssetCategoryHttpService,
                 public uomHttpService: UomHttpService,
                 public companyHttpService: CompanyHttpService,
-                public interCompanyHttpService: InterCompanyHttpService,
                 public insuranceCategoryHttpService: InsuranceCategoryHttpService,
                 public assetNatureHttpService: AssetNatureHttpService,
                 public assetClassHttpService: AssetClassHttpService,
@@ -627,7 +620,6 @@ export class AssetScrapManageComponent implements AfterViewInit { // extends Gen
         this.selectedCounties = new Array<County>();
         this.selectedCities = new Array<City>();
         this.selectedDimensions = new Array<Dimension>();
-        this.selectedInterCompanies = new Array<InterCompany>();
         this.selectedInsuranceCategories = new Array<InsuranceCategory>();
         this.selectedLocations = new Array<Location>();
         this.selectedRooms = new Array<Room>();
@@ -1059,34 +1051,6 @@ export class AssetScrapManageComponent implements AfterViewInit { // extends Gen
 
 
         /*end asset category*/
-
-          /*begin INTERCOMPANY */
-          public selectInterCompanies() {
-            this.interCompanyListModal.show();
-            this.interCompanyList.selectedItems = this.selectedInterCompanies;
-            this.interCompanyList.refresh(null);
-        }
-
-        public removeFromInterCompanySelection(interCompany: InterCompany) {
-            let index: number = this.selectedInterCompanies.indexOf(interCompany);
-            this.selectedInterCompanies.splice(index, 1);
-            this.checkForRefresh();
-        }
-
-        public clearInterCompanySelection() {
-            this.selectedInterCompanies = new Array<InterCompany>();
-            this.checkForRefresh();
-        }
-
-        public setSelectedInterCompanies() {
-            this.selectedInterCompanies = this.interCompanyList.selectedItems;
-            this.interCompanyListModal.hide();
-            this.checkForRefresh();
-        }
-
-
-        /*end  INTERCOMPANY  */
-
 
          /*begin INSURANCECATEGORY */
          public selectInsuranceCategories() {
@@ -1905,14 +1869,7 @@ export class AssetScrapManageComponent implements AfterViewInit { // extends Gen
                 assetFilter.companyIds.push(company.id);
             });
         }
-
-        if (this.selectedInterCompanies != null) {
-            assetFilter.interCompanyIds = new Array<number>();
-            this.selectedInterCompanies.forEach((interCompany) => {
-                assetFilter.interCompanyIds.push(interCompany.id);
-            });
-        }
-
+        
         if (this.selectedInsuranceCategories != null) {
             assetFilter.insuranceCategoryIds = new Array<number>();
             this.selectedInsuranceCategories.forEach((insuranceCategory) => {

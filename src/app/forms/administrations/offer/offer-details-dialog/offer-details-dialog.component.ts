@@ -27,7 +27,6 @@ import {EmployeeHttpService} from '../../../../services/http/administration/empl
 import {CostCenterHttpService} from '../../../../services/http/administration/cost-center.http.service';
 import {ProjectHttpService} from '../../../../services/http/assets/project.http.service';
 import {CompanyHttpService} from '../../../../services/http/assets/company.http.service';
-import {InterCompanyHttpService} from '../../../../services/http/assets/inter-company.http.service';
 import {OfferOpHttpService} from '../../../../services/http/administration/offer-op.http.service';
 import {PartnerHttpService} from '../../../../services/http/documents/partner.http.service';
 import {AdmCenterHttpService} from '../../../../services/http/administration/adm-center.http.service';
@@ -198,7 +197,6 @@ export class OfferDetailsDialogComponent implements AfterViewInit {
     public costCenterHttpService: CostCenterHttpService,
     public projectHttpService: ProjectHttpService,
     public companyHttpService: CompanyHttpService,
-    public interCompanyHttpService: InterCompanyHttpService,
     public offerOpHttpService: OfferOpHttpService,
     public partnerHttpService: PartnerHttpService,
     public admCenterHttpService: AdmCenterHttpService,

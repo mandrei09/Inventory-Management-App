@@ -7,7 +7,6 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AssetTypeHttpService } from '../../../services/http/assets/asset-type.http.service';
 import {ProjectType} from '../../../model/api/assets/project-type';
 import {ProjectTypeAddEditComponent} from '../project-types/project-type-add-edit/project-type-add-edit.component';
-import {Area} from '../../../model/api/administration/area';
 import {AssetTypeAddEditComponent} from './asset-type-add-edit/asset-type-add-edit.component';
 import {MatDialog} from '@angular/material/dialog';
 import { saveAs as fileSaveAs } from 'file-saver-es';
@@ -44,9 +43,9 @@ export class AssetTypeManageComponent extends GenericManage<AssetType, number> {
     });
   }
 
-  public onItemEdit(item: Area) {
-    this.onAddEditItem(item);
-  }
+  // public onItemEdit(item: Area) {
+  //   this.onAddEditItem(item);
+  // }
 
     public detailInitialize() {
         this.modal.show();

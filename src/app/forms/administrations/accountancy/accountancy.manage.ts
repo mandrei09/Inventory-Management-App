@@ -10,7 +10,6 @@ import { AccountHttpService } from '../../../services/http/administration/accoun
 import { ExpAccountHttpService } from '../../../services/http/administration/exp-account.http.service';
 import { AssetTypeHttpService } from '../../../services/http/assets/asset-type.http.service';
 import { AssetCategoryHttpService } from '../../../services/http/assets/asset-category.http.service';
-import { InterCompanyHttpService } from '../../../services/http/assets/inter-company.http.service';
 import { Accountancy } from '../../../model/api/administration/accountancy';
 import { AccountancyListComponent } from './accountancy.list';
 import { AccountList } from '../account/account.list';
@@ -21,8 +20,7 @@ import { Account } from '../../../model/api/administration/account';
 import { ExpAccount } from '../../../model/api/administration/exp-account';
 import { AssetType } from '../../../model/api/assets/asset-type';
 import { AssetCategory } from '../../../model/api/assets/asset-category';
-import { InterCompanyListComponent } from '../../assets/inter-companies/inter-company.list';
-import { InterCompany } from '../../../model/api/assets/inter-company';
+
 import { AccountancyDetailComponent } from './accountancy.detail';
 import { SubCategoryHttpService } from '../../../services/http/assets/sub-category.http.service';
 import { SubCategoryListComponent } from '../../assets/sub-categories/sub-category.list';
@@ -36,7 +34,7 @@ import { saveAs as fileSaveAs } from 'file-saver-es';
     selector: 'app-accountancy-manage',
     templateUrl: 'accountancy.manage.html',
     styleUrls: ['accountancy.manage.scss'],
-    providers: [ AccountancyHttpService, AccountHttpService, ExpAccountHttpService, AssetTypeHttpService, AssetCategoryHttpService, InterCompanyHttpService, SubCategoryHttpService ]
+    providers: [ AccountancyHttpService, AccountHttpService, ExpAccountHttpService, AssetTypeHttpService, AssetCategoryHttpService, SubCategoryHttpService ]
 })
 export class AccountancyManageComponent extends GenericManage<Accountancy, number> {
 
@@ -74,7 +72,7 @@ export class AccountancyManageComponent extends GenericManage<Accountancy, numbe
       public expAccountHttpService: ExpAccountHttpService,
       public assetTypeHttpService: AssetTypeHttpService,
       public assetCategoryHttpService: AssetCategoryHttpService,
-      // public interCompanyHttpService: InterCompanyHttpService,
+      // 
       public subCategoryHttpService: SubCategoryHttpService
       ) {
 

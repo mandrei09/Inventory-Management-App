@@ -1,13 +1,8 @@
 import { Component, EventEmitter } from '@angular/core';
 import { GenericDetail } from '../../generic/generic.detail';
-import { CostCenter } from '../../../model/api/administration/cost-center';
 import { Matrix } from '../../../model/api/administration/matrix';
-import { AssetType } from '../../../model/api/assets/asset-type';
 import { Company } from '../../../model/api/assets/company';
-import { Country } from '../../../model/api/administration/country';
-import { Project } from '../../../model/api/assets/project';
 import { CodeNameEntity } from '../../../model/api/common/code-name-entity';
-import { Area } from '../../../model/api/administration/area';
 import { EmployeeResource } from '../../../model/api/administration/employee-resource';
 import { Division } from '../../../model/api/administration/division';
 

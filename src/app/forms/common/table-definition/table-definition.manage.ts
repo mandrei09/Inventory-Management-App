@@ -6,7 +6,6 @@ import { GenericManage } from '../../generic/generic.manage';
 import {MatDialog} from '@angular/material/dialog';
 import {ProjectType} from '../../../model/api/assets/project-type';
 import {ProjectTypeAddEditComponent} from '../../assets/project-types/project-type-add-edit/project-type-add-edit.component';
-import {Area} from '../../../model/api/administration/area';
 import {TableDefinitionAddEditComponent} from './table-definition-add-edit/table-definition-add-edit.component';
 
 @Component({

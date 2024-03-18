@@ -3,12 +3,10 @@ import { Component, ViewChild } from '@angular/core';
 import { GenericManage, GenericManageViewMode } from '../../generic/generic.manage';
 import { saveAs as fileSaveAs } from 'file-saver-es';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { InterCompanyENHttpService } from '../../../services/http/assets/inter-company-en.http.service';
+
 import { CategoryEN } from '../../../model/api/assets/category-en';
 import { CategoryENListComponent } from './category-en.list';
 import { CategoryENDetailComponent } from './category-en.detail';
-import { InterCompanyENListComponent } from '../inter-companies-en/inter-company-en.list';
-import { InterCompanyEN } from '../../../model/api/assets/inter-company-en';
 import { CategoryENHttpService } from '../../../services/http/assets/category-en.http.service';
 import { MatDialog } from '@angular/material/dialog';
 import {CategoriesEnAddEditComponent} from './categories-en-add-edit/categories-en-add-edit.component';
@@ -16,23 +14,20 @@ import {CategoriesEnAddEditComponent} from './categories-en-add-edit/categories-
 @Component({
     selector: 'app-category-en-manage',
     templateUrl: 'category-en.manage.html',
-    providers: [ InterCompanyENHttpService ]
+    providers: []
 })
 export class CategoryENManageComponent extends GenericManage<CategoryEN, number> {
 
     @ViewChild('categoryENDetailModal') categoryENDetailModal: ModalDirective;
     @ViewChild('categoryENList') categoryENList: CategoryENListComponent;
     @ViewChild('categoryENDetail') categoryENDetail: CategoryENDetailComponent;
-    @ViewChild('interCompanyENListModal') interCompanyENListModal: ModalDirective;
-    @ViewChild('interCompanyENList') interCompanyENList: InterCompanyENListComponent;
-
+    
     public filter: string = '';
-    public selectedInterCompanyEN: InterCompanyEN = null;
     isCollapsed: boolean = true;
     constructor(
         public dialog: MatDialog,
         public categoryENHttpService: CategoryENHttpService,
-        public interCompanyENHttpService: InterCompanyENHttpService) {
+        ) {
         super();
     }
 
@@ -55,20 +50,20 @@ export class CategoryENManageComponent extends GenericManage<CategoryEN, number>
       this.onAddEditItem(item);
     }
 
-    public editItem() {
-        super.editItem();
+    // public editItem() {
+    //     super.editItem();
 
-        const category: CategoryEN = this.selectedItem as CategoryEN;
+    //     const category: CategoryEN = this.selectedItem as CategoryEN;
 
-        this.categoryENDetail.interCompanyEN = null;
-        if ((category != null) && (category.interCompanyEN != null)) {
-            this.interCompanyENHttpService
-                .getById(category.interCompanyEN.id)
-                .subscribe((interCompanyEN: InterCompanyEN) => {
-                    this.categoryENDetail.interCompanyEN = interCompanyEN;
-                });
-        }
-    }
+    //     this.categoryENDetail.interCompanyEN = null;
+    //     if ((category != null) && (category.interCompanyEN != null)) {
+    //         this.interCompanyENHttpService
+    //             .getById(category.interCompanyEN.id)
+    //             .subscribe((interCompanyEN: InterCompanyEN) => {
+    //                 this.categoryENDetail.interCompanyEN = interCompanyEN;
+    //             });
+    //     }
+    // }
 
     public detailInitialize() {
         super.detailInitialize();
@@ -80,17 +75,17 @@ export class CategoryENManageComponent extends GenericManage<CategoryEN, number>
         this.categoryENDetailModal.hide();
     }
 
-    public onCategoryENDetailInterCompanyENNeeded() {
-        this.categoryENDetailModal.hide();
-        this.selectInterCompanyEN();
-    }
+    // public onCategoryENDetailInterCompanyENNeeded() {
+    //     this.categoryENDetailModal.hide();
+    //     this.selectInterCompanyEN();
+    // }
 
-    public onInterCompanyENListCancel() {
-        this.interCompanyENListModal.hide();
-        if (this.viewMode === GenericManageViewMode.ItemDetail) {
-            this.categoryENDetailModal.show();
-        }
-    }
+    // public onInterCompanyENListCancel() {
+    //     this.interCompanyENListModal.hide();
+    //     if (this.viewMode === GenericManageViewMode.ItemDetail) {
+    //         this.categoryENDetailModal.show();
+    //     }
+    // }
 
 
 
@@ -101,32 +96,32 @@ export class CategoryENManageComponent extends GenericManage<CategoryEN, number>
         this.categoryENList.refresh(params);
     }
 
-    public selectInterCompanyEN() {
-        this.interCompanyENListModal.show();
-        this.interCompanyENList.refresh(null);
-    }
+    // public selectInterCompanyEN() {
+    //     this.interCompanyENListModal.show();
+    //     this.interCompanyENList.refresh(null);
+    // }
 
-    public setSelectedInterCompanyEN() {
-        switch (this.viewMode) {
-            case GenericManageViewMode.ItemList:
-                this.selectedInterCompanyEN = this.interCompanyENList.selectedItem;
-                this.interCompanyENListModal.hide();
-                this.refresh();
-                break;
-            case GenericManageViewMode.ItemDetail:
-                this.categoryENDetail.interCompanyEN = this.interCompanyENList.selectedItem;
-                this.interCompanyENListModal.hide();
-                this.categoryENDetailModal.show();
-                break;
-            default:
-                break;
-        }
-    }
+    // public setSelectedInterCompanyEN() {
+    //     switch (this.viewMode) {
+    //         case GenericManageViewMode.ItemList:
+    //             this.selectedInterCompanyEN = this.interCompanyENList.selectedItem;
+    //             this.interCompanyENListModal.hide();
+    //             this.refresh();
+    //             break;
+    //         case GenericManageViewMode.ItemDetail:
+    //             this.categoryENDetail.interCompanyEN = this.interCompanyENList.selectedItem;
+    //             this.interCompanyENListModal.hide();
+    //             this.categoryENDetailModal.show();
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 
-    public unselectInterCompanyEN() {
-        this.selectedInterCompanyEN = null;
-        this.refresh();
-    }
+    // public unselectInterCompanyEN() {
+    //     this.selectedInterCompanyEN = null;
+    //     this.refresh();
+    // }
 
 
     // public exportToExcel(){

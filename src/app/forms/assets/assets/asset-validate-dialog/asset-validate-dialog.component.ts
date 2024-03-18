@@ -6,7 +6,6 @@ import {InsuranceCategoryList} from '../../insurance-categories/insurance-catego
 import {ProjectList} from '../../projects/project.list';
 import {OrderList} from '../../../administrations/order/order.list';
 import {BrandList} from '../../brands/brand.list';
-import {InterCompanyListComponent} from '../../inter-companies/inter-company.list';
 import {DictionaryItemDetailComponent} from '../../../administrations/dictionary-item/dictionary-item.detail';
 import {DictionaryItemListComponent} from '../../../administrations/dictionary-item/dictionary-item.list';
 import {AssetTypeDetailComponent} from '../../asset-types/asset-type.detail';
@@ -55,7 +54,6 @@ import {AppConfig} from '../../../../config';
 import {Location} from '../../../../model/api/administration/location';
 import {AssetCategory} from '../../../../model/api/assets/asset-category';
 import {CodeNameEntity} from '../../../../model/api/common/code-name-entity';
-import {InterCompany} from '../../../../model/api/assets/inter-company';
 import {Project} from '../../../../model/api/assets/project';
 import {Order} from '../../../../model/api/administration/order';
 import {Brand} from '../../../../model/api/assets/brand';
@@ -74,7 +72,6 @@ import {InsuranceCategoryHttpService} from '../../../../services/http/assets/ins
 import {ProjectHttpService} from '../../../../services/http/assets/project.http.service';
 import {OrderHttpService} from '../../../../services/http/administration/order.http.service';
 import {BrandHttpService} from '../../../../services/http/assets/brand.http.service';
-import {InterCompanyHttpService} from '../../../../services/http/assets/inter-company.http.service';
 import {DictionaryItemHttpService} from '../../../../services/http/administration/dictionary-item.http.service';
 import {InvStateHttpService} from '../../../../services/http/inventory/inv-state.http.service';
 import {Administration} from '../../../../model/api/administration/administration';
@@ -181,8 +178,8 @@ export class AssetValidateDialogComponent implements AfterViewInit {
   @ViewChild('brandList') public brandList: BrandList;
   @ViewChild('brandListModal') public brandListModal: ModalDirective;
 
-  @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-  @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
+  
+  
 
   @ViewChild('dictionaryItemDetail') public dictionaryItemDetail: DictionaryItemDetailComponent;
   @ViewChild('dictionaryItemList') public dictionaryItemList: DictionaryItemListComponent;
@@ -409,7 +406,7 @@ export class AssetValidateDialogComponent implements AfterViewInit {
 
   public invState: CodeNameEntity = null;
   public assetCategory: AssetCategory = null;
-  public interCompany: InterCompany = null;
+  
   public project: Project = null;
   public order: Order = null;
   public brand: Brand = null;
@@ -468,7 +465,7 @@ export class AssetValidateDialogComponent implements AfterViewInit {
     public projectHttpService: ProjectHttpService,
     public orderHttpService: OrderHttpService,
     public brandHttpService: BrandHttpService,
-    public interCompanyHttpService: InterCompanyHttpService,
+    
     public dictionaryItemHttpService: DictionaryItemHttpService,
     public invStateHttpService: InvStateHttpService,
     public assetClassHttpService: AssetClassHttpService,
@@ -671,7 +668,7 @@ export class AssetValidateDialogComponent implements AfterViewInit {
       this.type = asset.adm.type;
       this.employee = asset.adm.employee;
       // this.material = asset.adm.material;
-      this.interCompany = asset.adm.interCompany;
+      
       this.subType = asset.adm.subType;
       this.assetClass = asset.adm.assetClass;
       this.admCenter = asset.adm.admCenter;
@@ -806,19 +803,7 @@ export class AssetValidateDialogComponent implements AfterViewInit {
 
   /*end asset category*/
 
-  /*begin INTER COMPANY */
-  public selectInterCompany() {
-    this.interCompanyList.refresh(null);
-    this.interCompanyListModal.show();
-  }
-
-  public setSelectedInterCompany() {
-    let items: Array<InterCompany> = this.interCompanyList.selectedItems;
-    this.interCompany = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.interCompanyListModal.hide();
-  }
-
-  /*end INTER COMPANY */
+  
 
 
   /*begin dictionary Item*/
@@ -1511,7 +1496,7 @@ export class AssetValidateDialogComponent implements AfterViewInit {
     this.asset.typeId = this.type != null ? this.type.id : null;
     this.asset.employeeId = this.employee != null ? this.employee.id : null;
     this.asset.materialId = this.material != null ? this.material.id : null;
-    this.asset.interCompanyId = this.interCompany != null ? this.interCompany.id : null;
+    
     this.asset.subTypeId = this.subType != null ? this.subType.id : null;
     this.asset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
     this.asset.admCenterId = this.admCenter != null ? this.admCenter.id : null;
@@ -1593,7 +1578,7 @@ export class AssetValidateDialogComponent implements AfterViewInit {
     this.asset.typeId = this.type != null ? this.type.id : null;
     this.asset.employeeId = this.employee != null ? this.employee.id : null;
     this.asset.materialId = this.material != null ? this.material.id : null;
-    this.asset.interCompanyId = this.interCompany != null ? this.interCompany.id : null;
+    
     this.asset.subTypeId = this.subType != null ? this.subType.id : null;
     this.asset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
     this.asset.admCenterId = this.admCenter != null ? this.admCenter.id : null;
@@ -1670,7 +1655,7 @@ export class AssetValidateDialogComponent implements AfterViewInit {
     this.asset.typeId = this.type != null ? this.type.id : null;
     this.asset.employeeId = this.employee != null ? this.employee.id : null;
     this.asset.materialId = this.material != null ? this.material.id : null;
-    this.asset.interCompanyId = this.interCompany != null ? this.interCompany.id : null;
+    
     this.asset.subTypeId = this.subType != null ? this.subType.id : null;
     this.asset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
     this.asset.admCenterId = this.admCenter != null ? this.admCenter.id : null;
@@ -1763,7 +1748,7 @@ export class AssetValidateDialogComponent implements AfterViewInit {
     this.asset.typeId = this.type != null ? this.type.id : null;
     this.asset.employeeId = this.employee != null ? this.employee.id : null;
     this.asset.materialId = this.material != null ? this.material.id : null;
-    this.asset.interCompanyId = this.interCompany != null ? this.interCompany.id : null;
+    
     this.asset.subTypeId = this.subType != null ? this.subType.id : null;
     this.asset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
     this.asset.admCenterId = this.admCenter != null ? this.admCenter.id : null;

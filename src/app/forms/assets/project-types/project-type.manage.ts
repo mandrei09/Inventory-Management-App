@@ -6,8 +6,6 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ProjectTypeHttpService } from '../../../services/http/assets/project-type.http.service';
 import { ProjectType } from '../../../model/api/assets/project-type';
 import {MatDialog} from '@angular/material/dialog';
-import {Area} from '../../../model/api/administration/area';
-import {AreaAddEditComponent} from '../../administrations/areas/area-add-edit/area-add-edit.component';
 import {ProjectTypeAddEditComponent} from './project-type-add-edit/project-type-add-edit.component';
 import { saveAs as fileSaveAs } from 'file-saver-es';
 
@@ -44,9 +42,9 @@ export class ProjectTypeManageComponent extends GenericManage<ProjectType, numbe
     });
   }
 
-  public onItemEdit(item: Area) {
-    this.onAddEditItem(item);
-  }
+  // public onItemEdit(item: Area) {
+  //   this.onAddEditItem(item);
+  // }
 
     public detailInitialize() {
         this.modal.show();

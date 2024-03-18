@@ -4,7 +4,7 @@ import { Account } from '../../../model/api/administration/account';
 import { Accountancy } from '../../../model/api/administration/accountancy';
 import { AssetCategory } from '../../../model/api/assets/asset-category';
 import { AssetType } from '../../../model/api/assets/asset-type';
-import { InterCompany } from '../../../model/api/assets/inter-company';
+
 import { SubCategory } from '../../../model/api/assets/sub-category';
 import { CodeNameEntity } from '../../../model/api/common/code-name-entity';
 import { GenericDetail } from '../../generic/generic.detail';

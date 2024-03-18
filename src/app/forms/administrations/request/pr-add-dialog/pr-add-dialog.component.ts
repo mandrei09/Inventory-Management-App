@@ -14,7 +14,6 @@ import {RequestBudgetForecastListComponent} from '../../../administrations/reque
 import {EntityFile} from '../../../../model/api/common/entity-file';
 import {AppConfig} from '../../../../config';
 import {CodeNameEntity} from '../../../../model/api/common/code-name-entity';
-import {InterCompany} from '../../../../model/api/assets/inter-company';
 import {Project} from '../../../../model/api/assets/project';
 import {Uom} from '../../../../model/api/assets/uom';
 import {Employee} from '../../../../model/api/administration/employee';
@@ -22,7 +21,6 @@ import {CodePartnerEntity} from '../../../../model/api/common/code-partner-entit
 import {AppData} from '../../../../app-data';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ProjectHttpService} from '../../../../services/http/assets/project.http.service';
-import {InterCompanyHttpService} from '../../../../services/http/assets/inter-company.http.service';
 import {Administration} from '../../../../model/api/administration/administration';
 import {Company} from '../../../../model/api/assets/company';
 import {AccountHttpService} from '../../../../services/http/administration/account.http.service';
@@ -60,7 +58,6 @@ import {MasterTypeListComponent} from '../../../assets/master-types/master-type.
 import {AccMonthListComponent} from '../../../accounting/acc-month.list';
 import {AccMonth} from '../../../../model/api/accounting/acc-month';
 import {RequestResult} from '../../../../model/api/result/request-result';
-import {InterCompanyListComponent} from '../../../assets/inter-companies/inter-company.list';
 import {CompanyListComponent} from '../../../assets/companies/company.list';
 import {AssetTypeListComponent} from '../../../assets/asset-types/asset-type.list';
 import {ProjectList} from '../../../assets/projects/project.list';
@@ -211,9 +208,6 @@ export class PrAddDialogComponent implements OnInit, AfterViewInit {
   @ViewChild('projectList') public projectList: ProjectList;
   @ViewChild('projectListModal') public projectListModal: ModalDirective;
 
-  @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-  @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
-
   @ViewChild('requestOpDetailList') public requestOpList: RequestOpDetailList;
   @ViewChild('entityFileList') public entityFileList: EntityFileListComponent;
 
@@ -332,7 +326,6 @@ export class PrAddDialogComponent implements OnInit, AfterViewInit {
     public companyHttpService: CompanyHttpService,
     public budgetBaseHttpService: BudgetBaseHttpService,
     public budgetForecastHttpService: BudgetForecastHttpService,
-    public interCompanyHttpService: InterCompanyHttpService,
     public requestOpHttpService: RequestOpHttpService,
     public partnerHttpService: PartnerHttpService,
     public uomHttpService: UomHttpService,
@@ -655,24 +648,6 @@ export class PrAddDialogComponent implements OnInit, AfterViewInit {
   }
 
   /*end PROJECT */
-
-  /*begin INTERCOMPANY */
-  public selectInterCompany() {
-
-    const params = new Array<Param>();
-
-    params.push(new Param('partnerIds', this.partner != null ? this.partner.id.toString() : null));
-
-    this.interCompanyList.refresh(null);
-    this.interCompanyListModal.show();
-  }
-  public setSelectedInterCompany() {
-    const items: Array<InterCompany> = this.interCompanyList.selectedItems;
-    this.interCompany = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.interCompanyListModal.hide();
-  }
-
-  /*end INTERCOMPANY */
 
   /*begin employee*/
   public selectEmployee() {

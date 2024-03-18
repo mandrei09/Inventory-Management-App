@@ -28,7 +28,6 @@ import {AssetCategoryListComponent} from '../../asset-categories/asset-category.
 import {InsuranceCategoryList} from '../../insurance-categories/insurance-category.list';
 import {ProjectList} from '../../projects/project.list';
 import {BrandList} from '../../brands/brand.list';
-import {InterCompanyListComponent} from '../../inter-companies/inter-company.list';
 import {DictionaryItemDetailComponent} from '../../../administrations/dictionary-item/dictionary-item.detail';
 import {DictionaryItemListComponent} from '../../../administrations/dictionary-item/dictionary-item.list';
 import {AssetTypeDetailComponent} from '../../asset-types/asset-type.detail';
@@ -73,7 +72,6 @@ import {AssetCategory} from '../../../../model/api/assets/asset-category';
 import {Location} from '../../../../model/api/administration/location';
 import {AssetTransferSAP, SaveAssetCloneTransfer} from '../../../../model/api/assets/asset-transfer';
 import {CodeNameEntity} from '../../../../model/api/common/code-name-entity';
-import {InterCompany} from '../../../../model/api/assets/inter-company';
 import {Project} from '../../../../model/api/assets/project';
 import {Brand} from '../../../../model/api/assets/brand';
 import {InsuranceCategory} from '../../../../model/api/assets/insurance-category';
@@ -90,7 +88,6 @@ import {AssetCategoryHttpService} from '../../../../services/http/assets/asset-c
 import {InsuranceCategoryHttpService} from '../../../../services/http/assets/insurance-category.http.service';
 import {ProjectHttpService} from '../../../../services/http/assets/project.http.service';
 import {BrandHttpService} from '../../../../services/http/assets/brand.http.service';
-import {InterCompanyHttpService} from '../../../../services/http/assets/inter-company.http.service';
 import {DictionaryItemHttpService} from '../../../../services/http/administration/dictionary-item.http.service';
 import {AssetClassHttpService} from '../../../../services/http/assets/asset-class.http.service';
 import {AccountHttpService} from '../../../../services/http/administration/account.http.service';
@@ -157,8 +154,7 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
   @ViewChild('brandList') public brandList: BrandList;
   @ViewChild('brandListModal') public brandListModal: ModalDirective;
 
-  @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-  @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
+  
 
   @ViewChild('dictionaryItemDetail') public dictionaryItemDetail: DictionaryItemDetailComponent;
   @ViewChild('dictionaryItemList') public dictionaryItemList: DictionaryItemListComponent;
@@ -371,7 +367,6 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
   }
   public invState: CodeNameEntity = null;
   public assetCategory: AssetCategory = null;
-  public interCompany: InterCompany = null;
   public project: Project = null;
   public brand: Brand = null;
   public insuranceCategory: InsuranceCategory = null;
@@ -433,7 +428,6 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
     public insuranceCategoryHttpService: InsuranceCategoryHttpService,
     public projectHttpService: ProjectHttpService,
     public brandHttpService: BrandHttpService,
-    public interCompanyHttpService: InterCompanyHttpService,
     public dictionaryItemHttpService: DictionaryItemHttpService,
     public invStateHttpService: InvStateHttpService,
     public assetClassHttpService: AssetClassHttpService,
@@ -632,7 +626,6 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
       this.type = asset.adm.type;
       this.employee = asset.adm.employee;
       // this.material = asset.adm.material;
-      this.interCompany = asset.adm.interCompany;
       this.subType = asset.adm.subType;
       this.assetClass = asset.adm.assetClass;
       this.insuranceCategory = asset.adm.insuranceCategory;
@@ -798,22 +791,6 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
   }
 
   /*end asset category*/
-
-  /*begin INTER COMPANY */
-  public selectInterCompany() {
-    this.interCompanyList.refresh(null);
-    this.interCompanyListModal.show();
-  }
-
-  public setSelectedInterCompany() {
-    const items: Array<InterCompany> = this.interCompanyList.selectedItems;
-    this.interCompany = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.interCompanyListModal.hide();
-  }
-
-  /*end INTER COMPANY */
-
-
 
   /*begin dictionary Item*/
   public selectDictionaryItem() {
@@ -1328,7 +1305,6 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
     this.fromAsset.typeId = this.type != null ? this.type.id : null;
     this.fromAsset.employeeId = this.employee != null ? this.employee.id : null;
     this.fromAsset.materialId = this.material != null ? this.material.id : null;
-    this.fromAsset.interCompanyId = this.interCompany != null ? this.interCompany.id : null;
     this.fromAsset.subTypeId = this.subType != null ? this.subType.id : null;
     this.fromAsset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
     this.fromAsset.insuranceCategoryId = this.insuranceCategory != null ? this.insuranceCategory.id : null;

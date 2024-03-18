@@ -8,7 +8,6 @@ import { AccountManage } from './forms/administrations/account/account.manage';
 import { AccountancyManageComponent } from './forms/administrations/accountancy/accountancy.manage';
 import { AdmCenterManageComponent } from './forms/administrations/adm-centers/adm-center.manage';
 import { AdministrationManageComponent } from './forms/administrations/administrations/administration.manage';
-import { AreaManageComponent } from './forms/administrations/areas/area.manage';
 import { ArticleManage } from './forms/administrations/article/article.manage';
 import { BudgetBaseAddDetailUIComponent } from './forms/administrations/budget-base/budget-base.add-detail.ui';
 import { BudgetBaseDetailUIComponent } from './forms/administrations/budget-base/budget-base.detail.ui';
@@ -96,8 +95,6 @@ import { CategoryManageComponent } from './forms/assets/categories/category.mana
 import { CompanyManageComponent } from './forms/assets/companies/company.manage';
 import { DimensionManageComponent } from './forms/assets/dimensions/dimension.manage';
 import { InsuranceCategoryManage } from './forms/assets/insurance-categories/insurance-category.manage';
-import { InterCompanyENManageComponent } from './forms/assets/inter-companies-en/inter-company-en.manage';
-import { InterCompanyManageComponent } from './forms/assets/inter-companies/inter-company.manage';
 import { ModelManage } from './forms/assets/models/model.manage';
 import { ProjectTypeManageComponent } from './forms/assets/project-types/project-type.manage';
 import { ProjectManage } from './forms/assets/projects/project.manage';
@@ -189,7 +186,6 @@ const AppRoutes: Routes = [
 
       // MATRIX //
       { path: 'matrix/status', component: MatrixManageComponent, canActivate: [AuthGuard], data: { title: 'Matrice', auth: 'VIEW|MATRIX', shouldDetach: true }},
-      { path: 'matrix/areas', canActivate: [AuthGuard], component: AreaManageComponent, data: { title: 'Area', auth: 'VIEW|AREAS', shouldDetach: true }},
       { path: 'matrix/storages', canActivate: [AuthGuard], component: StorageManageComponent, data: { title: 'Storage', auth: 'VIEW|STORAGES', shouldDetach: true }},
       { path: 'matrix/level', component: LevelManageComponent, canActivate: [AuthGuard], data: { title: 'Niveluri', auth: 'VIEW|LEVELS', shouldDetach: true }},
       { path: 'matrix/mapping', component: MatrixLevelManageComponent, canActivate: [AuthGuard], data: { title: 'Mapare nivel', auth: 'VIEW|MATRIXLEVELS', shouldDetach: true }},
@@ -197,8 +193,6 @@ const AppRoutes: Routes = [
       { path: 'matrix/projecttypes', component: ProjectTypeManageComponent, canActivate: [AuthGuard], data: { title: 'Proiecte', auth: 'VIEW|PROJECTTYPES', shouldDetach: true }},
       { path: 'matrix/projecttypedivisions', component: ProjectTypeDivisionManageComponent, canActivate: [AuthGuard], data: { title: 'Proiecte/Departamente', auth: 'VIEW|PROJECTTYPEDIVISIONS', shouldDetach: true }},
       { path: 'matrix/accountancies', canActivate: [AuthGuard], component: AccountancyManageComponent, data: { title: 'Inventare', auth: 'VIEW|ACCOUNTANCIES', shouldDetach: true }},
-      { path: 'matrix/intercompanies', canActivate: [AuthGuard], component: InterCompanyManageComponent, data: { title: 'Supracategorii TRN', auth: 'VIEW|INTERCOMPANIES', shouldDetach: true }},
-      { path: 'matrix/intercompaniesen', canActivate: [AuthGuard], component: InterCompanyENManageComponent, data: { title: 'Supracategorii EN', auth: 'VIEW|INTERCOMPANIESEN', shouldDetach: true }},
       { path: 'matrix/categories', canActivate: [AuthGuard], component: CategoryManageComponent, data: { title: 'Categorii', auth: 'VIEW|CATEGORIES', shouldDetach: true }},
       { path: 'matrix/subcategories', canActivate: [AuthGuard], component: SubCategoryManageComponent, data: { title: 'SubCategorii', auth: 'VIEW|SUBCATEGORIES', shouldDetach: true }},
       { path: 'matrix/categoriesen', canActivate: [AuthGuard], component: CategoryENManageComponent, data: { title: 'Categorii EN', auth: 'VIEW|CATEGORIESEN', shouldDetach: true }},

@@ -20,10 +20,7 @@ import { Country } from '../../../model/api/administration/country';
 import { Company } from '../../../model/api/assets/company';
 import { Project } from '../../../model/api/assets/project';
 import { MatrixHttpService } from '../../../services/http/administration/matrix.http.service';
-import { AreaHttpService } from '../../../services/http/administration/area.http.service';
-import { AreaListComponent } from '../areas/area.list';
 import { CostCenterListComponent } from '../cost-centers/cost-center.list';
-import { Area } from '../../../model/api/administration/area';
 import { MatrixLevelHttpService } from '../../../services/http/administration/matrix-level.http.service';
 import { MatrixLevelListComponent } from '../matrix-level/matrix-level.list';
 import { AppUtils } from '../../../common/app.utils';
@@ -45,7 +42,7 @@ import { saveAs as fileSaveAs } from 'file-saver-es';
 @Component({
     selector: 'app-matrix-manage',
     templateUrl: 'matrix.manage.html',
-    providers: [ AreaHttpService, AssetTypeHttpService, CountryHttpService, CompanyHttpService, CostCenterHttpService, ProjectHttpService, DivisionHttpService ]
+    providers: [ AssetTypeHttpService, CountryHttpService, CompanyHttpService, CostCenterHttpService, ProjectHttpService, DivisionHttpService ]
 })
 export class MatrixManageComponent extends GenericManage<Matrix, number> {
 
@@ -208,7 +205,6 @@ export class MatrixManageComponent extends GenericManage<Matrix, number> {
 
     constructor(public costCenterHttpService: CostCenterHttpService,
                 public matrixLevelHttpService: MatrixLevelHttpService,
-                public areaHttpService: AreaHttpService,
                 public dialog: MatDialog,
                 public matrixHttpService: MatrixHttpService,
                 public assetTypeHttpService: AssetTypeHttpService,

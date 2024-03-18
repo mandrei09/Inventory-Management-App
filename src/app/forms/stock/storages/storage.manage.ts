@@ -9,7 +9,6 @@ import { StorageDetailComponent } from './storage.detail';
 import { StorageListComponent } from './storage.list';
 import {ProjectType} from '../../../model/api/assets/project-type';
 import {ProjectTypeAddEditComponent} from '../../assets/project-types/project-type-add-edit/project-type-add-edit.component';
-import {Area} from '../../../model/api/administration/area';
 import {MatDialog} from '@angular/material/dialog';
 import {StoragesAddEditComponent} from './storages-add-edit/storages-add-edit.component';
 import { saveAs as fileSaveAs } from 'file-saver-es';
@@ -51,9 +50,9 @@ export class StorageManageComponent extends GenericManage<Storage, number> {
     });
   }
 
-  public onItemEdit(item: Area) {
-    this.onAddEditItem(item);
-  }
+  // public onItemEdit(item: Area) {
+  //   this.onAddEditItem(item);
+  // }
 
      public detailInitialize() {
         this.storageDetailModal.show();

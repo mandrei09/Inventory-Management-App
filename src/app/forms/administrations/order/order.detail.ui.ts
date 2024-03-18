@@ -30,7 +30,6 @@ import { CostCenterListComponent } from '../cost-centers/cost-center.list';
 import { AdministrationListComponent } from '../administrations/administration.list';
 import { CompanyListComponent } from '../../assets/companies/company.list';
 import { ProjectList } from '../../assets/projects/project.list';
-import { InterCompanyListComponent } from '../../assets/inter-companies/inter-company.list';
 import { EntityFileListComponent } from '../../common/entity-file.list';
 import { EntityFile } from '../../../model/api/common/entity-file';
 import { OrderSave } from '../../../model/api/administration/order-save';
@@ -45,7 +44,6 @@ import { ProjectHttpService } from '../../../services/http/assets/project.http.s
 import { CompanyHttpService } from '../../../services/http/assets/company.http.service';
 import { OfferHttpService } from '../../../services/http/administration/offer.http.service';
 import { BudgetHttpService } from '../../../services/http/administration/budget.http.service';
-import { InterCompanyHttpService } from '../../../services/http/assets/inter-company.http.service';
 import { UomHttpService } from '../../../services/http/assets/uom.http.service';
 import { MasterType } from '../../../model/api/assets/master-type';
 import { Type } from '../../../model/api/administration/type';
@@ -53,7 +51,7 @@ import { SubType } from '../../../model/api/administration/sub-type';
 import { Administration } from '../../../model/api/administration/administration';
 import { Company } from '../../../model/api/assets/company';
 import { Project } from '../../../model/api/assets/project';
-import { InterCompany } from '../../../model/api/assets/inter-company';
+
 import { AccMonth } from '../../../model/api/accounting/acc-month';
 import { CostCenter } from '../../../model/api/administration/cost-center';
 import { Account } from '../../../model/api/administration/account';
@@ -199,9 +197,6 @@ export class OrderDetailUIComponent implements OnInit, AfterViewInit  {
 
     @ViewChild('projectList') public projectList: ProjectList;
     @ViewChild('projectListModal') public projectListModal: ModalDirective;
-
-    @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-    @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
 
     @ViewChild('orderOpDetailList') public orderOpList: OrderOpDetailList;
     @ViewChild('entityFileList') public entityFileList: EntityFileListComponent;
@@ -455,7 +450,6 @@ export class OrderDetailUIComponent implements OnInit, AfterViewInit  {
         public contractHttpService: ContractHttpService,
         public budgetHttpService: BudgetHttpService,
         public budgetBaseHttpService: BudgetBaseHttpService,
-        public interCompanyHttpService: InterCompanyHttpService,
         public orderOpHttpService: OrderOpHttpService,
         public partnerHttpService: PartnerHttpService,
         public uomHttpService: UomHttpService,
@@ -1171,24 +1165,6 @@ export class OrderDetailUIComponent implements OnInit, AfterViewInit  {
                 this.projectListModal.hide();
             }
             /*end PROJECT */
-
-               /*begin INTERCOMPANY */
-               public selectInterCompany() {
-
-                const params = new Array<Param>();
-                params.push(new Param('partnerIds', this.partner != null ? this.partner.id.toString() : null));
-
-                this.interCompanyList.refresh(null);
-                this.interCompanyListModal.show();
-            }
-            public setSelectedInterCompany() {
-                const items: Array<InterCompany> = this.interCompanyList.selectedItems;
-                this.interCompany = ((items != null) && (items.length === 1)) ? items[0] : null;
-                this.interCompanyListModal.hide();
-            }
-
-            /*end INTERCOMPANY */
-
 
     /*begin employee*/
     public selectEmployee() {

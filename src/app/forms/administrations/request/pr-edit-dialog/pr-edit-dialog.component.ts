@@ -14,7 +14,6 @@ import {AdministrationListComponent} from '../../administrations/administration.
 import {CompanyListComponent} from '../../../assets/companies/company.list';
 import {BudgetForecastListComponent} from '../../budget-forecast/budget-forecast.list';
 import {ProjectList} from '../../../assets/projects/project.list';
-import {InterCompanyListComponent} from '../../../assets/inter-companies/inter-company.list';
 import {RequestOpDetailList} from '../../request-ops/request-op.detail.list';
 import {EntityFileListComponent} from '../../../common/entity-file.list';
 import {MaterialList} from '../../materials/material.list';
@@ -48,7 +47,6 @@ import {ProjectTypeDivisionHttpService} from '../../../../services/http/administ
 import {CompanyHttpService} from '../../../../services/http/assets/company.http.service';
 import {BudgetBaseHttpService} from '../../../../services/http/administration/budget-base.http.service';
 import {BudgetForecastHttpService} from '../../../../services/http/administration/budget-forecast.http.service';
-import {InterCompanyHttpService} from '../../../../services/http/assets/inter-company.http.service';
 import {RequestOpHttpService} from '../../../../services/http/administration/request-op.http.service';
 import {PartnerHttpService} from '../../../../services/http/documents/partner.http.service';
 import {UomHttpService} from '../../../../services/http/assets/uom.http.service';
@@ -69,7 +67,6 @@ import {MatrixHttpService} from '../../../../services/http/administration/matrix
 import {MessageService} from 'primeng/api';
 import {EntityFileHttpService} from '../../../../services/http/common/entity-file.http.service';
 import {Company} from '../../../../model/api/assets/company';
-import {InterCompany} from '../../../../model/api/assets/inter-company';
 import {Uom} from '../../../../model/api/assets/uom';
 import {Account} from '../../../../model/api/administration/account';
 import {AppConfig} from '../../../../config';
@@ -150,8 +147,8 @@ export class PrEditDialogComponent implements OnInit, AfterViewInit {
     @ViewChild('projectList') public projectList: ProjectList;
     @ViewChild('projectListModal') public projectListModal: ModalDirective;
 
-    @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-    @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
+    
+    
 
     @ViewChild('requestOpDetailList') public requestOpList: RequestOpDetailList;
     @ViewChild('entityFileList') public entityFileList: EntityFileListComponent;
@@ -313,7 +310,6 @@ export class PrEditDialogComponent implements OnInit, AfterViewInit {
         public companyHttpService: CompanyHttpService,
         public budgetBaseHttpService: BudgetBaseHttpService,
         public budgetForecastHttpService: BudgetForecastHttpService,
-        public interCompanyHttpService: InterCompanyHttpService,
         public requestOpHttpService: RequestOpHttpService,
         public partnerHttpService: PartnerHttpService,
         public uomHttpService: UomHttpService,
@@ -533,23 +529,7 @@ export class PrEditDialogComponent implements OnInit, AfterViewInit {
 
             /*end PROJECT */
 
-               /*begin INTERCOMPANY */
-               public selectInterCompany() {
-
-                const params = new Array<Param>();
-
-                params.push(new Param('partnerIds', this.partner != null ? this.partner.id.toString() : null));
-
-                this.interCompanyList.refresh(null);
-                this.interCompanyListModal.show();
-            }
-            public setSelectedInterCompany() {
-                const items: Array<InterCompany> = this.interCompanyList.selectedItems;
-                this.interCompany = ((items != null) && (items.length === 1)) ? items[0] : null;
-                this.interCompanyListModal.hide();
-            }
-
-            /*end INTERCOMPANY */
+              
 
     /*begin employee*/
     public selectEmployee() {

@@ -10,7 +10,6 @@ import { AssetTypeHttpService } from '../../../services/http/assets/asset-type.h
 import {MatDialog} from '@angular/material/dialog';
 import {ProjectType} from '../../../model/api/assets/project-type';
 import {ProjectTypeAddEditComponent} from '../project-types/project-type-add-edit/project-type-add-edit.component';
-import {Area} from '../../../model/api/administration/area';
 import {AssetCategoryAddEditComponent} from './asset-category-add-edit/asset-category-add-edit.component';
 import { saveAs as fileSaveAs } from 'file-saver-es';
 
@@ -46,9 +45,9 @@ export class AssetCategoryManageComponent extends GenericManage<AssetCategory, n
     });
   }
 
-  public onItemEdit(item: Area) {
-    this.onAddEditItem(item);
-  }
+  // public onItemEdit(item: Area) {
+  //   this.onAddEditItem(item);
+  // }
 
     public detailInitialize() {
         this.modal.show();

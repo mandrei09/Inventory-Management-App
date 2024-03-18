@@ -25,7 +25,6 @@ import { CostCenterListComponent } from '../cost-centers/cost-center.list';
 import { AdministrationListComponent } from '../administrations/administration.list';
 import { CompanyListComponent } from '../../assets/companies/company.list';
 import { ProjectList } from '../../assets/projects/project.list';
-import { InterCompanyListComponent } from '../../assets/inter-companies/inter-company.list';
 import { OfferOpDetailList } from '../offer-ops/offer-op.detail.list';
 import { EntityFileListComponent } from '../../common/entity-file.list';
 import { EntityFile } from '../../../model/api/common/entity-file';
@@ -37,14 +36,12 @@ import { AppData } from '../../../app-data';
 import { OfferHttpService } from '../../../services/http/administration/offer.http.service';
 import { ProjectHttpService } from '../../../services/http/assets/project.http.service';
 import { CompanyHttpService } from '../../../services/http/assets/company.http.service';
-import { InterCompanyHttpService } from '../../../services/http/assets/inter-company.http.service';
 import { MasterType } from '../../../model/api/assets/master-type';
 import { Type } from '../../../model/api/administration/type';
 import { SubType } from '../../../model/api/administration/sub-type';
 import { Administration } from '../../../model/api/administration/administration';
 import { Company } from '../../../model/api/assets/company';
 import { Project } from '../../../model/api/assets/project';
-import { InterCompany } from '../../../model/api/assets/inter-company';
 import { AccMonth } from '../../../model/api/accounting/acc-month';
 import { CostCenter } from '../../../model/api/administration/cost-center';
 import { Account } from '../../../model/api/administration/account';
@@ -173,8 +170,8 @@ export class OfferDetailUIComponent  implements AfterViewInit  {
     // @ViewChild('projectTypeList') public projectTypeList: ProjectTypeList;
     // @ViewChild('projectTypeListModal') public projectTypeListModal: ModalDirective;
 
-    // @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-    // @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
+    // 
+    // 
 
     @ViewChild('offerOpDetailList') public offerOpList: OfferOpDetailList;
     @ViewChild('entityFileList') public entityFileList: EntityFileListComponent;
@@ -314,7 +311,6 @@ export class OfferDetailUIComponent  implements AfterViewInit  {
         public costCenterHttpService: CostCenterHttpService,
         public projectHttpService: ProjectHttpService,
         public companyHttpService: CompanyHttpService,
-        public interCompanyHttpService: InterCompanyHttpService,
         public offerOpHttpService: OfferOpHttpService,
         public partnerHttpService: PartnerHttpService,
         public admCenterHttpService: AdmCenterHttpService,

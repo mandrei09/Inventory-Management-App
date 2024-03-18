@@ -66,7 +66,6 @@ import {CompanyHttpService} from '../../../../services/http/assets/company.http.
 import {BudgetOpHttpService} from '../../../../services/http/administration/budget-op.http.service';
 import {PartnerHttpService} from '../../../../services/http/documents/partner.http.service';
 import {AdministrationHttpService} from '../../../../services/http/administration/administration.http.service';
-import {InterCompanyHttpService} from '../../../../services/http/assets/inter-company.http.service';
 import {RequestHttpService} from '../../../../services/http/administration/request.http.service';
 import {OrderHttpService} from '../../../../services/http/administration/order.http.service';
 import {AssetHttpService} from '../../../../services/http/assets/asset.http.service';
@@ -87,7 +86,6 @@ import {Region} from '../../../../model/api/administration/region';
 import {ProjectType} from '../../../../model/api/assets/project-type';
 import {Country} from '../../../../model/api/assets/customer';
 import {Activity} from '../../../../model/api/assets/activity';
-import {InterCompany} from '../../../../model/api/assets/inter-company';
 import {BudgetForecastCorrrectionResult} from '../../../../model/api/result/budget-forecast-correction-result';
 import {AppConfig} from '../../../../config';
 import {UploadBudgetTransferModalComponent} from '../../../common/upload-budget-transfer-modal.component';
@@ -193,8 +191,8 @@ export class BudgetForecastDetailsDialogComponent implements AfterViewInit {
   @ViewChild('activityList') public activityList: ActivityList;
   @ViewChild('activityListModal') public activityListModal: ModalDirective;
 
-  @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-  @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
+  
+  
 
   @ViewChild('budgetOpDetailList') public budgetOpList: BudgetOpDetailList;
   @ViewChild('budgetBaseOpDetailList') public budgetBaseOpList: BudgetBaseOpDetailListComponent;
@@ -329,7 +327,7 @@ export class BudgetForecastDetailsDialogComponent implements AfterViewInit {
     public countryHttpService: CountryHttpService,
     public activityHttpService: ActivityHttpService,
     public companyHttpService: CompanyHttpService,
-    public interCompanyHttpService: InterCompanyHttpService,
+    
     public budgetOpHttpService: BudgetOpHttpService,
     public partnerHttpService: PartnerHttpService,
     public administrationHttpService: AdministrationHttpService,

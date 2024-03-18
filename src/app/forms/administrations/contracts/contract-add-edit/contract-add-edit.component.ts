@@ -16,7 +16,6 @@ import {ProjectList} from '../../../assets/projects/project.list';
 import {AdmCenterListComponent} from '../../adm-centers/adm-center.list';
 import {RegionListComponent} from '../../regions/region.list';
 import {AssetTypeListComponent} from '../../../assets/asset-types/asset-type.list';
-import {InterCompanyListComponent} from '../../../assets/inter-companies/inter-company.list';
 import {ContractOpDetailListComponent} from '../../contract-ops/contract-op.detail.list';
 import {EntityFileListComponent} from '../../../common/entity-file.list';
 import {EntityFile} from '../../../../model/api/common/entity-file';
@@ -36,7 +35,6 @@ import {EmployeeHttpService} from '../../../../services/http/administration/empl
 import {CostCenterHttpService} from '../../../../services/http/administration/cost-center.http.service';
 import {ProjectHttpService} from '../../../../services/http/assets/project.http.service';
 import {CompanyHttpService} from '../../../../services/http/assets/company.http.service';
-import {InterCompanyHttpService} from '../../../../services/http/assets/inter-company.http.service';
 import {ContractOpHttpService} from '../../../../services/http/administration/contract-op.http.service';
 import {PartnerHttpService} from '../../../../services/http/documents/partner.http.service';
 import {AdmCenterHttpService} from '../../../../services/http/administration/adm-center.http.service';
@@ -52,7 +50,6 @@ import {Project} from '../../../../model/api/assets/project';
 import {AdmCenter} from '../../../../model/api/administration/adm-center';
 import {Region} from '../../../../model/api/administration/region';
 import {AssetType} from '../../../../model/api/assets/asset-type';
-import {InterCompany} from '../../../../model/api/assets/inter-company';
 import {CostCenter} from '../../../../model/api/administration/cost-center';
 import {Account} from '../../../../model/api/administration/account';
 import {AppConfig} from '../../../../config';
@@ -158,9 +155,6 @@ export class ContractAddEditComponent implements AfterViewInit {
     @ViewChild('assetTypeList') public assetTypeList: AssetTypeListComponent;
     @ViewChild('assetTypeListModal') public assetTypeListModal: ModalDirective;
 
-    @ViewChild('interCompanyList') public interCompanyList: InterCompanyListComponent;
-    @ViewChild('interCompanyListModal') public interCompanyListModal: ModalDirective;
-
     @ViewChild('contractOpDetailList') public contractOpList: ContractOpDetailListComponent;
     @ViewChild('entityFileList') public entityFileList: EntityFileListComponent;
 
@@ -231,7 +225,6 @@ export class ContractAddEditComponent implements AfterViewInit {
         public costCenterHttpService: CostCenterHttpService,
         public projectHttpService: ProjectHttpService,
         public companyHttpService: CompanyHttpService,
-        public interCompanyHttpService: InterCompanyHttpService,
         public contractOpHttpService: ContractOpHttpService,
         public partnerHttpService: PartnerHttpService,
         public admCenterHttpService: AdmCenterHttpService,
@@ -487,24 +480,6 @@ export class ContractAddEditComponent implements AfterViewInit {
                 // }
                 // /*end PROJECTTYPE */
 
-
-               /*begin INTERCOMPANY */
-               public selectInterCompany() {
-
-                const params = new Array<Param>();
-
-                params.push(new Param('partnerIds', this.partner != null ? this.partner.id.toString() : null));
-
-                this.interCompanyList.refresh(null);
-                this.interCompanyListModal.show();
-            }
-            public setSelectedInterCompany() {
-                const items: Array<InterCompany> = this.interCompanyList.selectedItems;
-                this.interCompany = ((items != null) && (items.length === 1)) ? items[0] : null;
-                this.interCompanyListModal.hide();
-            }
-
-            /*end INTERCOMPANY */
 
     /*begin employee*/
     public selectEmployee() {
