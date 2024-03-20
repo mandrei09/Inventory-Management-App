@@ -425,10 +425,6 @@ import { RequestOpHttpService } from './services/http/administration/request-op.
 import { RequestOpManage } from './forms/administrations/request-ops/request-op-manage';
 import { RequestOpDetailList } from './forms/administrations/request-ops/request-op.detail.list';
 import { AssetDetailUIValidateComponent } from './forms/assets/assets/asset.detail-validate.ui';
-import { AccountancyManageComponent } from './forms/administrations/accountancy/accountancy.manage';
-import { AccountancyListComponent } from './forms/administrations/accountancy/accountancy.list';
-import { AccountancyDetailComponent } from './forms/administrations/accountancy/accountancy.detail';
-import { AccountancyHttpService } from './services/http/administration/accountancy.http.service';
 import { MatrixHttpService } from './services/http/administration/matrix.http.service';
 import { MatrixDetailComponent } from './forms/administrations/matrix/matrix.detail';
 import { MatrixListComponent } from './forms/administrations/matrix/matrix.list';
@@ -897,7 +893,6 @@ import {RoomHttpService} from './services/http/administration/room.http.service'
 import {ProjectTypeDivisionAddEditComponent} from './forms/administrations/project-type-division/project-type-division-add-edit/project-type-division-add-edit.component';
 import {AccountSelectionDialog} from './forms/administrations/account/selection/account.selection.dialog';
 import {AccountItemSelect} from './forms/administrations/account/selection/account.item-select';
-import {AccountancyAddEditComponent} from './forms/administrations/accountancy/accountancy-add-edit/accountancy-add-edit.component';
 import {ReasonDialogComponent} from './common/reason-dialog/reason-dialog.component';
 import {BudgetForecastCorrectionDialogComponent} from './forms/administrations/budget-forecast/budget-forecast-correction-dialog/budget-forecast-correction-dialog.component';
 import {BudgetBaseSelectionDialog} from './forms/administrations/budget-base/selection/budget-base.selection.dialog';
@@ -1411,9 +1406,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     RequestOpDetailList,
     AssetDetailUIValidateComponent,
     AssetDetailUIComponent,
-    AccountancyManageComponent,
-    AccountancyListComponent,
-    AccountancyDetailComponent,
     MatrixDetailComponent,
     MatrixListComponent,
     MatrixManageComponent,
@@ -1869,7 +1861,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     CountyAddEditComponent,
     CityAddEditComponent,
     LocationAddEditComponent,
-    AccountancyAddEditComponent,
     RoomAddEditComponent,
     RoomsItemSelect,
     RoomsSelectionDialog,
@@ -2013,7 +2004,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   OrderMaterialHttpService,
   SubTypeHttpService,
   EntityFileHttpService,
-  AccountancyHttpService,
   AssetComponentHttpService,
   PermissionTypeHttpService,
   PermissionHttpService,

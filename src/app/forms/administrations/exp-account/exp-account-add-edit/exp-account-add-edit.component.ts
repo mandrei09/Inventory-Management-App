@@ -1,8 +1,6 @@
 import {AfterViewInit, Component, Inject} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {InterCompanyENHttpService} from '../../../../services/http/assets/inter-company-en.http.service';
-import {InterCompanyEN} from '../../../../model/api/assets/inter-company-en';
 import {ExpAccount} from '../../../../model/api/administration/exp-account';
 import {ExpAccountHttpService} from '../../../../services/http/administration/exp-account.http.service';
 

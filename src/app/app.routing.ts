@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DefaultLayoutComponent } from './containers';
 import { AccMonthManageComponent } from './forms/accounting/acc-month.manage';
 import { AccountManage } from './forms/administrations/account/account.manage';
-import { AccountancyManageComponent } from './forms/administrations/accountancy/accountancy.manage';
 import { AdmCenterManageComponent } from './forms/administrations/adm-centers/adm-center.manage';
 import { AdministrationManageComponent } from './forms/administrations/administrations/administration.manage';
 import { ArticleManage } from './forms/administrations/article/article.manage';
@@ -192,7 +191,6 @@ const AppRoutes: Routes = [
       { path: 'matrix/projects', canActivate: [AuthGuard], component: ProjectManage, data: { title: 'WBS', auth: 'VIEW|PROJECTS', shouldDetach: true }},
       { path: 'matrix/projecttypes', component: ProjectTypeManageComponent, canActivate: [AuthGuard], data: { title: 'Proiecte', auth: 'VIEW|PROJECTTYPES', shouldDetach: true }},
       { path: 'matrix/projecttypedivisions', component: ProjectTypeDivisionManageComponent, canActivate: [AuthGuard], data: { title: 'Proiecte/Departamente', auth: 'VIEW|PROJECTTYPEDIVISIONS', shouldDetach: true }},
-      { path: 'matrix/accountancies', canActivate: [AuthGuard], component: AccountancyManageComponent, data: { title: 'Inventare', auth: 'VIEW|ACCOUNTANCIES', shouldDetach: true }},
       { path: 'matrix/categories', canActivate: [AuthGuard], component: CategoryManageComponent, data: { title: 'Categorii', auth: 'VIEW|CATEGORIES', shouldDetach: true }},
       { path: 'matrix/subcategories', canActivate: [AuthGuard], component: SubCategoryManageComponent, data: { title: 'SubCategorii', auth: 'VIEW|SUBCATEGORIES', shouldDetach: true }},
       { path: 'matrix/categoriesen', canActivate: [AuthGuard], component: CategoryENManageComponent, data: { title: 'Categorii EN', auth: 'VIEW|CATEGORIESEN', shouldDetach: true }},

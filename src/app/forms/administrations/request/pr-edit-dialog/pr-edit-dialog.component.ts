@@ -93,7 +93,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {OrderList} from '../../order/order.list';
 
 @Component({
-  selector: 'app-po-order-edit-dialog',
+  selector: 'app-pr-edit-dialog',
   templateUrl: './pr-edit-dialog.component.html',
   styleUrls: ['./pr-edit-dialog.component.scss']
 })
