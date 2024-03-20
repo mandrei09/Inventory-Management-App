@@ -89,8 +89,6 @@ import { AssetDetailUIValidateComponent } from './forms/assets/assets/asset.deta
 import { AssetDetailUIComponent } from './forms/assets/assets/asset.detail.ui';
 import { AssetManageComponent } from './forms/assets/assets/asset.manage';
 import { BrandManage } from './forms/assets/brands/brand.manage';
-import { CategoryENManageComponent } from './forms/assets/categories-en/category-en.manage';
-import { CategoryManageComponent } from './forms/assets/categories/category.manage';
 import { CompanyManageComponent } from './forms/assets/companies/company.manage';
 import { DimensionManageComponent } from './forms/assets/dimensions/dimension.manage';
 import { InsuranceCategoryManage } from './forms/assets/insurance-categories/insurance-category.manage';
@@ -98,8 +96,6 @@ import { ModelManage } from './forms/assets/models/model.manage';
 import { ProjectTypeManageComponent } from './forms/assets/project-types/project-type.manage';
 import { ProjectManage } from './forms/assets/projects/project.manage';
 import { RateManageComponent } from './forms/assets/rates/rate.manage';
-import { SubCategoryENManageComponent } from './forms/assets/sub-categories-en/sub-category-en.manage';
-import { SubCategoryManageComponent } from './forms/assets/sub-categories/sub-category.manage';
 import { TaxManageComponent } from './forms/assets/taxs/tax.manage';
 import { UomManageComponent } from './forms/assets/uoms/uom.manage';
 import { IdentityManage } from './forms/auth/identity.manage';
@@ -191,10 +187,6 @@ const AppRoutes: Routes = [
       { path: 'matrix/projects', canActivate: [AuthGuard], component: ProjectManage, data: { title: 'WBS', auth: 'VIEW|PROJECTS', shouldDetach: true }},
       { path: 'matrix/projecttypes', component: ProjectTypeManageComponent, canActivate: [AuthGuard], data: { title: 'Proiecte', auth: 'VIEW|PROJECTTYPES', shouldDetach: true }},
       { path: 'matrix/projecttypedivisions', component: ProjectTypeDivisionManageComponent, canActivate: [AuthGuard], data: { title: 'Proiecte/Departamente', auth: 'VIEW|PROJECTTYPEDIVISIONS', shouldDetach: true }},
-      { path: 'matrix/categories', canActivate: [AuthGuard], component: CategoryManageComponent, data: { title: 'Categorii', auth: 'VIEW|CATEGORIES', shouldDetach: true }},
-      { path: 'matrix/subcategories', canActivate: [AuthGuard], component: SubCategoryManageComponent, data: { title: 'SubCategorii', auth: 'VIEW|SUBCATEGORIES', shouldDetach: true }},
-      { path: 'matrix/categoriesen', canActivate: [AuthGuard], component: CategoryENManageComponent, data: { title: 'Categorii EN', auth: 'VIEW|CATEGORIESEN', shouldDetach: true }},
-      { path: 'matrix/subcategoriesen', canActivate: [AuthGuard], component: SubCategoryENManageComponent, data: { title: 'SubCategorii EN', auth: 'VIEW|SUBCATEGORIESEN', shouldDetach: true }},
       { path: 'matrix/accmonths', canActivate: [AuthGuard], component: AccMonthManageComponent, data: { title: 'Inventare', auth: 'VIEW|ACCMONTHS', shouldDetach: true }},
 
       // MATRIX //

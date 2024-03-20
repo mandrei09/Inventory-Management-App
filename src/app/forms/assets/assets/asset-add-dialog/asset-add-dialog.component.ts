@@ -223,8 +223,8 @@ export class AssetAddDialogComponent implements AfterViewInit {
   // @ViewChild('categoryList') public categoryList: CategoryListComponent;
   // @ViewChild('categoryListModal') public categoryListModal: ModalDirective;
 
-  // @ViewChild('subCategoryList') public subCategoryList: SubCategoryListComponent;
-  // @ViewChild('subCategoryListModal') public subCategoryListModal: ModalDirective;
+  // 
+  // 
 
   @ViewChild("assetTypeDetail")
   public assetTypeDetail: AssetTypeDetailComponent;
@@ -473,7 +473,7 @@ export class AssetAddDialogComponent implements AfterViewInit {
   public insuranceCategory: InsuranceCategory = null;
   public dictionaryItem: CodeNameEntity = null;
   // public category: CodeNameEntity = null;
-  // public subCategory: SubCategory = null;
+  // //public subCategory: SubCategory = null;
   public costCenter: CodeNameEntity = null;
   public uom: Uom = null;
   public assetNature: AssetNature = null;
@@ -559,13 +559,13 @@ export class AssetAddDialogComponent implements AfterViewInit {
     public dimensionHttpService: DimensionHttpService,
     public locationHttpService: LocationHttpService,
     public administrationHttpService: AdministrationHttpService,
-    // public subCategoryHttpService: SubCategoryHttpService,
+    // 
     public offerMaterialHttpService: OfferMaterialHttpService,
     public orderMaterialHttpService: OrderMaterialHttpService,
     public requestBudgetForecastHttpService: RequestBudgetForecastHttpService,
     public requestBudgetForecastMaterialHttpService: RequestBudgetForecastMaterialHttpService,
     public requestBFMaterialCostCenterHttpService: RequestBudgetForecastMaterialCostCenterHttpService,
-    // public categoryHttpService: CategoryHttpService,
+    // ,
     private notificationService: NotificationService,
     public vcr: ViewContainerRef,
     public http: HttpClient,
@@ -732,7 +732,7 @@ export class AssetAddDialogComponent implements AfterViewInit {
     // this.invState = asset.invState;
     // this.uom = asset.uom;
     this.order = asset.order;
-    // this.subCategory = asset.subCategory;
+    //// this.subCategory = asset.subCategory;
     // this.dimension = asset.dimension;
     // this.refreshOrderMaterials();
 
@@ -834,7 +834,7 @@ export class AssetAddDialogComponent implements AfterViewInit {
   }
 
   public setSelectedOrder(value) {
-    // this.subCategory = null;
+    //// this.subCategory = null;
     // const items: Array<Order> = this.orderList.selectedItems;
     // const items: Array<Order> = value;
 
@@ -1532,7 +1532,7 @@ export class AssetAddDialogComponent implements AfterViewInit {
             // this.asset.dictionaryItemId = this.dictionaryItem != null ? this.dictionaryItem.id : null;
             // this.asset.name2 = this.asset.name2;
             // this.asset.receptionValue = this.asset.receptionValue;
-            // this.asset.subCategoryId = this.subCategory != null ? this.subCategory.id : null;
+            // //this.asset.subCategoryId = this.subCategory != null ? this.subCategory.id : null;
             // this.asset.offerMaterialId = this.offerMaterialList.selectedItems.length > 0 ? this.offerMaterialList.selectedItems[0].id : 0;
             // this.asset.orderMaterialId = this.orderMaterialList.selectedItems.length > 0 ? this.orderMaterialList.selectedItems[0].id : 0;
             // this.asset.validated = true;
@@ -1587,7 +1587,7 @@ export class AssetAddDialogComponent implements AfterViewInit {
       // this.asset.documentTypeId = this.documentType != null ? this.documentType.id : null;
       // this.asset.dictionaryItemId = this.dictionaryItem != null ? this.dictionaryItem.id : null;
       // this.asset.name2 = this.asset.name2;
-      // this.asset.subCategoryId = this.subCategory != null ? this.subCategory.id : null;
+      // //this.asset.subCategoryId = this.subCategory != null ? this.subCategory.id : null;
       // this.asset.offerMaterialId = this.offerMaterialList.selectedItems.length > 0 ? this.offerMaterialList.selectedItems[0].id : 0;
       // this.asset.orderMaterialId = this.orderMaterialList.selectedItems.length > 0 ? this.orderMaterialList.selectedItems[0].id : 0;
       //.asset.requestBudgetForecastMaterialId = this.requestBudgetForecastMaterialList.selectedItems.length > 0 ? this.requestBudgetForecastMaterialList.selectedItems[0].id : 0;

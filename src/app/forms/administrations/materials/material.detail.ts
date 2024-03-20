@@ -6,8 +6,6 @@ import { ExpAccount } from '../../../model/api/administration/exp-account';
 import { Material } from '../../../model/api/administration/material';
 import { SubType } from '../../../model/api/administration/sub-type';
 import { AssetCategory } from '../../../model/api/assets/asset-category';
-import { SubCategory } from '../../../model/api/assets/sub-category';
-import { SubCategoryEN } from '../../../model/api/assets/sub-category-en';
 import { CodeNameEntity } from '../../../model/api/common/code-name-entity';
 import { GenericDetail } from '../../generic/generic.detail';
 
@@ -35,8 +33,8 @@ export class MaterialDetailComponent extends GenericDetail<Material, number> {
     public selectedAccount: Account = null;
     public selectedExpAccount: ExpAccount = null;
     public selectedAssetCategory: AssetCategory = null;
-    public selectedSubCategory: SubCategory = null;
-    public selectedSubCategoryEN: SubCategoryEN = null;
+    
+    //public selectedSubCategoryEN: SubCategoryEN = null;
     public selectedSubType: SubType = null;
 
     setItemDefaultValues() {
@@ -47,13 +45,13 @@ export class MaterialDetailComponent extends GenericDetail<Material, number> {
         this.detailForm.reset();
     }
 
-    public saveItem() {
-        if (this.selectedSubCategory == null) {
-            alert('SubCategoria este obligatorie!');
-        } else {
-            super.saveItem();
-        }
-    }
+    // public saveItem() {
+    //     if (this.selectedSubCategory == null) {
+    //         alert('SubCategoria este obligatorie!');
+    //     } else {
+    //         super.saveItem();
+    //     }
+    // }
 
     public set account(account: Account) {
         this.selectedAccount = account;
@@ -88,42 +86,42 @@ export class MaterialDetailComponent extends GenericDetail<Material, number> {
         this.item.assetCategory = assetCategory != null ? new CodeNameEntity(assetCategory.id, assetCategory.code, assetCategory.name) : null;
     }
 
-    public askForAssetCategory() {
-        this.assetCategoryNeeded.emit();
-    }
+    // public askForAssetCategory() {
+    //     this.assetCategoryNeeded.emit();
+    // }
 
-    public setAssetCategory(assetCategory: AssetCategory) {
-        this.selectedAssetCategory = assetCategory;
-        this.item.assetCategory = assetCategory != null ? assetCategory : null;
-    }
+    // public setAssetCategory(assetCategory: AssetCategory) {
+    //     this.selectedAssetCategory = assetCategory;
+    //     this.item.assetCategory = assetCategory != null ? assetCategory : null;
+    // }
 
-    public set subCategory(subCategory: SubCategory) {
-        this.selectedSubCategory = subCategory;
-        this.item.subCategory = subCategory != null ? new CodeNameEntity(subCategory.id, subCategory.code, subCategory.name) : null;
-    }
+    // public set subCategory(subCategory: SubCategory) {
+    //     this.selectedSubCategory = subCategory;
+    //     this.item.subCategory = subCategory != null ? new CodeNameEntity(subCategory.id, subCategory.code, subCategory.name) : null;
+    // }
 
-    public askForSubCategory() {
-        this.subCategoryNeeded.emit();
-    }
+    // public askForSubCategory() {
+    //     this.subCategoryNeeded.emit();
+    // }
 
-    public setSubCategory(subCategory: SubCategory) {
-        this.selectedSubCategory = subCategory;
-        this.item.subCategory = subCategory != null ? subCategory : null;
-    }
+    // public setSubCategory(subCategory: SubCategory) {
+    //     this.selectedSubCategory = subCategory;
+    //     this.item.subCategory = subCategory != null ? subCategory : null;
+    // }
 
-    public set subCategoryEN(subCategoryEN: SubCategoryEN) {
-        this.selectedSubCategoryEN = subCategoryEN;
-        this.item.subCategoryEN = subCategoryEN != null ? new CodeNameEntity(subCategoryEN.id, subCategoryEN.code, subCategoryEN.name) : null;
-    }
+    // public set subCategoryEN(subCategoryEN: SubCategoryEN) {
+    //     this.selectedSubCategoryEN = subCategoryEN;
+    //     this.item.subCategoryEN = subCategoryEN != null ? new CodeNameEntity(subCategoryEN.id, subCategoryEN.code, subCategoryEN.name) : null;
+    // }
 
-    public askForSubCategoryEN() {
-        this.subCategoryENNeeded.emit();
-    }
+    // public askForSubCategoryEN() {
+    //     this.subCategoryENNeeded.emit();
+    // }
 
-    public setSubCategoryEN(subCategoryEN: SubCategoryEN) {
-        this.selectedSubCategoryEN = subCategoryEN;
-        this.item.subCategoryEN = subCategoryEN != null ? subCategoryEN : null;
-    }
+    // public setSubCategoryEN(subCategoryEN: SubCategoryEN) {
+    //     this.selectedSubCategoryEN = subCategoryEN;
+    //     this.item.subCategoryEN = subCategoryEN != null ? subCategoryEN : null;
+    // }
 
     public set subType(subType: SubType) {
         this.selectedSubType = subType;

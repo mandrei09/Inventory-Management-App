@@ -162,9 +162,6 @@ import { AquisitionAssetSAPHttpService } from '../../../services/http/sap/aquisi
 import { AssetFilter } from '../../../model/api/assets/asset.filter';
 import { AssetReceptionFilter } from '../../../model/api/assets/asset-reception.filter';
 import { RejectResult } from '../../../model/api/result/reject-result';
-import { SubCategory } from '../../../model/api/assets/sub-category';
-import { SubCategoryListComponent } from '../sub-categories/sub-category.list';
-import { SubCategoryHttpService } from '../../../services/http/assets/sub-category.http.service';
 import { AssetPreAcquisition } from '../../../model/api/assets/asset-pre-aquisition';
 @Component({
     selector: 'app-asset-detail-pre-validate-ui',
@@ -295,8 +292,8 @@ export class AssetDetailUIPreValidateComponent implements AfterViewInit  {
     @ViewChild('expAccountList') public expAccountList: ExpAccountList;
     @ViewChild('expAccountListModal') public expAccountListModal: ModalDirective;
 
-    @ViewChild('subCategoryList') public subCategoryList: SubCategoryListComponent;
-    @ViewChild('subCategoryListModal') public subCategoryListModal: ModalDirective;
+    
+    
 
     @ViewChild('articleList') public articleList: ArticleList;
     @ViewChild('articleListModal') public articleListModal: ModalDirective;
@@ -533,7 +530,7 @@ export class AssetDetailUIPreValidateComponent implements AfterViewInit  {
         public rateHttpService: RateHttpService,
         public notificationService: NotificationService,
         public aquisitionAssetSAPHttpService: AquisitionAssetSAPHttpService,
-        public subCategoryHttpService: SubCategoryHttpService,
+        
         // public vcr: ViewContainerRef,
         public http: HttpClient,
         public entityFileHttpService: EntityFileHttpService) {
@@ -680,7 +677,7 @@ export class AssetDetailUIPreValidateComponent implements AfterViewInit  {
         // this.interCompany = asset.interCompany;
         // this.subType = asset.subType;
         this.assetClass = asset.assetClass;
-        this.subCategory = asset.subCategory;
+       // this.subCategory = asset.subCategory;
         // this.admCenter = asset.admCenter;
         // this.region = asset.region;
         // this.insuranceCategory = asset.insuranceCategory;
@@ -2210,20 +2207,20 @@ public deleteOperation(){
 
     // ACCOUNT //
 
-     // SUBCATEGORY //
+//      // SUBCATEGORY //
 
-     public selectSubCategory() {
-      this.subCategoryList.refresh(null);
-      this.subCategoryListModal.show();
-  }
+//      public selectSubCategory() {
+//       this.subCategoryList.refresh(null);
+//       this.subCategoryListModal.show();
+//   }
 
-  public setSelectedSubCategory() {
-      let items: Array<SubCategory> = this.subCategoryList.selectedItems;
-      this.subCategory = ((items != null) && (items.length === 1)) ? items[0] : null;
-      this.subCategoryListModal.hide();
-  }
+//   public setSelectedSubCategory() {
+//       let items: Array<SubCategory> = this.subCategoryList.selectedItems;
+//       this.subCategory = ((items != null) && (items.length === 1)) ? items[0] : null;
+//       this.subCategoryListModal.hide();
+//   }
 
-  // SUBCATEGORY //
+//   // SUBCATEGORY //
 
     // ARTICLE //
 

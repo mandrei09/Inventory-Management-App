@@ -396,7 +396,7 @@ export class AssetReceptionDetailsDialog implements AfterViewInit {
     public insuranceCategory: InsuranceCategory = null;
     public dictionaryItem: CodeNameEntity = null;
     // public category: CodeNameEntity = null;
-    // public subCategory: SubCategory = null;
+    // //public subCategory: SubCategory = null;
     public costCenter: CodeNameEntity = null;
     public uom: Uom = null;
     public assetNature: AssetNature = null;
@@ -624,7 +624,7 @@ export class AssetReceptionDetailsDialog implements AfterViewInit {
         // this.invState = asset.invState;
         // this.uom = asset.uom;
         this.order = asset.order;
-        // this.subCategory = asset.subCategory;
+        //// this.subCategory = asset.subCategory;
         // this.dimension = asset.dimension;
         // this.refreshOrderMaterials();
 
@@ -725,7 +725,7 @@ export class AssetReceptionDetailsDialog implements AfterViewInit {
     }
 
     public setSelectedOrder() {
-        // this.subCategory = null;
+        //// this.subCategory = null;
         const items: Array<Order> = this.orderList.selectedItems;
         this.order = ((items != null) && (items.length === 1)) ? items[0] : null;
 

@@ -145,13 +145,7 @@ import { AddAsset } from '../../../model/api/assets/add-asset';
 import { OfferMaterialHttpService } from '../../../services/http/administration/offer-material.http.service';
 import { OfferMaterialListComponent } from '../../administrations/offer-materials/offer-material.list';
 import { Offer } from '../../../model/api/administration/offer';
-// import { Category } from '../../../model/api/assets/category';
-// import { CategoryListComponent } from '../categories/category.list';
-// import { CategoryHttpService } from '../../../services/http/assets/category.http.service';
-import { SubCategory } from '../../../model/api/assets/sub-category';
-import { SubCategoryListComponent } from '../sub-categories/sub-category.list';
-import { SubCategoryHttpService } from '../../../services/http/assets/sub-category.http.service';
-import { AddAssetUpload } from '../../../model/api/common/add-asset-upload';
+// // // import { AddAssetUpload } from '../../../model/api/common/add-asset-upload';
 import { Tax } from '../../../model/api/assets/tax';
 import { TaxListComponent } from '../taxs/tax.list';
 import { TaxHttpService } from '../../../services/http/assets/tax.http.service';
@@ -224,8 +218,8 @@ export class AssetReceptionDetailUIAddComponent implements AfterViewInit  {
     // @ViewChild('categoryList') public categoryList: CategoryListComponent;
     // @ViewChild('categoryListModal') public categoryListModal: ModalDirective;
 
-    // @ViewChild('subCategoryList') public subCategoryList: SubCategoryListComponent;
-    // @ViewChild('subCategoryListModal') public subCategoryListModal: ModalDirective;
+    // 
+    // 
 
     @ViewChild('assetTypeDetail') public assetTypeDetail: AssetTypeDetailComponent;
     @ViewChild('assetTypeList') public assetTypeList: AssetTypeListComponent;
@@ -445,7 +439,7 @@ export class AssetReceptionDetailUIAddComponent implements AfterViewInit  {
     public insuranceCategory: InsuranceCategory = null;
     public dictionaryItem: CodeNameEntity = null;
     // public category: CodeNameEntity = null;
-    // public subCategory: SubCategory = null;
+    // //public subCategory: SubCategory = null;
     public costCenter: CodeNameEntity = null;
     public uom: Uom = null;
     public assetNature: AssetNature = null;
@@ -526,13 +520,13 @@ export class AssetReceptionDetailUIAddComponent implements AfterViewInit  {
         public dimensionHttpService: DimensionHttpService,
         public locationHttpService: LocationHttpService,
         public administrationHttpService: AdministrationHttpService,
-        // public subCategoryHttpService: SubCategoryHttpService,
+        // 
         public offerMaterialHttpService: OfferMaterialHttpService,
         public orderMaterialHttpService: OrderMaterialHttpService,
         public requestBudgetForecastHttpService: RequestBudgetForecastHttpService,
         public requestBudgetForecastMaterialHttpService: RequestBudgetForecastMaterialHttpService,
         public requestBFMaterialCostCenterHttpService: RequestBudgetForecastMaterialCostCenterHttpService,
-        // public categoryHttpService: CategoryHttpService,
+        // ,
         private notificationService: NotificationService,
         public dialog: MatDialog,
         public vcr: ViewContainerRef,
@@ -672,7 +666,7 @@ export class AssetReceptionDetailUIAddComponent implements AfterViewInit  {
         // this.invState = asset.invState;
         // this.uom = asset.uom;
         this.order = asset.order;
-        // this.subCategory = asset.subCategory;
+        //// this.subCategory = asset.subCategory;
         // this.dimension = asset.dimension;
         // this.refreshOrderMaterials();
 
@@ -774,7 +768,7 @@ export class AssetReceptionDetailUIAddComponent implements AfterViewInit  {
     }
 
     public setSelectedOrder() {
-        // this.subCategory = null;
+        //// this.subCategory = null;
         const items: Array<Order> = this.orderList.selectedItems;
         this.order = ((items != null) && (items.length === 1)) ? items[0] : null;
 

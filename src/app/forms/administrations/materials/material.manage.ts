@@ -6,8 +6,6 @@ import { ExpAccount } from '../../../model/api/administration/exp-account';
 import { Material } from '../../../model/api/administration/material';
 import { SubType } from '../../../model/api/administration/sub-type';
 import { AssetCategory } from '../../../model/api/assets/asset-category';
-import { SubCategory } from '../../../model/api/assets/sub-category';
-import { SubCategoryEN } from '../../../model/api/assets/sub-category-en';
 import { PagedResult } from '../../../model/common/paged-result';
 import { Param } from '../../../model/common/param';
 import { AccountHttpService } from '../../../services/http/administration/account.http.service';
@@ -15,11 +13,7 @@ import { ExpAccountHttpService } from '../../../services/http/administration/exp
 import { MaterialHttpService } from '../../../services/http/administration/material.http.service';
 import { SubTypeHttpService } from '../../../services/http/administration/sub-type.http.service';
 import { AssetCategoryHttpService } from '../../../services/http/assets/asset-category.http.service';
-import { SubCategoryENHttpService } from '../../../services/http/assets/sub-category-en.http.service';
-import { SubCategoryHttpService } from '../../../services/http/assets/sub-category.http.service';
 import { AssetCategoryListComponent } from '../../assets/asset-categories/asset-category.list';
-import { SubCategoryENListComponent } from '../../assets/sub-categories-en/sub-category-en.list';
-import { SubCategoryListComponent } from '../../assets/sub-categories/sub-category.list';
 import { GenericManage, GenericManageViewMode } from '../../generic/generic.manage';
 import { AccountList } from '../account/account.list';
 import { ExpAccountList } from '../exp-account/exp-account.list';
@@ -35,7 +29,7 @@ import { saveAs as fileSaveAs } from 'file-saver-es';
     selector: 'app-material-manage',
     templateUrl: 'material.manage.html',
     styleUrls: ['material.manage.scss'],
-    providers: [ AccountHttpService, ExpAccountHttpService, AssetCategoryHttpService, SubCategoryHttpService, SubCategoryENHttpService, SubTypeHttpService ]
+    providers: [ AccountHttpService, ExpAccountHttpService, AssetCategoryHttpService, SubTypeHttpService ]
 })
 export class MaterialManageComponent extends GenericManage<Material, number> {
 
@@ -54,12 +48,6 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
      @ViewChild('assetCategoryListModal') assetCategoryListModal: ModalDirective;
      @ViewChild('assetCategoryList') assetCategoryList: AssetCategoryListComponent;
 
-     @ViewChild('subCategoryListModal') subCategoryListModal: ModalDirective;
-     @ViewChild('subCategoryList') subCategoryList: SubCategoryListComponent;
-
-     @ViewChild('subCategoryENListModal') subCategoryENListModal: ModalDirective;
-     @ViewChild('subCategoryENList') subCategoryENList: SubCategoryENListComponent;
-
      @ViewChild('subTypeListModal') subTypeListModal: ModalDirective;
      @ViewChild('subTypeList') subTypeList: SubTypeList;
 
@@ -70,8 +58,8 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
     public selectedAccount: Account = null;
     public selectedExpAccount: ExpAccount = null;
     public selectedAssetCategory: AssetCategory = null;
-    public selectedSubCategory: SubCategory = null;
-    public selectedSubCategoryEN: SubCategoryEN = null;
+    
+    //public selectedSubCategoryEN: SubCategoryEN = null;
     public selectedSubType: SubType = null;
 
     constructor(
@@ -80,8 +68,6 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
         public accountHttpService: AccountHttpService,
         public expAccountHttpService: ExpAccountHttpService,
         public assetCategoryHttpService: AssetCategoryHttpService,
-        public subCategoryHttpService: SubCategoryHttpService,
-        public subCategoryENHttpService: SubCategoryENHttpService,
         public subTypeHttpService: SubTypeHttpService) {
         super();
     }
@@ -96,8 +82,8 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
         this.materialDetail.account = null;
         this.materialDetail.expAccount = null;
         this.materialDetail.assetCategory = null;
-        this.materialDetail.subCategory = null;
-        this.materialDetail.subCategoryEN = null;
+        //this.materialDetail.subCategory = null;
+        //this.materialDetail.subCategoryEN = null;
         this.materialDetail.subType = null;
     }
 
@@ -155,25 +141,25 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
                 });
         }
 
-        this.materialDetail.subCategory = null;
+        //this.materialDetail.subCategory = null;
 
-        if ((material != null) && (material.subCategory != null)) {
-            this.subCategoryHttpService
-                .getById(material.subCategory.id)
-                .subscribe((subCategory: SubCategory) => {
-                    this.materialDetail.subCategory = subCategory;
-                });
-        }
+        // if ((material != null) && (material.subCategory != null)) {
+        //     this.subCategoryHttpService
+        //         .getById(material.subCategory.id)
+        //         .subscribe((subCategory: SubCategory) => {
+        //             this.materialDetail.subCategory = subCategory;
+        //         });
+        // }
 
-        this.materialDetail.subCategoryEN = null;
+        //this.materialDetail.subCategoryEN = null;
 
-        if ((material != null) && (material.subCategoryEN != null)) {
-            this.subCategoryENHttpService
-                .getById(material.subCategoryEN.id)
-                .subscribe((subCategoryEN: SubCategoryEN) => {
-                    this.materialDetail.subCategoryEN = subCategoryEN;
-                });
-        }
+        // if ((material != null) && (material.subCategoryEN != null)) {
+        //     this.subCategoryENHttpService
+        //         .getById(material.subCategoryEN.id)
+        //         .subscribe((subCategoryEN: SubCategoryEN) => {
+        //             this.materialDetail.subCategoryEN = subCategoryEN;
+        //         });
+        // }
 
         this.materialDetail.subType = null;
 
@@ -217,39 +203,39 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
 
     public onMaterialDetailAssetCategoryNeeded() {
         this.materialDetailModal.hide();
-        this.selectAssetCategory();
+        //this.selectAssetCategory();
     }
 
-    public onAssetCategoryListCancel() {
-        this.assetCategoryListModal.hide();
-        if (this.viewMode === GenericManageViewMode.ItemDetail) {
-            this.materialDetailModal.show();
-        }
-    }
+    // public onAssetCategoryListCancel() {
+    //     this.assetCategoryListModal.hide();
+    //     if (this.viewMode === GenericManageViewMode.ItemDetail) {
+    //         this.materialDetailModal.show();
+    //     }
+    // }
 
-    public onMaterialDetailSubCategoryNeeded() {
-        this.materialDetailModal.hide();
-        this.selectSubCategory();
-    }
+    // public onMaterialDetailSubCategoryNeeded() {
+    //     this.materialDetailModal.hide();
+    //     this.selectSubCategory();
+    // }
 
-    public onSubCategoryListCancel() {
-        this.subCategoryListModal.hide();
-        if (this.viewMode === GenericManageViewMode.ItemDetail) {
-            this.materialDetailModal.show();
-        }
-    }
+    // public onSubCategoryListCancel() {
+    //     this.subCategoryListModal.hide();
+    //     if (this.viewMode === GenericManageViewMode.ItemDetail) {
+    //         this.materialDetailModal.show();
+    //     }
+    // }
 
-    public onMaterialDetailSubCategoryENNeeded() {
-        this.materialDetailModal.hide();
-        this.selectSubCategoryEN();
-    }
+    // public onMaterialDetailSubCategoryENNeeded() {
+    //     this.materialDetailModal.hide();
+    //     this.selectSubCategoryEN();
+    // }
 
-    public onSubCategoryENListCancel() {
-        this.subCategoryENListModal.hide();
-        if (this.viewMode === GenericManageViewMode.ItemDetail) {
-            this.materialDetailModal.show();
-        }
-    }
+    // public onSubCategoryENListCancel() {
+    //     this.subCategoryENListModal.hide();
+    //     if (this.viewMode === GenericManageViewMode.ItemDetail) {
+    //         this.materialDetailModal.show();
+    //     }
+    // }
 
     public onMaterialDetailSubTypeNeeded() {
         this.materialDetailModal.hide();
@@ -321,90 +307,90 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
     }
 
 
-    public selectAssetCategory() {
-        this.assetCategoryListModal.show();
-        this.assetCategoryList.refresh(null);
-    }
+    // public selectAssetCategory() {
+    //     this.assetCategoryListModal.show();
+    //     this.assetCategoryList.refresh(null);
+    // }
 
-    public setSelectedAssetCategory() {
-        this.viewMode = 2;
-        switch (this.viewMode) {
-            case GenericManageViewMode.ItemList:
-                this.selectedAssetCategory = this.assetCategoryList.selectedItem;
-                this.assetCategoryListModal.hide();
-                this.refresh();
-                break;
-            case GenericManageViewMode.ItemDetail:
-                this.materialDetail.assetCategory = this.assetCategoryList.selectedItem;
-                this.assetCategoryListModal.hide();
-                this.materialDetailModal.show();
-                break;
-            default:
-                break;
-        }
-    }
+    // public setSelectedAssetCategory() {
+    //     this.viewMode = 2;
+    //     switch (this.viewMode) {
+    //         case GenericManageViewMode.ItemList:
+    //             this.selectedAssetCategory = this.assetCategoryList.selectedItem;
+    //             this.assetCategoryListModal.hide();
+    //             this.refresh();
+    //             break;
+    //         case GenericManageViewMode.ItemDetail:
+    //             this.materialDetail.assetCategory = this.assetCategoryList.selectedItem;
+    //             this.assetCategoryListModal.hide();
+    //             this.materialDetailModal.show();
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 
-    public unselectAssetCategory() {
-        this.selectedAssetCategory = null;
-        this.refresh();
-    }
+    // public unselectAssetCategory() {
+    //     this.selectedAssetCategory = null;
+    //     this.refresh();
+    // }
 
 
-    public selectSubCategory() {
-        this.subCategoryListModal.show();
-        this.subCategoryList.refresh(null);
-    }
+    // public selectSubCategory() {
+    //     this.subCategoryListModal.show();
+    //     this.subCategoryList.refresh(null);
+    // }
 
-    public setSelectedSubCategory() {
-        this.viewMode = 2;
-        switch (this.viewMode) {
-            case GenericManageViewMode.ItemList:
-                this.selectedSubCategory = this.subCategoryList.selectedItem;
-                this.subCategoryListModal.hide();
-                this.refresh();
-                break;
-            case GenericManageViewMode.ItemDetail:
-                this.materialDetail.subCategory = this.subCategoryList.selectedItem;
-                this.subCategoryListModal.hide();
-                this.materialDetailModal.show();
-                break;
-            default:
-                break;
-        }
-    }
+    // public setSelectedSubCategory() {
+    //     this.viewMode = 2;
+    //     switch (this.viewMode) {
+    //         case GenericManageViewMode.ItemList:
+    //             this.selectedSubCategory = this.subCategoryList.selectedItem;
+    //             this.subCategoryListModal.hide();
+    //             this.refresh();
+    //             break;
+    //         case GenericManageViewMode.ItemDetail:
+    //             this.materialDetail.subCategory = this.subCategoryList.selectedItem;
+    //             this.subCategoryListModal.hide();
+    //             this.materialDetailModal.show();
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 
-    public unselectSubCategory() {
-        this.selectedSubCategory = null;
-        this.refresh();
-    }
+    // public unselectSubCategory() {
+    //     this.selectedSubCategory = null;
+    //     this.refresh();
+    // }
 
-    public selectSubCategoryEN() {
-        this.subCategoryENListModal.show();
-        this.subCategoryENList.refresh(null);
-    }
+    // public selectSubCategoryEN() {
+    //     this.subCategoryENListModal.show();
+    //     this.subCategoryENList.refresh(null);
+    // }
 
-    public setSelectedSubCategoryEN() {
-        this.viewMode = 2;
-        switch (this.viewMode) {
-            case GenericManageViewMode.ItemList:
-                this.selectedSubCategoryEN = this.subCategoryENList.selectedItem;
-                this.subCategoryENListModal.hide();
-                this.refresh();
-                break;
-            case GenericManageViewMode.ItemDetail:
-                this.materialDetail.subCategoryEN = this.subCategoryENList.selectedItem;
-                this.subCategoryENListModal.hide();
-                this.materialDetailModal.show();
-                break;
-            default:
-                break;
-        }
-    }
+    // public setSelectedSubCategoryEN() {
+    //     this.viewMode = 2;
+    //     switch (this.viewMode) {
+    //         case GenericManageViewMode.ItemList:
+    //             this.selectedSubCategoryEN = this.subCategoryENList.selectedItem;
+    //             this.subCategoryENListModal.hide();
+    //             this.refresh();
+    //             break;
+    //         case GenericManageViewMode.ItemDetail:
+    //             this.materialDetail.subCategoryEN = this.subCategoryENList.selectedItem;
+    //             this.subCategoryENListModal.hide();
+    //             this.materialDetailModal.show();
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 
-    public unselectSubCategoryEN() {
-        this.selectedSubCategoryEN = null;
-        this.refresh();
-    }
+    // public unselectSubCategoryEN() {
+    //     this.selectedSubCategoryEN = null;
+    //     this.refresh();
+    // }
 
     public selectSubType() {
         this.subTypeListModal.show();
@@ -441,8 +427,8 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
         params.push(new Param('accountIds', AppUtils.getIdsList<Account, number>([ this.selectedAccount ])));
         params.push(new Param('expAccountIds', AppUtils.getIdsList<ExpAccount, number>([ this.selectedExpAccount ])));
         params.push(new Param('assetCategoryIds', AppUtils.getIdsList<AssetCategory, number>([ this.selectedAssetCategory ])));
-        params.push(new Param('subCategoryIds', AppUtils.getIdsList<SubCategory, number>([ this.selectedSubCategory ])));
-        params.push(new Param('subCategoryENIds', AppUtils.getIdsList<SubCategoryEN, number>([ this.selectedSubCategoryEN ])));
+        // params.push(new Param('subCategoryIds', AppUtils.getIdsList<SubCategory, number>([ this.selectedSubCategory ])));
+        // params.push(new Param('subCategoryENIds', AppUtils.getIdsList<SubCategoryEN, number>([ this.selectedSubCategoryEN ])));
         params.push(new Param('subTypeIds', AppUtils.getIdsList<SubType, number>([ this.selectedSubType ])));
         this.materialList.refresh(params);
     }
@@ -453,8 +439,8 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
       params.push(new Param('accountIds', AppUtils.getIdsList<Account, number>([ this.selectedAccount ])));
       params.push(new Param('expAccountIds', AppUtils.getIdsList<ExpAccount, number>([ this.selectedExpAccount ])));
       params.push(new Param('assetCategoryIds', AppUtils.getIdsList<AssetCategory, number>([ this.selectedAssetCategory ])));
-      params.push(new Param('subCategoryIds', AppUtils.getIdsList<SubCategory, number>([ this.selectedSubCategory ])));
-      params.push(new Param('subCategoryENIds', AppUtils.getIdsList<SubCategoryEN, number>([ this.selectedSubCategoryEN ])));
+    //   params.push(new Param('subCategoryIds', AppUtils.getIdsList<SubCategory, number>([ this.selectedSubCategory ])));
+    //   params.push(new Param('subCategoryENIds', AppUtils.getIdsList<SubCategoryEN, number>([ this.selectedSubCategoryEN ])));
       params.push(new Param('subTypeIds', AppUtils.getIdsList<SubType, number>([ this.selectedSubType ])));
 
       return params;

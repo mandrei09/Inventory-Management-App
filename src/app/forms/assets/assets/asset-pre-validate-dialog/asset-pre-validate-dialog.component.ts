@@ -155,9 +155,6 @@ import { UpdateAssetSAPResult } from "../../../../model/api/result/update-asset-
 import { AssetReceptionFilter } from "../../../../model/api/assets/asset-reception.filter";
 import { OfferMaterialAdd } from "../../../../model/api/assets/offer-material-add";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { SubCategoryHttpService } from "../../../../services/http/assets/sub-category.http.service";
-import { SubCategoryListComponent } from "../../sub-categories/sub-category.list";
-import { SubCategory } from "../../../../model/api/assets/sub-category";
 import { RejectResult } from "../../../../model/api/result/reject-result";
 import { DialogService } from "../../../../services/dialog.service";
 import { MatDatepickerInputEvent } from "@angular/material/datepicker";
@@ -316,11 +313,6 @@ export class AssetPreValidateDialogComponent implements AfterViewInit {
 
   @ViewChild("expAccountList") public expAccountList: ExpAccountList;
   @ViewChild("expAccountListModal") public expAccountListModal: ModalDirective;
-
-  @ViewChild("subCategoryList")
-  public subCategoryList: SubCategoryListComponent;
-  @ViewChild("subCategoryListModal")
-  public subCategoryListModal: ModalDirective;
 
   @ViewChild("articleList") public articleList: ArticleList;
   @ViewChild("articleListModal") public articleListModal: ModalDirective;
@@ -571,7 +563,7 @@ export class AssetPreValidateDialogComponent implements AfterViewInit {
     public dialogService: DialogService,
     public notificationService: NotificationService,
     public aquisitionAssetSAPHttpService: AquisitionAssetSAPHttpService,
-    public subCategoryHttpService: SubCategoryHttpService,
+    
         // public vcr: ViewContainerRef,
     public http: HttpClient,
     public entityFileHttpService: EntityFileHttpService,
@@ -727,7 +719,7 @@ export class AssetPreValidateDialogComponent implements AfterViewInit {
     // this.interCompany = asset.interCompany;
     // this.subType = asset.subType;
     this.assetClass = asset.assetClass;
-    this.subCategory = asset.subCategory;
+   // this.subCategory = asset.subCategory;
     // this.admCenter = asset.admCenter;
     // this.region = asset.region;
     // this.insuranceCategory = asset.insuranceCategory;
@@ -2491,20 +2483,20 @@ export class AssetPreValidateDialogComponent implements AfterViewInit {
 
   // ACCOUNT //
 
-  // SUBCATEGORY //
+  // // SUBCATEGORY //
 
-  public selectSubCategory() {
-    this.subCategoryList.refresh(null);
-    this.subCategoryListModal.show();
-  }
+  // public selectSubCategory() {
+  //   this.subCategoryList.refresh(null);
+  //   this.subCategoryListModal.show();
+  // }
 
-  public setSelectedSubCategory() {
-    let items: Array<SubCategory> = this.subCategoryList.selectedItems;
-    this.subCategory = items != null && items.length === 1 ? items[0] : null;
-    this.subCategoryListModal.hide();
-  }
+  // public setSelectedSubCategory() {
+  //   let items: Array<SubCategory> = this.subCategoryList.selectedItems;
+  //   this.subCategory = items != null && items.length === 1 ? items[0] : null;
+  //   this.subCategoryListModal.hide();
+  // }
 
-  // SUBCATEGORY //
+  // // SUBCATEGORY //
 
   // ARTICLE //
 

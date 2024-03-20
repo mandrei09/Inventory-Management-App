@@ -375,22 +375,6 @@ import {AngularTreeGridModule} from 'angular-tree-grid';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { BudgetPrimeNgList } from './forms/administrations/budget/budget-primeng.list';
 import { EmailManagerUiList } from './forms/administrations/email-manager/email-manager-ui.list';
-import { CategoryDetailComponent } from './forms/assets/categories/category.detail';
-import { CategoryListComponent } from './forms/assets/categories/category.list';
-import { CategoryManageComponent } from './forms/assets/categories/category.manage';
-import { CategoryHttpService } from './services/http/assets/category.http.service';
-import { CategoryENDetailComponent } from './forms/assets/categories-en/category-en.detail';
-import { CategoryENListComponent } from './forms/assets/categories-en/category-en.list';
-import { CategoryENManageComponent } from './forms/assets/categories-en/category-en.manage';
-import { CategoryENHttpService } from './services/http/assets/category-en.http.service';
-import { SubCategoryENDetailComponent } from './forms/assets/sub-categories-en/sub-category-en.detail';
-import { SubCategoryENListComponent } from './forms/assets/sub-categories-en/sub-category-en.list';
-import { SubCategoryENManageComponent } from './forms/assets/sub-categories-en/sub-category-en.manage';
-import { SubCategoryENHttpService } from './services/http/assets/sub-category-en.http.service';
-import { SubCategoryHttpService } from './services/http/assets/sub-category.http.service';
-import { SubCategoryDetailComponent } from './forms/assets/sub-categories/sub-category.detail';
-import { SubCategoryListComponent } from './forms/assets/sub-categories/sub-category.list';
-import { SubCategoryManageComponent } from './forms/assets/sub-categories/sub-category.manage';
 import { ContractDetailUIComponent } from './forms/administrations/contracts/contract.detail.ui';
 import { ContractListComponent } from './forms/administrations/contracts/contract.list';
 import { ContractManageComponent } from './forms/administrations/contracts/contract.manage';
@@ -771,8 +755,6 @@ import {InvStateAddEditComponent} from './forms/inventory/inv-state/inv-state-ad
 import { OrderDetailsDialogComponent } from './forms/administrations/order/order-details-dialog/order-details-dialog.component';
 import {RequestAddDialogComponent} from './forms/administrations/request/request-add-dialog/request-add-dialog.component';
 import {OrderOpHttpService} from './services/http/administration/order-op.http.service';
-import {SubCategoriesSelectionDialog} from './forms/assets/sub-categories/selection/sub-categories.selection.dialog';
-import {SubCategoriesItemSelect} from './forms/assets/sub-categories/selection/sub-categories.item-select';
 import {OrderEditDialogComponent} from './forms/administrations/order/order-edit-dialog/order-edit-dialog.component';
 import { ContractsSelectionDialog } from './forms/administrations/contracts/selection/contracts.selection.dialog';
 import {ContractsItemSelect} from './forms/administrations/contracts/selection/contracts.item-select';
@@ -806,14 +788,6 @@ import {ArticleAddEditComponent} from './forms/administrations/article/article-a
 import {DimensionAddEditComponent} from './forms/assets/dimensions/dimension-add-edit/dimension-add-edit.component';
 import {MatrixAddEditComponent} from './forms/administrations/matrix/matrix-add-edit/matrix-add-edit.component';
 import {AccMonthAddEditComponent} from './forms/accounting/acc-month-add-edit/acc-month-add-edit.component';
-import {SubCategoryAddEditComponent} from './forms/assets/sub-categories/sub-category-add-edit/sub-category-add-edit.component';
-import {CategoryEnSelectionDialog} from './forms/assets/categories-en/selection/category-en.selection.dialog';
-import {CategoryEnItemSelect} from './forms/assets/categories-en/selection/category-en.item-select';
-import {SubCategoryEnAddEditComponent} from './forms/assets/sub-categories-en/sub-category-en-add-edit/sub-category-en-add-edit.component';
-import {CategoriesAddEditComponent} from './forms/assets/categories/categories-add-edit/categories-add-edit.component';
-import {SubCategoriesEnSelectionDialog} from './forms/assets/sub-categories-en/selection/sub-categories-en.selection.dialog';
-import {SubCategoriesEnItemSelect} from './forms/assets/sub-categories-en/selection/sub-categories-en.item-select';
-import {CategoriesEnAddEditComponent} from './forms/assets/categories-en/categories-en-add-edit/categories-en-add-edit.component';
 import {PrEditDialogComponent} from './forms/administrations/request/pr-edit-dialog/pr-edit-dialog.component';
 import {PoOrderDetailsDialogComponent} from './forms/administrations/order/po-order-details-dialog/po-order-details-dialog.component';
 import {ContractAddEditComponent} from './forms/administrations/contracts/contract-add-edit/contract-add-edit.component';
@@ -900,8 +874,6 @@ import {BudgetBaseItemSelect} from './forms/administrations/budget-base/selectio
 import {AssetReceptionDetailsDialog} from './forms/assets/assets/asset-reception-details/asset-reception-details.dialog';
 import {AccountAddEditComponent} from "./forms/administrations/account/account-add-edit/account-add-edit.component";
 import {DivisionAddEditDialog} from "./forms/administrations/divisions/division-add-edit/division.add-edit.dialog";
-import {CategorySelectionDialog} from './forms/assets/categories/selection/category.selection.dialog';
-import {CategoryItemSelect} from './forms/assets/categories/selection/category.item-select';
 import {ColumnFilterSelectionDialog} from './forms/common/column-filter/selection/column-filter.selection.dialog';
 import {ColumnFilterItemSelect} from './forms/common/column-filter/selection/column-filter.item-select';
 import {EmailTypeSelectionDialog} from './forms/administrations/email-type/selection/email-type.selection.dialog';
@@ -1334,7 +1306,7 @@ const JWT_Module_Options: JwtModuleOptions = {
     BudgetManagerManage,
     BudgetManagerList,
     BudgetManagerDetail,
-    MaterialManageComponent,
+    //MaterialManageComponent,
     MaterialList,
     MaterialDetailComponent,
     RegionManageComponent,
@@ -1365,18 +1337,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     BudgetList,
     BudgetPrimeNgList,
     EmailManagerUiList,
-    CategoryDetailComponent,
-    CategoryListComponent,
-    CategoryManageComponent,
-    CategoryENDetailComponent,
-    CategoryENListComponent,
-    CategoryENManageComponent,
-    SubCategoryENDetailComponent,
-    SubCategoryENListComponent,
-    SubCategoryENManageComponent,
-    SubCategoryDetailComponent,
-    SubCategoryListComponent,
-    SubCategoryManageComponent,
     ContractDetailUIComponent,
     ContractListComponent,
     ContractManageComponent,
@@ -1665,9 +1625,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     BudgetForecastSelectionDialog,
     BudgetForecastItemSelect,
 
-    SubCategoriesSelectionDialog,
-    SubCategoriesItemSelect,
-
     ContractsSelectionDialog,
     ContractsItemSelect,
 
@@ -1688,13 +1645,7 @@ const JWT_Module_Options: JwtModuleOptions = {
 
     AppStateSelectionDialog,
     AppStateItemSelect,
-
-    CategoryEnSelectionDialog,
-    CategoryEnItemSelect,
-
-    SubCategoriesEnSelectionDialog,
-    SubCategoriesEnItemSelect,
-
+    
     BudgetSelectionDialog,
     BudgetItemSelect,
 
@@ -1737,9 +1688,6 @@ const JWT_Module_Options: JwtModuleOptions = {
 
     AccountSelectionDialog,
     AccountItemSelect,
-
-    CategorySelectionDialog,
-    CategoryItemSelect,
 
     ColumnFilterSelectionDialog,
     ColumnFilterItemSelect,
@@ -1792,13 +1740,9 @@ const JWT_Module_Options: JwtModuleOptions = {
     MatrixAddEditComponent,
     CommitteeMemberAddEditDialog,
     AccMonthAddEditComponent,
-    SubCategoryAddEditComponent,
-    SubCategoryEnAddEditComponent,
-    CategoriesAddEditComponent,
     ExpAccountAddEditComponent,
     ArticleAddEditComponent,
     DimensionAddEditComponent,
-    CategoriesEnAddEditComponent,
     PrEditDialogComponent,
     PoOrderDetailsDialogComponent,
     ContractAddEditComponent,
@@ -2032,10 +1976,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   DeviceTypeHttpService,
   DeviceDetailHttpService,
   RoomHttpService,
-  CategoryHttpService,
-  CategoryENHttpService,
-  SubCategoryENHttpService,
-  SubCategoryHttpService,
   OrderTypeHttpService,
   OfferTypeHttpService,
   PrintLabelHttpService,

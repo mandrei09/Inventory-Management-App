@@ -151,9 +151,6 @@ import { RateListComponent } from '../rates/rate.list';
 import { RateHttpService } from '../../../services/http/administration/rate.http.service';
 import { CreateAssetSAPResult } from '../../../model/api/result/create-asset-SAP-result';
 import { UpdateAssetInvPlus } from '../../../model/api/assets/update-asset-inv-plus';
-import { SubCategory } from '../../../model/api/assets/sub-category';
-import { SubCategoryListComponent } from '../sub-categories/sub-category.list';
-import { SubCategoryHttpService } from '../../../services/http/assets/sub-category.http.service';
 import { Request } from '../../../model/api/administration/request';
 import { RequestList } from '../../administrations/request/request.list';
 import { RequestHttpService } from '../../../services/http/administration/request.http.service';
@@ -173,8 +170,8 @@ export class AssetDetailUIValidateInvPlusComponent implements AfterViewInit  {
     @ViewChild('assetCategoryDetail') public assetCategoryDetail: AssetCategoryDetailComponent;
     @ViewChild('assetCategoryList') public assetCategoryList: AssetCategoryListComponent;
 
-    @ViewChild('subCategoryList') public subCategoryList: SubCategoryListComponent;
-    @ViewChild('subCategoryListModal') public subCategoryListModal: ModalDirective;
+    
+    
 
     @ViewChild('requestList') public requestList: RequestList;
     @ViewChild('requestListModal') public requestListModal: ModalDirective;
@@ -419,7 +416,7 @@ export class AssetDetailUIValidateInvPlusComponent implements AfterViewInit  {
     }
     public invState: CodeNameEntity = null;
     public assetCategory: AssetCategory = null;
-    public subCategory: SubCategory = null;
+    //public subCategory: SubCategory = null;
     public request: Request = null;
     
     public project: Project = null;
@@ -486,7 +483,7 @@ export class AssetDetailUIValidateInvPlusComponent implements AfterViewInit  {
         public router: Router,
         public assetHttpService: AssetHttpService,
         public assetCategoryHttpService: AssetCategoryHttpService,
-        public subCategoryHttpService: SubCategoryHttpService,
+        
         public insuranceCategoryHttpService: InsuranceCategoryHttpService,
         public projectHttpService: ProjectHttpService,
         public orderHttpService: OrderHttpService,
@@ -671,7 +668,7 @@ export class AssetDetailUIValidateInvPlusComponent implements AfterViewInit  {
         this.tax = asset.tax;
         this.rate = asset.rate;
         this.uom = asset.uom;
-        this.subCategory = asset.subCategory;
+       // this.subCategory = asset.subCategory;
         this.order = asset.order;
         this.dictionaryItem = asset.dictionaryItem;
         this.request = asset.request;
@@ -820,18 +817,7 @@ export class AssetDetailUIValidateInvPlusComponent implements AfterViewInit  {
     /*end asset category*/
 
 
-    /*begin sub category*/
-    public selectSubCategory() {
-        this.subCategoryList.refresh(null);
-        this.subCategoryListModal.show();
-    }
 
-    public setSelectedSubCategory() {
-        const items: Array<SubCategory> = this.subCategoryList.selectedItems;
-        this.subCategory = ((items != null) && (items.length === 1)) ? items[0] : null;
-        this.subCategoryListModal.hide();
-    }
-    /*end sub category*/
 
       /*begin request */
       public selectRequest() {
@@ -1575,7 +1561,7 @@ export class AssetDetailUIValidateInvPlusComponent implements AfterViewInit  {
         this.asset.uomId = this.uom != null ? this.uom.id : null;
         this.asset.taxId = this.tax != null ? this.tax.id : null;
         this.asset.rateId = this.rate != null ? this.rate.id : null;
-        this.asset.subCategoryId = this.subCategory != null ? this.subCategory.id : null;
+        //this.asset.subCategoryId = this.subCategory != null ? this.subCategory.id : null;
         this.asset.requestId = this.request != null ? this.request.id : null;
 
         if (this.asset.id > 0) {

@@ -59,7 +59,6 @@ import {BudgetBaseListComponent} from '../../budget-base/budget-base.list';
 import {OrderOpDetailList} from '../../order-ops/order-op.detail.list';
 import {OfferMaterialListComponent} from '../../offer-materials/offer-material.list';
 import {RateListComponent} from '../../../assets/rates/rate.list';
-import {SubCategoryListComponent} from '../../../assets/sub-categories/sub-category.list';
 import {PlantListComponent} from '../../../assets/plants/plant.list';
 import {AssetEntityListComponent} from '../../../assets/assets/asset-entity.list';
 import {StockOrderListComponent} from '../../stocks/stock-order.list';
@@ -72,8 +71,7 @@ import {AccMonth} from '../../../../model/api/accounting/acc-month';
 import {OrderSave} from '../../../../model/api/administration/order-save';
 import {OrderStockSave} from '../../../../model/api/administration/order-stock-save';
 import {Contract} from '../../../../model/api/administration/contract';
-import {SubCategory} from '../../../../model/api/assets/sub-category';
-import {Category} from '../../../../model/api/assets/category';
+
 import {Plant} from '../../../../model/api/assets/plant';
 import {AssetEntity} from '../../../../model/api/common/asset-entity';
 import {Rate} from '../../../../model/api/administration/rate';
@@ -95,7 +93,6 @@ import {BudgetForecastHttpService} from '../../../../services/http/administratio
 import {CompanyListComponent} from '../../../assets/companies/company.list';
 import {UomListComponent} from '../../../assets/uoms/uom.list';
 import {ProjectList} from '../../../assets/projects/project.list';
-import {SubCategoryHttpService} from '../../../../services/http/assets/sub-category.http.service';
 import {PlantHttpService} from '../../../../services/http/assets/plant.http.service';
 import {MasterType} from '../../../../model/api/assets/master-type';
 import {ContractFilter} from '../../../../model/api/administration/contract.filter';
@@ -136,23 +133,23 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
       this.setSelectedOffer(value);
     }
 
-    public _subCategory: SubCategory = null;
-    public get subCategory(): SubCategory { return this._subCategory; }
-    public set subCategory(value: SubCategory) {
-      this._subCategory = value;
+    // public _subCategory: SubCategory = null;
+    // public get subCategory(): SubCategory { return this._subCategory; }
+    // public set subCategory(value: SubCategory) {
+    //   this._subCategory = value;
 
-      let catIds = '';
-      this.stockList.items.forEach(element => {
-        if (element.category != null) {
-          catIds += element?.category?.id + ',';
-        }
-      });
+    //   let catIds = '';
+    //   this.stockList.items.forEach(element => {
+    //     if (element.category != null) {
+    //       catIds += element?.category?.id + ',';
+    //     }
+    //   });
 
-      const params = new Array<Param>();
-      params.push(new Param('categoryIds', catIds));
+    //   const params = new Array<Param>();
+    //   params.push(new Param('categoryIds', catIds));
 
-      this.setSelectedSubCategory(value);
-    }
+    //   this.setSelectedSubCategory(value);
+    // }
 
     public _plantInitial: Plant = null;
     public get plantInitial(): Plant { return this._plantInitial; }
@@ -172,7 +169,7 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
 
     // public orderType: CodeNameEntity = null;
     // public offer: Offer = null;
-    // public subCategory: SubCategory = null;
+    // //public subCategory: SubCategory = null;
     // public plantInitial: Plant = null;
     // public plantFinal: Plant = null;
 
@@ -245,8 +242,8 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
     @ViewChild('rateList') public rateList: RateListComponent;
     @ViewChild('rateListModal') public rateListModal: ModalDirective;
 
-    @ViewChild('subCategoryList') public subCategoryList: SubCategoryListComponent;
-    @ViewChild('subCategoryListModal') public subCategoryListModal: ModalDirective;
+    
+    
 
     @ViewChild('plantInitialList') public plantInitialList: PlantListComponent;
     @ViewChild('plantInitialListModal') public plantInitialListModal: ModalDirective;
@@ -361,8 +358,8 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
     public type: CodeNameEntity = null;
     public subType: CodeNameEntity = null;
     public administration: CodeNameEntity = null;
-    // public subCategory: SubCategory = null;
-    public category: Category = null;
+    // //public subCategory: SubCategory = null;
+    
     // public plantInitial: Plant = null;
     // public plantFinal: Plant = null;
     public readOnlyForm: boolean = false;
@@ -394,7 +391,7 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
         }
       });
 
-      this.setSelectedSubCategory(value);
+      //this.setSelectedSubCategory(value);
     }
 
     // public setSelectedSubCategory(value) {
@@ -481,7 +478,7 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
         public requestBudgetForecastHttpService: RequestBudgetForecastHttpService,
         public requestBudgetForecastMaterialHttpService: RequestBudgetForecastMaterialHttpService,
         public assetHttpService: AssetHttpService,
-        public subCategoryHttpService: SubCategoryHttpService,
+        
         public plantHttpService: PlantHttpService,
         private messageService: MessageService,
         private fb: FormBuilder,
@@ -1541,7 +1538,7 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
               this.orderStock.orderTypeId = this.orderType != null ? this.orderType.id : null;
               this.orderStock.plantInitialId = this.plantInitial != null ? this.plantInitial.id : null;
               this.orderStock.plantFinalId = this.plantFinal != null ? this.plantFinal.id : null;
-              this.orderStock.categoryId = this.subCategory != null && this.subCategory.category != null ? this.subCategory.category.id : null;
+              //this.orderStock.categoryId = this.subCategory != null && this.subCategory.category != null ? this.subCategory.category.id : null;
               // this.order.needBudgetAmount = this.needBudgetAmount;
               // this.order.contractId = this.contract != null ? this.contract.id : null;
               // this.orderStock.sumOfTotalInOtherCurrency = this.sumOfTotalInOtherCurrency;
@@ -1602,7 +1599,7 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
                 this.orderStock.orderTypeId = this.orderType != null ? this.orderType.id : null;
                 this.orderStock.plantInitialId = this.plantInitial != null ? this.plantInitial.id : null;
                 this.orderStock.plantFinalId = this.plantFinal != null ? this.plantFinal.id : null;
-                this.orderStock.categoryId = this.subCategory != null && this.subCategory.category != null ? this.subCategory.category.id : null;
+//this.orderStock.categoryId = this.subCategory != null && this.subCategory.category != null ? this.subCategory.category.id : null;
                 // this.order.needBudgetAmount = this.needBudgetAmount;
                 // this.order.contractId = this.contract != null ? this.contract.id : null;
                 // this.orderStock.sumOfTotalInOtherCurrency = this.sumOfTotalInOtherCurrency;
@@ -2089,8 +2086,8 @@ public clearFilters() {
     params.push(new Param('guid', this.guid));
     this.offerITMaterialList.refresh(params);
 
-    this.subCategory = null;
-    this.category = null;
+   // this.subCategory = null;
+    //this.category = null;
     this.plantFinal = null;
     this.plantInitial = null;
 }
@@ -2422,35 +2419,35 @@ public get sumMaxMaterials(): boolean {
 
     /* BEGIN SUBCATEGORY  */
 
-    public selectSubCategory() {
+  //   public selectSubCategory() {
 
-      let catIds = '';
-      this.stockList.items.forEach(element => {
-          if (element.category != null) {
-              catIds += element?.category?.id + ',';
-          }
-      });
+  //     let catIds = '';
+  //     this.stockList.items.forEach(element => {
+  //         if (element.category != null) {
+  //             catIds += element?.category?.id + ',';
+  //         }
+  //     });
 
-      const params = new Array<Param>();
-      params.push(new Param('categoryIds', catIds));
+  //     const params = new Array<Param>();
+  //     params.push(new Param('categoryIds', catIds));
 
-      this.subCategoryList.refresh(params);
-      this.subCategoryListModal.show();
-  }
+  //     this.subCategoryList.refresh(params);
+  //     this.subCategoryListModal.show();
+  // }
 
-  public setSelectedSubCategory(value) {
-      this.stockList.refresh(null);
-      // const items: Array<SubCategory> = this.subCategoryList.selectedItems;
-      const items: Array<SubCategory> = value;
-      // this.subCategory = ((items != null) && (items.length === 1)) ? items[0] : null;
-      // this.subCategory = value;
+  // public setSelectedSubCategory(value) {
+  //     this.stockList.refresh(null);
+  //     // const items: Array<SubCategory> = this.subCategoryList.selectedItems;
+  //     const items: Array<SubCategory> = value;
+  //     // this.subCategory = ((items != null) && (items.length === 1)) ? items[0] : null;
+  //     // this.subCategory = value;
 
-      const params = new Array<Param>();
-      params.push(new Param('categoryIds', AppUtils.getIdsList<CodeNameEntity, number>([ this.subCategory != null && this.subCategory.category != null  ? this.subCategory.category : null ])));
-      params.push(new Param('subCategoryIds', AppUtils.getIdsList<CodeNameEntity, number>([ this.subCategory != null  ? this.subCategory : null ])));
-      this.stockList.refresh(params);
-      // this.subCategoryListModal.hide();
-  }
+  //     const params = new Array<Param>();
+  //     params.push(new Param('categoryIds', AppUtils.getIdsList<CodeNameEntity, number>([ this.subCategory != null && this.subCategory.category != null  ? this.subCategory.category : null ])));
+  //     params.push(new Param('subCategoryIds', AppUtils.getIdsList<CodeNameEntity, number>([ this.subCategory != null  ? this.subCategory : null ])));
+  //     this.stockList.refresh(params);
+  //     // this.subCategoryListModal.hide();
+  // }
 
   /* END SUBCATEGORY  */
 
@@ -2500,20 +2497,20 @@ public get sumMaxMaterials(): boolean {
 
         /* END FINAL  */
 
-getStockByCategoryID() {
-  this.showStock = false;
-   const categoryCode = this.subCategory != null && this.subCategory.category != null ? this.subCategory.category.code : 'NOCODE';
-   this.assetHttpService.getStockByCategoryID(categoryCode).subscribe( (res) => {
-      // console.log(JSON.stringify(res));
-      if (res) {
-          this.showStock = true;
-          const params = new Array<Param>();
-          params.push(new Param('categoryIds', AppUtils.getIdsList<CodeNameEntity, number>([ this.category != null  ? this.category : null ])));
-          params.push(new Param('showStock', this.showStock === true ? 'true' : 'false'));
-          this.stockList.refresh(params);
-      }
-   });
-}
+// getStockByCategoryID() {
+//   this.showStock = false;
+//    const categoryCode = this.subCategory != null && this.subCategory.category != null ? this.subCategory.category.code : 'NOCODE';
+//    this.assetHttpService.getStockByCategoryID(categoryCode).subscribe( (res) => {
+//       // console.log(JSON.stringify(res));
+//       if (res) {
+//           this.showStock = true;
+//           const params = new Array<Param>();
+//           //params.push(new Param('categoryIds', AppUtils.getIdsList<CodeNameEntity, number>([ this.category != null  ? this.category : null ])));
+//           params.push(new Param('showStock', this.showStock === true ? 'true' : 'false'));
+//           this.stockList.refresh(params);
+//       }
+//    });
+// }
 
  /*begin ASSETENTITY */
  public selectAssetEntity() {

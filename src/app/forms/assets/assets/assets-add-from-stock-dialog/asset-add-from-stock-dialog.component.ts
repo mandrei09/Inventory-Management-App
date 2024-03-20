@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {SubCategoryListComponent} from '../../sub-categories/sub-category.list';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 import {EmployeeDetailComponent} from '../../../administrations/employees/employee.detail';
 import {EmployeeListComponent} from '../../../administrations/employees/employee.list';
@@ -7,8 +6,7 @@ import {CostCenterDetailComponent} from '../../../administrations/cost-centers/c
 import {CostCenterListComponent} from '../../../administrations/cost-centers/cost-center.list';
 import {StockListComponent} from '../../../administrations/stocks/stock.list';
 import {AddStockAsset} from '../../../../model/api/assets/add-stock-asset';
-import {Category} from '../../../../model/api/assets/category';
-import {SubCategory} from '../../../../model/api/assets/sub-category';
+
 import {CodeNameEntity} from '../../../../model/api/common/code-name-entity';
 import {Employee} from '../../../../model/api/administration/employee';
 import {Stock} from '../../../../model/api/administration/stock';
@@ -17,7 +15,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AssetHttpService} from '../../../../services/http/assets/asset.http.service';
 import {EmployeeHttpService} from '../../../../services/http/administration/employee.http.service';
 import {CostCenterHttpService} from '../../../../services/http/administration/cost-center.http.service';
-import {SubCategoryHttpService} from '../../../../services/http/assets/sub-category.http.service';
 import {StockHttpService} from '../../../../services/http/administration/stock.http.service';
 import {NotificationService} from '../../../../services/notification.service';
 import {HttpClient} from '@angular/common/http';
@@ -34,8 +31,8 @@ import {CreateAssetSAPResult} from '../../../../model/api/result/create-asset-SA
 })
 export class AssetAddFromStockDialogComponent implements AfterViewInit {
 
-  @ViewChild('subCategoryList') public subCategoryList: SubCategoryListComponent;
-  @ViewChild('subCategoryListModal') public subCategoryListModal: ModalDirective;
+  
+  
 
   @ViewChild('employeeDetail') public employeeDetail: EmployeeDetailComponent;
   @ViewChild('employeeList') public employeeList: EmployeeListComponent;
@@ -54,20 +51,20 @@ export class AssetAddFromStockDialogComponent implements AfterViewInit {
   public checkUniqueSN = false;
   public showStock = false;
 
-  public _subCategory: SubCategory | null = null;
-  public get subCategory(): SubCategory | null { return this._subCategory; }
-  public set subCategory(value: SubCategory) {
-    this._subCategory = value;
-  }
+  // public _subCategory: SubCategory | null = null;
+  // public get subCategory(): SubCategory | null { return this._subCategory; }
+  // public set subCategory(value: SubCategory) {
+  //   this._subCategory = value;
+  // }
 
   public get allowSaving(): boolean {
     return this.asset != null &&
       this.checkUniqueSN &&
-      this.subCategory != null &&
+      //this.subCategory != null 
       this.asset.name2 != null && this.asset.name2.trim().length > 0;
   }
-  public category: Category = null;
-  // public subCategory: SubCategory = null;
+  
+  // //public subCategory: SubCategory = null;
   public costCenter: CodeNameEntity = null;
   public employee: Employee = null;
   public stock: Stock = null;
@@ -80,7 +77,7 @@ export class AssetAddFromStockDialogComponent implements AfterViewInit {
     public assetHttpService: AssetHttpService,
     public employeeHttpService: EmployeeHttpService,
     public costCenterHttpService: CostCenterHttpService,
-    public subCategoryHttpService: SubCategoryHttpService,
+    
     public stockHttpService: StockHttpService,
     private notificationService : NotificationService,
     public http: HttpClient) {
@@ -89,37 +86,7 @@ export class AssetAddFromStockDialogComponent implements AfterViewInit {
   ngAfterViewInit() {
   }
 
-  /* BEGIN SUBCATEGORY  */
-
-  public selectSubCategory() {
-
-    let catIds = '';
-    this.stockList.items.forEach(element => {
-      if (element.category != null) {
-        catIds += element?.category?.id + ',';
-      }
-    });
-
-    const params = new Array<Param>();
-    params.push(new Param('categoryIds', catIds));
-
-    this.subCategoryList.refresh(params);
-    this.subCategoryListModal.show();
-  }
-
-  public setSelectedSubCategory() {
-    this.stockList.refresh(null);
-    const items: Array<SubCategory> = this.subCategoryList.selectedItems;
-    this.subCategory = ((items != null) && (items.length === 1)) ? items[0] : null;
-
-    const params = new Array<Param>();
-    params.push(new Param('categoryIds', AppUtils.getIdsList<CodeNameEntity, number>([ this.subCategory != null && this.subCategory.category != null  ? this.subCategory.category : null ])));
-    params.push(new Param('subCategoryIds', AppUtils.getIdsList<CodeNameEntity, number>([ this.subCategory != null  ? this.subCategory : null ])));
-    this.stockList.refresh(params);
-    this.subCategoryListModal.hide();
-  }
-
-  /* END SUBCATEGORY  */
+ 
 
 
   /*begin employee*/
@@ -171,7 +138,7 @@ export class AssetAddFromStockDialogComponent implements AfterViewInit {
     // this.asset.employeeId = this.employee != null ? this.employee.id : null;
     this.asset.name = this.stock != null ? this.stock.name : this.asset.name;
     this.asset.name2 = this.asset.name2;
-    this.asset.subCategoryId = this.subCategory != null ? this.subCategory.id : null;
+    //this.asset.subCategoryId = this.subCategory != null ? this.subCategory.id : null;
     this.asset.stockId = this.stockList.selectedItems.length > 0 ? this.stockList.selectedItems[0].id : 0;
 
 
@@ -219,18 +186,18 @@ export class AssetAddFromStockDialogComponent implements AfterViewInit {
     this.asset.name2 = this.stock != null ? this.stock.longName : '';
   }
 
-  getStockByCategoryID() {
-    this.showStock = false;
-    const categoryCode = this.subCategory != null && this.subCategory.category != null ? this.subCategory.category.code : 'NOCODE';
-    this.assetHttpService.getStockByCategoryID(categoryCode).subscribe( (res) => {
-      // console.log(JSON.stringify(res));
-      if (res) {
-        this.showStock = true;
-        const params = new Array<Param>();
-        params.push(new Param('categoryIds', AppUtils.getIdsList<CodeNameEntity, number>([ this.category != null  ? this.category : null ])));
-        params.push(new Param('showStock', this.showStock === true ? 'true' : 'false'));
-        this.stockList.refresh(params);
-      }
-    });
-  }
+  // getStockByCategoryID() {
+  //   this.showStock = false;
+  //   const categoryCode = this.subCategory != null && this.subCategory.category != null ? this.subCategory.category.code : 'NOCODE';
+  //   this.assetHttpService.getStockByCategoryID(categoryCode).subscribe( (res) => {
+  //     // console.log(JSON.stringify(res));
+  //     if (res) {
+  //       this.showStock = true;
+  //       const params = new Array<Param>();
+  //       params.push(new Param('categoryIds', AppUtils.getIdsList<CodeNameEntity, number>([ this.category != null  ? this.category : null ])));
+  //       params.push(new Param('showStock', this.showStock === true ? 'true' : 'false'));
+  //       this.stockList.refresh(params);
+  //     }
+  //   });
+  // }
 }

@@ -47,9 +47,6 @@ import { Order } from "../../../model/api/administration/order";
 import { OrderHttpService } from "../../../services/http/administration/order.http.service";
 import { OfferUpdate } from "../../../model/api/common/offer-update";
 import { MaterialDetailComponent } from "../materials/material.detail";
-import { SubCategoryListComponent } from "../../assets/sub-categories/sub-category.list";
-import { SubCategory } from "../../../model/api/assets/sub-category";
-import { SubCategoryHttpService } from "../../../services/http/assets/sub-category.http.service";
 import { OfferResult } from "../../../model/api/result/offer-result";
 import { saveAs as fileSaveAs } from "file-saver-es";
 import { DialogService } from "../../../services/dialog.service";
@@ -89,8 +86,8 @@ export class EmailManagerManageComponent
   @ViewChild("materialDetail") public materialDetail: MaterialDetailComponent;
   @ViewChild("materialDetailModal") public materialDetailModal: ModalDirective;
 
-  @ViewChild("subCategoryListModal") subCategoryListModal: ModalDirective;
-  @ViewChild("subCategoryList") subCategoryList: SubCategoryListComponent;
+ 
+  
 
   @ViewChild("uomList") public uomList: UomListComponent;
   @ViewChild("uomListModal") public uomListModal: ModalDirective;
@@ -119,8 +116,7 @@ export class EmailManagerManageComponent
   public uom: Uom = null;
   //public rate: Rate = null;
   public order: Order = null;
-  public selectedSubCategory: SubCategory = null;
-
+  
   public acceptMessage: string = "";
   public rejectMessage: string = "";
   reasonAccept = "";
@@ -140,7 +136,7 @@ export class EmailManagerManageComponent
     public materialHttpService: MaterialHttpService,
     public notificationService: NotificationService,
     public orderHttpService: OrderHttpService,
-    public subCategoryHttpService: SubCategoryHttpService,
+    
     public router: Router
   ) {
     super();
@@ -569,43 +565,43 @@ export class EmailManagerManageComponent
 
   public onMaterialDetailSubCategoryNeeded() {
     this.materialDetailModal.hide();
-    this.selectSubCategory();
+    //this.selectSubCategory();
   }
 
-  public selectSubCategory() {
-    this.subCategoryListModal.show();
-    this.subCategoryList.refresh(null);
-  }
+  // public selectSubCategory() {
+  //   this.subCategoryListModal.show();
+  //   this.subCategoryList.refresh(null);
+  // }
 
-  public setSelectedSubCategory() {
-    this.viewMode = 2;
-    switch (this.viewMode) {
-      case GenericManageViewMode.ItemList:
-        this.selectedSubCategory = this.subCategoryList.selectedItem;
-        this.subCategoryListModal.hide();
-        this.refresh();
-        break;
-      case GenericManageViewMode.ItemDetail:
-        this.materialDetail.subCategory = this.subCategoryList.selectedItem;
-        this.subCategoryListModal.hide();
-        this.materialDetailModal.show();
-        break;
-      default:
-        break;
-    }
-  }
+  // public setSelectedSubCategory() {
+  //   this.viewMode = 2;
+  //   switch (this.viewMode) {
+  //     case GenericManageViewMode.ItemList:
+  //       this.selectedSubCategory = this.subCategoryList.selectedItem;
+  //       this.subCategoryListModal.hide();
+  //       this.refresh();
+  //       break;
+  //     case GenericManageViewMode.ItemDetail:
+  //       this.materialDetail.subCategory = this.subCategoryList.selectedItem;
+  //       this.subCategoryListModal.hide();
+  //       this.materialDetailModal.show();
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
 
-  public unselectSubCategory() {
-    this.selectedSubCategory = null;
-    this.refresh();
-  }
+  // public unselectSubCategory() {
+  //   this.selectedSubCategory = null;
+  //   this.refresh();
+  // }
 
-  public onSubCategoryListCancel() {
-    this.subCategoryListModal.hide();
-    if (this.viewMode === GenericManageViewMode.ItemDetail) {
-      this.materialDetailModal.show();
-    }
-  }
+  // public onSubCategoryListCancel() {
+  //   this.subCategoryListModal.hide();
+  //   if (this.viewMode === GenericManageViewMode.ItemDetail) {
+  //     this.materialDetailModal.show();
+  //   }
+  // }
 
   /* MATERIAL */
 
