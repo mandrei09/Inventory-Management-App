@@ -129,7 +129,6 @@ import { InvStateManage } from './forms/inventory/inv-state/inv-state.manage';
 import { InventoryManage } from './forms/inventory/inventory.manage';
 import { OfferTypeManageComponent } from './forms/offers/offer-type/offer-type.manage';
 import { OrderTypeManageComponent } from './forms/orders/order-type/order-type.manage';
-import { StorageManageComponent } from './forms/stock/storages/storage.manage';
 import { AuthGuard } from './services/auth.guard';
 import { DashboardInventoryComponent } from './views/dashboard/dashboard-inventory.component';
 import { DashboardOfferComponent } from './views/dashboard/dashboard-offer.component';
@@ -181,7 +180,6 @@ const AppRoutes: Routes = [
 
       // MATRIX //
       { path: 'matrix/status', component: MatrixManageComponent, canActivate: [AuthGuard], data: { title: 'Matrice', auth: 'VIEW|MATRIX', shouldDetach: true }},
-      { path: 'matrix/storages', canActivate: [AuthGuard], component: StorageManageComponent, data: { title: 'Storage', auth: 'VIEW|STORAGES', shouldDetach: true }},
       { path: 'matrix/level', component: LevelManageComponent, canActivate: [AuthGuard], data: { title: 'Niveluri', auth: 'VIEW|LEVELS', shouldDetach: true }},
       { path: 'matrix/mapping', component: MatrixLevelManageComponent, canActivate: [AuthGuard], data: { title: 'Mapare nivel', auth: 'VIEW|MATRIXLEVELS', shouldDetach: true }},
       { path: 'matrix/projects', canActivate: [AuthGuard], component: ProjectManage, data: { title: 'WBS', auth: 'VIEW|PROJECTS', shouldDetach: true }},

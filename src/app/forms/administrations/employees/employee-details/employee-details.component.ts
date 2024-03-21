@@ -9,11 +9,9 @@ import {DialogService} from '../../../../services/dialog.service';
 import {NotificationService} from '../../../../services/notification.service';
 import {CostCenterHttpService} from '../../../../services/http/administration/cost-center.http.service';
 import {DivisionHttpService} from '../../../../services/http/administration/division.http.service';
-import {StorageHttpService} from '../../../../services/http/stock/storage.http.service';
 import {AssetComponentHttpService} from '../../../../services/http/assets/asset-component.http.service';
 import {EmployeeCostCenterHttpService} from '../../../../services/http/administration/employee-cost-center.http.service';
 import {EmployeeDivisionHttpService} from '../../../../services/http/administration/employee-division.http.service';
-import {EmployeeStorageHttpService} from '../../../../services/http/administration/employee-storage.http.service';
 import {AssetHttpService} from '../../../../services/http/assets/asset.http.service';
 import {InvStateHttpService} from '../../../../services/http/inventory/inv-state.http.service';
 import {AssetComponentOpHttpService} from '../../../../services/http/assets/asset-component-op.http.service';
@@ -22,10 +20,8 @@ import {ModalDirective} from 'ngx-bootstrap/modal';
 import {AssetComponentList} from '../../../assets/asset-components/asset-component.list';
 import {EmployeeCostCenterList} from '../../employee-cost-centers/employee-cost-center.list';
 import {EmployeeDivisionList} from '../../employee-divisions/employee-division.list';
-import {EmployeeStorageList} from '../../employee-storages/employee-storage.list';
 import {CostCenterListComponent} from '../../cost-centers/cost-center.list';
 import {DivisionListComponent} from '../../divisions/division.list';
-import {StorageListComponent} from '../../../stock/storages/storage.list';
 import {AssetEntityListComponent} from '../../../assets/assets/asset-entity.list';
 import {AssetComponentOpDetailList} from '../../../assets/asset-component-ops/asset-component-op.detail.list';
 import {EntityFileListComponent} from '../../../common/entity-file.list';
@@ -45,16 +41,12 @@ import {EmployeeCostCenterAdd} from '../../../../model/api/assets/employee-cost-
 import {CostCenter} from '../../../../model/api/administration/cost-center';
 import {EmployeeDivisionAdd} from '../../../../model/api/assets/employee-division-add';
 import {Division} from '../../../../model/api/administration/division';
-import {EmployeeStorageAdd} from '../../../../model/api/assets/employee-storage-add';
-import {Storage} from '../../../../model/api/stock/storage';
 import {AssetComponentTransferAdd} from '../../../../model/api/assets/asset-component-transfer-add';
 import {AssetTransferAdd} from '../../../../model/api/assets/asset-transfer-add';
 import {Asset} from '../../../../model/api/assets/asset';
 import {CostCenterSelectionDialog} from '../../cost-centers/selection/cost-center.selection.dialog';
 import {DivisionsSelectionDialog} from '../../divisions/selection/divisions.selection.dialog';
 import { DepartmentSelectionDialog } from '../../departments/selection/department.selection.dialog';
-import {StorageSelectionDialog} from '../../../stock/storages/selection/storage.selection.dialog';
-import {EmployeeStorage} from '../../../../model/api/administration/employee-storage';
 import {EmployeeCostCenter} from '../../../../model/api/administration/employee-cost-center';
 import {EmployeeDivision} from '../../../../model/api/administration/employee-division';
 import { EmployeeCompanyAdd } from '../../../../model/api/assets/employee-cmpany-add';
@@ -86,8 +78,8 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
   @ViewChild('employeeDivisionListModal') public employeeDivisionListModal: ModalDirective;
   @ViewChild('employeeDivisionList') public employeeDivisionList: EmployeeDivisionList;
 
-  @ViewChild('employeeStorageListModal') public employeeStorageListModal: ModalDirective;
-  @ViewChild('employeeStorageList') public employeeStorageList: EmployeeStorageList;
+  
+  
 
   @ViewChild('assetComponentAddListModal') public assetComponentAddListModal: ModalDirective;
   @ViewChild('assetComponentAddList') public assetComponentAddList: AssetComponentList;
@@ -100,9 +92,6 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
 
   @ViewChild('divisionListModal') public divisionListModal: ModalDirective;
   @ViewChild('divisionList') public divisionList: DivisionListComponent;
-
-  @ViewChild('storageListModal') public storageListModal: ModalDirective;
-  @ViewChild('storageList') public storageList: StorageListComponent;
 
   @ViewChild('assetComponentTransferDetailModal') public assetComponentTransferDetailModal: ModalDirective;
   @ViewChild('assetDetailModal') public assetDetailModal: ModalDirective;
@@ -162,12 +151,12 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
     public costCenterHttpService: CostCenterHttpService,
     public companyHttpService: CompanyHttpService,
     public divisionHttpService: DivisionHttpService,
-    public storageHttpService: StorageHttpService,
+    
     public assetComponentHttpService: AssetComponentHttpService,
     public employeeCostCenterHttpService: EmployeeCostCenterHttpService,
     public employeeCompanyHttpService: EmployeeCompanyHttpService,
     public employeeDivisionHttpService: EmployeeDivisionHttpService,
-    public employeeStorageHttpService: EmployeeStorageHttpService,
+    
     public assetHttpService: AssetHttpService,
     public invStateHttpService: InvStateHttpService,
     public assetComponentOpHttpService: AssetComponentOpHttpService,
@@ -202,7 +191,7 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
           this.refreshEmployeeCompanies();
           this.refreshEmployeeCostCenters();
           this.refreshEmployeeDivisions();
-          this.refreshEmployeeStorages();
+          //this.refreshEmployeeStorages();
           // this.refreshEntityFiles();
         });
     }
@@ -246,11 +235,6 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
     this.selectedEmployeeDivision = this.employeeDivisionList.selectedItem;
   }
 
-  public onEmployeeStorageListSelectionChanged(employeeStorages: Array<any>) {
-    this.selectedEmployeeStorage = this.employeeStorageList.selectedItem;
-  }
-
-
   public onAssetComponentOpDetailListSelectionChanged(assetComponentOpDetails: Array<any>) {
     this.selectedAssetComponentOp = this.assetComponentOpList.selectedItem;
   }
@@ -291,12 +275,12 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
     this.employeeDivisionList.refresh(params);
   }
 
-  public refreshEmployeeStorages(){
-    let params: Array<Param> = new Array<Param>();
+  // public refreshEmployeeStorages(){
+  //   let params: Array<Param> = new Array<Param>();
 
-    params.push(new Param('employeeIds', this.employeeId.toString()));
-    this.employeeStorageList.refresh(params);
-  }
+  //   params.push(new Param('employeeIds', this.employeeId.toString()));
+  //   this.employeeStorageList.refresh(params);
+  // }
 
   public refreshAssetComponentOperations(){
     let params: Array<Param> = new Array<Param>();
@@ -636,86 +620,86 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
 
   /* STORAGE */
 
-  public get storageParams(): Array<Param> {
-    let params: Array<Param> = Array<Param>();
-    params.push(new Param('exceptStorageIds', AppUtils.getIdsList<CodeNameEntity, number>(this.selectedStorages())));
+  // public get storageParams(): Array<Param> {
+  //   let params: Array<Param> = Array<Param>();
+  //   params.push(new Param('exceptStorageIds', AppUtils.getIdsList<CodeNameEntity, number>(this.selectedStorages())));
 
-    return params;
-  }
+  //   return params;
+  // }
 
-  public onStorageMap() {
-    let dialogRef = this.dialog.open(StorageSelectionDialog, { panelClass: 'centered-middle-modal', width: '80%', maxWidth: '90%', maxHeight: '80%', height: 'auto', position: {top: '10em'},
-      data: {params: this.storageParams}
-    });
+  // public onStorageMap() {
+  //   let dialogRef = this.dialog.open(StorageSelectionDialog, { panelClass: 'centered-middle-modal', width: '80%', maxWidth: '90%', maxHeight: '80%', height: 'auto', position: {top: '10em'},
+  //     data: {params: this.storageParams}
+  //   });
 
-    dialogRef.afterClosed().subscribe((items: any) => {
-      this.setSelectedStorage(items);
-    });
-  }
+  //   dialogRef.afterClosed().subscribe((items: any) => {
+  //     this.setSelectedStorage(items);
+  //   });
+  // }
 
-  public selectStorage() {
-    this.storageListModal.show();
-    let params:Array<Param> = Array<Param>();
-    params.push(new Param('exceptStorageIds', AppUtils.getIdsList<CodeNameEntity, number>(this.selectedStorages())));
-    // console.log(JSON.stringify(params));
-    this.storageList.refresh(params);
+  // public selectStorage() {
+  //   this.storageListModal.show();
+  //   let params:Array<Param> = Array<Param>();
+  //   params.push(new Param('exceptStorageIds', AppUtils.getIdsList<CodeNameEntity, number>(this.selectedStorages())));
+  //   // console.log(JSON.stringify(params));
+  //   this.storageList.refresh(params);
 
-  }
+  // }
 
-  private selectedStorages(): Array<CodeNameEntity> {
-    let mappedStorages: Array<CodeNameEntity> = new Array<CodeNameEntity>();
+  // private selectedStorages(): Array<CodeNameEntity> {
+  //   let mappedStorages: Array<CodeNameEntity> = new Array<CodeNameEntity>();
 
-    if(this.employeeStorageList.items.length > 0) {
-      this.employeeStorageList.items.forEach(element => {
-        mappedStorages.push(element.storage);
-      });
-    }
+  //   if(this.employeeStorageList.items.length > 0) {
+  //     this.employeeStorageList.items.forEach(element => {
+  //       mappedStorages.push(element.storage);
+  //     });
+  //   }
 
-    return mappedStorages;
-  }
-
-
-  public setSelectedStorage(value) {
-
-    // let items: Array<any> = this.storageList.selectedItems;
-    let items: Array<any> = value;
-    this.storage = ((items != null) && (items.length === 1)) ? items[0] : null;
-    // this.storageListModal.hide();
-
-    let aIds: number[] = new Array<number>();
-    let empStoragesIds: EmployeeStorageAdd = new EmployeeStorageAdd();
-    items.forEach(item => {
-      // aIds.indexOf(item.id) !== -1 ? aIds.push(item.id) : '';
-      let index: number = aIds.indexOf(item.id);
-      if (index < 0) aIds.push(item.id);
-    });
-
-    empStoragesIds.storageIds = aIds;
-    empStoragesIds.employeeId = this.employeeId;
-
-    this.employeeStorageHttpService.addStorageByEmployee(empStoragesIds).subscribe( (res) => {
-      if (res.statusCode === 200) {
-        this.notificationService.showSuccess('Datele au fost salvate cu success!', 'Adauga mapare Storage', 2000, false, 0);
-        this.storageList.refresh(null);
-        this.employeeStorageList.refresh(null);
-        this.storageList.selectedItems = new Array<Storage>();
-      } else if (res.statusCode === 404) {
-        this.notificationService.showError('Nu exista', 'Adauga mapare Storage', 0, false, 0);
-        this.storageList.selectedItems = new Array<Storage>();
-      }
-    }, (error) => {
-      this.notificationService.showError('Eroare salvare!', 'Adauga mapare Storage', 0, false, 0);
-      this.storageList.selectedItems = new Array<Storage>();
-    });
+  //   return mappedStorages;
+  // }
 
 
+  // public setSelectedStorage(value) {
 
-  }
+  //   // let items: Array<any> = this.storageList.selectedItems;
+  //   let items: Array<any> = value;
+  //   this.storage = ((items != null) && (items.length === 1)) ? items[0] : null;
+  //   // this.storageListModal.hide();
 
-  public closeStorage() {
-    this.storageList.selectedItems = new Array<Storage>();
-    this.storageListModal.hide();
-  }
+  //   let aIds: number[] = new Array<number>();
+  //   // let empStoragesIds: EmployeeStorageAdd = new EmployeeStorageAdd();
+  //   items.forEach(item => {
+  //     // aIds.indexOf(item.id) !== -1 ? aIds.push(item.id) : '';
+  //     let index: number = aIds.indexOf(item.id);
+  //     if (index < 0) aIds.push(item.id);
+  //   });
+
+  //   empStoragesIds.storageIds = aIds;
+  //   empStoragesIds.employeeId = this.employeeId;
+
+  //   this.employeeStorageHttpService.addStorageByEmployee(empStoragesIds).subscribe( (res) => {
+  //     if (res.statusCode === 200) {
+  //       this.notificationService.showSuccess('Datele au fost salvate cu success!', 'Adauga mapare Storage', 2000, false, 0);
+  //       this.storageList.refresh(null);
+  //       this.employeeStorageList.refresh(null);
+  //       this.storageList.selectedItems = new Array<Storage>();
+  //     } else if (res.statusCode === 404) {
+  //       this.notificationService.showError('Nu exista', 'Adauga mapare Storage', 0, false, 0);
+  //       this.storageList.selectedItems = new Array<Storage>();
+  //     }
+  //   }, (error) => {
+  //     this.notificationService.showError('Eroare salvare!', 'Adauga mapare Storage', 0, false, 0);
+  //     this.storageList.selectedItems = new Array<Storage>();
+  //   });
+
+
+
+  // }
+
+  // public closeStorage() {
+  //   this.storageList.selectedItems = new Array<Storage>();
+  //   this.storageListModal.hide();
+  // }
 
   /* STORAGE */
 
@@ -921,19 +905,19 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
       });
   }
 
-  public deleteEmployeeStorage() {
-    this.employeeStorageHttpService.deleteEmployeeStorage(this.employeeStorageList.selectedItem.id)
-      .subscribe((res) => {
-        if (res.statusCode === 200) {
-          this.notificationService.showSuccess('Operatia a fost finalizata cu success!', 'Stergere mapare Storage', 0, false, 0);
-          this.employeeStorageList.refresh(null);
-        } else if (res.statusCode === 404) {
-          this.notificationService.showError('Eroare salvare', 'Stergere mapare Storage', 0, false, 0);
-        }
-      }, (error) => {
-        this.notificationService.showError('Eroare server', 'Stergere mapare Storage', 0, false, 0);
-      });
-  }
+  // public deleteEmployeeStorage() {
+  //   this.employeeStorageHttpService.deleteEmployeeStorage(this.employeeStorageList.selectedItem.id)
+  //     .subscribe((res) => {
+  //       if (res.statusCode === 200) {
+  //         this.notificationService.showSuccess('Operatia a fost finalizata cu success!', 'Stergere mapare Storage', 0, false, 0);
+  //         this.employeeStorageList.refresh(null);
+  //       } else if (res.statusCode === 404) {
+  //         this.notificationService.showError('Eroare salvare', 'Stergere mapare Storage', 0, false, 0);
+  //       }
+  //     }, (error) => {
+  //       this.notificationService.showError('Eroare server', 'Stergere mapare Storage', 0, false, 0);
+  //     });
+  // }
 
   public deleteAssetComponentOp() {
     this.assetComponentOpHttpService.deleteAssetComponentOp(this.assetComponentOpList.selectedItem.id)
@@ -962,9 +946,9 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
       case OperationType.DeleteEmployeeDivision:
         this.deleteEmployeeDivision();
         break;
-      case OperationType.DeleteEmployeeStorage:
-        this.deleteEmployeeStorage();
-        break;
+      // case OperationType.DeleteEmployeeStorage:
+      //   this.deleteEmployeeStorage();
+      //   break;
       case OperationType.DeleteAssetComponentOp:
         this.deleteAssetComponentOp();
         break;
@@ -1058,30 +1042,30 @@ export class EmployeeDetailsComponent implements OnInit, AfterViewInit {
     this.invState = invStateName ;
   }
 
-  onItemStorageDelete(item: EmployeeStorage) {
-    console.log(item);
-    this.dialogService
-      .confirmDialog({
-        title: 'Confirm Action',
-        message: 'Do you want to confirm this action?',
-        confirmCaption: 'Confirm',
-        cancelCaption: 'Cancel',
-      })
-      .subscribe((confirmed: any) => {
-        if (confirmed) {
-          this.deleteStorageItem(item);
-          // this.notificationSvc.success('Asset successfully deleted.');
-        }
-      });
-  }
+  // onItemStorageDelete(item: EmployeeStorage) {
+  //   console.log(item);
+  //   this.dialogService
+  //     .confirmDialog({
+  //       title: 'Confirm Action',
+  //       message: 'Do you want to confirm this action?',
+  //       confirmCaption: 'Confirm',
+  //       cancelCaption: 'Cancel',
+  //     })
+  //     .subscribe((confirmed: any) => {
+  //       if (confirmed) {
+  //         this.deleteStorageItem(item);
+  //         // this.notificationSvc.success('Asset successfully deleted.');
+  //       }
+  //     });
+  // }
 
-  public deleteStorageItem(item: EmployeeStorage) {
-    const filters = new Array<Param>;
+  // public deleteStorageItem(item: EmployeeStorage) {
+  //   const filters = new Array<Param>;
 
-    this.employeeStorageHttpService.deleteEmployeeStorage(item.id!).subscribe(() => {
-      this.employeeStorageList.refresh(filters);
-    });
-  }
+  //   this.employeeStorageHttpService.deleteEmployeeStorage(item.id!).subscribe(() => {
+  //     this.employeeStorageList.refresh(filters);
+  //   });
+  // }
 
   onItemCostCenterDelete(item: EmployeeCostCenter) {
     this.dialogService

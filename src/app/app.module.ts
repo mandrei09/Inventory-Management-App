@@ -597,14 +597,6 @@ import {PanelModule} from 'primeng/panel';
 import { MatTooltipDefaultOptions, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { AssetDetailUIOperationStornoMFXComponent } from './forms/assets/assets/asset.detail-operation-storno-mfx.ui';
 import { TooltipModule } from 'primeng/tooltip';
-import { StorageDetailComponent } from './forms/stock/storages/storage.detail';
-import { StorageListComponent } from './forms/stock/storages/storage.list';
-import { StorageManageComponent } from './forms/stock/storages/storage.manage';
-import { StorageHttpService } from './services/http/stock/storage.http.service';
-import { EmployeeStorageHttpService } from './services/http/administration/employee-storage.http.service';
-import { EmployeeStorageDetail } from './forms/administrations/employee-storages/employee-storage.detail';
-import { EmployeeStorageList } from './forms/administrations/employee-storages/employee-storage.list';
-import { EmployeeStorageManage } from './forms/administrations/employee-storages/employee-storage.manage';
 import {DataViewModule} from 'primeng/dataview';
 import { StockITManageComponent } from './forms/administrations/stocks/stock-it.manage';
 // import { AssetAgGridList } from './forms/assets/assets/asset-inv-temp-detail.list';
@@ -763,7 +755,6 @@ import {OfferDetailsDialogComponent} from './forms/administrations/offer/offer-d
 import {OfferOpHttpService} from './services/http/administration/offer-op.http.service';
 import {LevelAddEditComponent} from './forms/administrations/level/level-add-edit/level-add-edit.component';
 import {ProjectTypeAddEditComponent} from './forms/assets/project-types/project-type-add-edit/project-type-add-edit.component';
-import {StoragesAddEditComponent} from './forms/stock/storages/storages-add-edit/storages-add-edit.component';
 import {TableDefinitionAddEditComponent} from './forms/common/table-definition/table-definition-add-edit/table-definition-add-edit.component';
 import {DictionaryItemsSelectionDialog} from './forms/administrations/dictionary-item/selection/dictionary-items.selection.dialog';
 import {DictionaryItemsItemSelect} from './forms/administrations/dictionary-item/selection/dictionary-items.item-select';
@@ -893,8 +884,6 @@ import {PermissionSelectionDialog} from './forms/common/permission/selection/per
 import {PermissionItemSelect} from './forms/common/permission/selection/permission.item-select';
 import {EmployeeDetailsComponent} from './forms/administrations/employees/employee-details/employee-details.component';
 import {EmployeesAddEditDialog} from './forms/administrations/employees/employees-add-edit/employees.add-edit.dialog';
-import {StorageSelectionDialog} from './forms/stock/storages/selection/storage.selection.dialog';
-import {StorageItemSelect} from './forms/stock/storages/selection/storage.item-select';
 import {PhoneValidationDialogComponent} from './common/phone-validation-dialog/phone-validation-dialog.component';
 import { RequestBudgetBaseItemSelect } from './forms/administrations/request/selection/request.-budget-base-item-select';
 import { RequestBudgetBaseSelectionDialog } from './forms/administrations/request/selection/request-budget-base-.selection.dialog';
@@ -1489,12 +1478,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     BoolPipeInventory,
     BoolPipeSapValidation,
     AssetDetailUIOperationStornoMFXComponent,
-    StorageDetailComponent,
-    StorageListComponent,
-    StorageManageComponent,
-    EmployeeStorageDetail,
-    EmployeeStorageList,
-    EmployeeStorageManage,
     StockITManageComponent,
     AssetReceptionDetailUIAddComponent,
     AssetBudgetForecastCorrectionManageComponent,
@@ -1704,9 +1687,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     PermissionSelectionDialog,
     PermissionItemSelect,
 
-    StorageSelectionDialog,
-    StorageItemSelect,
-
     NewSupplierOperationComponent,
     NewOperationDialogComponent,
     AssetEditComponent,
@@ -1724,7 +1704,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     OfferDetailsDialogComponent,
     LevelAddEditComponent,
     ProjectTypeAddEditComponent,
-    StoragesAddEditComponent,
     TableDefinitionAddEditComponent,
     PermissionTypeAddEditComponent,
     PermissionAddEditComponent,
@@ -1971,7 +1950,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   EmployeeCostCenterHttpService,
   EmployeeCompanyHttpService,
   EmployeeDivisionHttpService,
-  EmployeeStorageHttpService,
   DeviceHttpService,
   DeviceTypeHttpService,
   DeviceDetailHttpService,
@@ -1983,7 +1961,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   AssetAsyncHttpService,
   RequestBudgetForecastHttpService,
   RequestBudgetForecastMaterialCostCenterHttpService,
-  StorageHttpService,
   MessageService,
   TableDefinitionHttpService,
   RouteStateService,

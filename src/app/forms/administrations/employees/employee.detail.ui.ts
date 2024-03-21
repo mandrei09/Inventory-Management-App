@@ -41,12 +41,6 @@ import { EmployeeDivisionHttpService } from '../../../services/http/administrati
 import { EmployeeDivisionAdd } from '../../../model/api/assets/employee-division-add';
 import { Division } from '../../../model/api/administration/division';
 import { DivisionListComponent } from '../divisions/division.list';
-import { StorageListComponent } from '../../stock/storages/storage.list';
-import { EmployeeStorageList } from '../employee-storages/employee-storage.list';
-import { EmployeeStorageHttpService } from '../../../services/http/administration/employee-storage.http.service';
-import { StorageHttpService } from '../../../services/http/stock/storage.http.service';
-import { Storage } from '../../../model/api/stock/storage';
-import { EmployeeStorageAdd } from '../../../model/api/assets/employee-storage-add';
 import { EmployeeCompanyList } from '../employee-companies/employee-company.list';
 import { CompanyListComponent } from '../../assets/companies/company.list';
 import { EmployeeCompanyHttpService } from '../../../services/http/administration/employee-company.http.service';
@@ -77,8 +71,8 @@ export class EmployeeDetailUIComponent implements OnInit  {
     @ViewChild('employeeDivisionListModal') public employeeDivisionListModal: ModalDirective;
     @ViewChild('employeeDivisionList') public employeeDivisionList: EmployeeDivisionList;
 
-    @ViewChild('employeeStorageListModal') public employeeStorageListModal: ModalDirective;
-    @ViewChild('employeeStorageList') public employeeStorageList: EmployeeStorageList;
+    
+    
 
     @ViewChild('assetComponentAddListModal') public assetComponentAddListModal: ModalDirective;
     @ViewChild('assetComponentAddList') public assetComponentAddList: AssetComponentList;
@@ -92,8 +86,8 @@ export class EmployeeDetailUIComponent implements OnInit  {
     @ViewChild('divisionListModal') public divisionListModal: ModalDirective;
     @ViewChild('divisionList') public divisionList: DivisionListComponent;
 
-    @ViewChild('storageListModal') public storageListModal: ModalDirective;
-    @ViewChild('storageList') public storageList: StorageListComponent;
+    
+    
 
     @ViewChild('assetComponentTransferDetailModal') public assetComponentTransferDetailModal: ModalDirective;
     @ViewChild('assetDetailModal') public assetDetailModal: ModalDirective;
@@ -151,12 +145,12 @@ export class EmployeeDetailUIComponent implements OnInit  {
         public costCenterHttpService: CostCenterHttpService,
         public companyHttpService: CompanyHttpService,
         public divisionHttpService: DivisionHttpService,
-        public storageHttpService: StorageHttpService,
+        
         public assetComponentHttpService: AssetComponentHttpService,
         public employeeCostCenterHttpService: EmployeeCostCenterHttpService,
         public employeeCompanyHttpService: EmployeeCompanyHttpService,
         public employeeDivisionHttpService: EmployeeDivisionHttpService,
-        public employeeStorageHttpService: EmployeeStorageHttpService,
+        
         public assetHttpService: AssetHttpService,
         public invStateHttpService: InvStateHttpService,
         public assetComponentOpHttpService: AssetComponentOpHttpService,
@@ -183,7 +177,7 @@ export class EmployeeDetailUIComponent implements OnInit  {
                        this.refreshEmployeeCostCenters();
                        this.refreshEmployeeCompanies();
                        this.refreshEmployeeDivisions();
-                       this.refreshEmployeeStorages();
+                       //this.refreshEmployeeStorages();
                        // this.refreshEntityFiles();
                 });
         }
@@ -223,9 +217,9 @@ export class EmployeeDetailUIComponent implements OnInit  {
       this.selectedEmployeeDivision = this.employeeDivisionList.selectedItem;
   }
 
-  public onEmployeeStorageListSelectionChanged(employeeStorages: Array<any>) {
-    this.selectedEmployeeStorage = this.employeeStorageList.selectedItem;
-}
+//   public onEmployeeStorageListSelectionChanged(employeeStorages: Array<any>) {
+//     this.selectedEmployeeStorage = this.employeeStorageList.selectedItem;
+//     }
 
 
     public onAssetComponentOpDetailListSelectionChanged(assetComponentOpDetails: Array<any>) {
@@ -267,13 +261,6 @@ export class EmployeeDetailUIComponent implements OnInit  {
       params.push(new Param('employeeIds', this.employeeId.toString()));
       this.employeeDivisionList.refresh(params);
   }
-
-  public refreshEmployeeStorages(){
-    let params: Array<Param> = new Array<Param>();
-
-    params.push(new Param('employeeIds', this.employeeId.toString()));
-    this.employeeStorageList.refresh(params);
-}
 
     public refreshAssetComponentOperations(){
         let params: Array<Param> = new Array<Param>();
@@ -552,73 +539,6 @@ export class EmployeeDetailUIComponent implements OnInit  {
 
   /* DIVISION */
 
-   /* STORAGE */
-
-   public selectStorage() {
-    this.storageListModal.show();
-    let params:Array<Param> = Array<Param>();
-    params.push(new Param('exceptStorageIds', AppUtils.getIdsList<CodeNameEntity, number>(this.selectedStorages())));
-    // console.log(JSON.stringify(params));
-    this.storageList.refresh(params);
-
-}
-
-private selectedStorages(): Array<CodeNameEntity> {
-    let mappedStorages: Array<CodeNameEntity> = new Array<CodeNameEntity>();
-
-    if(this.employeeStorageList.items.length > 0) {
-        this.employeeStorageList.items.forEach(element => {
-            mappedStorages.push(element.storage);
-        });
-    }
-
-    return mappedStorages;
-}
-
-
-public setSelectedStorage() {
-
-    let items: Array<any> = this.storageList.selectedItems;
-    this.storage = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.storageListModal.hide();
-
-    let aIds: number[] = new Array<number>();
-    let empStoragesIds: EmployeeStorageAdd = new EmployeeStorageAdd();
-    items.forEach(item => {
-        // aIds.indexOf(item.id) !== -1 ? aIds.push(item.id) : '';
-        let index: number = aIds.indexOf(item.id);
-        if (index < 0) aIds.push(item.id);
-    });
-
-    empStoragesIds.storageIds = aIds;
-    empStoragesIds.employeeId = this.employeeId;
-
-    this.employeeStorageHttpService.addStorageByEmployee(empStoragesIds).subscribe( (res) => {
-            if (res.statusCode === 200) {
-                this.notificationService.showSuccess('Datele au fost salvate cu success!', 'Adauga mapare Storage', 2000, false, 0);
-                this.storageList.refresh(null);
-                this.employeeStorageList.refresh(null);
-                this.storageList.selectedItems = new Array<Storage>();
-            } else if (res.statusCode === 404) {
-                this.notificationService.showError('Nu exista', 'Adauga mapare Storage', 0, false, 0);
-                this.storageList.selectedItems = new Array<Storage>();
-            }
-    }, (error) => {
-        this.notificationService.showError('Eroare salvare!', 'Adauga mapare Storage', 0, false, 0);
-        this.storageList.selectedItems = new Array<Storage>();
-    });
-
-
-
-}
-
-public closeStorage() {
-    this.storageList.selectedItems = new Array<Storage>();
-    this.storageListModal.hide();
-}
-
-/* STORAGE */
-
      /* ASSET COMPONENT TRANSFER */
 
      public selectAssetComponentTransfer() {
@@ -841,20 +761,6 @@ public closeStorage() {
       });
   }
 
-  public deleteEmployeeStorage() {
-    this.employeeStorageHttpService.deleteEmployeeStorage(this.employeeStorageList.selectedItem.id)
-    .subscribe((res) => {
-        if (res.statusCode === 200) {
-            this.notificationService.showSuccess('Operatia a fost finalizata cu success!', 'Stergere mapare Storage', 0, false, 0);
-            this.employeeStorageList.refresh(null);
-        } else if (res.statusCode === 404) {
-            this.notificationService.showError('Eroare salvare', 'Stergere mapare Storage', 0, false, 0);
-        }
-    }, (error) => {
-        this.notificationService.showError('Eroare server', 'Stergere mapare Storage', 0, false, 0);
-    });
-}
-
     public deleteAssetComponentOp() {
         this.assetComponentOpHttpService.deleteAssetComponentOp(this.assetComponentOpList.selectedItem.id)
             .subscribe((res) => {
@@ -882,9 +788,9 @@ public closeStorage() {
               case OperationType.DeleteEmployeeDivision:
                   this.deleteEmployeeDivision();
                   break;
-              case OperationType.DeleteEmployeeStorage:
-                    this.deleteEmployeeStorage();
-                    break;
+            //   case OperationType.DeleteEmployeeStorage:
+            //         this.deleteEmployeeStorage();
+            //         break;
             case OperationType.DeleteAssetComponentOp:
                 this.deleteAssetComponentOp();
                 break;
