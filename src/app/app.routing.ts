@@ -98,8 +98,6 @@ import { IdentityManage } from './forms/auth/identity.manage';
 import { BadgeManage } from './forms/common/badge/badge.manage';
 import { ColumnDefinitionManageComponent } from './forms/common/column-definition/column-definition.manage';
 import { ConfigValuesManage } from './forms/common/config-values.manage';
-import { DeviceTypeManage } from './forms/common/device-types/device-type.manage';
-import { DeviceManage } from './forms/common/devices/device.manage';
 import { EmailStatusDstEmployeeValidatePageComponent } from './forms/common/email-status-dst-employee-validate-page';
 import { EmailStatusOrderValidateB1PageComponent } from './forms/common/email-status-order-validate-B1-page';
 import { EmailStatusOrderValidateL1PageComponent } from './forms/common/email-status-order-validate-L1-page';
@@ -362,8 +360,6 @@ const AppRoutes: Routes = [
       { path: 'nom/assettypes', canActivate: [AuthGuard], component: AssetTypeManageComponent, data: { title: 'Tipuri', auth: 'VIEW|ASSETTYPES', shouldDetach: true }},
       { path: 'nom/activities', canActivate: [AuthGuard], component: ActivityManage, data: { title: 'WBS', auth: 'VIEW|ACTIVITIES', shouldDetach: true }},
       { path: 'nom/taxs', canActivate: [AuthGuard], component: TaxManageComponent, data: { title: 'Tax', auth: 'VIEW|TAXS', shouldDetach: true }},
-      { path: 'nom/devicetypes', canActivate: [AuthGuard], component: DeviceTypeManage, data: { title: 'OS', auth: 'VIEW|DEVICETYPES', shouldDetach: true }},
-      { path: 'nom/devices', canActivate: [AuthGuard], component: DeviceManage, data: { title: 'OS', auth: 'VIEW|DEVICES', shouldDetach: true }},
 
       // NOMENCLATURES //
     ]

@@ -15,8 +15,6 @@ import { AssetHttpService } from '../../services/http/assets/asset.http.service'
 import { Param } from '../../model/common/param';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NotificationService } from '../../services/notification.service';
-import { DeviceList } from '../common/devices/device.list';
-import { DeviceHttpService } from '../../services/http/common/device.http.service';
 import { RoleView } from '../../model/api/identity/role-view';
 import { RoleService } from '../../services/http/identity/role.service';
 import { RoleSave } from '../../model/api/identity/role-save';
@@ -30,7 +28,6 @@ import {MapSubstituteEmployeeSelectionDialog} from '../administrations/employees
 import {ChangePasswordDialogComponent} from './change-password-dialog/change-password-dialog.component';
 import {RoleSelectorModalComponent} from './role-selector-modal/role-selector-modal.component';
 import {DialogService} from '../../services/dialog.service';
-import {DevicesSelectionDialog} from '../common/devices/selection/devices.selection.dialog';
 import {IdentityAddEditComponent} from './identity-add-edit/identity-add-edit.component';
 import {User} from '../../model/api/identity/user';
 import { UserMobilePhoneResult } from '../../model/api/result/user-mobile-phone-result';
@@ -81,8 +78,6 @@ export class IdentityManage {
     @ViewChild('roomListModal') public roomListModal: ModalDirective;
     @ViewChild('divisionList') public divisionList: DivisionListComponent;
     @ViewChild('divisionListModal') public divisionListModal: ModalDirective;
-    @ViewChild('deviceList') public deviceList: DeviceList;
-    @ViewChild('deviceListModal') public deviceListModal: ModalDirective;
 
     constructor(public router: Router,
                 public dialog: MatDialog,
@@ -94,7 +89,7 @@ export class IdentityManage {
                 public admCenterHttpService: AdmCenterHttpService,
                 public divisionHttpService: DivisionHttpService,
                 public roomHttpService: RoomHttpService,
-                public deviceHttpService: DeviceHttpService,
+                
                 public roleHttpService: RoleService,
                 public employeeHttpService: EmployeeHttpService) {
 
@@ -130,13 +125,13 @@ export class IdentityManage {
       });
     }
 
-    public onDeviceMap() {
-      let dialogRef = this.dialog.open(DevicesSelectionDialog, { panelClass: 'centered-middle-modal', width: '80%', maxWidth: '90%', maxHeight: '80%', height: 'auto', position: {top: '10em'}});
+    // public onDeviceMap() {
+    //   let dialogRef = this.dialog.open(DevicesSelectionDialog, { panelClass: 'centered-middle-modal', width: '80%', maxWidth: '90%', maxHeight: '80%', height: 'auto', position: {top: '10em'}});
 
-      dialogRef.afterClosed().subscribe((res: any) => {
-        this.setSelectedDevice(res);
-      });
-    }
+    //   dialogRef.afterClosed().subscribe((res: any) => {
+    //     this.setSelectedDevice(res);
+    //   });
+    // }
 
     // public onMobilePhoneMap() {
     //   let dialogRef = this.dialog.open(MobilePhoneSelectionDialog, { panelClass: 'centered-middle-modal', width: '80%', maxWidth: '90%', maxHeight: '80%', height: 'auto', position: {top: '10em'}});
@@ -537,10 +532,10 @@ export class IdentityManage {
             }
 
 
-            public selectDevice() {
-                this.deviceListModal.show();
-                this.deviceList.refresh(null);
-            }
+            // public selectDevice() {
+            //     this.deviceListModal.show();
+            //     this.deviceList.refresh(null);
+            // }
 
             public updateDevice(){
               this.dialogService

@@ -322,15 +322,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './common/reuse-strategy';
 import { IdentityService } from './services/http/identity/identity.service';
-import { DeviceHttpService } from './services/http/common/device.http.service';
-import { DeviceTypeHttpService } from './services/http/common/device-type.http.service';
-import { DeviceDetailHttpService } from './services/http/common/device-detail.http.service';
-import { DeviceDetail } from './forms/common/devices/device.detail';
-import { DeviceList } from './forms/common/devices/device.list';
-import { DeviceManage } from './forms/common/devices/device.manage';
-import { DeviceTypeDetail } from './forms/common/device-types/device-type.detail';
-import { DeviceTypeList } from './forms/common/device-types/device-type.list';
-import { DeviceTypeManage } from './forms/common/device-types/device-type.manage';
 import { AngularMaterialModule } from './angular-material.module';
 import {TableModule} from 'primeng/table';
 import {PickListModule} from 'primeng/picklist';
@@ -776,7 +767,6 @@ import {AdmCenterAddEditComponent} from './forms/administrations/adm-centers/adm
 import {RegionAddEditComponent} from './forms/administrations/regions/region-add-edit/region-add-edit.component';
 import {DictionaryTypeAddEditComponent} from './forms/administrations/dictionary-type/dictionary-type-add-edit/dictionary-type-add-edit.component';
 import {DictionaryTypeHttpService} from './services/http/administration/dictionary-type.http.service';
-import {DeviceTypeAddEditComponent} from './forms/common/device-types/device-type-add-edit/device-type-add-edit.component';
 import {AssetFiltersListComponent} from './forms/assets/assets/assets-filters-list/assets-filters.list';
 import {TaxSelectionDialog} from './forms/assets/taxs/selection/tax.selection.dialog';
 import {TaxItemSelect} from './forms/assets/taxs/selection/tax.item-select';
@@ -814,15 +804,10 @@ import { UploadStornoModalComponent } from './forms/common/upload-storno-modal.c
 import { UploadPreReceptionModalComponent } from './forms/common/upload-pre-reception-modal.component';
 import { UploadPublicStornoModalComponent } from './forms/common/upload-public-storno-modal.component';
 import { RequestBudgetForecastValidateStornoListComponent } from './forms/administrations/request-budget-forecasts/request-budget-forecast-validate-storno.list';
-import {DeviceAddEditComponent} from './forms/common/devices/device-add-edit/device-add-edit.component';
 import {AppStateAddEditComponent} from './forms/assets/app-states/app-state-add-edit/app-state-add-edit.component';
 import {MaterialsSelectionDialog} from './forms/administrations/materials/selection/materials.selection.dialog';
 import {MaterialsItemSelect} from './forms/administrations/materials/selection/materials.item-select';
-import {DevicesSelectionDialog} from './forms/common/devices/selection/devices.selection.dialog';
-import {DevicesItemSelect} from './forms/common/devices/selection/devices.item-select';
 import {IdentityAddEditComponent} from './forms/auth/identity-add-edit/identity-add-edit.component';
-import {DeviceTypeSelectionDialog} from './forms/common/device-types/selection/device-type.selection.dialog';
-import {DeviceTypeItemSelect} from './forms/common/device-types/selection/device-type.item-select';
 import {TaxAddEditComponent} from './forms/assets/taxs/tax-add-edit/tax-add-edit.component';
 import {CountyAddEditComponent} from './forms/administrations/counties/county-add-edit/county-add-edit.component';
 import {CountyItemSelect} from './forms/administrations/counties/selection/county.item-select';
@@ -1274,12 +1259,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     EmployeeDivisionList,
     EmployeeDivisionDetail,
     DashboardListComponent,
-    DeviceDetail,
-    DeviceList,
-    DeviceManage,
-    DeviceTypeDetail,
-    DeviceTypeList,
-    DeviceTypeManage,
     ActivityManage,
     ActivityList,
     ActivityDetail,
@@ -1614,12 +1593,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     BudgetBaseSelectionDialog,
     BudgetBaseItemSelect,
 
-    DevicesSelectionDialog,
-    DevicesItemSelect,
-
-    DeviceTypeSelectionDialog,
-    DeviceTypeItemSelect,
-
     CountriesSelectionDialog,
     CountriesItemSelect,
 
@@ -1692,7 +1665,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     AdmCenterAddEditComponent,
     RegionAddEditComponent,
     DictionaryTypeAddEditComponent,
-    DeviceTypeAddEditComponent,
     AssetCloneDialogComponent,
     AssetRetireDialogComponent,
     AssetStornoDialogComponent,
@@ -1702,14 +1674,12 @@ const JWT_Module_Options: JwtModuleOptions = {
     EmailTypeAddEditComponent,
     RouteChildrenDefinitionAddEditComponent,
     AssetStornoDialogComponent,
-    DeviceTypeAddEditComponent,
     PartnerAddEditComponent,
     PrRequestEditDialogComponent,
     RateAddEditComponent,
     AppStateAddEditComponent,
     DivisionAddEditDialog,
     AssetPreValidateAddEditDialog,
-    DeviceAddEditComponent,
     MapSubstituteEmployeeSelectionDialog,
     ChangePasswordDialogComponent,
     RoleSelectorModalComponent,
@@ -1899,9 +1869,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   EmployeeCostCenterHttpService,
   EmployeeCompanyHttpService,
   EmployeeDivisionHttpService,
-  DeviceHttpService,
-  DeviceTypeHttpService,
-  DeviceDetailHttpService,
   RoomHttpService,
   OrderTypeHttpService,
   OfferTypeHttpService,
