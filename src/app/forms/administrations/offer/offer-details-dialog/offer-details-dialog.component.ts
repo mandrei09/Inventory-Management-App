@@ -17,7 +17,6 @@ import {OfferType} from '../../../../model/api/offer/offer-type';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {OfferHttpService} from '../../../../services/http/administration/offer.http.service';
 import {MasterTypeHttpService} from '../../../../services/http/assets/master-type.http.service';
-import {AccountHttpService} from '../../../../services/http/administration/account.http.service';
 import {TypeHttpService} from '../../../../services/http/administration/type.http.service';
 import {SubTypeHttpService} from '../../../../services/http/administration/sub-type.http.service';
 import {AccMonthHttpService} from '../../../../services/http/accounting/acc-month.http.service';
@@ -187,7 +186,7 @@ export class OfferDetailsDialogComponent implements AfterViewInit {
     public router: Router,
     public offerHttpService: OfferHttpService,
     public masterTypeHttpService: MasterTypeHttpService,
-    public accountHttpService: AccountHttpService,
+    
     public typeHttpService: TypeHttpService,
     public subTypeHttpService: SubTypeHttpService,
     public accMonthHttpService: AccMonthHttpService,

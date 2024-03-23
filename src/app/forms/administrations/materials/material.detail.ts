@@ -1,8 +1,6 @@
 import { Component, EventEmitter, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AppConfig } from '../../../config';
-import { Account } from '../../../model/api/administration/account';
-import { ExpAccount } from '../../../model/api/administration/exp-account';
 import { Material } from '../../../model/api/administration/material';
 import { SubType } from '../../../model/api/administration/sub-type';
 import { AssetCategory } from '../../../model/api/assets/asset-category';
@@ -30,8 +28,8 @@ export class MaterialDetailComponent extends GenericDetail<Material, number> {
     public subCategoryENNeeded: EventEmitter<void> = new EventEmitter<void>();
     public subTypeNeeded: EventEmitter<void> = new EventEmitter<void>();
 
-    public selectedAccount: Account = null;
-    public selectedExpAccount: ExpAccount = null;
+    
+    
     public selectedAssetCategory: AssetCategory = null;
     
     //public selectedSubCategoryEN: SubCategoryEN = null;
@@ -53,33 +51,33 @@ export class MaterialDetailComponent extends GenericDetail<Material, number> {
     //     }
     // }
 
-    public set account(account: Account) {
-        this.selectedAccount = account;
-        this.item.account = account != null ? new CodeNameEntity(account.id, account.code, account.name) : null;
-    }
+    // public set account(account: Account) {
+    //     this.selectedAccount = account;
+    //     this.item.account = account != null ? new CodeNameEntity(account.id, account.code, account.name) : null;
+    // }
 
     public askForAccount() {
         this.accountNeeded.emit();
     }
 
-    public setAccount(account: Account) {
-        this.selectedAccount = account;
-        this.item.account = account != null ? account : null;
-    }
+    // public setAccount(account: Account) {
+    //     this.selectedAccount = account;
+    //     this.item.account = account != null ? account : null;
+    // }
 
-    public set expAccount(expAcount: ExpAccount) {
-        this.selectedExpAccount = expAcount;
-        this.item.expAccount = expAcount != null ? new CodeNameEntity(expAcount.id, expAcount.code, expAcount.name) : null;
-    }
+    // public set expAccount(expAcount: ExpAccount) {
+    //     this.selectedExpAccount = expAcount;
+    //     this.item.expAccount = expAcount != null ? new CodeNameEntity(expAcount.id, expAcount.code, expAcount.name) : null;
+    // }
 
     public askForExpAccount() {
         this.expAccountNeeded.emit();
     }
 
-    public setExpAccount(expAcount: ExpAccount) {
-        this.selectedExpAccount = expAcount;
-        this.item.expAccount = expAcount != null ? expAcount : null;
-    }
+    // public setExpAccount(expAcount: ExpAccount) {
+    //     this.selectedExpAccount = expAcount;
+    //     this.item.expAccount = expAcount != null ? expAcount : null;
+    // }
 
     public set assetCategory(assetCategory: AssetCategory) {
         this.selectedAssetCategory = assetCategory;

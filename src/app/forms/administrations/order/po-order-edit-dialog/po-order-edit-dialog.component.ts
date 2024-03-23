@@ -7,7 +7,6 @@ import {EmployeeListComponent} from '../../employees/employee.list';
 import {AccMonthListComponent} from '../../../accounting/acc-month.list';
 import {PartnerListComponent} from '../../../documents/partners/partner.list';
 import {UomListComponent} from '../../../assets/uoms/uom.list';
-import {AccountList} from '../../account/account.list';
 import {AssetTypeListComponent} from '../../../assets/asset-types/asset-type.list';
 import {ProjectTypeDivisionListComponent} from '../../project-type-division/project-type-division.list';
 import {AdministrationListComponent} from '../../administrations/administration.list';
@@ -37,7 +36,6 @@ import {AppData} from '../../../../app-data';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {RequestHttpService} from '../../../../services/http/administration/request.http.service';
 import {MasterTypeHttpService} from '../../../../services/http/assets/master-type.http.service';
-import {AccountHttpService} from '../../../../services/http/administration/account.http.service';
 import {TypeHttpService} from '../../../../services/http/administration/type.http.service';
 import {SubTypeHttpService} from '../../../../services/http/administration/sub-type.http.service';
 import {AccMonthHttpService} from '../../../../services/http/accounting/acc-month.http.service';
@@ -69,7 +67,6 @@ import {MessageService} from 'primeng/api';
 import {EntityFileHttpService} from '../../../../services/http/common/entity-file.http.service';
 import {Company} from '../../../../model/api/assets/company';
 import {Uom} from '../../../../model/api/assets/uom';
-import {Account} from '../../../../model/api/administration/account';
 import {AppConfig} from '../../../../config';
 import { Observable } from 'rxjs/internal/Observable';
 import {Subject} from 'rxjs';
@@ -124,9 +121,6 @@ export class PoOrderEditDialogComponent implements OnInit, AfterViewInit {
 
   @ViewChild("uomList") public uomList: UomListComponent;
   @ViewChild("uomListModal") public uomListModal: ModalDirective;
-
-  @ViewChild("accountList") public accountList: AccountList;
-  @ViewChild("accountListModal") public accountListModal: ModalDirective;
 
   // @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
   // @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
@@ -332,7 +326,7 @@ export class PoOrderEditDialogComponent implements OnInit, AfterViewInit {
     public dialogService: DialogService,
     public requestHttpService: RequestHttpService,
     public masterTypeHttpService: MasterTypeHttpService,
-    public accountHttpService: AccountHttpService,
+    
     public typeHttpService: TypeHttpService,
     public subTypeHttpService: SubTypeHttpService,
     public accMonthHttpService: AccMonthHttpService,
@@ -883,19 +877,7 @@ export class PoOrderEditDialogComponent implements OnInit, AfterViewInit {
 
   /*end UOM*/
 
-  /*begin Account*/
-  public selectAccount() {
-    this.accountList.refresh(null);
-    this.accountListModal.show();
-  }
-
-  public setSelectedAccount() {
-    const items: Array<Account> = this.accountList.selectedItems;
-    this.account = items != null && items.length === 1 ? items[0] : null;
-    this.accountListModal.hide();
-  }
-
-  /*end Account*/
+  
 
   public cancelChanges() {
     // this.ngLocation.back();

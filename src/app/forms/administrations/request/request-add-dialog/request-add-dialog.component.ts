@@ -18,8 +18,6 @@ import {DepartmentDetailComponent as DepartmentUIDetail} from '../../../administ
 import {DepartmentListComponent} from '../../../administrations/departments/department.list';
 import {AdministrationDetailComponent} from '../../../administrations/administrations/administration.detail';
 import {AdministrationListComponent} from '../../../administrations/administrations/administration.list';
-import {AccountList} from '../../../administrations/account/account.list';
-import {ExpAccountList} from '../../../administrations/exp-account/exp-account.list';
 import {ArticleList} from '../../../administrations/article/article.list';
 import {DivisionListComponent} from '../../../administrations/divisions/division.list';
 import {CountryListComponent} from '../../../administrations/countries/country.list';
@@ -67,8 +65,6 @@ import {InvStateHttpService} from '../../../../services/http/inventory/inv-state
 import {Administration} from '../../../../model/api/administration/administration';
 import {Company} from '../../../../model/api/assets/company';
 import {AssetClassHttpService} from '../../../../services/http/assets/asset-class.http.service';
-import {AccountHttpService} from '../../../../services/http/administration/account.http.service';
-import {ExpAccountHttpService} from '../../../../services/http/administration/exp-account.http.service';
 import {ArticleHttpService} from '../../../../services/http/administration/article.http.service';
 import {DivisionHttpService} from '../../../../services/http/administration/division.http.service';
 import {CountryHttpService} from '../../../../services/http/administration/contry.http.service';
@@ -114,7 +110,6 @@ import {Partner} from '../../../../model/api/documents/partner';
 import {CreateAssetSAPResult} from '../../../../model/api/result/create-asset-SAP-result';
 import {EntityFileResult} from '../../../../model/api/result/entity-file-result';
 import {Article} from '../../../../model/api/assets/article';
-import {ExpAccount} from '../../../../model/api/administration/exp-account';
 import {County} from '../../../../model/api/administration/county';
 import {City} from '../../../../model/api/administration/city';
 import {Material} from '../../../../model/api/administration/material';
@@ -127,7 +122,6 @@ import {EmployeeResource} from '../../../../model/api/administration/employee-re
 import {RequestBFMaterialEmployeeUpdate} from '../../../../model/api/requests/request-budget-forecast-material-employee-update';
 import {RequestBFMaterialCostCenterAdd} from '../../../../model/api/requests/request-budget-forecast-material-cost-center-add';
 import {RequestBudgetForecastMaterial} from '../../../../model/api/requests/request-budget-forecast-material';
-import {Account} from '../../../../model/api/administration/account';
 import { DocumentType as AppDocumentType } from '../../../../model/api/documents/document-type';
 import {Division} from '../../../../model/api/administration/division';
 import {Country} from '../../../../model/api/administration/country';
@@ -208,8 +202,8 @@ export class RequestAddDialogComponent implements OnInit, AfterViewInit {
   @ViewChild('uomList') public uomList: UomListComponent;
   @ViewChild('uomListModal') public uomListModal: ModalDirective;
 
-  @ViewChild('accountList') public accountList: AccountList;
-  @ViewChild('accountListModal') public accountListModal: ModalDirective;
+  
+  
 
   // @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
   // @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
@@ -337,7 +331,7 @@ export class RequestAddDialogComponent implements OnInit, AfterViewInit {
     public router: Router,
     public requestHttpService: RequestHttpService,
     public masterTypeHttpService: MasterTypeHttpService,
-    public accountHttpService: AccountHttpService,
+    
     public typeHttpService: TypeHttpService,
     public subTypeHttpService: SubTypeHttpService,
     public accMonthHttpService: AccMonthHttpService,
@@ -921,22 +915,6 @@ export class RequestAddDialogComponent implements OnInit, AfterViewInit {
   }
 
   /*end UOM*/
-
-
-  /*begin Account*/
-  public selectAccount() {
-    this.accountList.refresh(null);
-    this.accountListModal.show();
-  }
-
-  public setSelectedAccount() {
-    const items: Array<Account> = this.accountList.selectedItems;
-    this.account = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.accountListModal.hide();
-  }
-
-  /*end Account*/
-
 
   public cancelChanges() {
     // this.ngLocation.back();

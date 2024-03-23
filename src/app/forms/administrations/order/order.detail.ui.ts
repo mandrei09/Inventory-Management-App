@@ -7,7 +7,6 @@ import { Employee } from '../../../model/api/administration/employee';
 import { Partner } from '../../../model/api/documents/partner';
 import { TypeList } from '../types/type.list';
 import { SubTypeList } from '../sub-types/sub-type.list';
-import { AccountList } from '../account/account.list';
 import { OrderOpDetailList } from '../order-ops/order-op.detail.list';
 import { OfferList } from '../offer/offer.list';
 import { BudgetList } from '../budget/budget.list';
@@ -18,7 +17,6 @@ import { TypeHttpService } from '../../../services/http/administration/type.http
 import { SubTypeHttpService } from '../../../services/http/administration/sub-type.http.service';
 import { EntityFileHttpService } from '../../../services/http/common/entity-file.http.service';
 import { AccMonthHttpService } from '../../../services/http/accounting/acc-month.http.service';
-import { AccountHttpService } from '../../../services/http/administration/account.http.service';
 import { OrderOpHttpService } from '../../../services/http/administration/order-op.http.service';
 import { MasterTypeListComponent } from '../../assets/master-types/master-type.list';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -54,7 +52,6 @@ import { Project } from '../../../model/api/assets/project';
 
 import { AccMonth } from '../../../model/api/accounting/acc-month';
 import { CostCenter } from '../../../model/api/administration/cost-center';
-import { Account } from '../../../model/api/administration/account';
 import { Uom } from '../../../model/api/assets/uom';
 import { AppConfig } from '../../../config';
 import { Contract } from '../../../model/api/administration/contract';
@@ -136,7 +133,6 @@ import { RequestBudgetForecastMaterialMultiple } from '../../../model/api/admini
         EntityFileHttpService,
         EmployeeHttpService,
         AccMonthHttpService,
-        AccountHttpService,
         OrderOpHttpService,
         ContractHttpService,
         PartnerHttpService ]
@@ -164,8 +160,8 @@ export class OrderDetailUIComponent implements OnInit, AfterViewInit  {
     @ViewChild('uomList') public uomList: UomListComponent;
     @ViewChild('uomListModal') public uomListModal: ModalDirective;
 
-    @ViewChild('accountList') public accountList: AccountList;
-    @ViewChild('accountListModal') public accountListModal: ModalDirective;
+    
+    
 
     @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
     @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
@@ -434,7 +430,7 @@ export class OrderDetailUIComponent implements OnInit, AfterViewInit  {
         public router: Router,
         public orderHttpService: OrderHttpService,
         public masterTypeHttpService: MasterTypeHttpService,
-        public accountHttpService: AccountHttpService,
+        
         public typeHttpService: TypeHttpService,
         public subTypeHttpService: SubTypeHttpService,
         public accMonthHttpService: AccMonthHttpService,
@@ -1231,19 +1227,7 @@ export class OrderDetailUIComponent implements OnInit, AfterViewInit  {
       /*end UOM*/
 
 
-        /*begin Account*/
-        public selectAccount() {
-            this.accountList.refresh(null);
-            this.accountListModal.show();
-        }
-
-        public setSelectedAccount() {
-            const items: Array<Account> = this.accountList.selectedItems;
-             this.account = ((items != null) && (items.length === 1)) ? items[0] : null;
-            this.accountListModal.hide();
-        }
-
-        /*end Account*/
+      
 
 
      public cancelChanges() {

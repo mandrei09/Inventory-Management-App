@@ -1,6 +1,5 @@
 import { Component, EventEmitter, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Account } from '../../../model/api/administration/account';
 import { Article } from '../../../model/api/assets/article';
 import { GenericDetail } from '../../generic/generic.detail';
 
@@ -12,9 +11,9 @@ export class ArticleDetail extends GenericDetail<Article, number> {
 
     @ViewChild('detailForm') detailForm: FormGroup;
 
-    setItemDefaultValues() {
-        this.item = new Account();
-    }
+    // setItemDefaultValues() {
+    //     this.item = new Account();
+    // }
 
     public resetForm() {
         this.detailForm.reset();

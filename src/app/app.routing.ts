@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
 import { AccMonthManageComponent } from './forms/accounting/acc-month.manage';
-import { AccountManage } from './forms/administrations/account/account.manage';
 import { AdmCenterManageComponent } from './forms/administrations/adm-centers/adm-center.manage';
 import { AdministrationManageComponent } from './forms/administrations/administrations/administration.manage';
 import { ArticleManage } from './forms/administrations/article/article.manage';
@@ -31,7 +30,6 @@ import { EmailTypeManage } from './forms/administrations/email-type/email-type.m
 import { EmployeeCostCenterManage } from './forms/administrations/employee-cost-centers/employee-cost-center.manage';
 import { EmployeeDetailUIComponent } from './forms/administrations/employees/employee.detail.ui';
 import { EmployeeManageComponent } from './forms/administrations/employees/employee.manage';
-import { ExpAccountManage } from './forms/administrations/exp-account/exp-account.manage';
 import { LevelManageComponent } from './forms/administrations/level/level.manage';
 import { LocationManageComponent } from './forms/administrations/locations/location.manage';
 import { MaterialManageComponent } from './forms/administrations/materials/material.manage';
@@ -346,8 +344,6 @@ const AppRoutes: Routes = [
       { path: 'nom/cities', canActivate: [AuthGuard], component: CityManageComponent, data: { title: 'Orase', auth: 'VIEW|CITIES', shouldDetach: true }},
       { path: 'nom/locations', canActivate: [AuthGuard], component: LocationManageComponent, data: { title: 'Adrese', auth: 'VIEW|LOCATIONS', shouldDetach: true}},
       { path: 'nom/rooms', canActivate: [AuthGuard], component: RoomManageComponent, data: { title: 'Adrese 2',auth: 'VIEW|ROOMS', shouldDetach: true}},
-      { path: 'nom/accounts', canActivate: [AuthGuard], component: AccountManage, data: { title: 'Bal.sh.acct APC', auth: 'VIEW|ACCOUNTS', shouldDetach: true }},
-      { path: 'nom/expaccounts', canActivate: [AuthGuard], component: ExpAccountManage, data: { title: 'Asset class', auth: 'VIEW|EXPACCOUNTS', shouldDetach: true }},
       { path: 'nom/assetcategories', canActivate: [AuthGuard], component: AssetCategoryManageComponent, data: { title: 'Asset classification', auth: 'VIEW|ASSETCATEGORIES', shouldDetach: true }},
       { path: 'nom/articles', canActivate: [AuthGuard], component: ArticleManage, data: { title: 'Zone', auth: 'VIEW|ARTICLES', shouldDetach: true }},
       { path: 'nom/costcenters', canActivate: [AuthGuard], component: CostCenterManageComponent, data: { title: 'Centre de cost', auth: 'VIEW|COSTCENTERS', shouldDetach: true }},

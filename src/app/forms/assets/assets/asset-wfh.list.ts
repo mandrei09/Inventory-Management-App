@@ -10,7 +10,6 @@ import { AssetColumnFilter } from '../../../model/api/assets/asset-column-filter
 import {Material} from '../../../model/api/administration/material';
 import {CostCenter} from '../../../model/api/administration/cost-center';
 import {Location} from '../../../model/api/administration/location';
-import { Account } from '../../../model/api/administration/account';
 import { Partner } from '../../../model/api/documents/partner';
 
 @Component({
@@ -32,12 +31,7 @@ export class AssetWFHListComponent extends GenericTableList<any, number> {
       this.getAssetColumnFilters();
     }
 
-    public _account: Account[] = [];
-    public get account(): Account[] { return this._account; }
-    public set account(value: Account[]) {
-      this._account = value;
-      this.getAssetColumnFilters();
-    }
+    
 
     public _material: Material[] = [];
     public get material(): Material[] { return this._material; }
@@ -214,7 +208,6 @@ export class AssetWFHListComponent extends GenericTableList<any, number> {
     if (this.invState) invStateIds = this.invState.map(p => p.id);
     if (this.material) materialIds = this.material.map(p => p.id);
     if (this.location) locationIds = this.location.map(p => p.id);
-    if (this.account) accountIds = this.account.map(p => p.id);
     if (this.costCenter) costCenterIds = this.costCenter.map(p => p.id);
     if (this.partner) partnerIds = this.partner.map(p => p.id);
     if (this.admAccountCode) admAccountCode = this.admAccountCode;

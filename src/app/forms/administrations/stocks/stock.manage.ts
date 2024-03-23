@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { ExpAccount } from '../../../model/api/administration/exp-account';
 import { Material } from '../../../model/api/administration/material';
 import { Stock } from '../../../model/api/administration/stock';
 import { PagedResult } from '../../../model/common/paged-result';
@@ -62,22 +61,22 @@ export class StockManageComponent extends GenericManage<Stock, number> {
             params.push(new Param('filter', this.filter));
         }
 
-        this.stockHttpService.get(1, 1000000, 'name', 'asc', params, null).subscribe(
-            (data: PagedResult<ExpAccount>) => {
+        // this.stockHttpService.get(1, 1000000, 'name', 'asc', params, null).subscribe(
+        //     (data: PagedResult<ExpAccount>) => {
 
-                const options = {
-                    sheetid: 'centre_logistice',
-                    headers: true,
-                    column: { style: { Font: { Bold: '1' } } },
-                    rows: { 1: { style: { Font: { Color: '#FF0077' } } } },
-                    cells: { 1: { 1: { style: { Font: { Color: '#00FFFF' } } } } }
-                };
+        //         const options = {
+        //             sheetid: 'centre_logistice',
+        //             headers: true,
+        //             column: { style: { Font: { Bold: '1' } } },
+        //             rows: { 1: { style: { Font: { Color: '#FF0077' } } } },
+        //             cells: { 1: { 1: { style: { Font: { Color: '#00FFFF' } } } } }
+        //         };
 
-                // alasql(`SELECT id as [Id],
-                //     name as [Denumire]
-                //     INTO XLSX("centre_logistice.xlsx",?) FROM ?`, [ options, data.items ]);
+        //         // alasql(`SELECT id as [Id],
+        //         //     name as [Denumire]
+        //         //     INTO XLSX("centre_logistice.xlsx",?) FROM ?`, [ options, data.items ]);
 
-            });
+        //     });
     }
 
     collapsed(event: any): void {

@@ -12,7 +12,6 @@ import { TypeHttpService } from '../../../services/http/administration/type.http
 import { SubTypeHttpService } from '../../../services/http/administration/sub-type.http.service';
 import { EntityFileHttpService } from '../../../services/http/common/entity-file.http.service';
 import { AccMonthHttpService } from '../../../services/http/accounting/acc-month.http.service';
-import { AccountHttpService } from '../../../services/http/administration/account.http.service';
 import { OfferOpHttpService } from '../../../services/http/administration/offer-op.http.service';
 import { MasterTypeListComponent } from '../../assets/master-types/master-type.list';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -20,7 +19,6 @@ import { SubTypeList } from '../sub-types/sub-type.list';
 import { EmployeeListComponent } from '../employees/employee.list';
 import { AccMonthListComponent } from '../../accounting/acc-month.list';
 import { PartnerListComponent } from '../../documents/partners/partner.list';
-import { AccountList } from '../account/account.list';
 import { CostCenterListComponent } from '../cost-centers/cost-center.list';
 import { AdministrationListComponent } from '../administrations/administration.list';
 import { CompanyListComponent } from '../../assets/companies/company.list';
@@ -44,7 +42,6 @@ import { Company } from '../../../model/api/assets/company';
 import { Project } from '../../../model/api/assets/project';
 import { AccMonth } from '../../../model/api/accounting/acc-month';
 import { CostCenter } from '../../../model/api/administration/cost-center';
-import { Account } from '../../../model/api/administration/account';
 import { AppConfig } from '../../../config';
 import { TypeList } from '../types/type.list';
 import { Budget } from '../../../model/api/administration/budget';
@@ -101,7 +98,6 @@ import { EntityFileResult } from '../../../model/api/result/entity-file-result';
         EntityFileHttpService,
         EmployeeHttpService,
         AccMonthHttpService,
-        AccountHttpService,
         OfferOpHttpService,
         BudgetHttpService,
         AdmCenterHttpService,
@@ -131,8 +127,8 @@ export class OfferDetailUIComponent  implements AfterViewInit  {
     @ViewChild('partnerList') public partnerList: PartnerListComponent;
     @ViewChild('partnerListModal') public partnerListModal: ModalDirective;
 
-    // @ViewChild('accountList') public accountList: AccountList;
-    // @ViewChild('accountListModal') public accountListModal: ModalDirective;
+    // 
+    // 
 
     // @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
     // @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
@@ -301,7 +297,7 @@ export class OfferDetailUIComponent  implements AfterViewInit  {
         public router: Router,
         public offerHttpService: OfferHttpService,
         public masterTypeHttpService: MasterTypeHttpService,
-        public accountHttpService: AccountHttpService,
+        
         public typeHttpService: TypeHttpService,
         public subTypeHttpService: SubTypeHttpService,
         public accMonthHttpService: AccMonthHttpService,

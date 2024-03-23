@@ -34,7 +34,6 @@ import { Project } from '../../../model/api/assets/project';
 
 import { AccMonth } from '../../../model/api/accounting/acc-month';
 import { CostCenter } from '../../../model/api/administration/cost-center';
-import { Account } from '../../../model/api/administration/account';
 import { AppConfig } from '../../../config';
 import { SubType } from '../../../model/api/administration/sub-type';
 import { Type } from '../../../model/api/administration/type';
@@ -43,10 +42,8 @@ import { BudgetOpHttpService } from '../../../services/http/administration/budge
 import { ProjectHttpService } from '../../../services/http/assets/project.http.service';
 import { SubTypeHttpService } from '../../../services/http/administration/sub-type.http.service';
 import { TypeHttpService } from '../../../services/http/administration/type.http.service';
-import { AccountHttpService } from '../../../services/http/administration/account.http.service';
 import { TypeList } from '../types/type.list';
 import { SubTypeList } from '../sub-types/sub-type.list';
-import { AccountList } from '../account/account.list';
 import { ProjectList } from '../../assets/projects/project.list';
 import { BudgetOpDetailList } from '../budget-ops/budget-op.detail.list';
 
@@ -84,8 +81,8 @@ export class BudgetDetailUI  {
     @ViewChild('partnerList') public partnerList: PartnerListComponent;
     @ViewChild('partnerListModal') public partnerListModal: ModalDirective;
 
-    @ViewChild('accountList') public accountList: AccountList;
-    @ViewChild('accountListModal') public accountListModal: ModalDirective;
+    
+    
 
     @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
     @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
@@ -157,7 +154,7 @@ export class BudgetDetailUI  {
         public router: Router,
         public budgetHttpService: BudgetHttpService,
         public masterTypeHttpService: MasterTypeHttpService,
-        public accountHttpService: AccountHttpService,
+        
         public typeHttpService: TypeHttpService,
         public subTypeHttpService: SubTypeHttpService,
         public accMonthHttpService: AccMonthHttpService,
@@ -396,22 +393,6 @@ export class BudgetDetailUI  {
     }
 
     /*end partner*/
-
-
-        /*begin Account*/
-        public selectAccount() {
-            this.accountList.refresh(null);
-            this.accountListModal.show();
-        }
-
-        public setSelectedAccount() {
-            let items: Array<Account> = this.accountList.selectedItems;
-             this.account = ((items != null) && (items.length === 1)) ? items[0] : null;
-            this.accountListModal.hide();
-        }
-
-        /*end Account*/
-
 
      public cancelChanges() {
         // this.ngLocation.back();

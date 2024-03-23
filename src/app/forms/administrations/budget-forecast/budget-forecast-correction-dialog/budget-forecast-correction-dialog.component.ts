@@ -6,7 +6,6 @@ import {SubTypeList} from '../../sub-types/sub-type.list';
 import {EmployeeListComponent} from '../../employees/employee.list';
 import {AccMonthListComponent} from '../../../accounting/acc-month.list';
 import {PartnerListComponent} from '../../../documents/partners/partner.list';
-import {AccountList} from '../../account/account.list';
 import {CostCenterListComponent} from '../../cost-centers/cost-center.list';
 import {AdministrationListComponent} from '../../administrations/administration.list';
 import {CompanyListComponent} from '../../../assets/companies/company.list';
@@ -47,7 +46,6 @@ import { BudgetMonthBaseHttpService } from '../../../../services/http/administra
 import { BudgetForecastHttpService } from '../../../../services/http/administration/budget-forecast.http.service';
 import { BudgetBaseHttpService } from '../../../../services/http/administration/budget-base.http.service';
 import { MasterTypeHttpService } from '../../../../services/http/assets/master-type.http.service';
-import { AccountHttpService } from '../../../../services/http/administration/account.http.service';
 import { TypeHttpService } from '../../../../services/http/administration/type.http.service';
 import {EntityFileHttpService } from '../../../../services/http/common/entity-file.http.service';
 import { BudgetBaseOpHttpService } from '../../../../services/http/administration/budget-base-op.http.service';
@@ -76,7 +74,6 @@ import {Country} from '../../../../model/api/assets/customer';
 import {Activity} from '../../../../model/api/assets/activity';
 import {CostCenter} from '../../../../model/api/administration/cost-center';
 import {Partner} from '../../../../model/api/documents/partner';
-import {Account} from '../../../../model/api/administration/account';
 import {RequestResult} from '../../../../model/api/result/request-result';
 import {AppConfig} from '../../../../config';
 import {SubTypeHttpService} from '../../../../services/http/administration/sub-type.http.service';
@@ -129,8 +126,8 @@ export class BudgetForecastCorrectionDialogComponent implements AfterViewInit {
     @ViewChild('partnerList') public partnerList: PartnerListComponent;
     @ViewChild('partnerListModal') public partnerListModal: ModalDirective;
 
-    @ViewChild('accountList') public accountList: AccountList;
-    @ViewChild('accountListModal') public accountListModal: ModalDirective;
+    
+    
 
     @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
     @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
@@ -297,7 +294,7 @@ export class BudgetForecastCorrectionDialogComponent implements AfterViewInit {
         public budgetMonthBaseHttpService: BudgetMonthBaseHttpService,
         public budgetBaseHttpService: BudgetBaseHttpService,
         public masterTypeHttpService: MasterTypeHttpService,
-        public accountHttpService: AccountHttpService,
+        
         public typeHttpService: TypeHttpService,
         public subTypeHttpService: SubTypeHttpService,
         public accMonthHttpService: AccMonthHttpService,
@@ -885,18 +882,7 @@ export class BudgetForecastCorrectionDialogComponent implements AfterViewInit {
     /*end partner*/
 
 
-        /*begin Account*/
-        public selectAccount() {
-            this.accountList.refresh(null);
-            this.accountListModal.show();
-        }
-
-        public setSelectedAccount() {
-            const items: Array<Account> = this.accountList.selectedItems;
-             this.account = ((items != null) && (items.length === 1)) ? items[0] : null;
-            this.accountListModal.hide();
-        }
-        /*end Account*/
+        
 
 
      public cancelChanges() {

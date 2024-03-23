@@ -4,7 +4,6 @@ import {EmployeeListComponent} from '../../../administrations/employees/employee
 import {PartnerListComponent} from '../../../documents/partners/partner.list';
 import {DepartmentListComponent} from '../../../administrations/departments/department.list';
 import {AdministrationListComponent} from '../../../administrations/administrations/administration.list';
-import {AccountList} from '../../../administrations/account/account.list';
 import {DivisionListComponent} from '../../../administrations/divisions/division.list';
 import {TypeList} from '../../../administrations/types/type.list';
 import {MaterialList} from '../../../administrations/materials/material.list';
@@ -23,7 +22,6 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ProjectHttpService} from '../../../../services/http/assets/project.http.service';
 import {Administration} from '../../../../model/api/administration/administration';
 import {Company} from '../../../../model/api/assets/company';
-import {AccountHttpService} from '../../../../services/http/administration/account.http.service';
 import {DivisionHttpService} from '../../../../services/http/administration/division.http.service';
 import {TypeHttpService} from '../../../../services/http/administration/type.http.service';
 import {MaterialHttpService} from '../../../../services/http/administration/material.http.service';
@@ -46,7 +44,6 @@ import {AssetType} from '../../../../model/api/assets/asset-type';
 import {Department} from '../../../../model/api/administration/department';
 import {Partner} from '../../../../model/api/documents/partner';
 import {SubType} from '../../../../model/api/administration/sub-type';
-import {Account} from '../../../../model/api/administration/account';
 import {Division} from '../../../../model/api/administration/division';
 import {Type} from '../../../../model/api/administration/type';
 import {MasterType} from '../../../../model/api/assets/master-type';
@@ -181,8 +178,8 @@ export class PrAddDialogComponent implements OnInit, AfterViewInit {
   @ViewChild('uomList') public uomList: UomListComponent;
   @ViewChild('uomListModal') public uomListModal: ModalDirective;
 
-  @ViewChild('accountList') public accountList: AccountList;
-  @ViewChild('accountListModal') public accountListModal: ModalDirective;
+  
+  
 
   // @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
   // @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
@@ -314,7 +311,7 @@ export class PrAddDialogComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     public requestHttpService: RequestHttpService,
     public masterTypeHttpService: MasterTypeHttpService,
-    public accountHttpService: AccountHttpService,
+    
     public typeHttpService: TypeHttpService,
     public subTypeHttpService: SubTypeHttpService,
     public accMonthHttpService: AccMonthHttpService,
@@ -925,19 +922,7 @@ export class PrAddDialogComponent implements OnInit, AfterViewInit {
   /*end UOM*/
 
 
-  /*begin Account*/
-  public selectAccount() {
-    this.accountList.refresh(null);
-    this.accountListModal.show();
-  }
-
-  public setSelectedAccount() {
-    const items: Array<Account> = this.accountList.selectedItems;
-    this.account = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.accountListModal.hide();
-  }
-
-  /*end Account*/
+  
 
 
   public cancelChanges() {

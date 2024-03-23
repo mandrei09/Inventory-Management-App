@@ -4,7 +4,6 @@ import {EmployeeListComponent} from '../../../administrations/employees/employee
 import {PartnerListComponent} from '../../../documents/partners/partner.list';
 import {CostCenterListComponent} from '../../../administrations/cost-centers/cost-center.list';
 import {AdministrationListComponent} from '../../../administrations/administrations/administration.list';
-import {AccountList} from '../../../administrations/account/account.list';
 import {TypeList} from '../../../administrations/types/type.list';
 import {MaterialList} from '../../../administrations/materials/material.list';
 import {SubTypeList} from '../../../administrations/sub-types/sub-type.list';
@@ -25,7 +24,6 @@ import {ProjectHttpService} from '../../../../services/http/assets/project.http.
 import {OrderHttpService} from '../../../../services/http/administration/order.http.service';
 import {Administration} from '../../../../model/api/administration/administration';
 import {Company} from '../../../../model/api/assets/company';
-import {AccountHttpService} from '../../../../services/http/administration/account.http.service';
 import {TypeHttpService} from '../../../../services/http/administration/type.http.service';
 import {MaterialHttpService} from '../../../../services/http/administration/material.http.service';
 import {SubTypeHttpService} from '../../../../services/http/administration/sub-type.http.service';
@@ -47,7 +45,6 @@ import {Partner} from '../../../../model/api/documents/partner';
 import {CreateAssetSAPResult} from '../../../../model/api/result/create-asset-SAP-result';
 import {Material} from '../../../../model/api/administration/material';
 import {SubType} from '../../../../model/api/administration/sub-type';
-import {Account} from '../../../../model/api/administration/account';
 import {Request} from '../../../../model/api/administration/request';
 import {Type} from '../../../../model/api/administration/type';
 import {MasterTypeListComponent} from '../../../assets/master-types/master-type.list';
@@ -194,8 +191,8 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
     @ViewChild('uomList') public uomList: UomListComponent;
     @ViewChild('uomListModal') public uomListModal: ModalDirective;
 
-    @ViewChild('accountList') public accountList: AccountList;
-    @ViewChild('accountListModal') public accountListModal: ModalDirective;
+    
+    
 
     @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
     @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
@@ -451,7 +448,7 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
         public dialogService: DialogService,
         public orderHttpService: OrderHttpService,
         public masterTypeHttpService: MasterTypeHttpService,
-        public accountHttpService: AccountHttpService,
+        
         public typeHttpService: TypeHttpService,
         public subTypeHttpService: SubTypeHttpService,
         public accMonthHttpService: AccMonthHttpService,
@@ -1314,19 +1311,7 @@ export class OrderDetailsDialogComponent implements OnInit, AfterViewInit {
       /*end UOM*/
 
 
-        /*begin Account*/
-        public selectAccount() {
-            this.accountList.refresh(null);
-            this.accountListModal.show();
-        }
-
-        public setSelectedAccount() {
-            const items: Array<Account> = this.accountList.selectedItems;
-             this.account = ((items != null) && (items.length === 1)) ? items[0] : null;
-            this.accountListModal.hide();
-        }
-
-        /*end Account*/
+      
 
 
      public cancelChanges() {

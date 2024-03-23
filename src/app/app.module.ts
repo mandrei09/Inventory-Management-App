@@ -161,7 +161,6 @@ import { BudgetValidateList } from './forms/administrations/budget/budget-valida
 import { BudgetValidateManage } from './forms/administrations/budget/budget-validate.manage';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BudgetDetailUI } from './forms/administrations/budget/budget.detail.ui';
-import { AccountList } from './forms/administrations/account/account.list';
 import { ProjectManage } from './forms/assets/projects/project.manage';
 import { ProjectList } from './forms/assets/projects/project.list';
 import { ProjectDetail } from './forms/assets/projects/project.detail';
@@ -236,7 +235,6 @@ import { AssetClassManageComponent } from './forms/assets/asset-classes/asset-cl
 import { AssetClassDetailComponent } from './forms/assets/asset-classes/asset-class.detail';
 import { DocumentHttpService } from './services/http/documents/document.http.service';
 import { AssetOpManageComponent } from './forms/assets/asset-ops/asset-op-manage';
-import { AccountHttpService } from './services/http/administration/account.http.service';
 import { TypeHttpService } from './services/http/administration/type.http.service';
 import { MasterTypeHttpService } from './services/http/assets/master-type.http.service';
 import { ProjectHttpService } from './services/http/assets/project.http.service';
@@ -305,12 +303,6 @@ import { BadgeManage } from './forms/common/badge/badge.manage';
 import { BadgeDetail } from './forms/common/badge/badge.detail';
 import { BadgeList } from './forms/common/badge/badge.list';
 import { BadgeHttpService } from './services/http/common/badge.http.service';
-import { AccountManage } from './forms/administrations/account/account.manage';
-import { AccountDetail } from './forms/administrations/account/account.detail';
-import { ExpAccountDetail } from './forms/administrations/exp-account/exp-account.detail';
-import { ExpAccountList } from './forms/administrations/exp-account/exp-account.list';
-import { ExpAccountManage } from './forms/administrations/exp-account/exp-account.manage';
-import { ExpAccountHttpService } from './services/http/administration/exp-account.http.service';
 import { ArticleDetail } from './forms/administrations/article/article.detail';
 import { ArticleList } from './forms/administrations/article/article.list';
 import { ArticleManage } from './forms/administrations/article/article.manage';
@@ -723,8 +715,6 @@ import {InvStateSelectionDialog} from './forms/inventory/inv-state/selection/inv
 import {InvStateItemSelect} from './forms/inventory/inv-state/selection/inv-state.item-select';
 import {AssetEditComponent} from './forms/assets/assets/asset-edit-dialog/asset-edit.component';
 import {AssetClassHttpService} from './services/http/assets/asset-class.http.service';
-import {ExpAccountSelectionDialog} from './forms/administrations/exp-account/selection/exp-account.selection.dialog';
-import {ExpAccountItemSelect} from './forms/administrations/exp-account/selection/exp-account.item-select';
 import {AssetCategoriesSelectionDialog} from './forms/assets/asset-categories/selection/asset-categories.selection.dialog';
 import {AssetCategoriesItemSelect} from './forms/assets/asset-categories/selection/asset-categories.item-select';
 import {AssetAddDialogComponent} from './forms/assets/assets/asset-add-dialog/asset-add-dialog.component';
@@ -774,7 +764,6 @@ import {AppStateSelectionDialog} from './forms/assets/app-states/selection/app-s
 import { AppStateItemSelect } from './forms/assets/app-states/selection/app-state.item-select';
 import {OfferTypeAddEditComponent} from './forms/offers/offer-type/offer-type-add-edit/offer-type-add-edit.component';
 import {ColorPickerModule} from 'ngx-color-picker';
-import {ExpAccountAddEditComponent} from './forms/administrations/exp-account/exp-account-add-edit/exp-account-add-edit.component';
 import {ArticleAddEditComponent} from './forms/administrations/article/article-add-edit/article-add-edit.component';
 import {DimensionAddEditComponent} from './forms/assets/dimensions/dimension-add-edit/dimension-add-edit.component';
 import {MatrixAddEditComponent} from './forms/administrations/matrix/matrix-add-edit/matrix-add-edit.component';
@@ -856,14 +845,11 @@ import {CostCentersAddEditDialog} from './forms/administrations/cost-centers/cos
 import {CountySelectionDialog} from './forms/administrations/counties/selection/county.selection.dialog';
 import {RoomHttpService} from './services/http/administration/room.http.service';
 import {ProjectTypeDivisionAddEditComponent} from './forms/administrations/project-type-division/project-type-division-add-edit/project-type-division-add-edit.component';
-import {AccountSelectionDialog} from './forms/administrations/account/selection/account.selection.dialog';
-import {AccountItemSelect} from './forms/administrations/account/selection/account.item-select';
 import {ReasonDialogComponent} from './common/reason-dialog/reason-dialog.component';
 import {BudgetForecastCorrectionDialogComponent} from './forms/administrations/budget-forecast/budget-forecast-correction-dialog/budget-forecast-correction-dialog.component';
 import {BudgetBaseSelectionDialog} from './forms/administrations/budget-base/selection/budget-base.selection.dialog';
 import {BudgetBaseItemSelect} from './forms/administrations/budget-base/selection/budget-base.item-select';
 import {AssetReceptionDetailsDialog} from './forms/assets/assets/asset-reception-details/asset-reception-details.dialog';
-import {AccountAddEditComponent} from "./forms/administrations/account/account-add-edit/account-add-edit.component";
 import {DivisionAddEditDialog} from "./forms/administrations/divisions/division-add-edit/division.add-edit.dialog";
 import {ColumnFilterSelectionDialog} from './forms/common/column-filter/selection/column-filter.selection.dialog';
 import {ColumnFilterItemSelect} from './forms/common/column-filter/selection/column-filter.item-select';
@@ -1186,7 +1172,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     BudgetValidateList,
     BudgetValidateManage,
     BudgetDetailUI,
-    AccountList,
     AcquisitionValidateReadOnlyOfferListComponent,
     InsuranceCategoryDetail,
     InsuranceCategoryList,
@@ -1280,12 +1265,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     BadgeManage,
     BadgeDetail,
     BadgeList,
-    AccountManage,
-    AccountList,
-    AccountDetail,
-    ExpAccountManage,
-    ExpAccountList,
-    ExpAccountDetail,
     ArticleManage,
     ArticleList,
     ArticleDetail,
@@ -1587,9 +1566,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     InvStateSelectionDialog,
     InvStateItemSelect,
 
-    ExpAccountSelectionDialog,
-    ExpAccountItemSelect,
-
     AssetCategoriesSelectionDialog,
     AssetCategoriesItemSelect,
 
@@ -1669,9 +1645,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     CountySelectionDialog,
     CountyItemSelect,
 
-    AccountSelectionDialog,
-    AccountItemSelect,
-
     ColumnFilterSelectionDialog,
     ColumnFilterItemSelect,
 
@@ -1719,7 +1692,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     MatrixAddEditComponent,
     CommitteeMemberAddEditDialog,
     AccMonthAddEditComponent,
-    ExpAccountAddEditComponent,
     ArticleAddEditComponent,
     DimensionAddEditComponent,
     PrEditDialogComponent,
@@ -1752,7 +1724,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     PartnerAddEditComponent,
     PrRequestEditDialogComponent,
     RateAddEditComponent,
-    AccountAddEditComponent,
     AppStateAddEditComponent,
     DivisionAddEditDialog,
     AssetPreValidateAddEditDialog,
@@ -1829,7 +1800,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   CustomerService,
   BaThemeConfigProvider,
   AppStateHttpService,
-  AccountHttpService,
   SubTypeHttpService,
   TypeHttpService,
   MasterTypeHttpService,
@@ -1943,7 +1913,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   DashboardHttpService,
   IdentityService,
   BadgeHttpService,
-  ExpAccountHttpService,
   ArticleHttpService,
   BudgetManagerHttpService,
   MaterialHttpService,

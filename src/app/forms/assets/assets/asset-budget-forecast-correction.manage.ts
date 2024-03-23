@@ -106,9 +106,6 @@ import { ProjectHttpService } from '../../../services/http/assets/project.http.s
 import { BrandHttpService } from '../../../services/http/assets/brand.http.service';
 import { NotificationService } from '../../../services/notification.service';
 import { FormControl } from '@angular/forms';
-import { ExpAccount } from '../../../model/api/administration/exp-account';
-import { ExpAccountList } from '../../administrations/exp-account/exp-account.list';
-import { ExpAccountHttpService } from '../../../services/http/administration/exp-account.http.service';
 import { MatTooltip } from '@angular/material/tooltip';
 import { AppendixResult } from '../../../model/api/result/appendix-result';
 import { BudgetForecast } from '../../../model/api/budget/budget-forecast';
@@ -205,8 +202,8 @@ export class AssetBudgetForecastCorrectionManageComponent implements OnInit, Aft
     @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
     @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
 
-    @ViewChild('expAccountList') public expAccountList: ExpAccountList;
-    @ViewChild('expAccountListModal') public expAccountListModal: ModalDirective;
+    
+    
 
     @ViewChild('assetCategoryList') public assetCategoryList: AssetCategoryListComponent;
     @ViewChild('assetCategoryListModal') public assetCategoryListModal: ModalDirective;
@@ -387,7 +384,6 @@ export class AssetBudgetForecastCorrectionManageComponent implements OnInit, Aft
 
 
     public selectedCostCenters: Array<CostCenter> = new Array<CostCenter>();
-    public selectedExpAccounts: Array<ExpAccount> = new Array<ExpAccount>();
 
     public selectedDepartments: Array<Department> = new Array<Department>();
 
@@ -480,7 +476,7 @@ public selectedBudgetForecast: BudgetForecast = null;
                 public roomDetailHttpService: RoomDetailHttpService,
                 public partnerHttpService: PartnerHttpService,
                 public costCenterHttpService: CostCenterHttpService,
-                public expAccountHttpService: ExpAccountHttpService,
+                
                 public countyHttpService: CountyHttpService,
                 public cityHttpService: CityHttpService,
                 public dimensionHttpService: DimensionHttpService,
@@ -593,7 +589,7 @@ public selectedBudgetForecast: BudgetForecast = null;
         this.selectedProjects = new Array<Project>();
         this.selectedBrands = new Array<Brand>();
         this.selectedDictionaryItems = new Array<DictionaryItem>();
-        this.selectedExpAccounts = new Array<ExpAccount>();
+        
         this.selectedBudgetForecast = null;
         this.filter = '';
         this.to =  '';
@@ -1398,32 +1394,12 @@ public selectedBudgetForecast: BudgetForecast = null;
     }
     /*end costcenter*/
 
-
-     /*begin ExpAccount */
-     public selectExpAccounts() {
-
-        this.expAccountListModal.show();
-        this.expAccountList.selectedItems = this.selectedExpAccounts;
-        this.expAccountList.refresh(null);
-    }
-
-    public removeFromExpAccountSelection(expAccount: ExpAccount) {
-        const index: number = this.selectedExpAccounts.indexOf(expAccount);
-        this.selectedExpAccounts.splice(index, 1);
-        this.checkForRefresh();
-    }
-
     public clearExpAccountSelection() {
-        this.selectedExpAccounts = new Array<ExpAccount>();
+        
         this.checkForRefresh();
     }
 
-    public setSelectedExpAccounts() {
-        this.selectedExpAccounts = this.expAccountList.selectedItems;
-        this.expAccountListModal.hide();
-        this.checkForRefresh();
-    }
-    /*end Exp Account*/
+    
 
     /*begin partner*/
     public selectPartners() {
@@ -1991,13 +1967,6 @@ public selectedBudgetForecast: BudgetForecast = null;
             assetFilter.dictionaryItemIds = new Array<number>();
             this.selectedDictionaryItems.forEach((dictionaryItem) => {
                 assetFilter.dictionaryItemIds.push(dictionaryItem.id);
-            });
-        }
-
-        if (this.selectedExpAccounts != null) {
-            assetFilter.expAccountIds = new Array<number>();
-            this.selectedExpAccounts.forEach((expAccount) => {
-                assetFilter.expAccountIds.push(expAccount.id);
             });
         }
 

@@ -10,7 +10,6 @@ import { AssetColumnFilter } from '../../../model/api/assets/asset-column-filter
 import {Material} from '../../../model/api/administration/material';
 import {CostCenter} from '../../../model/api/administration/cost-center';
 import {Location} from '../../../model/api/administration/location';
-import { Account } from '../../../model/api/administration/account';
 import { Partner } from '../../../model/api/documents/partner';
 
 @Component({
@@ -28,13 +27,6 @@ export class AssetListComponent extends GenericTableList<any, number> {
     public get invState(): InvState[] { return this._invState; }
     public set invState(value: InvState[]) {
       this._invState = value;
-      this.getAssetColumnFilters();
-    }
-
-    public _account: Account[] = [];
-    public get account(): Account[] { return this._account; }
-    public set account(value: Account[]) {
-      this._account = value;
       this.getAssetColumnFilters();
     }
 
@@ -209,7 +201,6 @@ export class AssetListComponent extends GenericTableList<any, number> {
     if (this.invState) invStateIds = this.invState.map(p => p.id);
     if (this.material) materialIds = this.material.map(p => p.id);
     if (this.location) locationIds = this.location.map(p => p.id);
-    if (this.account) accountIds = this.account.map(p => p.id);
     if (this.costCenter) costCenterIds = this.costCenter.map(p => p.id);
     if (this.partners) partnersIds = this.partners.map(p => p.id);
     if (this.admAccountCode) admAccountCode = this.admAccountCode;

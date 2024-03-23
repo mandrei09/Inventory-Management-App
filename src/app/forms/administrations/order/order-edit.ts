@@ -7,7 +7,6 @@ import { Employee } from '../../../model/api/administration/employee';
 import { Partner } from '../../../model/api/documents/partner';
 import { TypeList } from '../types/type.list';
 import { SubTypeList } from '../sub-types/sub-type.list';
-import { AccountList } from '../account/account.list';
 import { AdministrationHttpService } from '../../../services/http/administration/administration.http.service';
 import { CostCenterHttpService } from '../../../services/http/administration/cost-center.http.service';
 import { MasterTypeHttpService } from '../../../services/http/assets/master-type.http.service';
@@ -15,7 +14,6 @@ import { TypeHttpService } from '../../../services/http/administration/type.http
 import { SubTypeHttpService } from '../../../services/http/administration/sub-type.http.service';
 import { EntityFileHttpService } from '../../../services/http/common/entity-file.http.service';
 import { AccMonthHttpService } from '../../../services/http/accounting/acc-month.http.service';
-import { AccountHttpService } from '../../../services/http/administration/account.http.service';
 import { MasterTypeListComponent } from '../../assets/master-types/master-type.list';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { EmployeeListComponent } from '../employees/employee.list';
@@ -44,7 +42,6 @@ import { Project } from '../../../model/api/assets/project';
 
 import { AccMonth } from '../../../model/api/accounting/acc-month';
 import { CostCenter } from '../../../model/api/administration/cost-center';
-import { Account } from '../../../model/api/administration/account';
 import { Uom } from '../../../model/api/assets/uom';
 import { AppConfig } from '../../../config';
 import { NotificationService } from '../../../services/notification.service';
@@ -141,7 +138,6 @@ import { CreateAssetSAPResult } from '../../../model/api/result/create-asset-SAP
         EntityFileHttpService,
         EmployeeHttpService,
         AccMonthHttpService,
-        AccountHttpService,
         RequestOpHttpService,
         ProjectTypeDivisionHttpService,
         PartnerHttpService ]
@@ -169,8 +165,8 @@ export class OrderEditComponent implements OnInit, AfterViewInit  {
     @ViewChild('uomList') public uomList: UomListComponent;
     @ViewChild('uomListModal') public uomListModal: ModalDirective;
 
-    @ViewChild('accountList') public accountList: AccountList;
-    @ViewChild('accountListModal') public accountListModal: ModalDirective;
+    
+    
 
     // @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
     // @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
@@ -347,7 +343,7 @@ export class OrderEditComponent implements OnInit, AfterViewInit  {
         public router: Router,
         public requestHttpService: RequestHttpService,
         public masterTypeHttpService: MasterTypeHttpService,
-        public accountHttpService: AccountHttpService,
+        
         public typeHttpService: TypeHttpService,
         public subTypeHttpService: SubTypeHttpService,
         public accMonthHttpService: AccMonthHttpService,
@@ -869,19 +865,7 @@ export class OrderEditComponent implements OnInit, AfterViewInit  {
       /*end UOM*/
 
 
-        /*begin Account*/
-        public selectAccount() {
-            this.accountList.refresh(null);
-            this.accountListModal.show();
-        }
-
-        public setSelectedAccount() {
-            const items: Array<Account> = this.accountList.selectedItems;
-             this.account = ((items != null) && (items.length === 1)) ? items[0] : null;
-            this.accountListModal.hide();
-        }
-
-        /*end Account*/
+      
 
 
      public cancelChanges() {

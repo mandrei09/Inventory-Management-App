@@ -98,12 +98,6 @@ import { ProjectList } from '../projects/project.list';
 import { BrandList } from '../brands/brand.list';
 import { ProjectHttpService } from '../../../services/http/assets/project.http.service';
 import { BrandHttpService } from '../../../services/http/assets/brand.http.service';
-import { Account } from '../../../model/api/administration/account';
-import { ExpAccount } from '../../../model/api/administration/exp-account';
-import { AccountList } from '../../administrations/account/account.list';
-import { ExpAccountList } from '../../administrations/exp-account/exp-account.list';
-import { ExpAccountHttpService } from '../../../services/http/administration/exp-account.http.service';
-import { AccountHttpService } from '../../../services/http/administration/account.http.service';
 import { ArticleHttpService } from '../../../services/http/administration/article.http.service';
 import { Article } from '../../../model/api/assets/article';
 import { ArticleList } from '../../administrations/article/article.list';
@@ -286,11 +280,11 @@ export class AssetDetailUIValidateInvPlusComponent implements AfterViewInit  {
     @ViewChild('administrationDetailModal') public administrationDetailModal: ModalDirective;
     @ViewChild('administrationListModal') public administrationListModal: ModalDirective;
 
-    @ViewChild('accountList') public accountList: AccountList;
-    @ViewChild('accountListModal') public accountListModal: ModalDirective;
+    
+    
 
-    @ViewChild('expAccountList') public expAccountList: ExpAccountList;
-    @ViewChild('expAccountListModal') public expAccountListModal: ModalDirective;
+    
+    
 
     @ViewChild('articleList') public articleList: ArticleList;
     @ViewChild('articleListModal') public articleListModal: ModalDirective;
@@ -492,8 +486,8 @@ export class AssetDetailUIValidateInvPlusComponent implements AfterViewInit  {
         public dictionaryItemHttpService: DictionaryItemHttpService,
         public invStateHttpService: InvStateHttpService,
         public assetClassHttpService: AssetClassHttpService,
-        public accountHttpService: AccountHttpService,
-        public expAccountHttpService: ExpAccountHttpService,
+        
+        
         public articleHttpService: ArticleHttpService,
         public divisionHttpService: DivisionHttpService,
         public countryHttpService: CountryHttpService,
@@ -1951,33 +1945,11 @@ public deleteOperation(){
         popupWinindow.document.close();
     }
 
-    // ACCOUNT //
-
-      public selectAccount() {
-        this.accountList.refresh(null);
-        this.accountListModal.show();
-    }
-
-    public setSelectedAccount() {
-        let items: Array<Account> = this.accountList.selectedItems;
-        this.account = ((items != null) && (items.length === 1)) ? items[0] : null;
-        this.accountListModal.hide();
-    }
+    
 
     // ACCOUNT //
 
-    // EXPACCOUNT //
-
-    public selectExpAccount() {
-        this.expAccountList.refresh(null);
-        this.expAccountListModal.show();
-    }
-
-    public setSelectedExpAccount() {
-        let items: Array<ExpAccount> = this.expAccountList.selectedItems;
-        this.expAccount = ((items != null) && (items.length === 1)) ? items[0] : null;
-        this.expAccountListModal.hide();
-    }
+    
 
     // ACCOUNT //
 

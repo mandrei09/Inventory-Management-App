@@ -6,7 +6,6 @@ import {SubTypeList} from '../../sub-types/sub-type.list';
 import {EmployeeListComponent} from '../../employees/employee.list';
 import {AccMonthListComponent} from '../../../accounting/acc-month.list';
 import {PartnerListComponent} from '../../../documents/partners/partner.list';
-import {AccountList} from '../../account/account.list';
 import {CostCenterListComponent} from '../../cost-centers/cost-center.list';
 import {AdministrationListComponent} from '../../administrations/administration.list';
 import {CompanyListComponent} from '../../../assets/companies/company.list';
@@ -45,7 +44,6 @@ import {RequestBudgetForecast} from '../../../../model/api/requests/request-budg
 import {AppData} from '../../../../app-data';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {BudgetBaseHttpService} from '../../../../services/http/administration/budget-base.http.service';
-import {AccountHttpService} from '../../../../services/http/administration/account.http.service';
 import {MasterTypeHttpService} from '../../../../services/http/assets/master-type.http.service';
 import {BudgetMonthBaseHttpService} from '../../../../services/http/administration/budget-month-base.http.service';
 import {AccMonthHttpService} from '../../../../services/http/accounting/acc-month.http.service';
@@ -91,7 +89,6 @@ import {AppConfig} from '../../../../config';
 import {UploadBudgetTransferModalComponent} from '../../../common/upload-budget-transfer-modal.component';
 import {Partner} from '../../../../model/api/documents/partner';
 import {CostCenter} from '../../../../model/api/administration/cost-center';
-import {Account} from '../../../../model/api/administration/account';
 import {SubTypeHttpService} from '../../../../services/http/administration/sub-type.http.service';
 import {Param} from '../../../../model/common/param';
 import {MasterType} from '../../../../model/api/assets/master-type';
@@ -133,8 +130,8 @@ export class BudgetForecastDetailsDialogComponent implements AfterViewInit {
   @ViewChild('partnerList') public partnerList: PartnerListComponent;
   @ViewChild('partnerListModal') public partnerListModal: ModalDirective;
 
-  @ViewChild('accountList') public accountList: AccountList;
-  @ViewChild('accountListModal') public accountListModal: ModalDirective;
+  
+  
 
   @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
   @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
@@ -310,7 +307,7 @@ export class BudgetForecastDetailsDialogComponent implements AfterViewInit {
     public budgetMonthBaseHttpService: BudgetMonthBaseHttpService,
     public budgetBaseHttpService: BudgetBaseHttpService,
     public masterTypeHttpService: MasterTypeHttpService,
-    public accountHttpService: AccountHttpService,
+    
     public typeHttpService: TypeHttpService,
     public subTypeHttpService: SubTypeHttpService,
     public accMonthHttpService: AccMonthHttpService,
@@ -1209,18 +1206,7 @@ export class BudgetForecastDetailsDialogComponent implements AfterViewInit {
   /*end partner*/
 
 
-  /*begin Account*/
-  public selectAccount() {
-    this.accountList.refresh(null);
-    this.accountListModal.show();
-  }
-
-  public setSelectedAccount() {
-    const items: Array<Account> = this.accountList.selectedItems;
-    this.account = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.accountListModal.hide();
-  }
-  /*end Account*/
+  
 
 
   public cancelChanges() {

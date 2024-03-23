@@ -51,8 +51,6 @@ import {DepartmentDetailComponent as DepartmentUIDetail} from '../../../administ
 import {DimensionDetailComponent} from '../../dimensions/dimension.detail';
 import {AdministrationDetailComponent} from '../../../administrations/administrations/administration.detail';
 import {AdministrationListComponent} from '../../../administrations/administrations/administration.list';
-import {AccountList} from '../../../administrations/account/account.list';
-import {ExpAccountList} from '../../../administrations/exp-account/exp-account.list';
 import {ArticleList} from '../../../administrations/article/article.list';
 import {CountryListComponent} from '../../../administrations/countries/country.list';
 import {CountyListComponent} from '../../../administrations/counties/county.list';
@@ -90,8 +88,6 @@ import {ProjectHttpService} from '../../../../services/http/assets/project.http.
 import {BrandHttpService} from '../../../../services/http/assets/brand.http.service';
 import {DictionaryItemHttpService} from '../../../../services/http/administration/dictionary-item.http.service';
 import {AssetClassHttpService} from '../../../../services/http/assets/asset-class.http.service';
-import {AccountHttpService} from '../../../../services/http/administration/account.http.service';
-import {ExpAccountHttpService} from '../../../../services/http/administration/exp-account.http.service';
 import {ArticleHttpService} from '../../../../services/http/administration/article.http.service';
 import {CountryHttpService} from '../../../../services/http/administration/contry.http.service';
 import {CountyHttpService} from '../../../../services/http/administration/county.http.service';
@@ -120,8 +116,6 @@ import {Administration} from '../../../../model/api/administration/administratio
 import {Company} from '../../../../model/api/assets/company';
 import {Partner} from '../../../../model/api/documents/partner';
 import {CreateAssetSAPResult} from '../../../../model/api/result/create-asset-SAP-result';
-import {Account} from '../../../../model/api/administration/account';
-import {ExpAccount} from '../../../../model/api/administration/exp-account';
 import {Article} from '../../../../model/api/assets/article';
 import {Material} from '../../../../model/api/administration/material';
 import {Type} from '../../../../model/api/administration/type';
@@ -243,11 +237,11 @@ export class AssetStornoDialogComponent implements AfterViewInit, OnInit {
   @ViewChild('administrationDetailModal') public administrationDetailModal: ModalDirective;
   @ViewChild('administrationListModal') public administrationListModal: ModalDirective;
 
-  @ViewChild('accountList') public accountList: AccountList;
-  @ViewChild('accountListModal') public accountListModal: ModalDirective;
+  
+  
 
-  @ViewChild('expAccountList') public expAccountList: ExpAccountList;
-  @ViewChild('expAccountListModal') public expAccountListModal: ModalDirective;
+  
+  
 
   @ViewChild('articleList') public articleList: ArticleList;
   @ViewChild('articleListModal') public articleListModal: ModalDirective;
@@ -419,8 +413,8 @@ export class AssetStornoDialogComponent implements AfterViewInit, OnInit {
     public dictionaryItemHttpService: DictionaryItemHttpService,
     public invStateHttpService: InvStateHttpService,
     public assetClassHttpService: AssetClassHttpService,
-    public accountHttpService: AccountHttpService,
-    public expAccountHttpService: ExpAccountHttpService,
+    
+    
     public articleHttpService: ArticleHttpService,
     public divisionHttpService: DivisionHttpService,
     public countryHttpService: CountryHttpService,
@@ -1576,35 +1570,9 @@ export class AssetStornoDialogComponent implements AfterViewInit, OnInit {
     popupWinindow.document.close();
   }
 
-  // ACCOUNT //
+  
 
-  public selectAccount() {
-    this.accountList.refresh(null);
-    this.accountListModal.show();
-  }
-
-  public setSelectedAccount() {
-    let items: Array<Account> = this.accountList.selectedItems;
-    this.account = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.accountListModal.hide();
-  }
-
-  // ACCOUNT //
-
-  // EXPACCOUNT //
-
-  public selectExpAccount() {
-    this.expAccountList.refresh(null);
-    this.expAccountListModal.show();
-  }
-
-  public setSelectedExpAccount() {
-    let items: Array<ExpAccount> = this.expAccountList.selectedItems;
-    this.expAccount = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.expAccountListModal.hide();
-  }
-
-  // ACCOUNT //
+  
 
   // ARTICLE //
 

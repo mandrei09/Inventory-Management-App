@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { AppData } from '../../../app-data';
 import { Param } from '../../../model/common/param';
 import { GenericTableList } from '../../generic/generic.table.list';
-import { ExpAccount } from '../../../model/api/administration/exp-account';
 import { Material } from '../../../model/api/administration/material';
 
 @Component({

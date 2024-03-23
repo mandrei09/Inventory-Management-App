@@ -1,22 +1,16 @@
 import { Component, EventEmitter, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AppUtils } from '../../../common/app.utils';
-import { Account } from '../../../model/api/administration/account';
-import { ExpAccount } from '../../../model/api/administration/exp-account';
 import { Material } from '../../../model/api/administration/material';
 import { SubType } from '../../../model/api/administration/sub-type';
 import { AssetCategory } from '../../../model/api/assets/asset-category';
 import { PagedResult } from '../../../model/common/paged-result';
 import { Param } from '../../../model/common/param';
-import { AccountHttpService } from '../../../services/http/administration/account.http.service';
-import { ExpAccountHttpService } from '../../../services/http/administration/exp-account.http.service';
 import { MaterialHttpService } from '../../../services/http/administration/material.http.service';
 import { SubTypeHttpService } from '../../../services/http/administration/sub-type.http.service';
 import { AssetCategoryHttpService } from '../../../services/http/assets/asset-category.http.service';
 import { AssetCategoryListComponent } from '../../assets/asset-categories/asset-category.list';
 import { GenericManage, GenericManageViewMode } from '../../generic/generic.manage';
-import { AccountList } from '../account/account.list';
-import { ExpAccountList } from '../exp-account/exp-account.list';
 import { SubTypeList } from '../sub-types/sub-type.list';
 import { MaterialDetailComponent } from './material.detail';
 import { MaterialList } from './material.list';
@@ -29,7 +23,7 @@ import { saveAs as fileSaveAs } from 'file-saver-es';
     selector: 'app-material-manage',
     templateUrl: 'material.manage.html',
     styleUrls: ['material.manage.scss'],
-    providers: [ AccountHttpService, ExpAccountHttpService, AssetCategoryHttpService, SubTypeHttpService ]
+    providers: [ AssetCategoryHttpService, SubTypeHttpService ]
 })
 export class MaterialManageComponent extends GenericManage<Material, number> {
 
@@ -38,12 +32,6 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
      @ViewChild('materialDetailModal') materialDetailModal: ModalDirective;
      @ViewChild('materialList')  materialList: MaterialList;
      @ViewChild('materialDetail') materialDetail: MaterialDetailComponent;
-
-     @ViewChild('accountListModal') accountListModal: ModalDirective;
-     @ViewChild('accountList') accountList: AccountList;
-
-     @ViewChild('expAccountListModal') expAccountListModal: ModalDirective;
-     @ViewChild('expAccountList') expAccountList: ExpAccountList;
 
      @ViewChild('assetCategoryListModal') assetCategoryListModal: ModalDirective;
      @ViewChild('assetCategoryList') assetCategoryList: AssetCategoryListComponent;
@@ -55,8 +43,6 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
     public filter: string = '';
     isCollapsed: boolean = true;
 
-    public selectedAccount: Account = null;
-    public selectedExpAccount: ExpAccount = null;
     public selectedAssetCategory: AssetCategory = null;
     
     //public selectedSubCategoryEN: SubCategoryEN = null;
@@ -65,8 +51,8 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
     constructor(
         public dialog: MatDialog,
         public materialHttpService: MaterialHttpService,
-        public accountHttpService: AccountHttpService,
-        public expAccountHttpService: ExpAccountHttpService,
+        
+        
         public assetCategoryHttpService: AssetCategoryHttpService,
         public subTypeHttpService: SubTypeHttpService) {
         super();
@@ -79,8 +65,8 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
     public addNewItem() {
         super.addNewItem();
 
-        this.materialDetail.account = null;
-        this.materialDetail.expAccount = null;
+        // this.materialDetail.account = null;
+        // this.materialDetail.expAccount = null;
         this.materialDetail.assetCategory = null;
         //this.materialDetail.subCategory = null;
         //this.materialDetail.subCategoryEN = null;
@@ -111,25 +97,25 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
 
         const material: Material = this.selectedItem as Material;
 
-        this.materialDetail.account = null;
+        //this.materialDetail.account = null;
 
-        if ((material != null) && (material.account != null)) {
-            this.accountHttpService
-                .getById(material.account.id)
-                .subscribe((account: Account) => {
-                    this.materialDetail.account = account;
-                });
-        }
+        // if ((material != null) && (material.account != null)) {
+        //     this.accountHttpService
+        //         .getById(material.account.id)
+        //         .subscribe((account: Account) => {
+        //             this.materialDetail.account = account;
+        //         });
+        // }
 
-        this.materialDetail.expAccount = null;
+        // this.materialDetail.expAccount = null;
 
-        if ((material != null) && (material.expAccount != null)) {
-            this.expAccountHttpService
-                .getById(material.expAccount.id)
-                .subscribe((expAccount: ExpAccount) => {
-                    this.materialDetail.expAccount = expAccount;
-                });
-        }
+        // if ((material != null) && (material.expAccount != null)) {
+        //     this.expAccountHttpService
+        //         .getById(material.expAccount.id)
+        //         .subscribe((expAccount: ExpAccount) => {
+        //             this.materialDetail.expAccount = expAccount;
+        //         });
+        // }
 
         this.materialDetail.assetCategory = null;
 
@@ -176,30 +162,30 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
         this.materialDetailModal.hide();
     }
 
-    public onMaterialDetailAccountNeeded() {
-        this.materialDetailModal.hide();
-        this.selectAccount();
-    }
+    // public onMaterialDetailAccountNeeded() {
+    //     this.materialDetailModal.hide();
+    //     this.selectAccount();
+    // }
 
-    public onAccountListCancel() {
-        this.accountListModal.hide();
-        if (this.viewMode === GenericManageViewMode.ItemDetail) {
-            this.materialDetailModal.show();
-        }
-    }
+    // public onAccountListCancel() {
+    //     this.accountListModal.hide();
+    //     if (this.viewMode === GenericManageViewMode.ItemDetail) {
+    //         this.materialDetailModal.show();
+    //     }
+    // }
 
 
-    public onMaterialDetailExpAccountNeeded() {
-        this.materialDetailModal.hide();
-        this.selectExpAccount();
-    }
+    // public onMaterialDetailExpAccountNeeded() {
+    //     this.materialDetailModal.hide();
+    //     this.selectExpAccount();
+    // }
 
-    public onExpAccountListCancel() {
-        this.expAccountListModal.hide();
-        if (this.viewMode === GenericManageViewMode.ItemDetail) {
-            this.materialDetailModal.show();
-        }
-    }
+    // public onExpAccountListCancel() {
+    //     this.expAccountListModal.hide();
+    //     if (this.viewMode === GenericManageViewMode.ItemDetail) {
+    //         this.materialDetailModal.show();
+    //     }
+    // }
 
     public onMaterialDetailAssetCategoryNeeded() {
         this.materialDetailModal.hide();
@@ -248,64 +234,6 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
             this.materialDetailModal.show();
         }
     }
-
-
-    public selectAccount() {
-        this.accountListModal.show();
-        this.accountList.refresh(null);
-    }
-
-    public setSelectedAccount() {
-        this.viewMode = 2;
-        switch (this.viewMode) {
-            case GenericManageViewMode.ItemList:
-                this.selectedAccount = this.accountList.selectedItem;
-                this.accountListModal.hide();
-                this.refresh();
-                break;
-            case GenericManageViewMode.ItemDetail:
-                this.materialDetail.account = this.accountList.selectedItem;
-                this.accountListModal.hide();
-                this.materialDetailModal.show();
-                break;
-            default:
-                break;
-        }
-    }
-
-    public unselectAccount() {
-        this.selectedAccount = null;
-        this.refresh();
-    }
-
-    public selectExpAccount() {
-        this.expAccountListModal.show();
-        this.expAccountList.refresh(null);
-    }
-
-    public setSelectedExpAccount() {
-        this.viewMode = 2;
-        switch (this.viewMode) {
-            case GenericManageViewMode.ItemList:
-                this.selectedExpAccount = this.expAccountList.selectedItem;
-                this.expAccountListModal.hide();
-                this.refresh();
-                break;
-            case GenericManageViewMode.ItemDetail:
-                this.materialDetail.expAccount = this.expAccountList.selectedItem;
-                this.expAccountListModal.hide();
-                this.materialDetailModal.show();
-                break;
-            default:
-                break;
-        }
-    }
-
-    public unselectExpAccount() {
-        this.selectedExpAccount = null;
-        this.refresh();
-    }
-
 
     // public selectAssetCategory() {
     //     this.assetCategoryListModal.show();
@@ -400,7 +328,7 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
     public setSelectedSubType() {
         this.viewMode = 2;
         switch (this.viewMode) {
-            case GenericManageViewMode.ItemList:
+            case GenericManageViewMode.ItemDetail:
                 this.selectedSubType = this.subTypeList.selectedItem;
                 this.subTypeListModal.hide();
                 this.refresh();
@@ -424,8 +352,6 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
         const params: Array<Param> = new Array<Param>();
 
         params.push(new Param('filter', this.filter));
-        params.push(new Param('accountIds', AppUtils.getIdsList<Account, number>([ this.selectedAccount ])));
-        params.push(new Param('expAccountIds', AppUtils.getIdsList<ExpAccount, number>([ this.selectedExpAccount ])));
         params.push(new Param('assetCategoryIds', AppUtils.getIdsList<AssetCategory, number>([ this.selectedAssetCategory ])));
         // params.push(new Param('subCategoryIds', AppUtils.getIdsList<SubCategory, number>([ this.selectedSubCategory ])));
         // params.push(new Param('subCategoryENIds', AppUtils.getIdsList<SubCategoryEN, number>([ this.selectedSubCategoryEN ])));
@@ -436,8 +362,6 @@ export class MaterialManageComponent extends GenericManage<Material, number> {
     public getFilters(): Array<Param> {
       const params: Array<Param> = new Array<Param>();
       params.push(new Param('filter', this.filter));
-      params.push(new Param('accountIds', AppUtils.getIdsList<Account, number>([ this.selectedAccount ])));
-      params.push(new Param('expAccountIds', AppUtils.getIdsList<ExpAccount, number>([ this.selectedExpAccount ])));
       params.push(new Param('assetCategoryIds', AppUtils.getIdsList<AssetCategory, number>([ this.selectedAssetCategory ])));
     //   params.push(new Param('subCategoryIds', AppUtils.getIdsList<SubCategory, number>([ this.selectedSubCategory ])));
     //   params.push(new Param('subCategoryENIds', AppUtils.getIdsList<SubCategoryEN, number>([ this.selectedSubCategoryEN ])));

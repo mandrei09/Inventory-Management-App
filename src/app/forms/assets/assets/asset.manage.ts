@@ -107,9 +107,6 @@ import { ProjectHttpService } from '../../../services/http/assets/project.http.s
 import { BrandHttpService } from '../../../services/http/assets/brand.http.service';
 import { NotificationService } from '../../../services/notification.service';
 import { FormControl } from '@angular/forms';
-import { ExpAccount } from '../../../model/api/administration/exp-account';
-import { ExpAccountList } from '../../administrations/exp-account/exp-account.list';
-import { ExpAccountHttpService } from '../../../services/http/administration/exp-account.http.service';
 import { MatTooltip } from '@angular/material/tooltip';
 import { AppendixResult } from '../../../model/api/result/appendix-result';
 import * as JSZip from 'jszip';
@@ -234,8 +231,8 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
     @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
     @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
 
-    @ViewChild('expAccountList') public expAccountList: ExpAccountList;
-    @ViewChild('expAccountListModal') public expAccountListModal: ModalDirective;
+    
+    
 
     @ViewChild('assetCategoryList') public assetCategoryList: AssetCategoryListComponent;
     @ViewChild('assetCategoryListModal') public assetCategoryListModal: ModalDirective;
@@ -417,7 +414,6 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
 
 
     public selectedCostCenters: Array<CostCenter> = new Array<CostCenter>();
-    public selectedExpAccounts: Array<ExpAccount> = new Array<ExpAccount>();
 
     public selectedDepartments: Array<Department> = new Array<Department>();
 
@@ -511,7 +507,7 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
                 public roomDetailHttpService: RoomDetailHttpService,
                 public partnerHttpService: PartnerHttpService,
                 public costCenterHttpService: CostCenterHttpService,
-                public expAccountHttpService: ExpAccountHttpService,
+                
                 public countyHttpService: CountyHttpService,
                 public cityHttpService: CityHttpService,
                 public dimensionHttpService: DimensionHttpService,
@@ -626,7 +622,7 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
         this.selectedProjects = new Array<Project>();
         this.selectedBrands = new Array<Brand>();
         this.selectedDictionaryItems = new Array<DictionaryItem>();
-        this.selectedExpAccounts = new Array<ExpAccount>();
+        
         this.filter = '';
         this.to =  '';
         this.from = '';
@@ -1549,31 +1545,14 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
     /*end costcenter*/
 
 
-     /*begin ExpAccount */
-     public selectExpAccounts() {
-
-        this.expAccountListModal.show();
-        this.expAccountList.selectedItems = this.selectedExpAccounts;
-        this.expAccountList.refresh(null);
-    }
-
-    public removeFromExpAccountSelection(expAccount: ExpAccount) {
-        const index: number = this.selectedExpAccounts.indexOf(expAccount);
-        this.selectedExpAccounts.splice(index, 1);
-        this.checkForRefresh();
-    }
+     
 
     public clearExpAccountSelection() {
-        this.selectedExpAccounts = new Array<ExpAccount>();
+        
         this.checkForRefresh();
     }
 
-    public setSelectedExpAccounts() {
-        this.selectedExpAccounts = this.expAccountList.selectedItems;
-        this.expAccountListModal.hide();
-        this.checkForRefresh();
-    }
-    /*end Exp Account*/
+    
 
     /*begin partner*/
     public selectPartners() {
@@ -2090,13 +2069,6 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
             assetFilter.dictionaryItemIds = new Array<number>();
             this.selectedDictionaryItems.forEach((dictionaryItem) => {
                 assetFilter.dictionaryItemIds.push(dictionaryItem.id);
-            });
-        }
-
-        if (this.selectedExpAccounts != null) {
-            assetFilter.expAccountIds = new Array<number>();
-            this.selectedExpAccounts.forEach((expAccount) => {
-                assetFilter.expAccountIds.push(expAccount.id);
             });
         }
 

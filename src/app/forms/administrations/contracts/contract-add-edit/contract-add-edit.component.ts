@@ -7,7 +7,6 @@ import {SubTypeList} from '../../sub-types/sub-type.list';
 import {EmployeeListComponent} from '../../employees/employee.list';
 import {AccMonthListComponent} from '../../../accounting/acc-month.list';
 import {PartnerListComponent} from '../../../documents/partners/partner.list';
-import {AccountList} from '../../account/account.list';
 import {CostCenterListComponent} from '../../cost-centers/cost-center.list';
 import {AdministrationListComponent} from '../../administrations/administration.list';
 import {CompanyListComponent} from '../../../assets/companies/company.list';
@@ -51,11 +50,9 @@ import {AdmCenter} from '../../../../model/api/administration/adm-center';
 import {Region} from '../../../../model/api/administration/region';
 import {AssetType} from '../../../../model/api/assets/asset-type';
 import {CostCenter} from '../../../../model/api/administration/cost-center';
-import {Account} from '../../../../model/api/administration/account';
 import {AppConfig} from '../../../../config';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {BudgetHttpService} from '../../../../services/http/administration/budget.http.service';
-import {AccountHttpService} from '../../../../services/http/administration/account.http.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {MasterTypeHttpService} from '../../../../services/http/assets/master-type.http.service';
 import {MasterType} from '../../../../model/api/assets/master-type';
@@ -128,8 +125,8 @@ export class ContractAddEditComponent implements AfterViewInit {
     @ViewChild('partnerList') public partnerList: PartnerListComponent;
     @ViewChild('partnerListModal') public partnerListModal: ModalDirective;
 
-    @ViewChild('accountList') public accountList: AccountList;
-    @ViewChild('accountListModal') public accountListModal: ModalDirective;
+    
+    
 
     @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
     @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
@@ -216,7 +213,7 @@ export class ContractAddEditComponent implements AfterViewInit {
         public router: Router,
         public contractHttpService: ContractHttpService,
         public masterTypeHttpService: MasterTypeHttpService,
-        public accountHttpService: AccountHttpService,
+        
         public typeHttpService: TypeHttpService,
         public subTypeHttpService: SubTypeHttpService,
         public accMonthHttpService: AccMonthHttpService,
@@ -536,19 +533,7 @@ export class ContractAddEditComponent implements AfterViewInit {
     /*end partner*/
 
 
-        /*begin Account*/
-        public selectAccount() {
-            this.accountList.refresh(null);
-            this.accountListModal.show();
-        }
-
-        public setSelectedAccount() {
-            const items: Array<Account> = this.accountList.selectedItems;
-             this.account = ((items != null) && (items.length === 1)) ? items[0] : null;
-            this.accountListModal.hide();
-        }
-
-        /*end Account*/
+      
 
 
      public cancelChanges() {

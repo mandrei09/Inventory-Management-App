@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { ExpAccount } from '../../../model/api/administration/exp-account';
 import { Material } from '../../../model/api/administration/material';
 import { Stock } from '../../../model/api/administration/stock';
 import { PagedResult } from '../../../model/common/paged-result';
