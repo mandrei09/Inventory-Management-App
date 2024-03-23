@@ -74,11 +74,8 @@ import { DepartmentDetailComponent as DepartmentUIDetail } from '../../administr
 import { RoomDetailComponent as RoomUIDetail } from '../../administrations/rooms/room.detail';
 import { InvStateDetail } from '../../inventory/inv-state/inv-state.detail';
 import { InvStateList } from '../../inventory/inv-state/inv-state.list';
-import { InsuranceCategoryList } from '../insurance-categories/insurance-category.list';
 
 
-import { InsuranceCategory } from '../../../model/api/assets/insurance-category';
-import { InsuranceCategoryHttpService } from '../../../services/http/assets/insurance-category.http.service';
 import { NotificationService } from '../../../services/notification.service';
 import { AssetNature } from '../../../model/api/assets/asset-nature';
 import { AssetNatureListComponent } from '../asset-natures/asset-nature.list';
@@ -140,8 +137,8 @@ export class AssetDetailUIOperationTransferComponent implements AfterViewInit, O
     @ViewChild('assetCategoryDetailModal') public assetCategoryDetailModal: ModalDirective;
     @ViewChild('assetCategoryListModal') public assetCategoryListModal: ModalDirective;
 
-    @ViewChild('insuranceCategoryList') public insuranceCategoryList: InsuranceCategoryList;
-    @ViewChild('insuranceCategoryListModal') public insuranceCategoryListModal: ModalDirective;
+    
+    
 
     @ViewChild('projectList') public projectList: ProjectList;
     @ViewChild('projectListModal') public projectListModal: ModalDirective;
@@ -366,7 +363,7 @@ export class AssetDetailUIOperationTransferComponent implements AfterViewInit, O
     
     public project: Project = null;
     public brand: Brand = null;
-    public insuranceCategory: InsuranceCategory = null;
+    
     public dictionaryItem: CodeNameEntity = null;
     public costCenter: CodeNameEntity = null;
     public plant: CodeNameEntity = null;
@@ -422,7 +419,7 @@ export class AssetDetailUIOperationTransferComponent implements AfterViewInit, O
         public router: Router,
         public assetHttpService: AssetHttpService,
         public assetCategoryHttpService: AssetCategoryHttpService,
-        public insuranceCategoryHttpService: InsuranceCategoryHttpService,
+        
         public projectHttpService: ProjectHttpService,
         public brandHttpService: BrandHttpService,
         
@@ -628,7 +625,7 @@ export class AssetDetailUIOperationTransferComponent implements AfterViewInit, O
             
             this.subType = asset.adm.subType;
             this.assetClass = asset.adm.assetClass;
-            this.insuranceCategory = asset.adm.insuranceCategory;
+            
             this.assetType = asset.adm.assetType;
             this.project = asset.adm.project;
             this.company = asset.adm.company;
@@ -755,7 +752,7 @@ export class AssetDetailUIOperationTransferComponent implements AfterViewInit, O
             // 
             // this.subType = asset.adm.subType;
             // this.assetClass = asset.adm.assetClass;
-            // this.insuranceCategory = asset.adm.insuranceCategory;
+            // 
             // this.assetType = asset.adm.assetType;
             // this.project = asset.adm.project;
             this.toCompany = asset.adm.company;
@@ -819,7 +816,7 @@ export class AssetDetailUIOperationTransferComponent implements AfterViewInit, O
     public assetCategoryAddCanceled() {
         this.assetCategoryDetailModal.hide();
     }
-    /*end asset category*/
+    
 
 
      /*begin project */
@@ -851,19 +848,9 @@ export class AssetDetailUIOperationTransferComponent implements AfterViewInit, O
 
     /*end brand */
 
-      /*begin INSURANCE CATEGORY */
-      public selectInsuranceCategory() {
-        this.insuranceCategoryList.refresh(null);
-        this.insuranceCategoryListModal.show();
-    }
+      
 
-    public setSelectedInsuranceCategory() {
-        const items: Array<InsuranceCategory> = this.insuranceCategoryList.selectedItems;
-        this.insuranceCategory = ((items != null) && (items.length === 1)) ? items[0] : null;
-        this.insuranceCategoryListModal.hide();
-    }
-
-    /*end asset category*/
+    
 
       
 
@@ -908,7 +895,7 @@ export class AssetDetailUIOperationTransferComponent implements AfterViewInit, O
     public dictionaryItemAddCanceled() {
         this.dictionaryItemDetailModal.hide();
     }
-    /*end asset category*/
+    
 
 
         /*begin asset type*/
@@ -1460,7 +1447,7 @@ export class AssetDetailUIOperationTransferComponent implements AfterViewInit, O
         
         this.fromAsset.subTypeId = this.subType != null ? this.subType.id : null;
         this.fromAsset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
-        this.fromAsset.insuranceCategoryId = this.insuranceCategory != null ? this.insuranceCategory.id : null;
+        
         this.fromAsset.assetTypeId = this.assetType != null ? this.assetType.id : null;
         this.fromAsset.projectId = this.project != null ? this.project.id : null;
         this.fromAsset.dictionaryItemId = this.dictionaryItem != null ? this.dictionaryItem.id : null;

@@ -891,7 +891,7 @@ export class AssetRecoManageComponent { // extends GenericManage<AssetInvDetail>
     }
 
 
-    /*end asset category*/
+    
 
         /*begin uom*/
         public selectUoms() {
@@ -946,7 +946,7 @@ export class AssetRecoManageComponent { // extends GenericManage<AssetInvDetail>
         }
 
 
-        /*end asset category*/
+        
 
 
     /*begin asset type*/

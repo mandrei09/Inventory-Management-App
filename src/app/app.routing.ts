@@ -88,7 +88,6 @@ import { AssetManageComponent } from './forms/assets/assets/asset.manage';
 import { BrandManage } from './forms/assets/brands/brand.manage';
 import { CompanyManageComponent } from './forms/assets/companies/company.manage';
 import { DimensionManageComponent } from './forms/assets/dimensions/dimension.manage';
-import { InsuranceCategoryManage } from './forms/assets/insurance-categories/insurance-category.manage';
 import { ModelManage } from './forms/assets/models/model.manage';
 import { ProjectTypeManageComponent } from './forms/assets/project-types/project-type.manage';
 import { ProjectManage } from './forms/assets/projects/project.manage';
@@ -360,7 +359,6 @@ const AppRoutes: Routes = [
       { path: 'nom/dictionarytypes', canActivate: [AuthGuard], component: DictionaryTypeManageComponent, data: { title: 'Tip dictionar', auth: 'VIEW|DICTIONARYTYPES', shouldDetach: true}},
       { path: 'nom/uoms', canActivate: [AuthGuard], component: UomManageComponent, data: { title: 'Simboluri', auth: 'VIEW|UOMS', shouldDetach: true }},
       { path: 'nom/dimensions', canActivate: [AuthGuard], component: DimensionManageComponent, data: { title: 'Dimensiuni', auth: 'VIEW|DIMENSIONS', shouldDetach: true}},
-      { path: 'nom/insurancecategories', canActivate: [AuthGuard], component: InsuranceCategoryManage, data: { title: 'BS', auth: 'VIEW|INSURANCECATEGORIES', shouldDetach: true }},
       { path: 'nom/assettypes', canActivate: [AuthGuard], component: AssetTypeManageComponent, data: { title: 'Tipuri', auth: 'VIEW|ASSETTYPES', shouldDetach: true }},
       { path: 'nom/activities', canActivate: [AuthGuard], component: ActivityManage, data: { title: 'WBS', auth: 'VIEW|ACTIVITIES', shouldDetach: true }},
       { path: 'nom/taxs', canActivate: [AuthGuard], component: TaxManageComponent, data: { title: 'Tax', auth: 'VIEW|TAXS', shouldDetach: true }},

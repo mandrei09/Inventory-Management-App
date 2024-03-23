@@ -344,7 +344,7 @@ export class AssetEmployeeDetailUIComponent implements OnInit, AfterViewInit  {
 
         // this.dictionaryItemListModal.hide();
     }
-    /*end asset category*/
+    
 
 
      /*begin BRAND */

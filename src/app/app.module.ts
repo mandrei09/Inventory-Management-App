@@ -271,10 +271,6 @@ import { AssetNatureHttpService } from './services/http/assets/asset-nature.http
 import { AssetNatureManageComponent } from './forms/assets/asset-natures/asset-nature.manage';
 import { AssetNatureListComponent } from './forms/assets/asset-natures/asset-nature.list';
 import { AssetNatureDetailComponent } from './forms/assets/asset-natures/asset-nature.detail';
-import { InsuranceCategoryDetail } from './forms/assets/insurance-categories/insurance-category.detail';
-import { InsuranceCategoryList } from './forms/assets/insurance-categories/insurance-category.list';
-import { InsuranceCategoryManage } from './forms/assets/insurance-categories/insurance-category.manage';
-import { InsuranceCategoryHttpService } from './services/http/assets/insurance-category.http.service';
 import { TableDefinitionManageComponent } from './forms/common/table-definition/table-definition.manage';
 import { ColumnDefinitionListComponent } from './forms/common/column-definition/column-definition.list';
 import { ColumnDefinitionDetail } from './forms/common/column-definition/column-definition.detail';
@@ -778,7 +774,6 @@ import {SubTypeAddEditComponent} from './forms/administrations/sub-types/sub-typ
 import {AssetClassAddEditComponent} from './forms/assets/asset-classes/asset-class-add-edit/asset-class-add-edit.component';
 import {AdmCenterAddEditComponent} from './forms/administrations/adm-centers/adm-center-add-edit/adm-center-add-edit.component';
 import {RegionAddEditComponent} from './forms/administrations/regions/region-add-edit/region-add-edit.component';
-import {InsuranceCategoryAddEditComponent} from './forms/assets/insurance-categories/insurance-category-add-edit/insurance-category-add-edit.component';
 import {DictionaryTypeAddEditComponent} from './forms/administrations/dictionary-type/dictionary-type-add-edit/dictionary-type-add-edit.component';
 import {DictionaryTypeHttpService} from './services/http/administration/dictionary-type.http.service';
 import {DeviceTypeAddEditComponent} from './forms/common/device-types/device-type-add-edit/device-type-add-edit.component';
@@ -1168,9 +1163,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     BudgetValidateManage,
     BudgetDetailUI,
     AcquisitionValidateReadOnlyOfferListComponent,
-    InsuranceCategoryDetail,
-    InsuranceCategoryList,
-    InsuranceCategoryManage,
     ProjectManage,
     ProjectList,
     ProjectDetail,
@@ -1699,7 +1691,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     AssetClassAddEditComponent,
     AdmCenterAddEditComponent,
     RegionAddEditComponent,
-    InsuranceCategoryAddEditComponent,
     DictionaryTypeAddEditComponent,
     DeviceTypeAddEditComponent,
     AssetCloneDialogComponent,
@@ -1826,7 +1817,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   InvStateHttpService,
   PlantHttpService,
   WFHCheckHttpService,
-  InsuranceCategoryHttpService,
   DocumentTypeHttpService,
   DictionaryItemHttpService,
   AssetComponentDetailHttpService,

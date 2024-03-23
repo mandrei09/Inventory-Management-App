@@ -8,7 +8,6 @@ import {
 import { AssetCategoryDetailComponent } from "../../asset-categories/asset-category.detail";
 import { AssetCategoryListComponent } from "../../asset-categories/asset-category.list";
 import { ModalDirective } from "ngx-bootstrap/modal";
-import { InsuranceCategoryList } from "../../insurance-categories/insurance-category.list";
 import { ProjectList } from "../../projects/project.list";
 import { OrderList } from "../../../administrations/order/order.list";
 import { BrandList } from "../../brands/brand.list";
@@ -64,7 +63,6 @@ import { CodeNameEntity } from "../../../../model/api/common/code-name-entity";
 import { Project } from "../../../../model/api/assets/project";
 import { Order } from "../../../../model/api/administration/order";
 import { Brand } from "../../../../model/api/assets/brand";
-import { InsuranceCategory } from "../../../../model/api/assets/insurance-category";
 import { Uom } from "../../../../model/api/assets/uom";
 import { AssetNature } from "../../../../model/api/assets/asset-nature";
 import { Employee } from "../../../../model/api/administration/employee";
@@ -78,7 +76,6 @@ import { Location as NgLocation } from "@angular/common";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { AssetHttpService } from "../../../../services/http/assets/asset.http.service";
 import { AssetCategoryHttpService } from "../../../../services/http/assets/asset-category.http.service";
-import { InsuranceCategoryHttpService } from "../../../../services/http/assets/insurance-category.http.service";
 import { ProjectHttpService } from "../../../../services/http/assets/project.http.service";
 import { OrderHttpService } from "../../../../services/http/administration/order.http.service";
 import { BrandHttpService } from "../../../../services/http/assets/brand.http.service";
@@ -184,10 +181,8 @@ export class AssetAddDialogComponent implements AfterViewInit {
   @ViewChild("assetCategoryListModal")
   public assetCategoryListModal: ModalDirective;
 
-  @ViewChild("insuranceCategoryList")
-  public insuranceCategoryList: InsuranceCategoryList;
-  @ViewChild("insuranceCategoryListModal")
-  public insuranceCategoryListModal: ModalDirective;
+  
+  
 
   @ViewChild("projectList") public projectList: ProjectList;
   @ViewChild("projectListModal") public projectListModal: ModalDirective;
@@ -461,7 +456,7 @@ export class AssetAddDialogComponent implements AfterViewInit {
   // public order: Order = null;
   // public assetEntity: AssetEntity = null;
   public brand: Brand = null;
-  public insuranceCategory: InsuranceCategory = null;
+  
   public dictionaryItem: CodeNameEntity = null;
   // public category: CodeNameEntity = null;
   // //public subCategory: SubCategory = null;
@@ -516,7 +511,7 @@ export class AssetAddDialogComponent implements AfterViewInit {
     public dialogService: DialogService,
     public assetHttpService: AssetHttpService,
     public assetCategoryHttpService: AssetCategoryHttpService,
-    public insuranceCategoryHttpService: InsuranceCategoryHttpService,
+    
     public projectHttpService: ProjectHttpService,
     public orderHttpService: OrderHttpService,
     public brandHttpService: BrandHttpService,
@@ -756,7 +751,7 @@ export class AssetAddDialogComponent implements AfterViewInit {
       this.assetClass = asset.adm.assetClass;
       this.admCenter = asset.adm.admCenter;
       this.region = asset.adm.region;
-      this.insuranceCategory = asset.adm.insuranceCategory;
+      
       this.assetType = asset.adm.assetType;
       this.project = asset.adm.project;
       this.company = asset.adm.company;
@@ -802,7 +797,7 @@ export class AssetAddDialogComponent implements AfterViewInit {
   public assetCategoryAddCanceled() {
     this.assetCategoryDetailModal.hide();
   }
-  /*end asset category*/
+  
 
   /*begin project */
   public selectProject() {
@@ -908,21 +903,9 @@ export class AssetAddDialogComponent implements AfterViewInit {
 
   /*end brand */
 
-  /*begin INSURANCE CATEGORY */
-  public selectInsuranceCategory() {
-    this.insuranceCategoryList.refresh(null);
-    this.insuranceCategoryListModal.show();
-  }
+  
 
-  public setSelectedInsuranceCategory() {
-    let items: Array<InsuranceCategory> =
-      this.insuranceCategoryList.selectedItems;
-    this.insuranceCategory =
-      items != null && items.length === 1 ? items[0] : null;
-    this.insuranceCategoryListModal.hide();
-  }
-
-  /*end asset category*/
+  
 
   /*begin dictionary Item*/
   public selectDictionaryItem() {
@@ -937,7 +920,7 @@ export class AssetAddDialogComponent implements AfterViewInit {
     // this.assetType = items[0].assetType;
     this.dictionaryItemListModal.hide();
   }
-  /*end asset category*/
+  
 
   /* BEGIN CATEGORY  */
   //  public selectCategory() {

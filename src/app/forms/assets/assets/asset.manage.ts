@@ -95,10 +95,7 @@ import { AssetNature } from '../../../model/api/assets/asset-nature';
 import { AssetNatureListComponent } from '../asset-natures/asset-nature.list';
 import { AssetNatureHttpService } from '../../../services/http/assets/asset-nature.http.service';
 
-import { InsuranceCategory } from '../../../model/api/assets/insurance-category';
 
-import { InsuranceCategoryList } from '../insurance-categories/insurance-category.list';
-import { InsuranceCategoryHttpService } from '../../../services/http/assets/insurance-category.http.service';
 import { Project } from '../../../model/api/assets/project';
 import { Brand } from '../../../model/api/assets/brand';
 import { ProjectList } from '../projects/project.list';
@@ -246,8 +243,8 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
     
     
 
-    @ViewChild('insuranceCategoryList') public insuranceCategoryList: InsuranceCategoryList;
-    @ViewChild('insuranceCategoryListModal') public insuranceCategoryListModal: ModalDirective;
+    
+    
 
     @ViewChild('assetNatureList') public assetNatureList: AssetNatureListComponent;
     @ViewChild('assetNatureListModal') public assetNatureListModal: ModalDirective;
@@ -391,7 +388,7 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
     public selectedUoms: Array<Uom> = new Array<Uom>();
     public selectedCompanies: Array<Company> = new Array<Company>();
     
-    public selectedInsuranceCategories: Array<InsuranceCategory> = new Array<InsuranceCategory>();
+    
     public selectedCounties: Array<County> = new Array<County>();
     public selectedCities: Array<City> = new Array<City>();
     public selectedDimensions: Array<Dimension> = new Array<Dimension>();
@@ -488,7 +485,7 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
                 public uomHttpService: UomHttpService,
                 public companyHttpService: CompanyHttpService,
                 
-                public insuranceCategoryHttpService: InsuranceCategoryHttpService,
+                
                 public assetNatureHttpService: AssetNatureHttpService,
                 public assetClassHttpService: AssetClassHttpService,
                 public assetHttpService: AssetHttpService,
@@ -600,7 +597,7 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
         this.selectedCities = new Array<City>();
         this.selectedDimensions = new Array<Dimension>();
         
-        this.selectedInsuranceCategories = new Array<InsuranceCategory>();
+        
         this.selectedLocations = new Array<Location>();
         this.selectedRooms = new Array<Room>();
         this.selectedCostCenters = new Array<CostCenter>();
@@ -1137,7 +1134,7 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
     }
 
 
-    /*end asset category*/
+    
 
         /*begin uom*/
         public selectUoms() {
@@ -1192,37 +1189,12 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
         }
 
 
-        /*end asset category*/
+        
 
           
 
 
-         /*begin INSURANCECATEGORY */
-         public selectInsuranceCategories() {
-            this.insuranceCategoryListModal.show();
-            this.insuranceCategoryList.selectedItems = this.selectedInsuranceCategories;
-            this.insuranceCategoryList.refresh(null);
-        }
-
-        public removeFromInsuranceCategorySelection(insuranceCategory: InsuranceCategory) {
-            const index: number = this.selectedInsuranceCategories.indexOf(insuranceCategory);
-            this.selectedInsuranceCategories.splice(index, 1);
-            this.checkForRefresh();
-        }
-
-        public clearInsuranceCategorySelection() {
-            this.selectedInsuranceCategories = new Array<InsuranceCategory>();
-            this.checkForRefresh();
-        }
-
-        public setSelectedInsuranceCategories() {
-            this.selectedInsuranceCategories = this.insuranceCategoryList.selectedItems;
-            this.insuranceCategoryListModal.hide();
-            this.checkForRefresh();
-        }
-
-
-        /*end  INSURANCECATEGORY  */
+         
 
 
             /*begin ASSET NATURE */
@@ -2016,12 +1988,7 @@ export class AssetManageComponent implements OnInit, AfterViewInit { // extends 
 
         
 
-        if (this.selectedInsuranceCategories != null) {
-            assetFilter.insuranceCategoryIds = new Array<number>();
-            this.selectedInsuranceCategories.forEach((insuranceCategory) => {
-                assetFilter.insuranceCategoryIds.push(insuranceCategory.id);
-            });
-        }
+        
 
         if (this.selectedDivisions != null) {
             assetFilter.divisionIds = new Array<number>();

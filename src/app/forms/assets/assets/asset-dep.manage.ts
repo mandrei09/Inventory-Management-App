@@ -505,7 +505,7 @@ export class AssetDepManageComponent {
     }
 
 
-    /*end asset category*/
+    
 
     public checkForRefresh() {
         this.assetList.selectedItems = new Array<AssetDepDetail>();

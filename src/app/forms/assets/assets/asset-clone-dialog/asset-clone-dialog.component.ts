@@ -25,7 +25,6 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AppConfig} from '../../../../config';
 import {AssetCategoryDetailComponent} from '../../asset-categories/asset-category.detail';
 import {AssetCategoryListComponent} from '../../asset-categories/asset-category.list';
-import {InsuranceCategoryList} from '../../insurance-categories/insurance-category.list';
 import {ProjectList} from '../../projects/project.list';
 import {BrandList} from '../../brands/brand.list';
 import {DictionaryItemDetailComponent} from '../../../administrations/dictionary-item/dictionary-item.detail';
@@ -71,7 +70,6 @@ import {AssetTransferSAP, SaveAssetCloneTransfer} from '../../../../model/api/as
 import {CodeNameEntity} from '../../../../model/api/common/code-name-entity';
 import {Project} from '../../../../model/api/assets/project';
 import {Brand} from '../../../../model/api/assets/brand';
-import {InsuranceCategory} from '../../../../model/api/assets/insurance-category';
 import {Uom} from '../../../../model/api/assets/uom';
 import {AssetNature} from '../../../../model/api/assets/asset-nature';
 import {Dimension} from '../../../../model/api/administration/dimension';
@@ -82,7 +80,6 @@ import {AssetClass} from '../../../../model/api/assets/asset-class';
 import {SubType} from '../../../../model/api/administration/sub-type';
 import {AssetHttpService} from '../../../../services/http/assets/asset.http.service';
 import {AssetCategoryHttpService} from '../../../../services/http/assets/asset-category.http.service';
-import {InsuranceCategoryHttpService} from '../../../../services/http/assets/insurance-category.http.service';
 import {ProjectHttpService} from '../../../../services/http/assets/project.http.service';
 import {BrandHttpService} from '../../../../services/http/assets/brand.http.service';
 import {DictionaryItemHttpService} from '../../../../services/http/administration/dictionary-item.http.service';
@@ -136,8 +133,8 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
   @ViewChild('assetCategoryDetailModal') public assetCategoryDetailModal: ModalDirective;
   @ViewChild('assetCategoryListModal') public assetCategoryListModal: ModalDirective;
 
-  @ViewChild('insuranceCategoryList') public insuranceCategoryList: InsuranceCategoryList;
-  @ViewChild('insuranceCategoryListModal') public insuranceCategoryListModal: ModalDirective;
+  
+  
 
   @ViewChild('projectList') public projectList: ProjectList;
   @ViewChild('projectListModal') public projectListModal: ModalDirective;
@@ -360,7 +357,7 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
   public assetCategory: AssetCategory = null;
   public project: Project = null;
   public brand: Brand = null;
-  public insuranceCategory: InsuranceCategory = null;
+  
   public dictionaryItem: CodeNameEntity = null;
   public costCenter: CodeNameEntity = null;
   public plant: CodeNameEntity = null;
@@ -416,7 +413,7 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
     public router: Router,
     public assetHttpService: AssetHttpService,
     public assetCategoryHttpService: AssetCategoryHttpService,
-    public insuranceCategoryHttpService: InsuranceCategoryHttpService,
+    
     public projectHttpService: ProjectHttpService,
     public brandHttpService: BrandHttpService,
     public dictionaryItemHttpService: DictionaryItemHttpService,
@@ -619,7 +616,7 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
       // this.material = asset.adm.material;
       this.subType = asset.adm.subType;
       this.assetClass = asset.adm.assetClass;
-      this.insuranceCategory = asset.adm.insuranceCategory;
+      
       this.assetType = asset.adm.assetType;
       this.project = asset.adm.project;
       this.company = asset.adm.company;
@@ -737,7 +734,7 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
   public assetCategoryAddCanceled() {
     this.assetCategoryDetailModal.hide();
   }
-  /*end asset category*/
+  
 
 
   /*begin project */
@@ -769,19 +766,9 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
 
   /*end brand */
 
-  /*begin INSURANCE CATEGORY */
-  public selectInsuranceCategory() {
-    this.insuranceCategoryList.refresh(null);
-    this.insuranceCategoryListModal.show();
-  }
+  
 
-  public setSelectedInsuranceCategory() {
-    const items: Array<InsuranceCategory> = this.insuranceCategoryList.selectedItems;
-    this.insuranceCategory = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.insuranceCategoryListModal.hide();
-  }
-
-  /*end asset category*/
+  
 
   /*begin dictionary Item*/
   public selectDictionaryItem() {
@@ -822,7 +809,7 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
   public dictionaryItemAddCanceled() {
     this.dictionaryItemDetailModal.hide();
   }
-  /*end asset category*/
+  
 
 
   /*begin asset type*/
@@ -1298,7 +1285,7 @@ export class AssetCloneDialogComponent implements AfterViewInit, OnInit {
     this.fromAsset.materialId = this.material != null ? this.material.id : null;
     this.fromAsset.subTypeId = this.subType != null ? this.subType.id : null;
     this.fromAsset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
-    this.fromAsset.insuranceCategoryId = this.insuranceCategory != null ? this.insuranceCategory.id : null;
+    
     this.fromAsset.assetTypeId = this.assetType != null ? this.assetType.id : null;
     this.fromAsset.projectId = this.project != null ? this.project.id : null;
     this.fromAsset.dictionaryItemId = this.dictionaryItem != null ? this.dictionaryItem.id : null;

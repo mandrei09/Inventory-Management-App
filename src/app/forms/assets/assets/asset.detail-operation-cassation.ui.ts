@@ -74,9 +74,6 @@ import { DepartmentDetailComponent as DepartmentUIDetail } from '../../administr
 import { RoomDetailComponent as RoomUIDetail } from '../../administrations/rooms/room.detail';
 import { InvStateDetail } from '../../inventory/inv-state/inv-state.detail';
 import { InvStateList } from '../../inventory/inv-state/inv-state.list';
-import { InsuranceCategoryList } from '../insurance-categories/insurance-category.list';
-import { InsuranceCategory } from '../../../model/api/assets/insurance-category';
-import { InsuranceCategoryHttpService } from '../../../services/http/assets/insurance-category.http.service';
 import { NotificationService } from '../../../services/notification.service';
 import { AssetNature } from '../../../model/api/assets/asset-nature';
 import { AssetNatureListComponent } from '../asset-natures/asset-nature.list';
@@ -139,8 +136,8 @@ export class AssetDetailUIOperationCassationComponent implements AfterViewInit, 
     @ViewChild('assetCategoryDetailModal') public assetCategoryDetailModal: ModalDirective;
     @ViewChild('assetCategoryListModal') public assetCategoryListModal: ModalDirective;
 
-    @ViewChild('insuranceCategoryList') public insuranceCategoryList: InsuranceCategoryList;
-    @ViewChild('insuranceCategoryListModal') public insuranceCategoryListModal: ModalDirective;
+    
+    
 
     @ViewChild('projectList') public projectList: ProjectList;
     @ViewChild('projectListModal') public projectListModal: ModalDirective;
@@ -358,7 +355,7 @@ export class AssetDetailUIOperationCassationComponent implements AfterViewInit, 
     public assetCategory: AssetCategory = null;
     public project: Project = null;
     public brand: Brand = null;
-    public insuranceCategory: InsuranceCategory = null;
+    
     public dictionaryItem: CodeNameEntity = null;
     public costCenter: CodeNameEntity = null;
     public plant: CodeNameEntity = null;
@@ -414,7 +411,7 @@ export class AssetDetailUIOperationCassationComponent implements AfterViewInit, 
         public router: Router,
         public assetHttpService: AssetHttpService,
         public assetCategoryHttpService: AssetCategoryHttpService,
-        public insuranceCategoryHttpService: InsuranceCategoryHttpService,
+        
         public projectHttpService: ProjectHttpService,
         public brandHttpService: BrandHttpService,
         public dictionaryItemHttpService: DictionaryItemHttpService,
@@ -618,7 +615,7 @@ export class AssetDetailUIOperationCassationComponent implements AfterViewInit, 
             // this.material = asset.adm.material;
             this.subType = asset.adm.subType;
             this.assetClass = asset.adm.assetClass;
-            this.insuranceCategory = asset.adm.insuranceCategory;
+            
             this.assetType = asset.adm.assetType;
             this.project = asset.adm.project;
             this.company = asset.adm.company;
@@ -683,7 +680,7 @@ export class AssetDetailUIOperationCassationComponent implements AfterViewInit, 
     public assetCategoryAddCanceled() {
         this.assetCategoryDetailModal.hide();
     }
-    /*end asset category*/
+    
 
 
      /*begin project */
@@ -715,19 +712,9 @@ export class AssetDetailUIOperationCassationComponent implements AfterViewInit, 
 
     /*end brand */
 
-      /*begin INSURANCE CATEGORY */
-      public selectInsuranceCategory() {
-        this.insuranceCategoryList.refresh(null);
-        this.insuranceCategoryListModal.show();
-    }
+      
 
-    public setSelectedInsuranceCategory() {
-        let items: Array<InsuranceCategory> = this.insuranceCategoryList.selectedItems;
-        this.insuranceCategory = ((items != null) && (items.length === 1)) ? items[0] : null;
-        this.insuranceCategoryListModal.hide();
-    }
-
-    /*end asset category*/
+    
 
      /*begin dictionary Item*/
      public selectDictionaryItem() {
@@ -768,7 +755,7 @@ export class AssetDetailUIOperationCassationComponent implements AfterViewInit, 
     public dictionaryItemAddCanceled() {
         this.dictionaryItemDetailModal.hide();
     }
-    /*end asset category*/
+    
 
 
         /*begin asset type*/
@@ -1322,8 +1309,7 @@ export class AssetDetailUIOperationCassationComponent implements AfterViewInit, 
         this.asset.materialId = this.material != null ? this.material.id : null;
         this.asset.subTypeId = this.subType != null ? this.subType.id : null;
         this.asset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
-        this.asset.insuranceCategoryId = this.insuranceCategory != null ? this.insuranceCategory.id : null;
-        this.asset.assetTypeId = this.assetType != null ? this.assetType.id : null;
+            this.asset.assetTypeId = this.assetType != null ? this.assetType.id : null;
         this.asset.projectId = this.project != null ? this.project.id : null;
         this.asset.dictionaryItemId = this.dictionaryItem != null ? this.dictionaryItem.id : null;
         this.asset.invNo = this.asset.invNo;

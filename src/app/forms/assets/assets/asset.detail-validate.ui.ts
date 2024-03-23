@@ -83,10 +83,7 @@ import { DepartmentDetailComponent as DepartmentUIDetail } from '../../administr
 import { RoomDetailComponent as RoomUIDetail } from '../../administrations/rooms/room.detail';
 import { InvStateDetail } from '../../inventory/inv-state/inv-state.detail';
 import { InvStateList } from '../../inventory/inv-state/inv-state.list';
-import { InsuranceCategoryList } from '../insurance-categories/insurance-category.list';
 
-import { InsuranceCategory } from '../../../model/api/assets/insurance-category';
-import { InsuranceCategoryHttpService } from '../../../services/http/assets/insurance-category.http.service';
 import { NotificationService } from '../../../services/notification.service';
 import { AssetNature } from '../../../model/api/assets/asset-nature';
 import { AssetNatureListComponent } from '../asset-natures/asset-nature.list';
@@ -168,8 +165,8 @@ export class AssetDetailUIValidateComponent implements AfterViewInit  {
     @ViewChild('assetCategoryDetailModal') public assetCategoryDetailModal: ModalDirective;
     @ViewChild('assetCategoryListModal') public assetCategoryListModal: ModalDirective;
 
-    @ViewChild('insuranceCategoryList') public insuranceCategoryList: InsuranceCategoryList;
-    @ViewChild('insuranceCategoryListModal') public insuranceCategoryListModal: ModalDirective;
+    
+    
 
     @ViewChild('projectList') public projectList: ProjectList;
     @ViewChild('projectListModal') public projectListModal: ModalDirective;
@@ -412,7 +409,7 @@ export class AssetDetailUIValidateComponent implements AfterViewInit  {
     public project: Project = null;
     public order: Order = null;
     public brand: Brand = null;
-    public insuranceCategory: InsuranceCategory = null;
+    
     public dictionaryItem: CodeNameEntity = null;
     public costCenter: CodeNameEntity = null;
     public plant: CodeNameEntity = null;
@@ -474,7 +471,7 @@ export class AssetDetailUIValidateComponent implements AfterViewInit  {
         public router: Router,
         public assetHttpService: AssetHttpService,
         public assetCategoryHttpService: AssetCategoryHttpService,
-        public insuranceCategoryHttpService: InsuranceCategoryHttpService,
+        
         public projectHttpService: ProjectHttpService,
         public orderHttpService: OrderHttpService,
         public brandHttpService: BrandHttpService,
@@ -746,7 +743,7 @@ export class AssetDetailUIValidateComponent implements AfterViewInit  {
             this.assetClass = asset.adm.assetClass;
             this.admCenter = asset.adm.admCenter;
             this.region = asset.adm.region;
-            this.insuranceCategory = asset.adm.insuranceCategory;
+            
             this.assetType = asset.adm.assetType;
             this.project = asset.adm.project;
             this.company = asset.adm.company;
@@ -814,7 +811,7 @@ export class AssetDetailUIValidateComponent implements AfterViewInit  {
     public assetCategoryAddCanceled() {
         this.assetCategoryDetailModal.hide();
     }
-    /*end asset category*/
+    
 
 
      /*begin project */
@@ -860,19 +857,9 @@ export class AssetDetailUIValidateComponent implements AfterViewInit  {
 
     /*end brand */
 
-      /*begin INSURANCE CATEGORY */
-      public selectInsuranceCategory() {
-        this.insuranceCategoryList.refresh(null);
-        this.insuranceCategoryListModal.show();
-    }
+      
 
-    public setSelectedInsuranceCategory() {
-        let items: Array<InsuranceCategory> = this.insuranceCategoryList.selectedItems;
-        this.insuranceCategory = ((items != null) && (items.length === 1)) ? items[0] : null;
-        this.insuranceCategoryListModal.hide();
-    }
-
-    /*end asset category*/
+    
 
      /*begin dictionary Item*/
      public selectDictionaryItem() {
@@ -913,7 +900,7 @@ export class AssetDetailUIValidateComponent implements AfterViewInit  {
     public dictionaryItemAddCanceled() {
         this.dictionaryItemDetailModal.hide();
     }
-    /*end asset category*/
+    
 
 
         /*begin asset type*/
@@ -1535,8 +1522,7 @@ export class AssetDetailUIValidateComponent implements AfterViewInit  {
         this.asset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
         this.asset.admCenterId = this.admCenter != null ? this.admCenter.id : null;
         this.asset.regionId = this.region != null ? this.region.id : null;
-        this.asset.insuranceCategoryId = this.insuranceCategory != null ? this.insuranceCategory.id : null;
-        this.asset.assetTypeId = this.assetType != null ? this.assetType.id : null;
+            this.asset.assetTypeId = this.assetType != null ? this.assetType.id : null;
         this.asset.projectId = this.project != null ? this.project.id : null;
         this.asset.orderId = this.order != null ? this.order.id : null;
         this.asset.dictionaryItemId = this.dictionaryItem != null ? this.dictionaryItem.id : null;
@@ -1615,8 +1601,7 @@ export class AssetDetailUIValidateComponent implements AfterViewInit  {
         this.asset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
         this.asset.admCenterId = this.admCenter != null ? this.admCenter.id : null;
         this.asset.regionId = this.region != null ? this.region.id : null;
-        this.asset.insuranceCategoryId = this.insuranceCategory != null ? this.insuranceCategory.id : null;
-        this.asset.assetTypeId = this.assetType != null ? this.assetType.id : null;
+            this.asset.assetTypeId = this.assetType != null ? this.assetType.id : null;
         this.asset.projectId = this.project != null ? this.project.id : null;
         this.asset.orderId = this.order != null ? this.order.id : null;
         this.asset.dictionaryItemId = this.dictionaryItem != null ? this.dictionaryItem.id : null;
@@ -1691,8 +1676,7 @@ export class AssetDetailUIValidateComponent implements AfterViewInit  {
         this.asset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
         this.asset.admCenterId = this.admCenter != null ? this.admCenter.id : null;
         this.asset.regionId = this.region != null ? this.region.id : null;
-        this.asset.insuranceCategoryId = this.insuranceCategory != null ? this.insuranceCategory.id : null;
-        this.asset.assetTypeId = this.assetType != null ? this.assetType.id : null;
+            this.asset.assetTypeId = this.assetType != null ? this.assetType.id : null;
         this.asset.projectId = this.project != null ? this.project.id : null;
         this.asset.orderId = this.order != null ? this.order.id : null;
         this.asset.dictionaryItemId = this.dictionaryItem != null ? this.dictionaryItem.id : null;
@@ -1782,8 +1766,7 @@ export class AssetDetailUIValidateComponent implements AfterViewInit  {
       this.asset.assetClassId = this.assetClass != null ? this.assetClass.id : null;
       this.asset.admCenterId = this.admCenter != null ? this.admCenter.id : null;
       this.asset.regionId = this.region != null ? this.region.id : null;
-      this.asset.insuranceCategoryId = this.insuranceCategory != null ? this.insuranceCategory.id : null;
-      this.asset.assetTypeId = this.assetType != null ? this.assetType.id : null;
+        this.asset.assetTypeId = this.assetType != null ? this.assetType.id : null;
       this.asset.projectId = this.project != null ? this.project.id : null;
       this.asset.orderId = this.order != null ? this.order.id : null;
       this.asset.dictionaryItemId = this.dictionaryItem != null ? this.dictionaryItem.id : null;
