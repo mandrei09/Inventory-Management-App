@@ -13,8 +13,6 @@ import { AssetCategoryListComponent } from '../asset-categories/asset-category.l
 import { AssetCategory } from '../../../model/api/assets/asset-category';
 import { AppUtils } from '../../../common/app.utils';
 import { DimensionDetail } from '../../../model/api/administration/dimension-detail';
-import {Article} from '../../../model/api/assets/article';
-import {ArticleAddEditComponent} from '../../administrations/article/article-add-edit/article-add-edit.component';
 import {MatDialog} from '@angular/material/dialog';
 import {DimensionAddEditComponent} from './dimension-add-edit/dimension-add-edit.component';
 import { saveAs as fileSaveAs } from 'file-saver-es';

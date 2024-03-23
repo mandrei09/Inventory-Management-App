@@ -8,8 +8,6 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DictionaryTypeListComponent } from './dictionary-type.list';
 import { DictionaryTypeDetailComponent } from './dictionary-type.detail';
 import {MatDialog} from '@angular/material/dialog';
-import {Article} from '../../../model/api/assets/article';
-import {ArticleAddEditComponent} from '../article/article-add-edit/article-add-edit.component';
 import {DictionaryTypeAddEditComponent} from './dictionary-type-add-edit/dictionary-type-add-edit.component';
 import { saveAs as fileSaveAs } from 'file-saver-es';
 

@@ -10,8 +10,6 @@ import { InsuranceCategoryList } from './insurance-category.list';
 import { InsuranceCategoryDetail } from './insurance-category.detail';
 import { InsuranceCategoryHttpService } from '../../../services/http/assets/insurance-category.http.service';
 import {MatDialog} from '@angular/material/dialog';
-import {Article} from '../../../model/api/assets/article';
-import {ArticleAddEditComponent} from '../../administrations/article/article-add-edit/article-add-edit.component';
 import {InsuranceCategoryAddEditComponent} from './insurance-category-add-edit/insurance-category-add-edit.component';
 
 @Component({

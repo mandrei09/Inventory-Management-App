@@ -51,7 +51,6 @@ import {DepartmentDetailComponent as DepartmentUIDetail} from '../../../administ
 import {DimensionDetailComponent} from '../../dimensions/dimension.detail';
 import {AdministrationDetailComponent} from '../../../administrations/administrations/administration.detail';
 import {AdministrationListComponent} from '../../../administrations/administrations/administration.list';
-import {ArticleList} from '../../../administrations/article/article.list';
 import {CountryListComponent} from '../../../administrations/countries/country.list';
 import {CountyListComponent} from '../../../administrations/counties/county.list';
 import {CityListComponent} from '../../../administrations/cities/city.list';
@@ -88,7 +87,6 @@ import {ProjectHttpService} from '../../../../services/http/assets/project.http.
 import {BrandHttpService} from '../../../../services/http/assets/brand.http.service';
 import {DictionaryItemHttpService} from '../../../../services/http/administration/dictionary-item.http.service';
 import {AssetClassHttpService} from '../../../../services/http/assets/asset-class.http.service';
-import {ArticleHttpService} from '../../../../services/http/administration/article.http.service';
 import {CountryHttpService} from '../../../../services/http/administration/contry.http.service';
 import {CountyHttpService} from '../../../../services/http/administration/county.http.service';
 import {CityHttpService} from '../../../../services/http/administration/city.http.service';
@@ -116,7 +114,6 @@ import {Administration} from '../../../../model/api/administration/administratio
 import {Company} from '../../../../model/api/assets/company';
 import {Partner} from '../../../../model/api/documents/partner';
 import {CreateAssetSAPResult} from '../../../../model/api/result/create-asset-SAP-result';
-import {Article} from '../../../../model/api/assets/article';
 import {Material} from '../../../../model/api/administration/material';
 import {Type} from '../../../../model/api/administration/type';
 import {City} from '../../../../model/api/administration/city';
@@ -243,8 +240,8 @@ export class AssetRetireDialogComponent implements AfterViewInit, OnInit {
   
   
 
-  @ViewChild('articleList') public articleList: ArticleList;
-  @ViewChild('articleListModal') public articleListModal: ModalDirective;
+  
+  
 
   @ViewChild('divisionList') public divisionList: DivisionListComponent;
   @ViewChild('divisionListModal') public divisionListModal: ModalDirective;
@@ -428,7 +425,7 @@ export class AssetRetireDialogComponent implements AfterViewInit, OnInit {
     public assetClassHttpService: AssetClassHttpService,
     
     
-    public articleHttpService: ArticleHttpService,
+    
     public divisionHttpService: DivisionHttpService,
     public countryHttpService: CountryHttpService,
     public countyHttpService: CountyHttpService,
@@ -1646,20 +1643,7 @@ export class AssetRetireDialogComponent implements AfterViewInit, OnInit {
 
   
 
-  // ARTICLE //
-
-  public selectArticle() {
-    this.articleList.refresh(null);
-    this.articleListModal.show();
-  }
-
-  public setSelectedArticle() {
-    let items: Array<Article> = this.articleList.selectedItems;
-    this.article = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.articleListModal.hide();
-  }
-
-  // ARTICLE //
+  
 
 
   // DIVISION //

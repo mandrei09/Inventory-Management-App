@@ -8,8 +8,6 @@ import { RateListComponent } from './rate.list';
 import { RateDetailComponent } from './rate.detail';
 import { RateHttpService } from '../../../services/http/administration/rate.http.service';
 import {MatDialog} from '@angular/material/dialog';
-import {Article} from '../../../model/api/assets/article';
-import {ArticleAddEditComponent} from '../../administrations/article/article-add-edit/article-add-edit.component';
 import {RateAddEditComponent} from './rate-add-edit/rate-add-edit.component';
 
 @Component({

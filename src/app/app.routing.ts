@@ -6,7 +6,6 @@ import { DefaultLayoutComponent } from './containers';
 import { AccMonthManageComponent } from './forms/accounting/acc-month.manage';
 import { AdmCenterManageComponent } from './forms/administrations/adm-centers/adm-center.manage';
 import { AdministrationManageComponent } from './forms/administrations/administrations/administration.manage';
-import { ArticleManage } from './forms/administrations/article/article.manage';
 import { BudgetBaseAddDetailUIComponent } from './forms/administrations/budget-base/budget-base.add-detail.ui';
 import { BudgetBaseDetailUIComponent } from './forms/administrations/budget-base/budget-base.detail.ui';
 import { BudgetBaseManageComponent } from './forms/administrations/budget-base/budget-base.manage';
@@ -345,7 +344,6 @@ const AppRoutes: Routes = [
       { path: 'nom/locations', canActivate: [AuthGuard], component: LocationManageComponent, data: { title: 'Adrese', auth: 'VIEW|LOCATIONS', shouldDetach: true}},
       { path: 'nom/rooms', canActivate: [AuthGuard], component: RoomManageComponent, data: { title: 'Adrese 2',auth: 'VIEW|ROOMS', shouldDetach: true}},
       { path: 'nom/assetcategories', canActivate: [AuthGuard], component: AssetCategoryManageComponent, data: { title: 'Asset classification', auth: 'VIEW|ASSETCATEGORIES', shouldDetach: true }},
-      { path: 'nom/articles', canActivate: [AuthGuard], component: ArticleManage, data: { title: 'Zone', auth: 'VIEW|ARTICLES', shouldDetach: true }},
       { path: 'nom/costcenters', canActivate: [AuthGuard], component: CostCenterManageComponent, data: { title: 'Centre de cost', auth: 'VIEW|COSTCENTERS', shouldDetach: true }},
       { path: 'nom/admcenters', canActivate: [AuthGuard], component: AdmCenterManageComponent, data: { title: 'Profit centers', auth: 'VIEW|ADMCENTERS', shouldDetach: true }},
       { path: 'nom/regions', canActivate: [AuthGuard], component: RegionManageComponent, data: { title: 'PC detaliu', auth: 'VIEW|REGIONS', shouldDetach: true }},

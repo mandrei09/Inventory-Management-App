@@ -97,9 +97,6 @@ import { ProjectList } from '../projects/project.list';
 import { BrandList } from '../brands/brand.list';
 import { ProjectHttpService } from '../../../services/http/assets/project.http.service';
 import { BrandHttpService } from '../../../services/http/assets/brand.http.service';
-import { ArticleHttpService } from '../../../services/http/administration/article.http.service';
-import { Article } from '../../../model/api/assets/article';
-import { ArticleList } from '../../administrations/article/article.list';
 import { Division } from '../../../model/api/administration/division';
 import { DivisionListComponent } from '../../administrations/divisions/division.list';
 import { DivisionHttpService } from '../../../services/http/administration/division.http.service';
@@ -305,8 +302,8 @@ export class AssetDetailUIAddComponent implements AfterViewInit  {
     
     
 
-    @ViewChild('articleList') public articleList: ArticleList;
-    @ViewChild('articleListModal') public articleListModal: ModalDirective;
+    
+    
 
     @ViewChild('divisionList') public divisionList: DivisionListComponent;
     @ViewChild('divisionListModal') public divisionListModal: ModalDirective;
@@ -489,7 +486,7 @@ export class AssetDetailUIAddComponent implements AfterViewInit  {
         public assetClassHttpService: AssetClassHttpService,
         
         
-        public articleHttpService: ArticleHttpService,
+        
         public divisionHttpService: DivisionHttpService,
         public countryHttpService: CountryHttpService,
         public countyHttpService: CountyHttpService,
@@ -1683,21 +1680,8 @@ export class AssetDetailUIAddComponent implements AfterViewInit  {
         popupWinindow.document.write('<html><head><link rel="stylesheet" /></head><body onload="window.print()">' +'<div>' + innerContents + '</div>' + '</html>');
         popupWinindow.document.close();
     }
+
     
-    // ARTICLE //
-
-    public selectArticle() {
-        this.articleList.refresh(null);
-        this.articleListModal.show();
-    }
-
-    public setSelectedArticle() {
-        let items: Array<Article> = this.articleList.selectedItems;
-        this.article = ((items != null) && (items.length === 1)) ? items[0] : null;
-        this.articleListModal.hide();
-    }
-
-    // ARTICLE //
 
 
     // DIVISION //

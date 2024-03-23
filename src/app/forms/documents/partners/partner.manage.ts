@@ -6,8 +6,6 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Param } from '../../../model/common/param';
 import { PagedResult } from '../../../model/common/paged-result';
 import {MatDialog} from '@angular/material/dialog';
-import {Article} from '../../../model/api/assets/article';
-import {ArticleAddEditComponent} from '../../administrations/article/article-add-edit/article-add-edit.component';
 import {PartnerAddEditComponent} from './partner-add-edit/partner-add-edit.component';
 import { PartnerListComponent } from './partner.list';
 import { saveAs as fileSaveAs } from 'file-saver-es';

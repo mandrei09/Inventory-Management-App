@@ -303,10 +303,6 @@ import { BadgeManage } from './forms/common/badge/badge.manage';
 import { BadgeDetail } from './forms/common/badge/badge.detail';
 import { BadgeList } from './forms/common/badge/badge.list';
 import { BadgeHttpService } from './services/http/common/badge.http.service';
-import { ArticleDetail } from './forms/administrations/article/article.detail';
-import { ArticleList } from './forms/administrations/article/article.list';
-import { ArticleManage } from './forms/administrations/article/article.manage';
-import { ArticleHttpService } from './services/http/administration/article.http.service';
 import { DivisionManageComponent } from './forms/administrations/divisions/division.manage';
 import { DivisionDetailComponent } from './forms/administrations/divisions/division.detail';
 import { BudgetManagerList } from './forms/administrations/budget-manager/budget-manager.list';
@@ -764,7 +760,6 @@ import {AppStateSelectionDialog} from './forms/assets/app-states/selection/app-s
 import { AppStateItemSelect } from './forms/assets/app-states/selection/app-state.item-select';
 import {OfferTypeAddEditComponent} from './forms/offers/offer-type/offer-type-add-edit/offer-type-add-edit.component';
 import {ColorPickerModule} from 'ngx-color-picker';
-import {ArticleAddEditComponent} from './forms/administrations/article/article-add-edit/article-add-edit.component';
 import {DimensionAddEditComponent} from './forms/assets/dimensions/dimension-add-edit/dimension-add-edit.component';
 import {MatrixAddEditComponent} from './forms/administrations/matrix/matrix-add-edit/matrix-add-edit.component';
 import {AccMonthAddEditComponent} from './forms/accounting/acc-month-add-edit/acc-month-add-edit.component';
@@ -1265,9 +1260,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     BadgeManage,
     BadgeDetail,
     BadgeList,
-    ArticleManage,
-    ArticleList,
-    ArticleDetail,
     DivisionManageComponent,
     DivisionListComponent,
     DivisionDetailComponent,
@@ -1692,7 +1684,6 @@ const JWT_Module_Options: JwtModuleOptions = {
     MatrixAddEditComponent,
     CommitteeMemberAddEditDialog,
     AccMonthAddEditComponent,
-    ArticleAddEditComponent,
     DimensionAddEditComponent,
     PrEditDialogComponent,
     PoOrderDetailsDialogComponent,
@@ -1913,7 +1904,6 @@ const JWT_Module_Options: JwtModuleOptions = {
   DashboardHttpService,
   IdentityService,
   BadgeHttpService,
-  ArticleHttpService,
   BudgetManagerHttpService,
   MaterialHttpService,
   EmployeeCostCenterHttpService,

@@ -11,8 +11,6 @@ import { GenericManage, GenericManageViewMode } from '../../generic/generic.mana
 import { EmployeeListComponent } from '../employees/employee.list';
 import { AdmCenterDetailComponent } from './adm-center.detail';
 import { AdmCenterListComponent } from './adm-center.list';
-import {Article} from '../../../model/api/assets/article';
-import {ArticleAddEditComponent} from '../article/article-add-edit/article-add-edit.component';
 import {AdmCenterAddEditComponent} from './adm-center-add-edit/adm-center-add-edit.component';
 import {MatDialog} from '@angular/material/dialog';
 import { saveAs as fileSaveAs } from 'file-saver-es';

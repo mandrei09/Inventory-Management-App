@@ -1,8 +1,6 @@
 import {AfterViewInit, Component, Inject} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Article} from '../../../../model/api/assets/article';
-import {ArticleHttpService} from '../../../../services/http/administration/article.http.service';
 import {AdmCenter} from '../../../../model/api/administration/adm-center';
 import {AdmCenterHttpService} from '../../../../services/http/administration/adm-center.http.service';
 

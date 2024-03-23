@@ -32,7 +32,6 @@ import {DepartmentListComponent} from '../../../administrations/departments/depa
 import {DimensionDetailComponent} from '../../dimensions/dimension.detail';
 import {AdministrationDetailComponent} from '../../../administrations/administrations/administration.detail';
 import {AdministrationListComponent} from '../../../administrations/administrations/administration.list';
-import {ArticleList} from '../../../administrations/article/article.list';
 import {DivisionListComponent} from '../../../administrations/divisions/division.list';
 import {CountryListComponent} from '../../../administrations/countries/country.list';
 import {CountyListComponent} from '../../../administrations/counties/county.list';
@@ -75,7 +74,6 @@ import {InvStateHttpService} from '../../../../services/http/inventory/inv-state
 import {Administration} from '../../../../model/api/administration/administration';
 import {Company} from '../../../../model/api/assets/company';
 import {AssetClassHttpService} from '../../../../services/http/assets/asset-class.http.service';
-import {ArticleHttpService} from '../../../../services/http/administration/article.http.service';
 import {DivisionHttpService} from '../../../../services/http/administration/division.http.service';
 import {CountryHttpService} from '../../../../services/http/administration/contry.http.service';
 import {CountyHttpService} from '../../../../services/http/administration/county.http.service';
@@ -112,7 +110,6 @@ import {AssetType} from '../../../../model/api/assets/asset-type';
 import {Department} from '../../../../model/api/administration/department';
 import {Partner} from '../../../../model/api/documents/partner';
 import {CreateAssetSAPResult} from '../../../../model/api/result/create-asset-SAP-result';
-import {Article} from '../../../../model/api/assets/article';
 import {County} from '../../../../model/api/administration/county';
 import {City} from '../../../../model/api/administration/city';
 import {Material} from '../../../../model/api/administration/material';
@@ -271,8 +268,8 @@ export class AssetValidateDialogComponent implements AfterViewInit {
   
   
 
-  @ViewChild('articleList') public articleList: ArticleList;
-  @ViewChild('articleListModal') public articleListModal: ModalDirective;
+  
+  
 
   @ViewChild('divisionList') public divisionList: DivisionListComponent;
   @ViewChild('divisionListModal') public divisionListModal: ModalDirective;
@@ -465,7 +462,7 @@ export class AssetValidateDialogComponent implements AfterViewInit {
     public assetClassHttpService: AssetClassHttpService,
     
     
-    public articleHttpService: ArticleHttpService,
+    
     public divisionHttpService: DivisionHttpService,
     public countryHttpService: CountryHttpService,
     public countyHttpService: CountyHttpService,
@@ -2094,20 +2091,7 @@ export class AssetValidateDialogComponent implements AfterViewInit {
 
   
 
-  // ARTICLE //
-
-  public selectArticle() {
-    this.articleList.refresh(null);
-    this.articleListModal.show();
-  }
-
-  public setSelectedArticle() {
-    let items: Array<Article> = this.articleList.selectedItems;
-    this.article = ((items != null) && (items.length === 1)) ? items[0] : null;
-    this.articleListModal.hide();
-  }
-
-  // ARTICLE //
+  
 
 
   // DIVISION //
