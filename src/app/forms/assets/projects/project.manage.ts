@@ -48,14 +48,6 @@ export class ProjectManage extends GenericManage<Project, number> {
       this.onAddEditItem(item);
     }
 
-    public detailInitialize() {
-        this.modal.show();
-    }
-
-    public detailTerminate() {
-        this.modal.hide();
-    }
-
     public getFilters(): Array<Param> {
       const params: Array<Param> = new Array<Param>();
       params.push(new Param('filter', this.filter));
@@ -73,12 +65,4 @@ export class ProjectManage extends GenericManage<Project, number> {
         this.showExportBtn = true;
       });
     }
-
-    collapsed(event: any): void {
-        // console.log(event);
-      }
-
-      expanded(event: any): void {
-        // console.log(event);
-      }
 }

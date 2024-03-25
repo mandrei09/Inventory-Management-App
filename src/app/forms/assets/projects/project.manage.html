@@ -2,7 +2,6 @@
   <div class="content-page-header">
     <app-common-header
       (filterChanged)="doSimpleSearch($event)"
-      (addNew)="onAddNew()"
       [showAddNewButton]="'false'">
     </app-common-header>
   </div>
@@ -45,75 +44,3 @@
                 notifyOnChange="true">
   </project-list>
 </div>
-
-<!--<div class="animated fadeIn">-->
-<!--  <br>-->
-<!--  <div class="card">-->
-<!--    <div class="card-header">-->
-<!--          <button type="button" class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed">Filtre </button>-->
-<!--      <div class="card-header-actions">-->
-<!--          &lt;!&ndash; <div class="input-group">-->
-<!--              <input type="text" class="form-control" placeholder="Cauta..." aria-label="Cauta..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">-->
-<!--              <div class="input-group-append">-->
-<!--                  &nbsp;-->
-<!--                  <button type="button" class="btn btn-primary btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i> Adauga</button>-->
-<!--                  &nbsp;-->
-<!--                  <button type="button" class="btn btn-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Modifica</button>-->
-<!--                  &nbsp;-->
-<!--                  <button type="button" class="btn btn-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>-->
-<!--              </div>-->
-<!--            </div> &ndash;&gt;-->
-<!--            <div class="input-group">-->
-<!--              <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="doSimpleSearch(filter)">-->
-<!--              <div class="input-group-append">-->
-<!--                &nbsp;-->
-<!--                <button hideIfUnauthorized="ADD|PROJECTS" type="button" class="btn btn-outline-info btn-sm" (click)="addNewItem()"><i class="fa fa-plus"></i>&nbsp;Adauga</button>-->
-<!--                &nbsp;-->
-<!--                <button hideIfUnauthorized="EDIT|PROJECTS" type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i>&nbsp;Modifica</button>-->
-<!--                &nbsp;-->
-<!--                <button hideIfUnauthorized="EXPORT|PROJECTS"type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i>&nbsp;Export</button>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="card-body"-->
-<!--         (collapsed)="collapsed($event)"-->
-<!--         (expanded)="expanded($event)"-->
-<!--         [collapse]="isCollapsed">-->
-<!--         <div class="card-body-actions">-->
-<!--         -->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="card-footer">-->
-<!--      <div class="col-sm-12">-->
-<!--          <project-list id="projectList"-->
-<!--          [dataSource]="projectHttpService"-->
-<!--          usePaging="true"-->
-<!--          showSimpleSearch="false"-->
-<!--          [itemAddedEvent]="itemAddedEvent"-->
-<!--          [itemUpdatedEvent]="itemUpdatedEvent"-->
-<!--          [itemDeletedEvent]="itemDeletedEvent"-->
-<!--          [requestSelectionEvent]="requestSelectionEvent"-->
-<!--          [requestRefreshEvent]="requestRefreshEvent"-->
-<!--          (selectionChanged)="setSelectedItem($event)"-->
-<!--          rowSelection="single"-->
-<!--          notifyOnChange="true">-->
-<!--      </project-list>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--  </div>   -->
-<!--</div>-->
-
-<!--<div class="modal fade" bsModal #itemDetailModal="bs-modal" [config]="{backdrop: 'static'}" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">-->
-<!--  <div class="modal-dialog modal-dark bs-full-width-dialog">-->
-<!--    <project-detail id="projectDetail"-->
-<!--                    [dataSource]="projectHttpService"-->
-<!--                    [addNewItemEvent]="addNewItemEvent"-->
-<!--                    [editItemEvent]="editItemEvent"-->
-<!--                    (itemAdded)="itemAdded($event)"-->
-<!--                    (itemUpdated)="itemUpdated($event)"-->
-<!--                    (itemDeleted)="itemDeleted($event)"-->
-<!--                    (changesCanceled)="itemDetailModal.hide()">-->
-<!--    </project-detail>-->
-<!--  </div>-->
-<!--</div>-->
