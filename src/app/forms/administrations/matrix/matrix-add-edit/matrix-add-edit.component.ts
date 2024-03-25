@@ -1,18 +1,22 @@
-import {AfterViewInit, Component, Inject} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {MatrixHttpService} from '../../../../services/http/administration/matrix.http.service';
-import {Matrix} from '../../../../model/api/administration/matrix';
-import {CodeNameEntity} from '../../../../model/api/common/code-name-entity';
-import {EmployeeResource} from '../../../../model/api/administration/employee-resource';
+import { AfterViewInit, Component, Inject } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from "@angular/material/dialog";
+import { MatrixHttpService } from "../../../../services/http/administration/matrix.http.service";
+import { Matrix } from "../../../../model/api/administration/matrix";
+import { CodeNameEntity } from "../../../../model/api/common/code-name-entity";
+import { EmployeeResource } from "../../../../model/api/administration/employee-resource";
+import { NotificationService } from "../../../../services/notification.service";
 
 @Component({
-  selector: 'app-matrix-add-edit',
-  templateUrl: './matrix-add-edit.component.html',
-  styleUrls: ['./matrix-add-edit.component.scss']
+  selector: "app-matrix-add-edit",
+  templateUrl: "./matrix-add-edit.component.html",
+  styleUrls: ["./matrix-add-edit.component.scss"],
 })
 export class MatrixAddEditComponent implements AfterViewInit {
-
   public form!: FormGroup;
   public item!: Matrix | null;
 
@@ -21,6 +25,7 @@ export class MatrixAddEditComponent implements AfterViewInit {
     public dialog: MatDialog,
     private dataSource: MatrixHttpService,
     public dialogRef: MatDialogRef<MatrixAddEditComponent>,
+    public notificationService: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.createForm();
@@ -31,7 +36,9 @@ export class MatrixAddEditComponent implements AfterViewInit {
     setTimeout(() => {
       if (this.item !== null) {
         this.editItem(this.item);
-      } else { this.addItem(); }
+      } else {
+        this.addItem();
+      }
     }, 0);
   }
 
@@ -71,36 +78,55 @@ export class MatrixAddEditComponent implements AfterViewInit {
   protected updateItem() {
     const formModel = this.form.value;
 
-    // tslint:disable-next-line:no-non-null-assertion
     this.item!.company = null;
-    if ((formModel.company !== null)) { this.item!.company = formModel.company as CodeNameEntity; }
+    if (formModel.company !== null) {
+      this.item!.company = formModel.company as CodeNameEntity;
+    }
 
     this.item!.division = null;
-    if ((formModel.division !== null)) { this.item!.division = formModel.division as CodeNameEntity; }
+    if (formModel.division !== null) {
+      this.item!.division = formModel.division as CodeNameEntity;
+    }
 
     this.item!.employeeB1 = null;
-    if ((formModel.employeeB1 !== null)) { this.item!.employeeB1 = formModel.employeeB1 as EmployeeResource; }
+    if (formModel.employeeB1 !== null) {
+      this.item!.employeeB1 = formModel.employeeB1 as EmployeeResource;
+    }
 
     this.item!.employeeL1 = null;
-    if ((formModel.employeeL1 !== null)) { this.item!.employeeL1 = formModel.employeeL1 as EmployeeResource; }
+    if (formModel.employeeL1 !== null) {
+      this.item!.employeeL1 = formModel.employeeL1 as EmployeeResource;
+    }
 
     this.item!.employeeL2 = null;
-    if ((formModel.employeeL2 !== null)) { this.item!.employeeL2 = formModel.employeeL2 as EmployeeResource; }
+    if (formModel.employeeL2 !== null) {
+      this.item!.employeeL2 = formModel.employeeL2 as EmployeeResource;
+    }
 
     this.item!.employeeL3 = null;
-    if ((formModel.employeeL3 !== null)) { this.item!.employeeL3 = formModel.employeeL3 as EmployeeResource; }
+    if (formModel.employeeL3 !== null) {
+      this.item!.employeeL3 = formModel.employeeL3 as EmployeeResource;
+    }
 
     this.item!.employeeL4 = null;
-    if ((formModel.employeeL4 !== null)) { this.item!.employeeL4 = formModel.employeeL4 as EmployeeResource; }
+    if (formModel.employeeL4 !== null) {
+      this.item!.employeeL4 = formModel.employeeL4 as EmployeeResource;
+    }
 
     this.item!.employeeS1 = null;
-    if ((formModel.employeeS1 !== null)) { this.item!.employeeS1 = formModel.employeeS1 as EmployeeResource; }
+    if (formModel.employeeS1 !== null) {
+      this.item!.employeeS1 = formModel.employeeS1 as EmployeeResource;
+    }
 
     this.item!.employeeS2 = null;
-    if ((formModel.employeeS2 !== null)) { this.item!.employeeS2 = formModel.employeeS2 as EmployeeResource; }
+    if (formModel.employeeS2 !== null) {
+      this.item!.employeeS2 = formModel.employeeS2 as EmployeeResource;
+    }
 
     this.item!.employeeS3 = null;
-    if ((formModel.employeeS3 !== null)) { this.item!.employeeS3 = formModel.employeeS3 as EmployeeResource; }
+    if (formModel.employeeS3 !== null) {
+      this.item!.employeeS3 = formModel.employeeS3 as EmployeeResource;
+    }
 
     this.item!.amountL4 = formModel.amountL4 as number;
     this.item!.amountL3 = formModel.amountL3 as number;
@@ -116,14 +142,13 @@ export class MatrixAddEditComponent implements AfterViewInit {
     if (this.item!.id! > 0) {
       this.dataSource.update(this.item!).subscribe(() => {
         this.dialogRef.close();
-        // this.notificationSvc.success('Asset group a fost modificat cu succes.');
       });
     } else {
       this.dataSource.create(this.item!).subscribe((item: Matrix | null) => {
         this.item = item;
         this.dialogRef.close();
-        // this.notificationSvc.success('Asset group a fost creata cu succes.');
       });
     }
+    this.notificationService.showSuccess("OK", "Succes", 2000, false, 0);
   }
 }

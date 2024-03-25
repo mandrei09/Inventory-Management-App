@@ -8,42 +8,42 @@
     <div class="modal-filters">
 
       <div hideIfUnauthorized="DIVISION_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
-        <divisions-item-select [(ngModel)]="divisions" selectionType="multiple" placeholder="{{ t('divisions_filter_placeholder') }}" displayValue="code" showMinimizedPlaceHolder="true">
+        <divisions-item-select [(ngModel)]="divisions" selectionType="multiple" placeholder="{{ t('divisions_filter_placeholder') }}" displayValue="name" showMinimizedPlaceHolder="true">
         </divisions-item-select>
       </div>
 
       <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
-        <employee-item-select [(ngModel)]="selectedEmployeeL1" placeholder="{{ t('l1_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        <employee-item-select [(ngModel)]="selectedEmployeeL4" placeholder="{{ t('l4_filter_placeholder') }}" displayValue="email" showMinimizedPlaceHolder="true">
         </employee-item-select>
       </div>
 
       <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
-        <employee-item-select [(ngModel)]="selectedEmployeeL2" placeholder="{{ t('l2_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        <employee-item-select [(ngModel)]="selectedEmployeeS3" placeholder="{{ t('s3_filter_placeholder') }}" displayValue="email" showMinimizedPlaceHolder="true">
         </employee-item-select>
       </div>
 
       <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
-        <employee-item-select [(ngModel)]="selectedEmployeeL3" placeholder="{{ t('l3_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        <employee-item-select [(ngModel)]="selectedEmployeeL3" placeholder="{{ t('l3_filter_placeholder') }}" displayValue="email" showMinimizedPlaceHolder="true">
         </employee-item-select>
       </div>
 
       <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
-        <employee-item-select [(ngModel)]="selectedEmployeeL4" placeholder="{{ t('l4_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        <employee-item-select [(ngModel)]="selectedEmployeeS2" placeholder="{{ t('s2_filter_placeholder') }}" displayValue="email" showMinimizedPlaceHolder="true">
         </employee-item-select>
       </div>
 
       <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
-        <employee-item-select [(ngModel)]="selectedEmployeeS1" placeholder="{{ t('s1_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        <employee-item-select [(ngModel)]="selectedEmployeeL2" placeholder="{{ t('l2_filter_placeholder') }}" displayValue="email" showMinimizedPlaceHolder="true">
         </employee-item-select>
       </div>
 
       <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
-        <employee-item-select [(ngModel)]="selectedEmployeeS2" placeholder="{{ t('s2_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        <employee-item-select [(ngModel)]="selectedEmployeeL1" placeholder="{{ t('l1_filter_placeholder') }}" displayValue="email" showMinimizedPlaceHolder="true">
         </employee-item-select>
       </div>
 
       <div hideIfUnauthorized="EMPLOYEE_FILTER|ASSET" class="filter-content-item child-w-200 mt-15">
-        <employee-item-select [(ngModel)]="selectedEmployeeS3" placeholder="{{ t('s3_filter_placeholder') }}" displayValue="internalCode" showMinimizedPlaceHolder="true">
+        <employee-item-select [(ngModel)]="selectedEmployeeS1" placeholder="{{ t('s1_filter_placeholder') }}" displayValue="email" showMinimizedPlaceHolder="true">
         </employee-item-select>
       </div>
 
@@ -93,7 +93,9 @@
                    (itemEdit)="onItemEdit($event)"
                    rowSelection="multiple"
                    [pageSize]="10"
-                   notifyOnChange="true">
+                   notifyOnChange="true"
+                   sortColumn="Id"
+                   sortDirection="desc">
   </app-matrix-list>
 </div>
 
