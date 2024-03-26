@@ -1,6 +1,16 @@
 {
   "showExportNotification" : "Exportul a inceput!",
   "showImportNotification" : "Importul a inceput!",
+  
+  "page_budget_forecast_component": {
+    "all_label" : "Toate",
+    "yes_label" : "Da",
+    "no_label" : "Nu",
+    "modified_label" : "Modificat",
+    "new_label" : "Nou",
+    "reset_filters_button_text": "Resetează filtre",
+    "details_text" : "Detalii"
+  },
 
   "page_acc_classes_component": {
     "title": "Grupe de clasificare",

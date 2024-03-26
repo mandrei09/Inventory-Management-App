@@ -105,38 +105,14 @@ alasql.setXLSX(XLSX);
 })
 export class BudgetForecastManageComponent implements OnInit, AfterViewInit {
 
+  public TRANSLOCO = 'page_budget_forecast_component'
+
   public _projects: Project[] = [];
   public get projects(): Project[] { return this._projects; }
   public set projects(value: Project[]) {
     this._projects = value;
 
     this.setSelectedProjects(value);
-  }
-
-  public _activities: Activity[] = [];
-  public get activities(): Activity[] { return this._activities; }
-  public set activities(value: Activity[]) {
-    this._activities = value;
-
-    this.setSelectedActivities(value);
-  }
-
-  public _assetTypes: AssetType[] = [];
-  public get assetTypes(): AssetType[] { return this._assetTypes; }
-  public set assetTypes(value: AssetType[]) {
-    this._assetTypes = value;
-
-    this.selectedAssetTypes = value;
-    this.checkForRefresh();
-  }
-
-  public _admCenters: AdmCenter[] = [];
-  public get admCenters(): AdmCenter[] { return this._admCenters; }
-  public set admCenters(value: AdmCenter[]) {
-    this._admCenters = value;
-
-    this.selectedAdmCenters = value;
-    this.checkForRefresh();
   }
 
   public _divisions: Division[] = [];
@@ -189,9 +165,6 @@ export class BudgetForecastManageComponent implements OnInit, AfterViewInit {
 
   public onClearFilters() {
     this.projects = null;
-    this.activities = null;
-    this.assetTypes = null;
-    this.admCenters = null;
     this.divisions = null;
     this.filter = '';
   }
@@ -229,12 +202,6 @@ export class BudgetForecastManageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('departmentList') public departmentList: DepartmentListComponent;
   @ViewChild('departmentListModal') public departmentListModal: ModalDirective;
-
-  @ViewChild('assetTypeList') public assetTypeList: AssetTypeListComponent;
-  @ViewChild('assetTypeListModal') public assetTypeListModal: ModalDirective;
-
-  @ViewChild('admCenterList') public admCenterList: AdmCenterListComponent;
-  @ViewChild('admCenterListModal') public admCenterListModal: ModalDirective;
 
   @ViewChild('projectTypeList') public projectTypeList: ProjectTypeListComponent;
   @ViewChild('projectTypeListModal') public projectTypeListModal: ModalDirective;
@@ -752,33 +719,6 @@ export class BudgetForecastManageComponent implements OnInit, AfterViewInit {
   }
 
   /* enf Company */
-
-  /* begin administrTION */
-
-  public selectAdministrations() {
-    const selectedAdministrations: Array<Administration> = null;
-
-    this.administrationListModal.show();
-    this.administrationList.selectedItems = this.selectedAdministrations;
-    this.administrationList.refresh(null);
-  }
-
-  public removeFromAdministrationSelection(administration: Administration) {
-    const index: number = this.selectedAdministrations.indexOf(administration);
-    this.selectedAdministrations.splice(index, 1);
-    this.checkForRefresh();
-  }
-
-  public clearAdministrationSelection() {
-    this.selectedAdministrations = new Array<Administration>();
-    this.checkForRefresh();
-  }
-
-  public setSelectedAdministrations() {
-    this.selectedAdministrations = this.administrationList.selectedItems;
-    this.administrationListModal.hide();
-    this.checkForRefresh();
-  }
 
   /* enf room */
 
@@ -1337,61 +1277,6 @@ public setSelectedProjects(value) {
 }
 
 /*end project*/
-
-/*begin asset type*/
-
-public selectAssetTypes() {
-this.assetTypeListModal.show();
-this.assetTypeList.selectedItems = this.selectedAssetTypes;
-this.assetTypeList.refresh(null);
-}
-
-public removeFromAssetTypeSelection(assetType: AssetType) {
-const index: number = this.selectedAssetTypes.indexOf(assetType);
-this.selectedAssetTypes.splice(index, 1);
-this.checkForRefresh();
-}
-
-public clearAssetTypeSelection() {
-this.selectedAssetTypes = new Array<AssetType>();
-this.checkForRefresh();
-}
-
-public setSelectedAssetTypes() {
-this.selectedAssetTypes = this.assetTypeList.selectedItems;
-this.assetTypeListModal.hide();
-this.checkForRefresh();
-}
-
-/* end ASSET TYPE */
-
-
-/*begin ADMCENTER */
-
-public selectAdmCenters() {
-  this.admCenterListModal.show();
-  this.admCenterList.selectedItems = this.selectedAdmCenters;
-  this.admCenterList.refresh(null);
-  }
-
-  public removeFromAdmCenterSelection(admCenter: AdmCenter) {
-  const index: number = this.selectedAdmCenters.indexOf(admCenter);
-  this.selectedAdmCenters.splice(index, 1);
-  this.checkForRefresh();
-  }
-
-  public clearAdmCenterSelection() {
-  this.selectedAdmCenters = new Array<AdmCenter>();
-  this.checkForRefresh();
-  }
-
-  public setSelectedAdmCenters() {
-  this.selectedAdmCenters = this.admCenterList.selectedItems;
-  this.admCenterListModal.hide();
-  this.checkForRefresh();
-  }
-
-  /* end ADMCENTER */
 
 /*begin PROJECT type*/
 

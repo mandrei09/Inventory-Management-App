@@ -2,6 +2,16 @@
   "showExportNotification" : "The export has started!",
   "showImportNotification" : "The import has started!",
 
+  "page_budget_forecast_component": {
+    "all_label" : "All",
+    "yes_label" : "Yes",
+    "no_label" : "No",
+    "modified_label" : "Modified",
+    "new_label" : "New",
+    "reset_filters_button_text": "Reset filters",
+    "details_text" : "Details"
+  },
+
   "page_company_component": {
     "title": "Companies",
     "action_add": "Add Company",

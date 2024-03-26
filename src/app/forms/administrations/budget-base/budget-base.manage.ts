@@ -669,8 +669,6 @@ export class BudgetBaseManageComponent implements OnInit, AfterViewInit {
     this.checkForRefresh();
   }
 
-  /* enf room */
-
   public checkForRefresh() {
     this.refreshAssets();
   }
