@@ -4,6 +4,7 @@ import { saveAs as fileSaveAs } from 'file-saver';
 import {AssetHttpService} from '../../services/http/assets/asset.http.service';
 import {NotifyService} from '../../services/notify.service';
 import {DialogService} from '../../services/dialog.service';
+import { BudgetBaseHttpService } from '../../services/http/administration/budget-base.http.service';
 
 @Component({
   selector: 'app-update-data-import-modal',
@@ -24,6 +25,7 @@ export class UpdateDataImportModalComponent {
     public notifyService: NotifyService,
     private dialogService: DialogService,
     public dialogRef: MatDialogRef<UpdateDataImportModalComponent>,
+    public budgetBasesHttpService : BudgetBaseHttpService
   ) {}
 
   /**
@@ -140,5 +142,14 @@ export class UpdateDataImportModalComponent {
   }
   public uploadFiles() {
 
+  }
+
+  public generateTemplate()
+  {
+    this.budgetBasesHttpService
+        .getTemplate()
+        .subscribe(res => {
+          fileSaveAs(res!.body, "Template_Import_Budget");
+        });
   }
 }

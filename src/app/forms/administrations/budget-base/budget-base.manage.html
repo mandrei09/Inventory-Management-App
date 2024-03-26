@@ -1,4 +1,4 @@
-<div *transloco="let t; read: 'page_budget_base_component'" style="height: 100%;">
+<div *transloco="let t; read: TRANSLOCO" style="height: 100%;">
   <div class="content-page-header">
     <app-common-header
       (filterChanged)="doSimpleSearch($event)"
@@ -8,13 +8,13 @@
 
   <div class="content-page-header-two d-flex">
     <div class="left-actions d-flex">
-      <div class="refresh subheader-actions-wrapper">
+      <!-- <div class="refresh subheader-actions-wrapper">
         <a>
           <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M13.6719 3.32812L16.0156 0.984375V8.01562H8.98438L12.2188 4.78125C11.0312 3.59375 9.625 3 8 3C6.34375 3 4.92188 3.59375 3.73438 4.78125C2.57812 5.9375 2 7.34375 2 9C2 10.6562 2.57812 12.0781 3.73438 13.2656C4.92188 14.4219 6.34375 15 8 15C9.15625 15 10.2812 14.6094 11.375 13.8281C12.5 13.0469 13.2656 12.1094 13.6719 11.0156H15.7344C15.2969 12.7656 14.3594 14.2031 12.9219 15.3281C11.4844 16.4531 9.84375 17.0156 8 17.0156C5.8125 17.0156 3.9375 16.2344 2.375 14.6719C0.8125 13.1094 0.03125 11.2188 0.03125 9C0.03125 6.78125 0.8125 4.89062 2.375 3.32812C3.9375 1.76563 5.8125 0.984375 8 0.984375C8.9375 0.984375 9.95312 1.21875 11.0469 1.6875C12.1719 2.125 13.0469 2.67188 13.6719 3.32812Z"/>
           </svg>
         </a>
-      </div>
+      </div> -->
       <div hideIfUnauthorized="IMPORT|BUDGETBASE" class="refresh subheader-actions-wrapper subheader-action-text_inline" style="min-width: auto;">
         <a (click)="uploadBudgetFile()" class="d-flex" style="color: inherit;">
           <mat-icon>upload_file</mat-icon>
@@ -22,7 +22,7 @@
         </a>
       </div>
       <div class="refresh subheader-actions-wrapper subheader-action-text_inline" style="min-width: auto;">
-        <a (click)="exportSocgen()" class="d-flex" style="color: inherit;">
+        <a (click)="export()" class="d-flex" style="color: inherit;">
           <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/> </g> </svg>
           Export
         </a>
@@ -47,8 +47,8 @@
   <app-budget-base-list #budgetList id="budgetList"
                 [dataSource]="budgetBaseHttpService"
                 listTemplate="BUDGETBASES"
-                sortColumn="BudgetBase.Code"
-                sortDirection="asc"
+                sortColumn="BudgetBase.modifiedAt"
+                sortDirection="desc"
                 dynamicQuery="true"
                 usePaging="true"
                 [pageSize]= 10
@@ -57,135 +57,7 @@
                 (selectionChanged)="onBudgetSelectionChanged($event)"
                 notifyOnChange="true">
   </app-budget-base-list>
-  <!-- <div class="btn-group" dropdown>
-    <button dropdownToggle type="button" class="btn btn-outline-dark btn-sm dropdown-toggle" >
-         {{ pageSize }}<span class="caret"></span>
-    </button>
-    <ul *dropdownMenu class="dropdown-menu" role="menu">
-      <li role="menuitem" (click)="onPageUpdate(5)"><a class="dropdown-item">5</a></li>
-      <li role="menuitem" (click)="onPageUpdate(10)"><a class="dropdown-item">10</a></li>
-      <li role="menuitem" (click)="onPageUpdate(15)"><a class="dropdown-item">15</a></li>
-      <li role="menuitem" (click)="onPageUpdate(20)"><a class="dropdown-item">20</a></li>
-      <li role="menuitem" (click)="onPageUpdate(30)"><a class="dropdown-item">30</a></li>
-      <li role="menuitem" (click)="onPageUpdate(50)"><a class="dropdown-item">50</a></li>
-      <li role="menuitem" (click)="onPageUpdate(70)"><a class="dropdown-item">70</a></li>
-      <li role="menuitem" (click)="onPageUpdate(100)"><a class="dropdown-item">100</a></li>
-    </ul>
-</div> -->
 </div>
-
-
-
-<!--<div class="animated fadeIn">-->
-<!--    <br>-->
-<!--    <div class="card border-0">-->
-<!--      <div class="card-header border-0" style="background-color: #fff;">-->
-<!--              <div hideIfUnauthorized="PROJECT_FILTER|BUDGETBASE" class="btn-group" dropdown>-->
-<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectProjects()" >WBS</button>-->
-<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
-<!--                  <span class="caret"></span>-->
-<!--                  <span class="sr-only">Split button!</span>-->
-<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedProjects.length > 0 ? selectedProjects.length : ''}}</span>-->
-<!--                </button>-->
-<!--                <ul  class="dropdown-menu" role="menu">-->
-<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearProjectSelection()">Sterge toate</a></li>-->
-<!--                    <div class="dropdown-divider"></div>-->
-<!--                    <li role="menuitem" *ngFor="let project of selectedProjects"><a class="dropdown-item" (click)="removeFromProjectSelection(project)"><i class="fa fa-times"></i> &nbsp;{{ project.name }}</a>-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--              </div>-->
-
-<!--              <div hideIfUnauthorized="ACTIVITY_FILTER|BUDGETBASE" class="btn-group" dropdown>-->
-<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectActivities()" >Activity</button>-->
-<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
-<!--                  <span class="caret"></span>-->
-<!--                  <span class="sr-only">Split button!</span>-->
-<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedActivities.length > 0 ? selectedActivities.length : ''}}</span>-->
-<!--                </button>-->
-<!--                <ul  class="dropdown-menu" role="menu">-->
-<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearActivitySelection()">Sterge toate</a></li>-->
-<!--                    <div class="dropdown-divider"></div>-->
-<!--                    <li role="menuitem" *ngFor="let activity of selectedActivities"><a class="dropdown-item" (click)="removeFromActivitySelection(activity)"><i class="fa fa-times"></i> &nbsp;{{ activity.name }}</a>-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--              </div>-->
-
-<!--              <div hideIfUnauthorized="EMPLOYEE_FILTER|BUDGETBASE" class="btn-group" dropdown>-->
-<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectEmployees()" >Owner</button>-->
-<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
-<!--                  <span class="caret"></span>-->
-<!--                  <span class="sr-only">Split button!</span>-->
-<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedEmployees.length > 0 ? selectedEmployees.length : ''}}</span>-->
-<!--                </button>-->
-<!--                <ul  class="dropdown-menu" role="menu">-->
-<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearEmployeeSelection()">Sterge toate</a></li>-->
-<!--                    <div class="dropdown-divider"></div>-->
-<!--                    <li role="menuitem" *ngFor="let employee of selectedEmployees"><a class="dropdown-item" (click)="removeFromEmployeeSelection(employee)"><i class="fa fa-times"></i> &nbsp;{{ employee.internalCode }}</a>-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--              </div>-->
-<!--              &nbsp;-->
-<!--              <div hideIfUnauthorized="ACCMONTH_FILTER|BUDGETBASE" class="btn-group" dropdown>-->
-<!--                <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAccMonths()" >Luni</button>-->
-<!--                <button type="button" dropdownToggle class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >-->
-<!--                  <span class="caret"></span>-->
-<!--                  <span class="sr-only">Split button!</span>-->
-<!--                  <span class="badge badge-danger badge-pill" style="position: absolute;margin-top: -6px;">{{selectedAccMonths.length > 0 ? selectedAccMonths.length : ''}}</span>-->
-<!--                </button>-->
-<!--                <ul  class="dropdown-menu" role="menu">-->
-<!--                    <li role="menuitem"><a class="dropdown-item" (click)="clearAccMonthSelection()">Sterge toate</a></li>-->
-<!--                    <div class="dropdown-divider"></div>-->
-<!--                    <li role="menuitem" *ngFor="let accMonth of selectedAccMonths"><a class="dropdown-item" (click)="removeFromAccMonthSelection(accMonth)"><i class="fa fa-times"></i> &nbsp;{{ accMonth.year }}</a>-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--              </div>-->
-<!--              &nbsp;-->
-
-<!--              <button hideIfUnauthorized="ROW_SELECTION|BUDGET" type="button" class="btn btn-warning btn-sm" (click)="changeRowSelection()">-->
-<!--                <i class="fa fa-list" *ngIf="budgetRowSelection === 'multiple'"></i>-->
-<!--                <i class="fa fa-check-square" *ngIf="budgetRowSelection === 'single'"></i>-->
-<!--            </button>-->
-<!--            &nbsp;-->
-<!--            <button hideIfUnauthorized="CLEAR_SELECTION|BUDGET" type="button" class="btn btn-danger btn-sm" (click)="clearSelection()" [style.backgroundColor] = "'rgb(168, 16, 0)'"><i class="fa fa-check"></i></button>-->
-<!--            &nbsp;-->
-<!--            <button hideIfUnauthorized="CLEAR_FILTER|BUDGET" type="button" class="btn btn-danger btn-sm" (click)="clearFilters()" [style.backgroundColor] = "'rgb(168, 16, 0)'" ><i class="fa fa-close"></i></button>-->
-<!--            &nbsp;-->
-<!--            <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadBudgetFile()" style="background-color: rgb(0, 130, 19);color: white;" ><i class="fa fa-upload"></i> Import</button>-->
-<!--            &nbsp;-->
-<!--            <button type="button" class="btn btn-success btn-sm" (click)="exportSocgen()" style="background-color: rgb(0, 130, 19);color: white;" [disabled]="!showExportBtn" ><i class="fa fa-download"></i> &nbsp; Export </button>-->
-<!--            &nbsp;-->
-<!--        </div>-->
-<!--      <div class="card-body" style="margin-left: 25px;">-->
-<!--            <div class="card-header-actions">-->
-<!--                <div class="input-group">-->
-<!--                  <input type="text" class="form-control" placeholder="Cauta..." aria-label="Cauta..." aria-describedby="basic-addon2" [(ngModel)]="filter" (change)="checkForRefresh()">-->
-<!--                          <button hideIfUnauthorized="IMPORT|BUDGETBASE" type="button" class="btn btn-success btn-sm" (click)="uploadBudgetFile()" style="background-color: rgb(0, 130, 19);color: white;" ><i class="fa fa-upload"></i> Import serie</button>-->
-<!--                          &nbsp;-->
-<!--                          <button hideIfUnauthorized="EXPORT|BUDGETBASE" type="button" class="btn btn-success btn-sm" (click)="exportSocgen()" style="background-color: rgb(0, 130, 19);color: white;" [disabled]="!showExportBtn" ><i class="fa fa-download"></i> &nbsp; Export </button>-->
-
-<!--                  </div>-->
-<!--                </div>-->
-<!--        </div>-->
-<!--        <div class="card-footer" style="background-color: white;">-->
-<!--            <app-budget-base-list #budgetList id="budgetList"-->
-<!--            [dataSource]="budgetBaseHttpService"-->
-<!--            listTemplate="BUDGETBASES"-->
-<!--            sortColumn="budgetBase.id"-->
-<!--            sortDirection="asc"-->
-<!--            dynamicQuery="true"-->
-<!--            usePaging="true"-->
-<!--            [pageSize]= 10-->
-<!--            showSimpleSearch="false"-->
-<!--            [rowSelection]="budgetRowSelection"-->
-<!--            (selectionChanged)="onBudgetSelectionChanged($event)"-->
-<!--            notifyOnChange="true">-->
-<!--        </app-budget-base-list>-->
-<!--            </div>-->
-<!--      </div>-->
-<!--        <br>-->
-<!--    </div>-->
-<!-- </div>-->
-
 
 <div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
      tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -329,7 +201,6 @@
     </div>
 </div>
 
-
 <div class="modal fade" bsModal #companyListModal="bs-modal" [config]="{backdrop: 'static'}"
 tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
@@ -355,53 +226,6 @@ tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="tru
   </div>
 </div>
 </div>
-
-
-<!-- <div class="modal fade" bsModal #uploadModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title pull-left">Incarca fisier</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3>Import active</h3>
-                          <input #fileInputBudget type="file" (change)="loadFileBudget($event)" data-toggle="tooltip" placeholder="Incarca..."/>
-                          <div class="row">
-                              <br>
-                          </div>
-
-                          <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadBudget()" [disabled]="((fileEventBudget === null) || (fileEventBudget === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
-                          &nbsp;
-                          <button type="button" class="btn btn-success btn-sm" (click)="exportTemplate()" [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'" [disabled]="!exportCompleted" ><i class="fa fa-download"></i> &nbsp; Model import </button>
-                      </div>
-                  </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadModal.hide()">Inchide</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<!-- <div class="modal fade" bsModal #importDataBudgetModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Import bugete...</h4>
-      </div>
-      <div class="modal-body">
-          <progressbar [max]="noOfItems" [value]="importIndex" type="success"
-          ><b>{{ importIndex }} / {{ noOfItems }}</b></progressbar
-        >
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <div class="modal fade" bsModal #projectListModal="bs-modal" [config]="{backdrop: 'static'}"
 tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -546,4 +370,3 @@ tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="tru
   </div>
 </div>
 </div>
-

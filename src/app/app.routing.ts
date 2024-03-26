@@ -108,7 +108,6 @@ import { EmailStatusOrderValidateS1PageComponent } from './forms/common/email-st
 import { EmailStatusOrderValidateS2PageComponent } from './forms/common/email-status-order-validate-S2-page';
 import { EmailStatusOrderValidateS3PageComponent } from './forms/common/email-status-order-validate-S3-page';
 import { ErrorManageComponent } from './forms/common/errors/error.manage';
-import { LocationMap } from './forms/common/maps/maps';
 import { PermissionRoleManage } from './forms/common/permission-role/permission-role.manage';
 import { PermissionTypeManage } from './forms/common/permission-type/permission-type.manage';
 import { PermissionManage } from './forms/common/permission/permission.manage';
@@ -167,11 +166,6 @@ const AppRoutes: Routes = [
       { path: 'sap/rates', component: RateManageComponent, canActivate: [AuthGuard], data: {  title: '', auth: 'VIEW|RATES', shouldDetach: false }},
       // SAP //
 
-      // MAPS //
-      { path: 'map', component: LocationMap, canActivate: [AuthGuard], data: { title: 'Harti', auth: 'VIEW|MAP', shouldDetach: true }},
-
-      // MAPS //
-
       // MATRIX //
       { path: 'matrix/status', component: MatrixManageComponent, canActivate: [AuthGuard], data: { title: 'Matrice', auth: 'VIEW|MATRIX', shouldDetach: true }},
       { path: 'matrix/level', component: LevelManageComponent, canActivate: [AuthGuard], data: { title: 'Niveluri', auth: 'VIEW|LEVELS', shouldDetach: true }},
@@ -187,9 +181,9 @@ const AppRoutes: Routes = [
       { path: 'budget/report', component: BudgetManage, canActivate: [AuthGuard], data: { title: '', auth: 'VIEW|BUDGETBASE', shouldDetach: true }},
       { path: 'budgetbase/:id', component: BudgetBaseDetailUIComponent, canActivate: [AuthGuard], data: {  title: '', auth: 'EDIT|BUDGETBASE', shouldDetach: false }},
       { path: 'budgetbaseadd/new', component: BudgetBaseAddDetailUIComponent, canActivate: [AuthGuard], data: {  title: '', auth: 'ADD|BUDGETBASE', shouldDetach: false }},
-      { path: 'budget/status', component: BudgetBaseManageComponent, canActivate: [AuthGuard], data: { title: 'Detalii buget freeze', auth: 'VIEW|BUDGETBASE', shouldDetach: true }},
-      { path: 'budget/month', component: BudgetMonthBaseManageComponent, canActivate: [AuthGuard], data: { title: 'Buget / luni - freeze', auth: 'VIEW|BUDGETMONTHBASE', shouldDetach: true }},
-      { path: 'budget/forecast', component: BudgetForecastManageComponent, canActivate: [AuthGuard], data: { title: '', auth: 'VIEW|BUDGETFORECAST', shouldDetach: true }},
+      { path: 'budget/status', component: BudgetBaseManageComponent, canActivate: [AuthGuard], data: { title: 'Detalii buget', auth: 'VIEW|BUDGETBASE', shouldDetach: true }},
+      { path: 'budget/month', component: BudgetMonthBaseManageComponent, canActivate: [AuthGuard], data: { title: 'Buget / luni', auth: 'VIEW|BUDGETMONTHBASE', shouldDetach: true }},
+      { path: 'budget/forecast', component: BudgetForecastManageComponent, canActivate: [AuthGuard], data: { title: 'Buget forecast', auth: 'VIEW|BUDGETFORECAST', shouldDetach: true }},
       { path: 'budgetforecast/:id', component: BudgetForecastDetailUIComponent, canActivate: [AuthGuard], data: {  title: '', auth: 'EDIT|BUDGETBASE', shouldDetach: false }},
       { path: 'budgetforecastcorrection/:id', component: BudgetForecastCorrectionDetailUIComponent, canActivate: [AuthGuard], data: {  title: '', auth: 'EDIT|BUDGETBASE', shouldDetach: false }},
       { path: 'budgetforecasttransfer/:id', component: BudgetForecastTransferDetailUIComponent, canActivate: [AuthGuard], data: {  title: '', auth: 'TRANSFER|BUDGETBASE', shouldDetach: false }},

@@ -1,4 +1,7 @@
 {
+  "showExportNotification" : "Exportul a inceput!",
+  "showImportNotification" : "Importul a inceput!",
+
   "page_acc_classes_component": {
     "title": "Grupe de clasificare",
     "action_add": "Adaugă grupă nouă",

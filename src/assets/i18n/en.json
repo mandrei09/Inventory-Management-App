@@ -1,4 +1,7 @@
 {
+  "showExportNotification" : "The export has started!",
+  "showImportNotification" : "The import has started!",
+
   "page_company_component": {
     "title": "Companies",
     "action_add": "Add Company",

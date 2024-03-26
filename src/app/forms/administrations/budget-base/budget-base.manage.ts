@@ -1,8 +1,8 @@
-import { ConfigValuesHttpService } from './../../../services/http/common/config-values.service';
-import { AssetInvDetail } from './../../../model/api/assets/asset-inv-detail';
-import { CostCenterHttpService } from '../../../services/http/administration/cost-center.http.service';
-import { CostCenter } from './../../../model/api/administration/cost-center';
-import { AssetSimpleDetail } from './../../../model/api/assets/asset-simple-detail';
+import { ConfigValuesHttpService } from "./../../../services/http/common/config-values.service";
+import { AssetInvDetail } from "./../../../model/api/assets/asset-inv-detail";
+import { CostCenterHttpService } from "../../../services/http/administration/cost-center.http.service";
+import { CostCenter } from "./../../../model/api/administration/cost-center";
+import { AssetSimpleDetail } from "./../../../model/api/assets/asset-simple-detail";
 import {
   AfterViewInit,
   Component,
@@ -10,78 +10,76 @@ import {
   EventEmitter,
   OnInit,
   ViewChild,
-} from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { Param } from '../../../model/common/param';
-import { AppData } from '../../../app-data';
-import { AssetDepDetail } from '../../../model/api/assets/asset-dep-detail';
-import { Partner } from '../../../model/api/documents/partner';
-import { Employee } from '../../../model/api/administration/employee';
-import { PartnerHttpService } from '../../../services/http/documents/partner.http.service';
-import { EmployeeHttpService } from '../../../services/http/administration/employee.http.service';
-import { saveAs as fileSaveAs } from 'file-saver-es';
-import { AdministrationDetailHttpService } from '../../../services/http/administration/administration-detail.http.service';
-import { CompanyHttpService } from '../../../services/http/assets/company.http.service';
-import { EmployeeListComponent } from '../employees/employee.list';
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { CompanyListComponent } from '../../assets/companies/company.list';
-import { PartnerListComponent } from '../../documents/partners/partner.list';
-import { CostCenterListComponent } from '../cost-centers/cost-center.list';
-import { AdministrationListComponent } from '../administrations/administration.list';
-import { Administration } from '../../../model/api/administration/administration';
-import { Company } from '../../../model/api/assets/company';
-import { AppUtils } from '../../../common/app.utils';
-import { BudgetFilter } from '../../../model/api/administration/budget.filter';
-import { BudgetImport } from '../../../model/common/import/budget-import';
-import { MessageService } from 'primeng/api';
-import { AngularTreeGridComponent } from 'angular-tree-grid';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { Project } from '../../../model/api/assets/project';
-import { Country } from '../../../model/api/administration/country';
-import { AdmCenter } from '../../../model/api/administration/adm-center';
-import { Region } from '../../../model/api/administration/region';
-import { Activity } from '../../../model/api/assets/activity';
-import { AssetType } from '../../../model/api/assets/asset-type';
-import { Department } from '../../../model/api/administration/department';
-import { Division } from '../../../model/api/administration/division';
-import { ProjectType } from '../../../model/api/assets/project-type';
-import { OverlayPanel } from 'primeng/overlaypanel';
-import { AccMonth } from '../../../model/api/accounting/acc-month';
-import { AccMonthListComponent } from '../../accounting/acc-month.list';
-import { AccMonthHttpService } from '../../../services/http/accounting/acc-month.http.service';
-import { BudgetBaseImport } from '../../../model/common/import/budget-base-import';
-import { BudgetBaseListComponent } from './budget-base.list';
-import { BudgetBaseHttpService } from '../../../services/http/administration/budget-base.http.service';
-import { BudgetManager } from '../../../model/api/assets/budget-manager';
-import { BudgetManagerList } from '../budget-manager/budget-manager.list';
-import { BudgetManagerHttpService } from '../../../services/http/administration/budget-manager.http.service';
-import { ProjectList } from '../../assets/projects/project.list';
-import { ProjectHttpService } from '../../../services/http/assets/project.http.service';
-import { ActivityList } from '../../assets/activities/activity.list';
-import { ActivityHttpService } from '../../../services/http/assets/activity.http.service';
-import { DivisionListComponent } from '../divisions/division.list';
-import { DepartmentListComponent } from '../departments/department.list';
-import { DepartmentHttpService } from '../../../services/http/administration/department.http.service';
-import { DivisionHttpService } from '../../../services/http/administration/division.http.service';
-import { AssetTypeListComponent } from '../../assets/asset-types/asset-type.list';
-import { AssetTypeHttpService } from '../../../services/http/assets/asset-type.http.service';
-import { ProjectTypeListComponent } from '../../assets/project-types/project-type.list';
-import { ProjectTypeHttpService } from '../../../services/http/assets/project-type.http.service';
+} from "@angular/core";
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
+import { Param } from "../../../model/common/param";
+import { AssetDepDetail } from "../../../model/api/assets/asset-dep-detail";
+import { Partner } from "../../../model/api/documents/partner";
+import { Employee } from "../../../model/api/administration/employee";
+import { PartnerHttpService } from "../../../services/http/documents/partner.http.service";
+import { EmployeeHttpService } from "../../../services/http/administration/employee.http.service";
+import { saveAs as fileSaveAs } from "file-saver-es";
+import { AdministrationDetailHttpService } from "../../../services/http/administration/administration-detail.http.service";
+import { CompanyHttpService } from "../../../services/http/assets/company.http.service";
+import { EmployeeListComponent } from "../employees/employee.list";
+import { ModalDirective } from "ngx-bootstrap/modal";
+import { CompanyListComponent } from "../../assets/companies/company.list";
+import { PartnerListComponent } from "../../documents/partners/partner.list";
+import { CostCenterListComponent } from "../cost-centers/cost-center.list";
+import { AdministrationListComponent } from "../administrations/administration.list";
+import { Administration } from "../../../model/api/administration/administration";
+import { Company } from "../../../model/api/assets/company";
+import { AppUtils } from "../../../common/app.utils";
+import { BudgetFilter } from "../../../model/api/administration/budget.filter";
+import { BudgetImport } from "../../../model/common/import/budget-import";
+import { MessageService } from "primeng/api";
+import { AngularTreeGridComponent } from "angular-tree-grid";
+import { Project } from "../../../model/api/assets/project";
+import { Country } from "../../../model/api/administration/country";
+import { AdmCenter } from "../../../model/api/administration/adm-center";
+import { Region } from "../../../model/api/administration/region";
+import { Activity } from "../../../model/api/assets/activity";
+import { AssetType } from "../../../model/api/assets/asset-type";
+import { Department } from "../../../model/api/administration/department";
+import { Division } from "../../../model/api/administration/division";
+import { ProjectType } from "../../../model/api/assets/project-type";
+import { AccMonth } from "../../../model/api/accounting/acc-month";
+import { AccMonthListComponent } from "../../accounting/acc-month.list";
+import { AccMonthHttpService } from "../../../services/http/accounting/acc-month.http.service";
+import { BudgetBaseImport } from "../../../model/common/import/budget-base-import";
+import { BudgetBaseListComponent } from "./budget-base.list";
+import { BudgetBaseHttpService } from "../../../services/http/administration/budget-base.http.service";
+import { BudgetManager } from "../../../model/api/assets/budget-manager";
+import { BudgetManagerList } from "../budget-manager/budget-manager.list";
+import { BudgetManagerHttpService } from "../../../services/http/administration/budget-manager.http.service";
+import { ProjectList } from "../../assets/projects/project.list";
+import { ProjectHttpService } from "../../../services/http/assets/project.http.service";
+import { ActivityList } from "../../assets/activities/activity.list";
+import { ActivityHttpService } from "../../../services/http/assets/activity.http.service";
+import { DivisionListComponent } from "../divisions/division.list";
+import { DepartmentListComponent } from "../departments/department.list";
+import { DepartmentHttpService } from "../../../services/http/administration/department.http.service";
+import { DivisionHttpService } from "../../../services/http/administration/division.http.service";
+import { AssetTypeListComponent } from "../../assets/asset-types/asset-type.list";
+import { AssetTypeHttpService } from "../../../services/http/assets/asset-type.http.service";
+import { ProjectTypeListComponent } from "../../assets/project-types/project-type.list";
+import { ProjectTypeHttpService } from "../../../services/http/assets/project-type.http.service";
 
-import alasql from 'alasql';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { UpdateDataImportModalComponent } from '../../../common/update-data-import-modal/update-data-import-modal.component';
-import { DialogService } from '../../../services/dialog.service';
-import { ProgressService } from '../../../services/progress.service';
-import {ProgressImportDialogComponent} from '../../../common/progress-import-dialog/progress-import-dialog.component';
-import { DataProgress } from '../../../model/api/common/data-progress';
-var XLSX = require('xlsx')
+import alasql from "alasql";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { UpdateDataImportModalComponent } from "../../../common/update-data-import-modal/update-data-import-modal.component";
+import { DialogService } from "../../../services/dialog.service";
+import { ProgressService } from "../../../services/progress.service";
+import { ProgressImportDialogComponent } from "../../../common/progress-import-dialog/progress-import-dialog.component";
+import { DataProgress } from "../../../model/api/common/data-progress";
+import { NotificationService } from "../../../services/notification.service";
+var XLSX = require("xlsx");
 alasql.setXLSX(XLSX);
 
 @Component({
-  selector: 'app-budget-base-manage',
-  templateUrl: 'budget-base.manage.html',
-  styleUrls: ['budget-base.manage.scss'],
+  selector: "app-budget-base-manage",
+  templateUrl: "budget-base.manage.html",
+  styleUrls: ["budget-base.manage.scss"],
   providers: [
     AdministrationDetailHttpService,
     EmployeeHttpService,
@@ -91,108 +89,93 @@ alasql.setXLSX(XLSX);
     CompanyHttpService,
     AccMonthHttpService,
   ],
-//   animations: [
-//     trigger('rowExpansionTrigger', [
-//         state('void', style({
-//             transform: 'translateX(-10%)',
-//             opacity: 0
-//         })),
-//         state('active', style({
-//             transform: 'translateX(0)',
-//             opacity: 1
-//         })),
-//         transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
-//     ])
-// ]
 })
 export class BudgetBaseManageComponent implements OnInit, AfterViewInit {
-  // extends GenericManage<AssetInvDetail> {
 
-   @ViewChild('budgetList') public budgetList: BudgetBaseListComponent;
+  public TRANSLOCO = 'page_budget_base_component'
 
-  // @ViewChild('uploadModal') public uploadModal: ModalDirective;
+  @ViewChild("budgetList") public budgetList: BudgetBaseListComponent;
 
-  @ViewChild('employeeList') public employeeList: EmployeeListComponent;
-  @ViewChild('employeeListModal') public employeeListModal: ModalDirective;
+  @ViewChild("employeeList") public employeeList: EmployeeListComponent;
+  @ViewChild("employeeListModal") public employeeListModal: ModalDirective;
 
-  @ViewChild('accMonthList') public accMonthList: AccMonthListComponent;
-  @ViewChild('accMonthListModal') public accMonthListModal: ModalDirective;
+  @ViewChild("accMonthList") public accMonthList: AccMonthListComponent;
+  @ViewChild("accMonthListModal") public accMonthListModal: ModalDirective;
 
-  @ViewChild('companyList') public companyList: CompanyListComponent;
-  @ViewChild('companyListModal') public companyListModal: ModalDirective;
+  @ViewChild("companyList") public companyList: CompanyListComponent;
+  @ViewChild("companyListModal") public companyListModal: ModalDirective;
 
-  @ViewChild('partnerList') public partnerList: PartnerListComponent;
-  @ViewChild('partnerListModal') public partnerListModal: ModalDirective;
+  @ViewChild("partnerList") public partnerList: PartnerListComponent;
+  @ViewChild("partnerListModal") public partnerListModal: ModalDirective;
 
-  @ViewChild('costCenterList') public costCenterList: CostCenterListComponent;
-  @ViewChild('costCenterListModal') public costCenterListModal: ModalDirective;
+  @ViewChild("costCenterList") public costCenterList: CostCenterListComponent;
+  @ViewChild("costCenterListModal") public costCenterListModal: ModalDirective;
 
-  @ViewChild('budgetManagerList') public budgetManagerList: BudgetManagerList;
-  @ViewChild('budgetManagerListModal') public budgetManagerListModal: ModalDirective;
+  @ViewChild("budgetManagerList") public budgetManagerList: BudgetManagerList;
+  @ViewChild("budgetManagerListModal") public budgetManagerListModal: ModalDirective;
 
-  @ViewChild('projectList') public projectList: ProjectList;
-  @ViewChild('projectListModal') public projectListModal: ModalDirective;
+  @ViewChild("projectList") public projectList: ProjectList;
+  @ViewChild("projectListModal") public projectListModal: ModalDirective;
 
-  @ViewChild('activityList') public activityList: ActivityList;
-  @ViewChild('activityListModal') public activityListModal: ModalDirective;
+  @ViewChild("activityList") public activityList: ActivityList;
+  @ViewChild("activityListModal") public activityListModal: ModalDirective;
 
-  @ViewChild('divisionList') public divisionList: DivisionListComponent;
-  @ViewChild('divisionListModal') public divisionListModal: ModalDirective;
+  @ViewChild("divisionList") public divisionList: DivisionListComponent;
+  @ViewChild("divisionListModal") public divisionListModal: ModalDirective;
 
-  @ViewChild('departmentList') public departmentList: DepartmentListComponent;
-  @ViewChild('departmentListModal') public departmentListModal: ModalDirective;
+  @ViewChild("departmentList") public departmentList: DepartmentListComponent;
+  @ViewChild("departmentListModal") public departmentListModal: ModalDirective;
 
-  @ViewChild('assetTypeList') public assetTypeList: AssetTypeListComponent;
-  @ViewChild('assetTypeListModal') public assetTypeListModal: ModalDirective;
+  @ViewChild("assetTypeList") public assetTypeList: AssetTypeListComponent;
+  @ViewChild("assetTypeListModal") public assetTypeListModal: ModalDirective;
 
-  @ViewChild('projectTypeList') public projectTypeList: ProjectTypeListComponent;
-  @ViewChild('projectTypeListModal') public projectTypeListModal: ModalDirective;
+  @ViewChild("projectTypeList")
+  public projectTypeList: ProjectTypeListComponent;
+  @ViewChild("projectTypeListModal")
+  public projectTypeListModal: ModalDirective;
 
-  @ViewChild('administrationList')
+  @ViewChild("administrationList")
   public administrationList: AdministrationListComponent;
-  @ViewChild('administrationListModal')
+  @ViewChild("administrationListModal")
   public administrationListModal: ModalDirective;
 
   public fileEventBudget: any = null;
   public fileEventBudgetBase: any = null;
   exportCompleted = true;
 
-  subsription: Subscription;
-
-  tableFilterName = '';
-  filterName = '';
-
   public selectedProjects: Array<Project> = new Array<Project>();
-   public projectId = 0;
-   public selectedCountries: Array<Country> = new Array<Country>();
-   public countryId = 0;
-   public selectedDepartments: Array<Department> = new Array<Department>();
-   public departmentId = 0;
-   public selectedDivisions: Array<Division> = new Array<Division>();
-   public divisionId = 0;
-   public selectedAdmCenters: Array<AdmCenter> = new Array<AdmCenter>();
-   public admCenterId = 0;
-   public selectedRegions: Array<Region> = new Array<Region>();
-   public regionId = 0;
-   public selectedAssetTypes: Array<AssetType> = new Array<AssetType>();
-   public assetTypeId = 0;
-   public selectedCompanies: Array<Company> = new Array<Company>();
-   public companyId = 0;
-   public selectedActivities: Array<Activity> = new Array<Activity>();
-   public activityId = 0;
-   public selectedProjectTypes: Array<ProjectType> = new Array<ProjectType>();
-   public projectTypeId = 0;
-   public accMonthId = 45;
+  public projectId = 0;
+  public selectedCountries: Array<Country> = new Array<Country>();
+  public countryId = 0;
+  public selectedDepartments: Array<Department> = new Array<Department>();
+  public departmentId = 0;
+  public selectedDivisions: Array<Division> = new Array<Division>();
+  public divisionId = 0;
+  public selectedAdmCenters: Array<AdmCenter> = new Array<AdmCenter>();
+  public admCenterId = 0;
+  public selectedRegions: Array<Region> = new Array<Region>();
+  public regionId = 0;
+  public selectedAssetTypes: Array<AssetType> = new Array<AssetType>();
+  public assetTypeId = 0;
+  public selectedCompanies: Array<Company> = new Array<Company>();
+  public companyId = 0;
+  public selectedActivities: Array<Activity> = new Array<Activity>();
+  public activityId = 0;
+  public selectedProjectTypes: Array<ProjectType> = new Array<ProjectType>();
+  public projectTypeId = 0;
+  public accMonthId = 45;
 
-   public selectedBudgetManagers: Array<BudgetManager> = new Array<BudgetManager>();
+  public selectedBudgetManagers: Array<BudgetManager> =
+    new Array<BudgetManager>();
 
-  @ViewChild('fileInputBudget') fileInputBudget: ElementRef;
+  @ViewChild("fileInputBudget") fileInputBudget: ElementRef;
   //@ViewChild('importDataBudgetModal') public importDataBudgetModal: ModalDirective;
 
-  @ViewChild('angularGrid') angularGrid: AngularTreeGridComponent;
+  @ViewChild("angularGrid") angularGrid: AngularTreeGridComponent;
 
   public importBudgetLines: Array<BudgetImport> = new Array<BudgetImport>();
-  public importBudgetBaseLines: Array<BudgetBaseImport> = new Array<BudgetBaseImport>();
+  public importBudgetBaseLines: Array<BudgetBaseImport> =
+    new Array<BudgetBaseImport>();
 
   public noOfItems: number = 0;
   public importIndex: number = 0;
@@ -208,18 +191,20 @@ export class BudgetBaseManageComponent implements OnInit, AfterViewInit {
 
   activeState: boolean[] = [true, false, false];
 
-  public updateAssetDepDetailSelectionEvent: EventEmitter<Array<AssetDepDetail>> = new EventEmitter<Array<AssetDepDetail>>();
-  public updateAssetInvDetailSelectionEvent: EventEmitter<Array<AssetInvDetail>> = new EventEmitter<Array<AssetInvDetail>>();
+  public updateAssetDepDetailSelectionEvent: EventEmitter<
+    Array<AssetDepDetail>
+  > = new EventEmitter<Array<AssetDepDetail>>();
+  public updateAssetInvDetailSelectionEvent: EventEmitter<
+    Array<AssetInvDetail>
+  > = new EventEmitter<Array<AssetInvDetail>>();
 
   public selectedPartners: Array<Partner> = new Array<Partner>();
 
   public selectedCostCenters: Array<CostCenter> = new Array<CostCenter>();
   public selectedEmployees: Array<Employee> = new Array<Employee>();
   public selectedAccMonths: Array<AccMonth> = new Array<AccMonth>();
-  public selectedAdministrations: Array<Administration> = new Array<Administration>();
-  public get isAdmin(): boolean {
-    return AppData.UserIsAdmin;
-  }
+  public selectedAdministrations: Array<Administration> =
+    new Array<Administration>();
 
   public params: Array<Param> = null;
 
@@ -247,12 +232,12 @@ export class BudgetBaseManageComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     public dialogService: DialogService,
     public progressService: ProgressService,
+    public notificationService : NotificationService,
     public importProgressDialogRef: MatDialogRef<ProgressImportDialogComponent>
   ) {
-
     this.router.events.subscribe((evt) => {
       if (evt instanceof NavigationEnd) {
-        if (evt.urlAfterRedirects === '/budget') {
+        if (evt.urlAfterRedirects === "/budget") {
           // console.log('refreshing asset inv details');
           // console.log(JSON.stringify(evt));
           setTimeout(() => {
@@ -264,20 +249,13 @@ export class BudgetBaseManageComponent implements OnInit, AfterViewInit {
   }
 
   public view: string;
-  // public selectedAssetId: number = 0;
-  public budgetRowSelection: string = 'multiple';
-  public selectedBudgets: Array<AssetSimpleDetail> = new Array<AssetSimpleDetail>();
-  public selectedBudgetDetails: Array<AssetInvDetail> = new Array<AssetInvDetail>();
+  public budgetRowSelection: string = "multiple";
+  public selectedBudgets: Array<AssetSimpleDetail> =
+    new Array<AssetSimpleDetail>();
+  public selectedBudgetDetails: Array<AssetInvDetail> =
+    new Array<AssetInvDetail>();
 
-  ngOnInit() {
-    // this.installOverlayPanelFix();
-  //   this.dashbBoardService.getCustomersMedium().then(data => {
-  //     this.customers = data;
-  //     this.updateRowGroupMetaData();
-  // });
-
-  // this.dashbBoardService.getProductsWithOrdersSmall().then(data => this.products = data);
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -285,47 +263,9 @@ export class BudgetBaseManageComponent implements OnInit, AfterViewInit {
     }, 1000);
   }
 
-  private installOverlayPanelFix() {
-
-    const onAlignSource: Function = OverlayPanel.prototype.align;
-    OverlayPanel.prototype.align = function (this: OverlayPanel) {
-        // var _this = this;
-      //   if (_this.container != null && _this.target != null) {
-      //       onAlignSource.call(_this);
-      //  }
-    };
-
-    const onBindDocumentClickListenerSource: Function = OverlayPanel.prototype.bindDocumentClickListener;
-    OverlayPanel.prototype.bindDocumentClickListener = function (this: OverlayPanel) {
-        const _this = this;
-        if (_this.container != null && _this.target != null) {
-            onBindDocumentClickListenerSource.call(_this);
-        }
-    };
-
-    OverlayPanel.prototype.hide = function (this: OverlayPanel) {
-        const _this = this;
-        _this.render = false;
-        _this.overlayVisible = false;
-    };
-
-    const onAnimationEndSource: Function = OverlayPanel.prototype.onAnimationEnd;
-    OverlayPanel.prototype.onAnimationEnd = function (this: OverlayPanel, event: any) {
-        const _this = this;
-        onAnimationEndSource.call(_this, event);
-        if (event.toState === 'close') {
-            _this.render = true;
-        }
-    };
-}
-
   public doSimpleSearch(filter: string) {
     this.filter = filter;
     this.checkForRefresh();
-  }
-
-  public clearSelection() {
-     // this.budgetList.selectedItems = this.selectedBudgetDetails;
   }
 
   public clearFilters() {
@@ -342,7 +282,7 @@ export class BudgetBaseManageComponent implements OnInit, AfterViewInit {
     this.selectedActivities = new Array<Activity>();
     this.selectedAssetTypes = new Array<AssetType>();
     this.selectedProjectTypes = new Array<ProjectType>();
-    this.filter = '';
+    this.filter = "";
     this.companyId = 0;
     this.departmentId = 0;
     this.divisionId = 0;
@@ -357,79 +297,12 @@ export class BudgetBaseManageComponent implements OnInit, AfterViewInit {
     this.checkForRefresh();
   }
 
-  public addNewBudget() {
-    this.router.navigate(['/budgetbaseadd/new']);
-  }
-
-  public addNewOperation() {
-    AppData.AssetList = this.selectedBudgets;
-    // let isInTransfer: number = 0;
-    // this.selectedAssets.forEach(asset => {
-    //     if (asset.isInTransfer){
-    //         this.toastr.warning('Inventory number ' + asset.invNo + ' awaiting validation!');
-    //         isInTransfer++;
-    //     }
-    // });
-
-    // if (isInTransfer > 0){
-    //     return;
-    // }else{
-    //     this.router.navigate(['/newoperation']);
-    // }
-
-    this.router.navigate(['/newoperation']);
-  }
-
-  public changeRowSelection() {
-    if (this.budgetRowSelection === 'single') {
-      this.budgetRowSelection = 'multiple';
-    } else {
-      this.selectedBudgets = new Array<AssetSimpleDetail>();
-      // this.selectedAssetId = 0;
-      this.budgetRowSelection = 'single';
-      this.updateAssetDepDetailSelectionEvent.emit(new Array<AssetDepDetail>());
-      this.updateAssetInvDetailSelectionEvent.emit(new Array<AssetInvDetail>());
-    }
-  }
-  public editBudget() {
-    const selectedAssetId =
-      this.selectedBudgets.length > 0 ? this.selectedBudgets[0].id : 0;
-    if (selectedAssetId > 0) {
-      this.router.navigate(['/budgetbase', selectedAssetId]);
-    }
-  }
-
   public onBudgetSelectionChanged(assets: Array<any>) {
     this.selectedBudgetDetails = assets;
     this.selectedBudgets = new Array<any>();
     assets.forEach((asset: any) => {
       this.selectedBudgets.push(asset);
     });
-  }
-
-  /*begin asset*/
-  public assetDetailGoBack() {
-    this.mainViewMode = AssetManageMainViewMode.AssetList;
-    this.viewMode = AssetManageViewMode.AssetList;
-  }
-
-  public assetDetailChangesCanceled() {
-    this.assetDetailGoBack();
-  }
-  /*end asset*/
-
-  public operationDetailGoBack() {
-    this.mainViewMode = AssetManageMainViewMode.AssetList;
-    this.viewMode = AssetManageViewMode.AssetList;
-  }
-
-  public onOperationCanceled() {
-    this.operationDetailGoBack();
-  }
-
-  public onOperationSaved() {
-    this.operationDetailGoBack();
-    this.refreshAssets();
   }
 
   /*begin costcenter*/
@@ -482,200 +355,200 @@ export class BudgetBaseManageComponent implements OnInit, AfterViewInit {
   }
   /*end partner*/
 
-   /*begin Budget Manager */
-   public selectBudgetManagers() {
+  /*begin Budget Manager */
+  public selectBudgetManagers() {
     this.budgetManagerListModal.show();
     this.budgetManagerList.selectedItems = this.selectedBudgetManagers;
     this.budgetManagerList.refresh(null);
-}
+  }
 
-
-public removeFromBudgetManagerSelection(budgetManager: BudgetManager) {
+  public removeFromBudgetManagerSelection(budgetManager: BudgetManager) {
     const index: number = this.selectedBudgetManagers.indexOf(budgetManager);
     this.selectedBudgetManagers.splice(index, 1);
     this.checkForRefresh();
-}
+  }
 
-public clearBudgetManagerSelection() {
+  public clearBudgetManagerSelection() {
     this.selectedBudgetManagers = new Array<BudgetManager>();
     this.checkForRefresh();
-}
+  }
 
-public setSelectedBudgetManagers() {
+  public setSelectedBudgetManagers() {
     this.selectedBudgetManagers = this.budgetManagerList.selectedItems;
     this.budgetManagerListModal.hide();
     this.checkForRefresh();
-}
-/*end department*/
+  }
+  /*end department*/
 
   /* begin Projeect */
 
   public selectProjects() {
-
     this.projectListModal.show();
     this.projectList.selectedItems = this.selectedProjects;
     this.projectList.refresh(null);
-}
+  }
 
-public removeFromProjectSelection(project: Project) {
+  public removeFromProjectSelection(project: Project) {
     const index: number = this.selectedProjects.indexOf(project);
     this.selectedProjects.splice(index, 1);
     this.checkForRefresh();
-}
+  }
 
-public clearProjectSelection() {
+  public clearProjectSelection() {
     this.selectedProjects = new Array<Project>();
     this.checkForRefresh();
-}
+  }
 
-public setSelectedProjects() {
+  public setSelectedProjects() {
     this.selectedProjects = this.projectList.selectedItems;
     this.projectListModal.hide();
     this.checkForRefresh();
-}
+  }
 
-/*end project*/
+  /*end project*/
 
- /*begin asset type*/
+  /*begin asset type*/
 
- public selectAssetTypes() {
-  this.assetTypeListModal.show();
-  this.assetTypeList.selectedItems = this.selectedAssetTypes;
-  this.assetTypeList.refresh(null);
-}
+  public selectAssetTypes() {
+    this.assetTypeListModal.show();
+    this.assetTypeList.selectedItems = this.selectedAssetTypes;
+    this.assetTypeList.refresh(null);
+  }
 
-public removeFromAssetTypeSelection(assetType: AssetType) {
-  const index: number = this.selectedAssetTypes.indexOf(assetType);
-  this.selectedAssetTypes.splice(index, 1);
-  this.checkForRefresh();
-}
+  public removeFromAssetTypeSelection(assetType: AssetType) {
+    const index: number = this.selectedAssetTypes.indexOf(assetType);
+    this.selectedAssetTypes.splice(index, 1);
+    this.checkForRefresh();
+  }
 
-public clearAssetTypeSelection() {
-  this.selectedAssetTypes = new Array<AssetType>();
-  this.checkForRefresh();
-}
+  public clearAssetTypeSelection() {
+    this.selectedAssetTypes = new Array<AssetType>();
+    this.checkForRefresh();
+  }
 
-public setSelectedAssetTypes() {
-  this.selectedAssetTypes = this.assetTypeList.selectedItems;
-  this.assetTypeListModal.hide();
-  this.checkForRefresh();
-}
+  public setSelectedAssetTypes() {
+    this.selectedAssetTypes = this.assetTypeList.selectedItems;
+    this.assetTypeListModal.hide();
+    this.checkForRefresh();
+  }
 
-/* end ASSET TYPE */
+  /* end ASSET TYPE */
 
-/*begin PROJECT type*/
+  /*begin PROJECT type*/
 
-public selectProjectTypes() {
-  this.projectTypeListModal.show();
-  this.projectTypeList.selectedItems = this.selectedProjectTypes;
-  this.projectTypeList.refresh(null);
-}
+  public selectProjectTypes() {
+    this.projectTypeListModal.show();
+    this.projectTypeList.selectedItems = this.selectedProjectTypes;
+    this.projectTypeList.refresh(null);
+  }
 
-public removeFromProjectTypeSelection(projectType: ProjectType) {
-  const index: number = this.selectedProjectTypes.indexOf(projectType);
-  this.selectedProjectTypes.splice(index, 1);
-  this.checkForRefresh();
-}
+  public removeFromProjectTypeSelection(projectType: ProjectType) {
+    const index: number = this.selectedProjectTypes.indexOf(projectType);
+    this.selectedProjectTypes.splice(index, 1);
+    this.checkForRefresh();
+  }
 
-public clearProjectTypeSelection() {
-  this.selectedProjectTypes = new Array<ProjectType>();
-  this.checkForRefresh();
-}
+  public clearProjectTypeSelection() {
+    this.selectedProjectTypes = new Array<ProjectType>();
+    this.checkForRefresh();
+  }
 
-public setSelectedProjectTypes() {
-  this.selectedProjectTypes = this.projectTypeList.selectedItems;
-  this.projectTypeListModal.hide();
-  this.checkForRefresh();
-}
+  public setSelectedProjectTypes() {
+    this.selectedProjectTypes = this.projectTypeList.selectedItems;
+    this.projectTypeListModal.hide();
+    this.checkForRefresh();
+  }
 
-/* end PROJECT TYPE */
+  /* end PROJECT TYPE */
 
- /* begin Activity */
+  /* begin Activity */
 
- public selectActivities() {
+  public selectActivities() {
+    this.activityListModal.show();
+    this.activityList.selectedItems = this.selectedActivities;
+    this.activityList.refresh(null);
+  }
 
-  this.activityListModal.show();
-  this.activityList.selectedItems = this.selectedActivities;
-  this.activityList.refresh(null);
-}
+  public removeFromActivitySelection(activity: Activity) {
+    const index: number = this.selectedActivities.indexOf(activity);
+    this.selectedActivities.splice(index, 1);
+    this.checkForRefresh();
+  }
 
-public removeFromActivitySelection(activity: Activity) {
-  const index: number = this.selectedActivities.indexOf(activity);
-  this.selectedActivities.splice(index, 1);
-  this.checkForRefresh();
-}
+  public clearActivitySelection() {
+    this.selectedActivities = new Array<Activity>();
+    this.checkForRefresh();
+  }
 
-public clearActivitySelection() {
-  this.selectedActivities = new Array<Activity>();
-  this.checkForRefresh();
-}
+  public setSelectedActivities() {
+    this.selectedActivities = this.activityList.selectedItems;
+    this.activityListModal.hide();
+    this.checkForRefresh();
+  }
 
-public setSelectedActivities() {
-  this.selectedActivities = this.activityList.selectedItems;
-  this.activityListModal.hide();
-  this.checkForRefresh();
-}
+  /*end Activity */
 
-/*end Activity */
+  /*begin department*/
+  public selectDepartments() {
+    this.departmentListModal.show();
+    this.departmentList.selectedItems = this.selectedDepartments;
+    this.departmentList.refresh(null);
+  }
 
- /*begin department*/
- public selectDepartments() {
-  this.departmentListModal.show();
-  this.departmentList.selectedItems = this.selectedDepartments;
-  this.departmentList.refresh(null);
-}
+  public removeFromDepartmentSelection(department: Department) {
+    const index: number = this.selectedDepartments.indexOf(department);
+    this.selectedDepartments.splice(index, 1);
+    this.checkForRefresh();
+  }
 
+  public clearDepartmentSelection() {
+    this.selectedDepartments = new Array<Department>();
+    this.checkForRefresh();
+  }
 
-public removeFromDepartmentSelection(department: Department) {
-  const index: number = this.selectedDepartments.indexOf(department);
-  this.selectedDepartments.splice(index, 1);
-  this.checkForRefresh();
-}
+  public setSelectedDepartments() {
+    this.selectedDepartments = this.departmentList.selectedItems;
+    this.departmentListModal.hide();
+    this.checkForRefresh();
+  }
+  /*end department*/
 
-public clearDepartmentSelection() {
-  this.selectedDepartments = new Array<Department>();
-  this.checkForRefresh();
-}
+  /*begin DIVISION */
+  public selectDivisions() {
+    let selectedDepartments: Array<Department> = null;
+    selectedDepartments = this.selectedDepartments;
 
-public setSelectedDepartments() {
-  this.selectedDepartments = this.departmentList.selectedItems;
-  this.departmentListModal.hide();
-  this.checkForRefresh();
-}
-/*end department*/
+    const params = new Array<Param>();
+    params.push(
+      new Param(
+        "departmentIds",
+        AppUtils.getIdsList<Department, number>(selectedDepartments)
+      )
+    );
 
- /*begin DIVISION */
- public selectDivisions() {
+    this.divisionListModal.show();
+    this.divisionList.selectedItems = this.selectedDivisions;
+    this.divisionList.refresh(params);
+  }
 
-  let selectedDepartments: Array<Department> = null;
-  selectedDepartments = this.selectedDepartments;
+  public removeFromDivisionSelection(division: Division) {
+    const index: number = this.selectedDivisions.indexOf(division);
+    this.selectedDivisions.splice(index, 1);
+    this.checkForRefresh();
+  }
 
-  const params = new Array<Param>();
-  params.push(new Param('departmentIds', AppUtils.getIdsList<Department, number>(selectedDepartments)));
+  public clearDivisionSelection() {
+    this.selectedDivisions = new Array<Division>();
+    this.checkForRefresh();
+  }
 
-  this.divisionListModal.show();
-  this.divisionList.selectedItems = this.selectedDivisions;
-  this.divisionList.refresh(params);
-}
+  public setSelectedDivisions() {
+    this.selectedDivisions = this.divisionList.selectedItems;
+    this.divisionListModal.hide();
+    this.checkForRefresh();
+  }
 
-public removeFromDivisionSelection(division: Division) {
-  const index: number = this.selectedDivisions.indexOf(division);
-  this.selectedDivisions.splice(index, 1);
-  this.checkForRefresh();
-}
-
-public clearDivisionSelection() {
-  this.selectedDivisions = new Array<Division>();
-  this.checkForRefresh();
-}
-
-public setSelectedDivisions() {
-  this.selectedDivisions = this.divisionList.selectedItems;
-  this.divisionListModal.hide();
-  this.checkForRefresh();
-}
-
-/* end DIVISION */
+  /* end DIVISION */
 
   /* begin employee */
 
@@ -685,7 +558,7 @@ public setSelectedDivisions() {
     const params = new Array<Param>();
     params.push(
       new Param(
-        'costCenterIds',
+        "costCenterIds",
         AppUtils.getIdsList<CostCenter, number>(selectedCostCenters)
       )
     );
@@ -713,7 +586,6 @@ public setSelectedDivisions() {
 
   /*end employee*/
 
-
   /* begin AccMonth */
 
   public selectAccMonths() {
@@ -735,7 +607,8 @@ public setSelectedDivisions() {
 
   public setSelectedAccMonths() {
     this.selectedAccMonths = this.accMonthList.selectedItems;
-    this.accMonthId = this.selectedAccMonths.length === 1 ? this.selectedAccMonths[0].id : 45;
+    this.accMonthId =
+      this.selectedAccMonths.length === 1 ? this.selectedAccMonths[0].id : 45;
     this.accMonthListModal.hide();
     this.checkForRefresh();
   }
@@ -799,18 +672,7 @@ public setSelectedDivisions() {
   /* enf room */
 
   public checkForRefresh() {
-    this.clearSelection();
     this.refreshAssets();
-  }
-
-  public deleteBudget() {
-    if (confirm('Esti sigur ca vrei sa stergi acest obiect?')) {
-      this.budgetBaseHttpService
-        .deleteAsset(this.selectedBudgets[0].id)
-        .subscribe((res) => {});
-    }
-
-    this.checkForRefresh();
   }
 
   public refreshAssets() {
@@ -880,7 +742,7 @@ public setSelectedDivisions() {
       });
     }
 
-      if (this.selectedDepartments != null) {
+    if (this.selectedDepartments != null) {
       budgetFilter.departmentIds = new Array<number>();
       this.selectedDepartments.forEach((department) => {
         budgetFilter.departmentIds.push(department.id);
@@ -911,296 +773,121 @@ public setSelectedDivisions() {
     budgetFilter.filter = this.filter;
     budgetFilter.accMonthId = this.accMonthId;
     //params.push(new Param('pageSize', this.pageSize.toString()));
-    params.push(new Param('jsonFilter', JSON.stringify(budgetFilter)));
+    params.push(new Param("jsonFilter", JSON.stringify(budgetFilter)));
     return params;
   }
 
-  public exportSocgen() {
+  public export() {
     this.showExportBtn = false;
     let params: Array<Param> = null;
 
     params = this.getFilters();
+    this.notificationService.showTransSucces(null,'showExportNotification')
     this.budgetBaseHttpService.export(params).subscribe((blob) => {
-      fileSaveAs(blob.body, 'Export.xlsx');
+      fileSaveAs(blob.body, "Export_Budget_Detail.xlsx");
       this.showExportBtn = true;
     });
   }
 
-  collapsed(event: any): void {
-    // console.log(event);
+  public loadFile(ev) {
+    this.fileEvent = ev;
   }
 
-  expanded(event: any): void {
-    // console.log(event);
+  public uploadBudgetFile() {
+    let dialogRef = this.dialog.open(UpdateDataImportModalComponent, {
+      panelClass: "centered-middle-modal",
+      height: "90%",
+      maxHeight: "90%",
+      disableClose: true,
+      width: "700px",
+      position: { bottom: "15%", top: "auto" },
+      data: { itemId: 1 },
+    });
+
+    dialogRef.afterClosed().subscribe((results: any) => {
+      this.loadFileBudget(results);
+    });
   }
 
-//   public onPageUpdate(number: number) {
-//     this.pageSize = number;
-//     this.checkForRefresh();
-// }
+  public loadFileBudget(ev) {
+    this.fileEventBudget = ev.files;
 
-public loadFile(ev) {
-  this.fileEvent = ev;
-}
+    // @ts-ignore
+    alasql.fn.datetime = function sheetDateToJSDate(n) {
+      const d = new Date(1899, 11, 30);
+      d.setDate(d.getDate() + n);
+      // Rounds milliseconds to seconds
+      d.setSeconds(d.getSeconds() + Math.round(d.getMilliseconds() / 1000));
+      d.setMilliseconds(0);
+      return d;
+    };
 
-public importData() {
-
-  if (this.fileEvent === null) { return; }
-
-  // alasql.promise(`select [ASSET SEQ NO-A] as InvNo1,
-  //                     [ASSET SEQ NO] as InvNo2,
-  //                     [ASSET COMPONENT] as InvNo3,
-  //                     [GENERAL CATEGORY] as AssetCategoryCode,
-  //                     [FA ACCOUNT DESCRIPTION] as AssetCategoryName,
-  //                     [QUANTITY] as Quantity,
-  //                     [BRANCH CODE] as LocationCode,
-  //                     [COST CENTER] as CostCenterCode,
-  //                     [ASSET DESCRIPTION] as AssetName,
-  //                     [ACQUISITION DATE] as PurchaseDate,
-  //                     CAST([ORIGINAL COST] AS NUMBER) as [ValueInv],
-  //                     [SUPPLIER] as PartnerName,
-  //                     [TAX NUMBER] as FiscalCode,
-  //                     [DOCUMENT NUMBER] as DocNo1,
-  //                     [SERIAL NUMBER] as SerialNumber,
-  //                     [DISPOSITION DATE] as AssetState,
-  //                     [FA ACCOUNT] as AssetType,
-  //                     CAST([NET BOOK VALUE] AS NUMBER) as [ValueRem]
-  //                     from FILE(?, {headers: true})`, [this.fileEvent])
-  // .then((importLines: Array<AssetImportV1>) => {
-
-  //         this.importDataModal.show();
-
-  //         this.importIndex = 0;
-  //         this.importLinesV1 = importLines;
-  //         this.noOfItems = importLines.length;
-  //    //  console.log(importLines);
-  //         this.doImportV1();
-  // });
-
-}
-
-public uploadBudgetFile() {
-
-  let dialogRef = this.dialog.open(UpdateDataImportModalComponent, {
-    panelClass: 'centered-middle-modal', height: '85%', maxHeight: '85%', disableClose: true, width: '700px', position: { bottom: '15%', top: 'auto'},
-    data: { itemId: 1 }
-  });
-
-  dialogRef.afterClosed().subscribe((results: any) => {
-    this.loadFileBudget(results);
-  });
-
-  // this.uploadModal.show();
-}
-
-public loadFileBudget(ev) {
-  this.fileEventBudget = ev.files;
-
-  // @ts-ignore
-  alasql.fn.datetime = function sheetDateToJSDate(n) {
-    const d = new Date(1899, 11, 30);
-    d.setDate(d.getDate() + n);
-    // Rounds milliseconds to seconds
-    d.setSeconds(d.getSeconds() + Math.round(d.getMilliseconds() / 1000));
-    d.setMilliseconds(0);
-    return d;
-  };
-
-  alasql.promise(`select
-                      [A] as [Employee],
-                      [B] as [Project],
-                      [C] as [CountryName],
-                      [D] as [CountryCode],
-                      [E] as [Activity],
-                      [F] as [DepartmentName],
-                      [G] as [DepartmentCode],
-                      [H] as [AdmCenter],
-                      [I] as [Region],
-                      [J] as [DivisionName],
-                      [K] as [DivisionCode],
-                      [L] as [ProjectTypeName],
-                      [M] as [ProjectTypeCode],
-                      [N] as [Info],
-                      [O] as [AssetTypeName],
-                      [P] as [AssetTypeCode],
-                      [Q] as [AppState],
-                      datetime([R]) as [StartMonth],
-                      CAST([S] as NUMBER) as [DepPeriod],
-                      CAST([T] as NUMBER) as [DepPeriodRem],
-                      CAST([U] as NUMBER) as [WIP],
-                      CAST([V] as NUMBER) as [ValueMonth1],
-                      CAST([W] as NUMBER) as [ValueMonth2],
-                      CAST([X] as NUMBER) as [ValueMonth3],
-                      CAST([Y] as NUMBER) as [ValueMonth4],
-                      CAST([Z] as NUMBER) as [ValueMonth5],
-                      CAST([AA] as NUMBER) as [ValueMonth6],
-                      CAST([AB] as NUMBER) as [ValueMonth7],
-                      CAST([AC] as NUMBER) as [ValueMonth8],
-                      CAST([AD] as NUMBER) as [ValueMonth9],
-                      CAST([AE] as NUMBER) as [ValueMonth10],
-                      CAST([AF] as NUMBER) as [ValueMonth11],
-                      CAST([AG] as NUMBER) as [ValueMonth12]
-                      from FILE(?, {headers: true})`, [this.fileEventBudget])
+    alasql
+      .promise(
+        `select
+              [B] as [Employee],
+              [C] as [Project],
+              [D] as [CountryName],
+              [E] as [CountryCode],
+              [F] as [Activity],
+              [G] as [DepartmentName],
+              [H] as [DepartmentCode],
+              [I] as [AdmCenter],
+              [J] as [Region],
+              [K] as [DivisionName],
+              [L] as [DivisionCode],
+              [M] as [ProjectTypeName],
+              [N] as [ProjectTypeCode],
+              [O] as [Info],
+              [P] as [AssetTypeName],
+              [Q] as [AssetTypeCode],
+              [R] as [AppState],
+              datetime([S]) as [StartMonth],
+              CAST([T] as NUMBER) as [DepPeriod],
+              CAST([U] as NUMBER) as [DepPeriodRem],
+              CAST([V] as NUMBER) as [WIP],
+              CAST([W] as NUMBER) as [ValueMonth1],
+              CAST([X] as NUMBER) as [ValueMonth2],
+              CAST([Y] as NUMBER) as [ValueMonth3],
+              CAST([Z] as NUMBER) as [ValueMonth4],
+              CAST([AA] as NUMBER) as [ValueMonth5],
+              CAST([AB] as NUMBER) as [ValueMonth6],
+              CAST([AC] as NUMBER) as [ValueMonth7],
+              CAST([AD] as NUMBER) as [ValueMonth8],
+              CAST([AE] as NUMBER) as [ValueMonth9],
+              CAST([AF] as NUMBER) as [ValueMonth10],
+              CAST([AG] as NUMBER) as [ValueMonth11],
+              CAST([AH] as NUMBER) as [ValueMonth12]
+              from FILE(?, {headers: true})`,
+        [this.fileEventBudget]
+      )
       .then((importLines: Array<BudgetBaseImport>) => {
-          // console.log(JSON.stringify(importLines));
-          const newArray = importLines.filter(value => value.Employee !== undefined);
-          // console.log(JSON.stringify(newArray));
-          // importLines = this.removeUndefinedFromArray(importLines);
-          // console.log(JSON.stringify(importLines));
-          //this.importDataBudgetModal.show();
+        const newArray = importLines.filter(
+          (value) => value.Employee !== undefined
+        );
 
-          this.importIndex = 1;
-          this.importBudgetBaseLines = newArray;
-          this.noOfItems = newArray.length;
+        this.importIndex = 1;
+        this.importBudgetBaseLines = newArray;
+        this.noOfItems = newArray.length;
 
-          this.dialogService
+        this.dialogService
           .progressImportDialog({
-            title: 'Progress import',
+            title: "Progress import",
             importIndex: this.importIndex,
             importBudgetBaseLines: this.importBudgetBaseLines,
-            noOfItems: this.noOfItems
+            noOfItems: this.noOfItems,
           })
           .subscribe((confirmed: any) => {});
 
-          this.doImportBudget();
-  });
-}
+        this.doImportBudget();
+      });
+  }
 
-public uploadBudget() {
-  //this.uploadModal.hide();
-  this.importDataBudget();
-}
-
-
-public importDataBudget() {
-
-  if (this.fileEventBudget === null) { return; }
-
-  alasql.promise(`select
-                      [COMPANY] as [Company],
-                      [COUNTRY] as [Country],
-                      [PROJECT ID (WBS)] as [Project],
-                      [ACTIVITY] as [Activity],
-                      [PC] as [AdmCenter],
-                      [PC DET] as [Region],
-                      [TYPE] as [AssetType],
-                      [PROJECT] as [ProjectType],
-                      [DETAILS] as [Info],
-                      [ACQ] as [AppState],
-                      CAST([DEP PER] as NUMBER) as [DepPeriod],
-                      CAST([DEP PER REM] as NUMBER) as [DepPeriodRem],
-                      CAST([VALUE REM] as NUMBER) as [ValueRem],
-                      CAST([MONTH 1] as NUMBER) as [ValueMonth1],
-                      CAST([MONTH 2] as NUMBER) as [ValueMonth2],
-                      CAST([MONTH 3] as NUMBER) as [ValueMonth3],
-                      CAST([MONTH 4] as NUMBER) as [ValueMonth4],
-                      CAST([MONTH 5] as NUMBER) as [ValueMonth5],
-                      CAST([MONTH 6] as NUMBER) as [ValueMonth6],
-                      CAST([MONTH 7] as NUMBER) as [ValueMonth7],
-                      CAST([MONTH 8] as NUMBER) as [ValueMonth8],
-                      CAST([MONTH 9] as NUMBER) as [ValueMonth9],
-                      CAST([MONTH 10] as NUMBER) as [ValueMonth10],
-                      CAST([MONTH 11] as NUMBER) as [ValueMonth11],
-                      CAST([MONTH 12] as NUMBER) as [ValueMonth12],
-                      [Month START] as [StartMonth]
-                      from FILE(?, {headers: true})`, [this.fileEventBudget])
-      .then((importLines: Array<BudgetImport>) => {
-
-          console.log(JSON.stringify(importLines));
-          importLines = this.removeUndefinedFromArray(importLines);
-          console.log(JSON.stringify(importLines));
-          //this.importDataBudgetModal.show();
-
-          this.importIndex = 0;
-          this.importBudgetLines = importLines;
-          this.noOfItems = importLines.length;
-
-          this.dialogService
-          .progressImportDialog({
-            title: 'Progress import',
-            importIndex: this.importIndex,
-            importBudgetBaseLines: this.importBudgetBaseLines,
-            noOfItems: this.noOfItems
-          })
-          .subscribe((confirmed: any) => {});
-
-          this.doImportBudget();
-  });
-
-}
-
-public importDataBudgetBase() {
-
-  if (this.fileEventBudgetBase === null) { return; }
-
-  // alasql.promise(`select
-  //                     [COMPANY] as [Employee],
-  //                     [COUNTRY] as [Project],
-  //                     [PROJECT ID (WBS)] as [CountryName],
-  //                     [PROJECT ID (WBS)] as [CountryCode],
-  //                     [ACTIVITY] as [Activity],
-  //                     [PROJECT ID (WBS)] as [DepartmentName],
-  //                     [PROJECT ID (WBS)] as [DepartmentCode],
-  //                     [PC] as [AdmCenter],
-  //                     [PC DET] as [Region],
-  //                     [PROJECT ID (WBS)] as [DivisionName],
-  //                     [PROJECT ID (WBS)] as [DivisionCode],
-  //                     [PROJECT ID (WBS)] as [ProjectTypeName],
-  //                     [PROJECT ID (WBS)] as [ProjectTypeCode],
-  //                     [DETAILS] as [Info],
-  //                     [PROJECT ID (WBS)] as [AssetTypeName],
-  //                     [PROJECT ID (WBS)] as [AssetTypeCode],
-  //                     [ACQ] as [AppState],
-  //                     [Month START] as [StartMonth]
-  //                     CAST([DEP PER] as NUMBER) as [DepPeriod],
-  //                     CAST([DEP PER REM] as NUMBER) as [DepPeriodRem],
-  //                     CAST([MONTH 1] as NUMBER) as [ValueMonth1],
-  //                     CAST([MONTH 2] as NUMBER) as [ValueMonth2],
-  //                     CAST([MONTH 3] as NUMBER) as [ValueMonth3],
-  //                     CAST([MONTH 4] as NUMBER) as [ValueMonth4],
-  //                     CAST([MONTH 5] as NUMBER) as [ValueMonth5],
-  //                     CAST([MONTH 6] as NUMBER) as [ValueMonth6],
-  //                     CAST([MONTH 7] as NUMBER) as [ValueMonth7],
-  //                     CAST([MONTH 8] as NUMBER) as [ValueMonth8],
-  //                     CAST([MONTH 9] as NUMBER) as [ValueMonth9],
-  //                     CAST([MONTH 10] as NUMBER) as [ValueMonth10],
-  //                     CAST([MONTH 11] as NUMBER) as [ValueMonth11],
-  //                     CAST([MONTH 12] as NUMBER) as [ValueMonth12]
-  //                     from FILE(?, {headers: true})`, [this.fileEventBudgetBase])
-  //     .then((importLines: Array<BudgetBaseImport>) => {
-
-  //         console.log(JSON.stringify(importLines));
-  //         importLines = this.removeUndefinedFromArray(importLines);
-  //         console.log(JSON.stringify(importLines));
-  //         this.importDataBudgetModal.show();
-
-  //         this.importIndex = 0;
-  //         this.importBudgetBaseLines = importLines;
-  //         this.noOfItems = importLines.length;
-
-  //         this.doImportBudget();
-  // });
-
-}
-
-public removeUndefinedFromArray = (arrayToClean) => {
-  const cleanedArray = [];
-  arrayToClean.forEach((val) => {
-    if (typeof val.Company !== 'undefined') {
-      cleanedArray.push(val);
-    }
-  });
-
-  return cleanedArray;
-}
-
-public doImportBudget() {
-  if (this.importIndex < this.importBudgetBaseLines.length) {
-      this.budgetBaseHttpService.import(this.importBudgetBaseLines[this.importIndex]).subscribe((data: any) => {
-          // if (data === 0) {
-          //     alert('Seria ' + this.importSNLines[this.importIndex].SerialNumber + ' exista deja in baza de date!');
-          //     return;
-          // }
+  public doImportBudget() {
+    if (this.importIndex < this.importBudgetBaseLines.length) {
+      this.budgetBaseHttpService
+        .import(this.importBudgetBaseLines[this.importIndex])
+        .subscribe((data: any) => {
           this.importIndex = this.importIndex + 1;
 
           const item = new DataProgress();
@@ -1210,76 +897,21 @@ public doImportBudget() {
           this.progressService.emitModelChange(item);
 
           this.doImportBudget();
-      });
-  } else {
+        });
+    } 
+    else 
+    {
       this.fileEventBudget = null;
-      //this.importDataBudgetModal.hide();
       this.importIndex = 1;
       this.importBudgetBaseLines = new Array<BudgetBaseImport>();
       this.checkForRefresh();
+    }
   }
-}
 
-public exportTemplate() {
-  this.exportCompleted = false;
-  this.budgetBaseHttpService
-      .template()
-      .subscribe((blob) => {
-          fileSaveAs(blob.body, 'model-import-buget.xlsx');
-          this.exportCompleted = true;
-      });
-}
-
-onTabClose(event) {
-  this.messageService.add({severity: 'info', summary: 'Tab Closed', detail: 'Index: ' + event.index});
-}
-
-onTabOpen(event) {
-  this.messageService.add({severity: 'info', summary: 'Tab Expanded', detail: 'Index: ' + event.index});
-}
-
-toggle(index: number) {
-  this.activeState[index] = !this.activeState[index];
-}
-
-handleChange(e) {
-  const index = e.index;
-  console.log(JSON.stringify(e));
-}
-
-collapseAll() {
-  this.angularGrid.collapseAll();
-}
-
-expandAll() {
-  this.angularGrid.expandAll();
-}
-
-onRowAdd($e) {
-  const data = $e.data;
-  setTimeout(() => {
-    $e.resolve();
-  }, 1000);
-}
-
-onRowSave($e) {
-  const data = $e.data;
-  setTimeout(() => {
-    $e.resolve();
-  }, 1000);
-}
-
-onRowDelete($e) {
-  const data = $e.data;
-  setTimeout(() => {
-    $e.resolve();
-  }, 1000);
-}
-
-onCellClick(event) {
-  // console.log(JSON.stringify(event));
-  // this.angularGrid.cellclick.emit();
-}
+  handleChange(e) {
+    const index = e.index;
+    console.log(JSON.stringify(e));
+  }
 }
 
 enum AssetManageMainViewMode {

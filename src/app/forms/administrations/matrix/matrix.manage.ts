@@ -32,6 +32,7 @@ import { Division } from "../../../model/api/administration/division";
 import { MatrixAddEditComponent } from "./matrix-add-edit/matrix-add-edit.component";
 import { MatDialog } from "@angular/material/dialog";
 import { saveAs as fileSaveAs } from "file-saver-es";
+import { NotificationService } from "../../../services/notification.service";
 
 @Component({
   selector: "app-matrix-manage",
@@ -46,6 +47,9 @@ import { saveAs as fileSaveAs } from "file-saver-es";
   ],
 })
 export class MatrixManageComponent extends GenericManage<Matrix, number> {
+
+  public TRANSLOCO = 'page_matrix_status_component'
+
   @ViewChild("matrixDetail") public matrixDetail: MatrixDetailComponent;
   @ViewChild("matrixList") public matrixList: MatrixListComponent;
   @ViewChild("matrixDetailModal") matrixDetailModal: ModalDirective;
@@ -204,7 +208,8 @@ export class MatrixManageComponent extends GenericManage<Matrix, number> {
     public companyHttpService: CompanyHttpService,
     public employeeHttpService: EmployeeHttpService,
     public projectHttpService: ProjectHttpService,
-    public divisionHttpService: DivisionHttpService
+    public divisionHttpService: DivisionHttpService,
+    public notificationService : NotificationService
   ) {
     super();
   }
@@ -790,8 +795,8 @@ export class MatrixManageComponent extends GenericManage<Matrix, number> {
 
   public export() {
     let params: Array<Param> = null;
-
     params = this.getFilters();
+    this.notificationService.showTransSucces(null,'showExportNotification')
     this.matrixHttpService.export(params).subscribe((blob) => {
       fileSaveAs(blob.body, "Matrix.xlsx");
     });

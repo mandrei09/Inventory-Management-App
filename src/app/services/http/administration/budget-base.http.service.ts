@@ -52,6 +52,12 @@ export class BudgetBaseHttpService extends GenericHttpService<any, number> {
       }));
   }
 
+  public getTemplate() {
+    let url = AppConfig.urlPrefix + this.url + '/templateImport';
+    return this.http.get(url, {observe: 'response', responseType: 'blob' }).pipe(
+                    map(res => res));
+}
+
   //   public deleteAssetOp(assetId: number, inventoryId: number ): Observable<any> {
   //     console.log(AppConfig.urlPrefix + this.url + `/${assetId}`, inventoryId);
   //     return this.http.delete(AppConfig.urlPrefix + this.url + '/deleteAssetOp' + `/${assetId}, ${inventoryId}`);

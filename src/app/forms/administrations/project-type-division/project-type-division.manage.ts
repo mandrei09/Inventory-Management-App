@@ -28,6 +28,8 @@ import {NotificationService} from '../../../services/notification.service';
 })
 export class ProjectTypeDivisionManageComponent extends GenericManage<ProjectTypeDivision, number> implements AfterViewInit {
 
+  public TRANSLOCO = 'page_project_type_division_component'
+
     @ViewChild('projectTypeDivisionList') projectTypeDivisionList: ProjectTypeDivisionListComponent;
     @ViewChild('projectTypeListModal') projectTypeListModal: ModalDirective;
     @ViewChild('projectTypeList') projectTypeList: ProjectTypeListComponent;
@@ -47,7 +49,7 @@ export class ProjectTypeDivisionManageComponent extends GenericManage<ProjectTyp
       public divisionHttpService: DivisionHttpService,
       public projectTypeDivisionHttpService: ProjectTypeDivisionHttpService,
       private dialogService: DialogService,
-      private notifyService: NotificationService,
+      private notificationService: NotificationService,
     ) {
 
         super();
@@ -75,31 +77,7 @@ export class ProjectTypeDivisionManageComponent extends GenericManage<ProjectTyp
         if (item !== null) this.refresh();
       });
     }
-    //
-    // public editItem() {
-    //     super.editItem();
-    //
-    //     const projectTypeDivision: ProjectTypeDivision = this.selectedItem as ProjectTypeDivision;
-    //
-    //     this.projectTypeDivisionDetail.projectType = null;
-    //     if ((projectTypeDivision != null) && (projectTypeDivision.projectType != null) && (projectTypeDivision.projectType.id)) {
-    //         this.projectTypeHttpService
-    //             .getById(projectTypeDivision.projectType.id)
-    //             .subscribe((projectType: ProjectType) => {
-    //                 this.projectTypeDivisionDetail.projectType = projectType;
-    //             });
-    //     }
-    //
-    //     this.projectTypeDivisionDetail.division = null;
-    //     if ((projectTypeDivision != null) && (projectTypeDivision.division != null) && (projectTypeDivision.division.id)) {
-    //         this.divisionHttpService
-    //             .getById(projectTypeDivision.division.id)
-    //             .subscribe((division: Division) => {
-    //                 this.projectTypeDivisionDetail.division = division;
-    //             });
-    //     }
-    // }
-
+ 
     public detailInitialize() {
         super.detailInitialize();
         this.projectTypeDivisionDetailModal.show();
@@ -205,6 +183,7 @@ export class ProjectTypeDivisionManageComponent extends GenericManage<ProjectTyp
       let params: Array<Param> = null;
 
       params = this.getFilters();
+      this.notificationService.showTransSucces(null,'showExportNotification')
       this.projectTypeDivisionHttpService.export(params).subscribe((blob) => {
         fileSaveAs(blob.body, 'Export.xlsx');
         this.showExportBtn = true;
@@ -229,7 +208,7 @@ export class ProjectTypeDivisionManageComponent extends GenericManage<ProjectTyp
           .subscribe((confirmed) => {
             if (confirmed) {
               this.deleteItem(item);
-              this.notifyService.showSuccess("Linia selectata a fost stearsa cu succes!", 'Stergere proiect', 3000, false, 0);
+              this.notificationService.showSuccess("Linia selectata a fost stearsa cu succes!", 'Stergere proiect', 3000, false, 0);
             }
           });
       }

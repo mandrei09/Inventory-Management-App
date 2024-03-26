@@ -1,23 +1,9 @@
 <div class="add-assets-modal allocation-action-modal upload-dialog">
-  <!-- <div class="modal-dialog-header">
-    <h3 class="modal-title mb-0">Incarca fisier</h3>
-    <div class="d-flex">
-      <button (click)="onPasswordModal()" class="small-blue-btn mb-0 ml-30 b-radius-20">
-        <mat-icon role="img">upload_file</mat-icon>
-        <span>
-          Model import
-        </span>
-      </button>
-      <div class="vertical-divider mr-10"></div>
-      <button type="button" class="btn-close" mat-dialog-close></button>
-    </div>
-  </div> -->
-
   <mat-dialog-content class="mat-dialog-content">
     <div class="upload-file__container">
+      <button type="button" class="btn btn-outline-success btn-sm" (click)="generateTemplate()" style="background-color: forestgreen; color: blanchedalmond; margin-bottom : 10px"><i class="fa fa-upload"></i> Template</button>
       <div class="upload--file---form">
         <div class="container-wrapper border-dashed d-grid cursor-pointer">
-          <!-- <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target)" /> -->
           <input #fileInput id="fileInput" hidden="true" type="file" accept=".csv,text/plain, text/csv, text/xls, text/excel, .xlsx, .xls, text/html, .pdf" single (change)="fileBrowseHandler($event)"/>
           <img src="assets/img/dnd/ic-upload-file.svg" alt="" class="mx-auto">
           <label for="fileInput" class="mx-auto">Rasfoieste...</label>
@@ -27,12 +13,12 @@
             <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
             <div class="info">
               <h4 class="name">
-                {{ file?.name }}
+                {{ fileInput?.files[0].name }}
               </h4>
               <p class="size">
-                {{ formatBytes(file?.size, 2) }}
+                {{ formatBytes(fileInput?.files[0].size, 2) }}
               </p>
-<!--              <app-progress [progress]="file"></app-progress>-->
+             <!-- <app-progress [progress]="file"></app-progress> -->
             </div>
             <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(fileInput)">
           </div>

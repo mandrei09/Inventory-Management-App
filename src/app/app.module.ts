@@ -663,6 +663,7 @@ import { RequestItemSelect } from './forms/administrations/request/selection/req
 import {OfferSelectionDialog} from './forms/administrations/offer/selection/offer.selection.dialog';
 import { OfferItemSelect } from './forms/administrations/offer/selection/offer.item-select';
 import {TranslocoRootModule} from './transloco-root.module';
+import { TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
 import {PartnersSelectionDialog} from './forms/documents/partners/selection/partners.selection.dialog';
 import { PartnersItemSelect } from './forms/documents/partners/selection/partners.item-select';
 import {PartnerHttpService} from './services/http/documents/partner.http.service';
@@ -914,6 +915,7 @@ const JWT_Module_Options: JwtModuleOptions = {
 
 @NgModule({
   imports: [
+    TranslocoModule,
     BrowserModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
@@ -1727,7 +1729,17 @@ const JWT_Module_Options: JwtModuleOptions = {
     EntityFileInventoryListDelete,
     UploadFarModalComponent,
   ],
-  providers: [{
+  providers: [
+  {
+    provide: TRANSLOCO_CONFIG,
+    useValue: {
+      availableLangs: ['en', 'ro'],
+      defaultLang: 'ro',
+      reRenderOnLangChange: true,
+      prodMode: true
+    }
+  },
+  {
     provide: LocationStrategy,
     useClass: HashLocationStrategy,
   },

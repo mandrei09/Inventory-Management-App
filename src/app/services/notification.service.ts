@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -6,7 +7,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NotificationService {
 
-  constructor(private toastr: ToastrService) { }
+  constructor(
+    private toastr: ToastrService,     
+    private translocoService: TranslocoService,
+    ) { }
 
   showSuccess(message, title, timeOut, tapToDismiss, extendedTimeOut) {
       this.toastr.success(message, title, {timeOut: timeOut, tapToDismiss: tapToDismiss, extendedTimeOut: extendedTimeOut});
@@ -29,4 +33,40 @@ export class NotificationService {
       enableHtml :  true
     });
   }
+
+  showTransSucces(page: string, key: string, duration: number = 1000, positionX: number = 0, positionY: number = 0) {
+    const translatedKey = (page == null || page == '')  ? key : page + '.' + key 
+    this.translocoService.selectTranslate(translatedKey).subscribe(translatedMessage => {
+      this.showSuccess(translatedMessage, '', duration, positionX, positionY);
+    });
+  }
+
+  showTransError(page: string, key: string, duration: number = 1000, positionX: number = 0, positionY: number = 0) {
+    const translatedKey = (page == null || page == '')  ? key : page + '.' + key 
+    this.translocoService.selectTranslate(translatedKey).subscribe(translatedMessage => {
+      this.showError(translatedMessage, '', duration, positionX, positionY);
+    });
+  }
+
+  showTransInfo(page: string, key: string, duration: number = 1000, positionX: number = 0, positionY: number = 0) {
+    const translatedKey = (page == null || page == '')  ? key : page + '.' + key 
+    this.translocoService.selectTranslate(translatedKey).subscribe(translatedMessage => {
+      this.showInfo(translatedMessage, '', duration, positionX, positionY);
+    });
+  }
+
+  showTransWarning(page: string, key: string, duration: number = 1000, positionX: number = 0, positionY: number = 0) {
+    const translatedKey = (page == null || page == '')  ? key : page + '.' + key 
+    this.translocoService.selectTranslate(translatedKey).subscribe(translatedMessage => {
+      this.showWarning(translatedMessage, '', duration, positionX, positionY);
+    });
+  }
+
+  // showTransHTMLMessage(page: string, key: string, duration: number = 1000, positionX: number = 0, positionY: number = 0) {
+  //   const translatedKey = (page == null || page == '')  ? key : page + '.' + key 
+  //   this.translocoService.selectTranslate(translatedKey).subscribe(translatedMessage => {
+  //     this.showHTMLMessage(translatedMessage, '', duration, positionX, positionY);
+  //   });
+  // }
+  
 }

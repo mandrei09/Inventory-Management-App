@@ -8,13 +8,17 @@ import { ModalDirective } from "ngx-bootstrap/modal";
 import { ProjectAddEditComponent } from "./project-add-edit/project-add-edit.component";
 import { MatDialog } from "@angular/material/dialog";
 import { saveAs as fileSaveAs } from "file-saver-es";
+import { NotificationService } from "../../../services/notification.service";
 
 @Component({
   selector: "project-manage",
   templateUrl: "project.manage.html",
   providers: [ProjectHttpService],
 })
-export class ProjectManage extends GenericManage<Project, number> {
+export class  ProjectManage extends GenericManage<Project, number> {
+
+  public TRANSLOCO = 'page_project_component'
+
   @ViewChild("itemDetailModal") modal: ModalDirective;
 
   public filter: string = "";
@@ -23,7 +27,8 @@ export class ProjectManage extends GenericManage<Project, number> {
 
   constructor(
     public projectHttpService: ProjectHttpService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public notificationService : NotificationService
   ) {
     super();
   }
@@ -63,7 +68,7 @@ export class ProjectManage extends GenericManage<Project, number> {
   public export() {
     this.showExportBtn = false;
     let params: Array<Param> = null;
-
+    this.notificationService.showTransSucces(null,'showExportNotification')
     params = this.getFilters();
     this.projectHttpService.export(params).subscribe((blob) => {
       fileSaveAs(blob.body, "Export.xlsx");
