@@ -1299,8 +1299,6 @@ export class BudgetEditDialogComponent implements AfterViewInit {
     this.budget.appStateId = this.appState != null ? this.appState.id : null;
     this.budget.startAccMonthId = this.startAccMonth != null ? this.startAccMonth.id : null;
     this.budget.budgetForecastId = this.budgetForecastId;
-    // this.budget.budgetBaseNewId = this.budgetBase != null ? this.budgetBase.id : this.budget.id;
-    //this.budget.orderId = this.order != null ? this.order.id : null;
     this.budget.requestBudgetForecastId = this.requestBudgetForecast != null ? this.requestBudgetForecast.id : null;
     this.budget.requestId = this.request != null ? this.request.id : null;
 
@@ -1338,15 +1336,6 @@ export class BudgetEditDialogComponent implements AfterViewInit {
           if(res.success){
             this.notificationService.showInfo(res.message, 'Actualizare buget', 5000, true, 0);
             this.dialogRef.close(res);
-            // this.budgetBaseHttpService.getDetailById(this.budget.id)
-            //   .subscribe((asset: any) => {
-            //     if (asset != null) {
-            //       this.isSaved = true;
-            //       this.updateDetails(asset);
-            //     }
-            //   }, (error) => {
-            //     alert('Eroare la salvarea datelor!');
-            //   });
           }
 
         }, (error) => {
@@ -1354,13 +1343,13 @@ export class BudgetEditDialogComponent implements AfterViewInit {
         });
     } else {
 
-      this.budgetBaseHttpService.addNewBudget(this.budget)
-        .subscribe((assetId: number) => {
-          if (assetId > 0) {
-            alert('Datele au fost salvate!');
-            this.router.navigate(['/budgetbase', assetId]);
-          }
-        });
+    this.budgetBaseHttpService.addNewBudget(this.budget)
+      .subscribe((assetId: number) => {
+        if (assetId > 0) {
+          alert('Datele au fost salvate!');
+          this.router.navigate(['/budgetbase', assetId]);
+        }
+      });
     }
   }
 
@@ -1407,7 +1396,6 @@ export class BudgetEditDialogComponent implements AfterViewInit {
 
     if (this.selectedAssetOp != null) {
       console.log('TIP DOCUMENT: ', this.selectedAssetOp.documentType.code);
-      // switch(this.selectedAssetOp.documentTypeCode) {
       switch (this.selectedAssetOp.documentType.code) {
         case AppConfig.DOCUMENT_TYPE_TRANSFER:
           reportType = 'movementproviding';

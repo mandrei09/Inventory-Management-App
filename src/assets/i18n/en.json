@@ -9,7 +9,22 @@
     "modified_label" : "Modified",
     "new_label" : "New",
     "reset_filters_button_text": "Reset filters",
-    "details_text" : "Details"
+    "details_text" : "Details",
+    "divisions_label": "Departments",
+    "projects_label": "Projects"
+  },
+
+  "page_budget_forecast_list_component": {
+    "budget_code_label" : "Budget Code",
+    "actual_import_label" : "Actual Import",
+    "value_remaining_label" : "Remaining Value",
+    "percent_remaining_label" : "Remaining Percent",
+    "po_actual_label" : "Actual PO",
+    "ytd_actual_label" : "Actual YTD",
+    "ytg_actual_label" : "Actual YTG",
+    "division_label": "Department",
+    "fiscal_year_label" : "Fiscal Year",
+    "fiscal_month_label" : "Fiscal Month"
   },
 
   "page_company_component": {

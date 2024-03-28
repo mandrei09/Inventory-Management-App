@@ -9,7 +9,22 @@
     "modified_label" : "Modificat",
     "new_label" : "Nou",
     "reset_filters_button_text": "Resetează filtre",
-    "details_text" : "Detalii"
+    "details_text" : "Detalii",
+    "divisions_label": "Departamente",
+    "projects_label": "Proiecte"
+  },
+
+  "page_budget_forecast_list_component": {
+    "budget_code_label" : "Cod Buget",
+    "actual_import_label" : "Actuale Import",
+    "value_remaining_label" : "Valoare Ramasa",
+    "percent_remaining_label" : "Procent Ramas",
+    "po_actual_label" : "Actuale PO",
+    "ytd_actual_label" : "Actuale YTD",
+    "ytg_actual_label" : "Actuale YTG",
+    "division_label": "Departament",
+    "fiscal_year_label" : "An Fiscal",
+    "fiscal_month_label" : "Luna Fiscal"
   },
 
   "page_acc_classes_component": {
